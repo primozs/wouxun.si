@@ -1,0 +1,25 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "import:files": "ts-node ./src/import-files.ts",
+    "import:news": "ts-node ./src/import-news.ts",
+    "import:products": "ts-node ./src/import-products.ts"
+  },
+  "dependencies": {
+    "@directus/sdk": "^10.3.1",
+    "@medusajs/medusa-js": "^6.0.0",
+    "axios": "^1.3.4",
+    "dotenv": "^16.0.3",
+    "node-html-markdown": "^1.3.0",
+    "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.6",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  }
+}

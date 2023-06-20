@@ -1,0 +1,96 @@
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Inter Regular'), local('Inter-Regular'),
+    url('/fonts/inter/Inter-Regular.woff2?v=3.19') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: local('Inter Medium'), local('Inter-Medium'),
+    url('/fonts/inter/Inter-Medium.woff2?v=3.19') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Inter SemiBold'), local('Inter-SemiBold'),
+    url('/fonts/inter/Inter-SemiBold.woff2?v=3.19') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  line-height: inherit;
+  overflow-x: hidden;
+  height: 100%;
+
+  /* fix scroll layout shift */
+  overflow-y: scroll;
+  /* margin-left: calc(100vw - 100%); */
+
+  @apply text-neutral-700 subpixel-antialiased relative grid grid-rows-[auto_1fr_auto];
+}
+
+/* debug overflow */
+/* * {
+  outline: solid 1px red;
+} */
+
+.prose h1 {
+  @apply text-primary-500 text-2xl font-medium leading-8;
+}
+
+.prose h2 {
+  @apply text-primary-500 text-xl font-medium leading-8 mt-2 first-of-type:mt-0;
+}
+
+.prose h2,
+.prose h3 {
+  @apply text-primary-500;
+}
+
+.prose strong {
+  @apply mb-3.5 leading-6 max-w-2xl font-semibold;
+}
+
+.prose em {
+  @apply !not-italic;
+}
+
+.prose p {
+  @apply mb-3.5 leading-6 max-w-2xl;
+}
+
+.prose a {
+  @apply text-primary-500;
+}
+
+.prose ul {
+  @apply list-disc list-outside pl-8 max-w-2xl;
+}
