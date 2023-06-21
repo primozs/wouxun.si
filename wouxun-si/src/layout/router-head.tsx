@@ -22,6 +22,9 @@ export const RouterHead = component$(() => {
       <title>{titleMsg}</title>
       {description && <meta name="description" content={description} />}
 
+      <link rel="preconnect" href={config.DIRECTUS_API_URL} />
+      <link rel="dns-prefetch" href={config.DIRECTUS_API_URL} />
+
       <link rel="canonical" href={loc.url.href} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

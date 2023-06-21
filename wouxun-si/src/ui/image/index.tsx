@@ -90,6 +90,9 @@ export const Image = component$<ImageProps>((props) => {
           loading: 'lazy',
           decoding: 'async',
         })}
+        {...(!lazy && {
+          loading: 'eager',
+        })}
         {...props}
         class={{
           [img({

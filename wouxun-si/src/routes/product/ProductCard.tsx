@@ -17,12 +17,17 @@ export const ProductCard = component$<ProductCardProps>(({ data, index }) => {
           <DImage
             dId={data.thumbnail}
             dType="image/webp"
-            keys={['770-x-510-jpg', '770-x-510-webp']}
+            keys={[
+              '320-x-180-jpg',
+              '320-x-180-webp',
+              '770-x-510-jpg',
+              '770-x-510-webp',
+            ]}
             sizes="
               (max-width: 640px) 95vw,       
               (max-width: 1024px) 770px, 25vw"
             alt={data.title}
-            {...(index < 6 && { fetchPriority: 'high' })}
+            {...(index < 1 && { fetchPriority: 'high' })}
             class="aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
           />
           {/* <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div> */}

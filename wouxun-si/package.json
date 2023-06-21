@@ -1,7 +1,7 @@
 {
   "name": "wouxun-si",
   "description": "wouxun qwik website",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "node": ">=15.0.0"
   },
@@ -34,7 +34,7 @@
     "@medusajs/medusa-js": "^6.0.1",
     "@paypal/paypal-js": "^6.0.0",
     "@qwikest/icons": "^0.0.8",
-    "@stripe/stripe-js": "^1.54.0",
+    "@stripe/stripe-js": "^1.54.1",
     "@types/eslint": "^8.40.2",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^20.3.1",
@@ -42,6 +42,7 @@
     "@typescript-eslint/parser": "^5.60.0",
     "autoprefixer": "^10.4.14",
     "class-variance-authority": "^0.6.0",
+    "cssnano": "^6.0.1",
     "eslint": "^8.43.0",
     "eslint-plugin-qwik": "^1.1.5",
     "insane": "^2.6.2",

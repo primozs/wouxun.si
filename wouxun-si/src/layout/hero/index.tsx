@@ -132,7 +132,8 @@ export const Carousel = component$<CarouselProps>((props) => {
                   (max-width: 640px) 95vw,       
                   (max-width: 1024px) 770px, 770px"
                   alt={data.title}
-                  fetchPriority={index === 0 ? 'high' : 'low'}
+                  {...(index === 0 && { fetchPriority: 'high' })}
+                  {...(index === 1 && { fetchPriority: 'low' })}
                   class="aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
                 />
               </div>
