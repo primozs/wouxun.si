@@ -14,7 +14,7 @@ import { cleanTitle } from '~/routes/product/productUtil';
 import { Dialog } from '~/ui/dialog';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
-  const product = await getProductByHandle(event.params.handle, 'sl');
+  const product = await getProductByHandle(event.params.handle, 'en');
   return product;
 });
 
@@ -118,7 +118,7 @@ export const head: DocumentHead = ({ resolveValue }) => {
 };
 
 export const onStaticGenerate: StaticGenerateHandler = async () => {
-  const items = await getProductsIds('sl');
+  const items = await getProductsIds('en');
 
   return {
     params: items.map((item) => {

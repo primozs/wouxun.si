@@ -43,22 +43,7 @@ export const getProductByHandle = async (handle: string, locale = 'en') => {
   try {
     const result = (await directus.items('Product').readByQuery({
       limit: 1,
-      fields: [
-        'id',
-        'drupal_id',
-        'medusa_id',
-        'status',
-        'date_created',
-        'date_updated',
-        'website',
-        'thumbnail',
-        'media.directus_files_id',
-        'translations.title',
-        'translations.subtitle',
-        'translations.handle',
-        'translations.material',
-        'translations.description',
-      ],
+      fields: ['*', 'media.*', 'translations.*'],
       filter: {
         translations: {
           handle: {
@@ -119,11 +104,7 @@ export const getProductList = async (locale = 'en'): Promise<ProductItem[]> => {
       'website',
       'thumbnail',
       'media.directus_files_id',
-      'translations.title',
-      'translations.subtitle',
-      'translations.handle',
-      'translations.material',
-      'translations.description',
+      'translations.*',
     ],
     deep: {
       translations: {
@@ -139,6 +120,7 @@ export const getProductList = async (locale = 'en'): Promise<ProductItem[]> => {
   const transformed = (result.data ?? []).map(
     ({ translations, media, ...rest }) => {
       const translation = translations[0];
+
       const { title, subtitle, material, handle, description } = translation;
       return {
         ...rest,

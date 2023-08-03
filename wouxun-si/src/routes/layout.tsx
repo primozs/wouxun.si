@@ -4,7 +4,7 @@ import { getProductList } from '~/services/products/getDirectusProductData';
 import { getBanners } from '~/services/banners/getBannersData';
 
 export const useProducts = routeLoader$(async () => {
-  const res = await getProductList('sl');
+  const res = await getProductList('en');
   return res;
 });
 
