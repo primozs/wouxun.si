@@ -3,7 +3,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local('Inter Regular'), local('Inter-Regular'),
+  src:
+    local('Inter Regular'),
+    local('Inter-Regular'),
     url('/fonts/inter/Inter-Regular.woff2?v=3.19') format('woff2');
 }
 
@@ -12,7 +14,9 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: local('Inter Medium'), local('Inter-Medium'),
+  src:
+    local('Inter Medium'),
+    local('Inter-Medium'),
     url('/fonts/inter/Inter-Medium.woff2?v=3.19') format('woff2');
 }
 
@@ -21,7 +25,9 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local('Inter SemiBold'), local('Inter-SemiBold'),
+  src:
+    local('Inter SemiBold'),
+    local('Inter-SemiBold'),
     url('/fonts/inter/Inter-SemiBold.woff2?v=3.19') format('woff2');
 }
 

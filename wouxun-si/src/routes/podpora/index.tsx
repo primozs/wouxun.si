@@ -1,7 +1,8 @@
 import { component$, useComputed$ } from '@builder.io/qwik';
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
-import { getFilesList, type FileItem } from '~/services/files/getFilesData';
+import { getFilesList } from '~/services/files/getFilesData';
 import { getFileUrl } from '~/services/directus';
+import type { wouxun_file } from '~/services/directus/schema';
 
 export const useFilesData = routeLoader$(async () => {
   const files = await getFilesList();
@@ -12,7 +13,7 @@ export default component$(() => {
   const files = useFilesData();
 
   const filesMap = useComputed$(() => {
-    const fMap: Record<string, FileItem[]> = {};
+    const fMap: Record<string, wouxun_file[]> = {};
     for (const file of files.value) {
       const category = file.Category;
       if (!fMap[category]) fMap[category] = [];

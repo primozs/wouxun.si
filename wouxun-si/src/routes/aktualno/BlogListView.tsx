@@ -5,13 +5,14 @@ import {
   useTask$,
   type Signal,
 } from '@builder.io/qwik';
-import { getBlogList, type BlogListItem } from '~/services/blog/getBlogData';
+import type { wouxun_news } from '~/services/directus/schema';
+import { getBlogList } from '~/services/blog/getBlogData';
 import { Alert } from '~/ui/alert';
 import { DImage } from '~/services/directus/DImage';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
 import { Link } from '@builder.io/qwik-city';
 
-function isBlogItemArray(val: Signal<unknown>): val is Signal<BlogListItem[]> {
+function isBlogItemArray(val: Signal<unknown>): val is Signal<wouxun_news[]> {
   if (!Array.isArray(val.value)) {
     return false;
   }
@@ -20,7 +21,7 @@ function isBlogItemArray(val: Signal<unknown>): val is Signal<BlogListItem[]> {
 
 export const BlogListView = component$(() => {
   const page = useSignal(1);
-  const blogs = useSignal<BlogListItem[] | Promise<never>>([]);
+  const blogs = useSignal<wouxun_news[] | Promise<never>>([]);
   const errorMsg = 'Napaka pri prenosu podatkov';
   const infScrollTarget = useSignal<Element>();
 
@@ -32,7 +33,7 @@ export const BlogListView = component$(() => {
       cleanup(() => controller.abort('cleanup'));
       const signal = controller.signal;
 
-      let prevValues: BlogListItem[] = [];
+      let prevValues: wouxun_news[] = [];
       if (isBlogItemArray(blogs)) {
         prevValues = blogs.value;
       }
@@ -94,7 +95,7 @@ export const BlogListView = component$(() => {
 });
 
 type BlogCardProps = {
-  data: BlogListItem;
+  data: wouxun_news;
   index: number;
 };
 

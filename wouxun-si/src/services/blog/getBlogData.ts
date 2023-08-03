@@ -1,38 +1,26 @@
-import { directus, abortAsync } from '~/services/directus';
+import { readItems } from '@directus/sdk';
+import { getDirectusClient, abortAsync } from '~/services/directus';
+import type { wouxun_news } from '~/services/directus/schema';
 import { handleError } from '~/services/logger';
-
-export type BlogListItem = {
-  id: string;
-  title: string;
-  slug: string;
-  body: string;
-  image: string | null;
-  date_created: string;
-};
 
 export const getBlogBySlug = async (slug: string) => {
   try {
-    const result = (await directus.items('wouxun_news').readByQuery({
-      limit: 1,
-      fields: [
-        'id',
-        'status',
-        'title',
-        'slug',
-        'body',
-        'image',
-        'date_created',
-      ],
-      filter: {
-        slug: {
-          _eq: slug,
+    const directus = getDirectusClient();
+    const result = await directus.request(
+      readItems('wouxun_news', {
+        limit: 1,
+        fields: ['*'],
+        filter: {
+          slug: {
+            _eq: slug,
+          },
         },
-      },
-    })) as { data: BlogListItem[] };
+      }),
+    );
 
-    if (result.data.length === 0) return null;
+    if (result.length === 0) return null;
 
-    const item = result.data[0];
+    const item = result[0];
     return item;
   } catch (error: any) {
     handleError(error, 'Get post by slug');
@@ -43,35 +31,30 @@ export const getBlogBySlug = async (slug: string) => {
 export const getBlogList = async (
   page: number,
   signal: AbortSignal,
-): Promise<BlogListItem[]> => {
+): Promise<wouxun_news[]> => {
   const result = (await abortAsync(signal, async () => {
-    return directus.items('wouxun_news').readByQuery({
-      limit: 6,
-      page,
-      // @ts-ignore
-      sort: ['-date_created'],
-      fields: [
-        'id',
-        'status',
-        'title',
-        'slug',
-        'body',
-        'image',
-        'date_created',
-      ],
-    });
-  })) as { data: BlogListItem[] };
+    const directus = getDirectusClient();
+    return directus.request(
+      readItems('wouxun_news', {
+        limit: 6,
+        page,
+        sort: ['-date_created'],
+        fields: ['*'],
+      }),
+    );
+  })) as wouxun_news[];
 
-  const transformed = result.data ?? [];
-
-  return transformed;
+  return result ?? [];
 };
 
 export const getBlogIds = async (): Promise<{ slug: string }[]> => {
-  const result = (await directus.items('wouxun_news').readByQuery({
-    fields: ['slug'],
-  })) as { data: { slug: string }[] };
+  const directus = getDirectusClient();
 
-  const transformed = result.data ?? [];
-  return transformed;
+  const result = await directus.request(
+    readItems('wouxun_news', {
+      fields: ['slug'],
+    }),
+  );
+
+  return result ?? [];
 };

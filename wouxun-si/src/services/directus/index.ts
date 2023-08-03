@@ -1,8 +1,13 @@
 import { config } from '~/config';
-import { Directus } from '@directus/sdk';
-export type { ManyItems, FileItem, QueryMany } from '@directus/sdk';
+import { createDirectus, rest } from '@directus/sdk';
+import type { DirectusSchema } from './schema';
 
-export const directus = new Directus(config.DIRECTUS_API_URL);
+export const getDirectusClient = () => {
+  const client = createDirectus<DirectusSchema>(config.DIRECTUS_API_URL).with(
+    rest(),
+  );
+  return client;
+};
 
 export const imageKeys = {
   '1900-x-540-jpg': '1900-x-540-jpg',

@@ -1,12 +1,12 @@
 import { component$, type Signal } from '@builder.io/qwik';
 import { CalendarIcon } from '~/ui/icons/calendar-icon';
-import type { BlogListItem } from '~/services/blog/getBlogData';
+import type { wouxun_news } from '~/services/directus/schema';
 import { DImage } from '~/services/directus/DImage';
 import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 
 export interface BlogViewProps {
-  post: Signal<BlogListItem>;
+  post: Signal<wouxun_news>;
 }
 
 export const BlogView = component$<BlogViewProps>(({ post }) => {

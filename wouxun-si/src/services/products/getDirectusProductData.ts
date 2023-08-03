@@ -1,26 +1,7 @@
-import { directus } from '~/services/directus';
+import { type Query, readItems } from '@directus/sdk';
+import { getDirectusClient } from '~/services/directus';
 import { handleError } from '~/services/logger';
-
-export type ProductItemData = {
-  id: string;
-  drupal_id: string;
-  website: string;
-  medusa_id: string;
-  status: string;
-
-  translations: {
-    title: string;
-    subtitle: string;
-    handle: string;
-    material: string;
-    description: string;
-  }[];
-
-  thumbnail: string | null;
-  media: { directus_files_id: string }[];
-  date_created: string;
-  date_updated: string;
-};
+import type { DirectusSchema, Product } from '../directus/schema';
 
 export type ProductItem = {
   id: string;
@@ -35,36 +16,45 @@ export type ProductItem = {
   description: string;
   thumbnail: string | null;
   media: string[];
-  date_created: string;
-  date_updated: string;
+  date_created: string | Date;
+  date_updated: string | Date;
 };
 
 export const getProductByHandle = async (handle: string, locale = 'en') => {
   try {
-    const result = (await directus.items('Product').readByQuery({
-      limit: 1,
-      fields: ['*', 'media.*', 'translations.*'],
-      filter: {
-        translations: {
-          handle: {
-            _eq: handle,
+    const directus = getDirectusClient();
+    const result = await directus.request(
+      readItems<DirectusSchema, 'Product', Query<DirectusSchema, Product>>(
+        'Product',
+        {
+          limit: 2,
+          // @ts-ignore
+          fields: ['*', 'media.directus_files_id', 'translations.*'],
+          filter: {
+            translations: {
+              // @ts-ignore
+              handle: {
+                _eq: handle,
+              },
+            },
           },
-        },
-      },
-      deep: {
-        translations: {
-          _filter: {
-            languages_code: {
-              _eq: locale,
+          deep: {
+            // @ts-ignore
+            translations: {
+              _filter: {
+                languages_code: {
+                  _eq: locale,
+                },
+              },
             },
           },
         },
-      },
-    })) as { data: ProductItemData[] };
+      ),
+    );
 
-    if (result.data.length === 0) return null;
+    if (result.length === 0) return null;
 
-    const item = result.data[0];
+    const item = result[0];
     const { translations, media, ...rest } = item;
     const translation = translations[0];
     const {
@@ -75,7 +65,7 @@ export const getProductByHandle = async (handle: string, locale = 'en') => {
       description,
     } = translation;
 
-    const transformed = {
+    const transformed: ProductItem = {
       ...rest,
       media: media.map((item) => item.directus_files_id),
       title,
@@ -93,31 +83,26 @@ export const getProductByHandle = async (handle: string, locale = 'en') => {
 };
 
 export const getProductList = async (locale = 'en'): Promise<ProductItem[]> => {
-  const result = (await directus.items('Product').readByQuery({
-    fields: [
-      'id',
-      'drupal_id',
-      'medusa_id',
-      'status',
-      'date_created',
-      'date_updated',
-      'website',
-      'thumbnail',
-      'media.directus_files_id',
-      'translations.*',
-    ],
-    deep: {
-      translations: {
-        _filter: {
-          languages_code: {
-            _eq: locale,
+  const directus = getDirectusClient();
+
+  const result = await directus.request(
+    readItems('Product', {
+      // @ts-ignore
+      fields: ['*', 'media.directus_files_id', 'translations.*'],
+      deep: {
+        // @ts-ignore
+        translations: {
+          _filter: {
+            languages_code: {
+              _eq: locale,
+            },
           },
         },
       },
-    },
-  })) as { data: ProductItemData[] };
+    }),
+  );
 
-  const transformed = (result.data ?? []).map(
+  const transformed: ProductItem[] = (result ?? []).map(
     ({ translations, media, ...rest }) => {
       const translation = translations[0];
 
@@ -133,16 +118,8 @@ export const getProductList = async (locale = 'en'): Promise<ProductItem[]> => {
       };
     },
   );
-  return transformed;
-};
 
-type ProductIdsData = {
-  id: string;
-  drupal_id: string;
-  medusa_id: string;
-  translations: {
-    handle: string;
-  }[];
+  return transformed;
 };
 
 type ProductIds = {
@@ -153,20 +130,26 @@ type ProductIds = {
 };
 
 export const getProductsIds = async (locale = 'en'): Promise<ProductIds[]> => {
-  const result = (await directus.items('Product').readByQuery({
-    fields: ['id', 'drupal_id', 'medusa_id', 'translations.handle'],
-    deep: {
-      translations: {
-        _filter: {
-          languages_code: {
-            _eq: locale,
+  const directus = getDirectusClient();
+
+  const result = await directus.request(
+    readItems('Product', {
+      // @ts-ignore
+      fields: ['*', 'translations.handle'],
+      deep: {
+        // @ts-ignore
+        translations: {
+          _filter: {
+            languages_code: {
+              _eq: locale,
+            },
           },
         },
       },
-    },
-  })) as { data: ProductIdsData[] };
+    }),
+  );
 
-  const transformed = result.data ?? [];
+  const transformed = result ?? [];
   return transformed.map((item) => {
     return {
       id: item.id,

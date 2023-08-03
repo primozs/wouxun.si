@@ -6,9 +6,8 @@ export const RouterHead = component$(() => {
   const head = useDocumentHead();
   const loc = useLocation();
 
-  const descContent = head.meta.find(
-    (item) => item.name === 'description',
-  )?.content;
+  const descContent = head.meta.find((item) => item.name === 'description')
+    ?.content;
 
   const descriptionArr: string[] = [];
   if (descContent) descriptionArr.push(descContent);

@@ -1,4 +1,5 @@
-import { directus } from '~/services/directus';
+import { readItems } from '@directus/sdk';
+import { getDirectusClient } from '~/services/directus';
 import { handleError } from '~/services/logger';
 
 export type BannersData = {
@@ -11,20 +12,18 @@ export type BannersData = {
 
 export const getBanners = async (): Promise<BannersData[]> => {
   try {
-    const result = (await directus.items('wouxun_banner').readByQuery({
-      fields: ['id', 'title', 'subtitle', 'image', 'style'],
-      filter: {
-        _and: [
-          {
-            status: {
-              _eq: 'published',
-            },
+    const directus = getDirectusClient();
+    const result = await directus.request(
+      readItems('wouxun_banner', {
+        fields: ['*'],
+        filter: {
+          status: {
+            _eq: 'published',
           },
-        ],
-      },
-    })) as { data: BannersData[] };
-
-    return result.data;
+        },
+      }),
+    );
+    return result;
   } catch (error: any) {
     handleError(error, 'Get active banners');
     return [];

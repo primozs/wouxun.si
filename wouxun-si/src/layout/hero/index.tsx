@@ -11,9 +11,11 @@ import {
 import { cva } from 'class-variance-authority';
 
 // https://swiperjs.com/swiper-api#parameters
-import Swiper, { Navigation, Pagination } from 'swiper';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 import { DImage } from '~/services/directus/DImage';
-import swiperStyles from 'swiper/swiper.css?inline';
+// import swiperStyles from 'swiper/swiper.css?inline';
+import swiperStyles from './swiper.css?inline';
 
 export type CarouselSlideData = {
   id: string;
@@ -109,7 +111,7 @@ export const Carousel = component$<CarouselProps>((props) => {
                       { 'text-white': index === 4 },
                     ]}
                   >
-                    <h1 class="text-base sm:text-3xl lg:text-5xl uppercase truncate">
+                    <h1 class="text-base sm:text-3xl lg:text-5xl uppercase truncate !leading-normal">
                       {data.title}
                     </h1>
                     <h2 class="text-base sm:text-2xl lg:text-3xl truncate">

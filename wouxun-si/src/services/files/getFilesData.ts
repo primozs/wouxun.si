@@ -1,21 +1,18 @@
-import { directus } from '~/services/directus';
+import { readItems } from '@directus/sdk';
+import { getDirectusClient } from '~/services/directus';
+import type { wouxun_file } from '~/services/directus/schema';
 import { handleError } from '~/services/logger';
 
-export type FileItem = {
-  id: string;
-  title: string;
-  File: string;
-  Category: string;
-};
-
-export const getFilesList = async (): Promise<FileItem[]> => {
+export const getFilesList = async (): Promise<wouxun_file[]> => {
   try {
-    const result = (await directus.items('wouxun_file').readByQuery({
-      fields: ['id', 'title', 'File', 'Category'],
-    })) as { data: FileItem[] };
+    const directus = getDirectusClient();
+    const result = await directus.request(
+      readItems('wouxun_file', {
+        fields: ['*'],
+      }),
+    );
 
-    const transformed = result.data ?? [];
-    return transformed;
+    return result ?? [];
   } catch (error: any) {
     handleError(error);
     return [];
