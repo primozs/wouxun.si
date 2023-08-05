@@ -11,7 +11,7 @@ import { Alert } from '~/ui/alert';
 import { Image } from '@unpic/qwik';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
 import { Link } from '@builder.io/qwik-city';
-import { getImageUrl } from '~/config';
+import { getImageUrl } from '~/services/directus';
 
 function isBlogItemArray(val: Signal<unknown>): val is Signal<wouxun_news[]> {
   if (!Array.isArray(val.value)) {

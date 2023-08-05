@@ -3,7 +3,7 @@ import { Link } from '@builder.io/qwik-city';
 import { type ProductItem } from '~/services/products/getDirectusProductData';
 import { cleanTitle, getProductShortDesc } from '~/routes/product/productUtil';
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/config';
+import { getImageUrl } from '~/services/directus';
 
 type ProductCardProps = {
   data: ProductItem;

@@ -19,7 +19,7 @@ export const ProductListAside = component$(() => {
                 onClick$={() => {
                   const mediaQuery = window.matchMedia('(max-width: 768px)');
                   if (mediaQuery.matches) {
-                    let e = document.getElementById('product-image');
+                    const e = document.getElementById('product-image');
                     e?.scrollIntoView({
                       block: 'start',
                       behavior: 'smooth',

@@ -4,7 +4,7 @@ import type { wouxun_news } from '~/services/directus/schema';
 import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/config';
+import { getImageUrl } from '~/services/directus';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;

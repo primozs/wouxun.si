@@ -8,9 +8,8 @@ import {
   noSerialize,
   type NoSerialize,
 } from '@builder.io/qwik';
-import { cva } from 'class-variance-authority';
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/config';
+import { getImageUrl } from '~/services/directus';
 
 // https://swiperjs.com/swiper-api#parameters
 import Swiper from 'swiper';
@@ -29,27 +28,6 @@ type CarouselProps = {
   banners: Signal<CarouselSlideData[]>;
   ariaLabel?: string;
 };
-
-const slideContent = cva(
-  `
-    cnt-content absolute inset-0 z-10 flex w-full                    
-  `,
-  {
-    variants: {
-      position: {
-        left: ['justify-start items-center'],
-        right: ['justify-end items-center'],
-        center: ['justify-center items-center'],
-        top: ['justify-center '],
-        top_left: ['justify-start'],
-        top_right: ['justify-end'],
-        bottom_left: ['justify-start items-end'],
-        bottom_right: ['justify-end items-end'],
-        hidden: ['sr-only'],
-      },
-    },
-  },
-);
 
 export const Carousel = component$<CarouselProps>((props) => {
   const ref = useSignal<HTMLDivElement>();
@@ -97,9 +75,8 @@ export const Carousel = component$<CarouselProps>((props) => {
                 <div
                   class={[
                     'max-w-screen-2xl mx-auto',
-                    slideContent({
-                      position: 'bottom_left',
-                    }),
+                    'cnt-content absolute inset-0 z-10 flex w-full',
+                    'justify-start items-end',
                   ]}
                 >
                   <div

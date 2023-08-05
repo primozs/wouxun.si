@@ -10,11 +10,11 @@
 import { setupServiceWorker } from '@builder.io/qwik-city/service-worker';
 import {
   imageCache,
-  // staticResourceCache,
+  staticResourceCache,
   pageCache,
   offlineFallback,
 } from 'workbox-recipes';
-// import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableResponsePlugin.js';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableResponsePlugin.js';
 import type { RouteMatchCallbackOptions } from 'workbox-core';
 
 const matchImageCallback = ({ request }: RouteMatchCallbackOptions) => {
@@ -38,18 +38,19 @@ imageCache({
   maxEntries: 5,
 });
 
-// const matchStaticCallback = ({ request }: RouteMatchCallbackOptions) => {
-//   return request.destination === 'style' || request.destination === 'worker';
-// };
-// staticResourceCache({
-//   matchCallback: matchStaticCallback,
-//   warmCache: ['/'],
-//   plugins: [
-//     new CacheableResponsePlugin({
-//       statuses: [0, 200],
-//     }),
-//   ],
-// });
+const matchStyleCallback = ({ request }: RouteMatchCallbackOptions) => {
+  return request.destination === 'style';
+};
+staticResourceCache({
+  matchCallback: matchStyleCallback,
+  cacheName: 'static-style-assets',
+  warmCache: ['/'],
+  plugins: [
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+  ],
+});
 
 pageCache({
   warmCache: ['/'],

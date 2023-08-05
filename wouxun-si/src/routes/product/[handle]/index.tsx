@@ -12,7 +12,7 @@ import { mdParse } from '~/ui/md-parse';
 import { cleanTitle } from '~/routes/product/productUtil';
 import { Dialog } from '~/ui/dialog';
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/config';
+import { getImageUrl } from '~/services/directus';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const product = await getProductByHandle(event.params.handle, 'en');
