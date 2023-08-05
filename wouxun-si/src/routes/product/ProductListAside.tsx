@@ -13,7 +13,22 @@ export const ProductListAside = component$(() => {
         {products.value.map((item) => {
           return (
             <li key={item.id} class="text-base font-medium leading-6">
-              <Link href={`/product/${item.handle}`}>
+              <Link
+                prefetch={true}
+                href={`/product/${item.handle}`}
+                onClick$={() => {
+                  const mediaQuery = window.matchMedia('(max-width: 768px)');
+                  if (mediaQuery.matches) {
+                    let e = document.getElementById('product-image');
+                    e?.scrollIntoView({
+                      block: 'start',
+                      behavior: 'smooth',
+                      inline: 'start',
+                    });
+                  }
+                }}
+                scroll={false}
+              >
                 {cleanTitle(item.title)}
               </Link>
             </li>

@@ -25,7 +25,7 @@ export default component$(() => {
   return (
     <section>
       <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-        <div class="lg:order-2">
+        <div id="product-image" class="lg:order-2">
           <Dialog>
             <Image
               width={1080}
