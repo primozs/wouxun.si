@@ -4,26 +4,27 @@ import { Button } from '~/ui/button';
 import { MenuIcon } from '~/ui/icons/menu-icon';
 import { CloseIcon } from '~/ui/icons/close-icon';
 import { HeaderMenu } from './header-menu';
-import { useCSSTransition } from '~/ui/transition/hook';
+import { Transition } from '~/ui/transition';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
 }
 
 export const MobileMainMenu = component$<MobileMenuProps>((props) => {
-  const { stage, shouldMount } = useCSSTransition(props.visible, {
-    timeout: 300,
-    transitionOnAppear: true,
-  });
   return (
     <>
-      {shouldMount.value && (
+      <Transition
+        show={props.visible.value}
+        class="overflow-hidden content-visibility-auto"
+        enter="transition ease-in duration-200 transform opacity-0"
+        enterFrom="transform opacity-0"
+        enterTo="transform opacity-100"
+        leave="transition ease-out duration-100"
+        leaveFrom="transform opacity-100"
+        leaveTo="transform opacity-0"
+      >
         <div
           class="h-screen sm:hidden"
-          style={{
-            transition: '.3s',
-            opacity: stage.value === 'enterTo' ? 1 : 0,
-          }}
           window:onKeyDown$={(e) => {
             const ev: KeyboardEvent = e as unknown as KeyboardEvent;
             if (ev.key === 'Escape') {
@@ -36,7 +37,7 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
             <HeaderMenu isMobile={true} />
           </div>
         </div>
-      )}
+      </Transition>
     </>
   );
 });
