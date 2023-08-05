@@ -8,9 +8,10 @@ import {
 import type { wouxun_news } from '~/services/directus/schema';
 import { getBlogList } from '~/services/blog/getBlogData';
 import { Alert } from '~/ui/alert';
-import { DImage } from '~/services/directus/DImage';
+import { Image } from '@unpic/qwik';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
 import { Link } from '@builder.io/qwik-city';
+import { getImageUrl } from '~/config';
 
 function isBlogItemArray(val: Signal<unknown>): val is Signal<wouxun_news[]> {
   if (!Array.isArray(val.value)) {
@@ -100,20 +101,23 @@ type BlogCardProps = {
 };
 
 export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
+  const imageSrc = getImageUrl(data.image ?? '');
   return (
     <Link href={`/aktualno/${data.slug}`}>
       <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3">
         <div class="relative w-full">
-          <DImage
-            dId={data.image}
-            dType="image/webp"
-            keys={['770-x-510-jpg', '770-x-510-webp']}
-            sizes="
-              (max-width: 640px) 95vw,       
-              (max-width: 1024px) 770px, 25vw"
+          <Image
+            {...(index < 6 && {
+              priority: true,
+              fetchPriority: 'high',
+            })}
+            layout="constrained"
             alt={data.title}
-            {...(index < 6 && { fetchPriority: 'high' })}
-            class="aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+            width={770}
+            height={510}
+            cdn="directus"
+            src={imageSrc}
+            class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
           />
           {/* <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div> */}
         </div>

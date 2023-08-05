@@ -9,12 +9,12 @@ import {
   type NoSerialize,
 } from '@builder.io/qwik';
 import { cva } from 'class-variance-authority';
+import { Image } from '@unpic/qwik';
+import { getImageUrl } from '~/config';
 
 // https://swiperjs.com/swiper-api#parameters
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
-import { DImage } from '~/services/directus/DImage';
-// import swiperStyles from 'swiper/swiper.css?inline';
 import swiperStyles from './swiper.css?inline';
 
 export type CarouselSlideData = {
@@ -85,6 +85,7 @@ export const Carousel = component$<CarouselProps>((props) => {
       >
         <div class="swiper-wrapper">
           {props.banners.value.map((data, index) => {
+            const imageSrc = getImageUrl(data.image ?? '');
             return (
               <div
                 class="swiper-slide"
@@ -120,23 +121,20 @@ export const Carousel = component$<CarouselProps>((props) => {
                   </div>
                 </div>
 
-                <DImage
-                  loadingBg="white"
-                  dId={data.image}
-                  dType="image/webp"
-                  keys={[
-                    '600-x-150-jpg',
-                    '600-x-150-webp',
-                    '1200-x-300-jpg',
-                    '1200-x-300-webp',
-                  ]}
-                  sizes="
-                  (max-width: 640px) 95vw,       
-                  (max-width: 1024px) 770px, 770px"
+                <Image
+                  background="white"
+                  layout="fullWidth"
                   alt={data.title}
-                  {...(index === 0 && { fetchPriority: 'high' })}
+                  width={1200}
+                  height={300}
+                  cdn="directus"
+                  src={imageSrc}
+                  {...(index === 0 && {
+                    priority: true,
+                    fetchPriority: 'high',
+                  })}
                   {...(index === 1 && { fetchPriority: 'low' })}
-                  class="aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
                 />
               </div>
             );

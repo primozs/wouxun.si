@@ -22,3 +22,11 @@ export const config = {
   DEV: ENV_VARIABLES.DEV,
   PROD: ENV_VARIABLES.PROD,
 };
+
+export const getImageUrl = (id: string) => {
+  const url = new URL(`assets/${id}`, config.DIRECTUS_API_URL);
+  url.searchParams.set('fit', 'cover');
+  url.searchParams.set('quality', '80');
+  url.searchParams.set('format', 'auto');
+  return url.toString();
+};

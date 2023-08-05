@@ -1,8 +1,9 @@
 import { component$ } from '@builder.io/qwik';
-import { DImage } from '~/services/directus/DImage';
 import { Link } from '@builder.io/qwik-city';
 import { type ProductItem } from '~/services/products/getDirectusProductData';
 import { cleanTitle, getProductShortDesc } from '~/routes/product/productUtil';
+import { Image } from '@unpic/qwik';
+import { getImageUrl } from '~/config';
 
 type ProductCardProps = {
   data: ProductItem;
@@ -10,25 +11,24 @@ type ProductCardProps = {
 };
 
 export const ProductCard = component$<ProductCardProps>(({ data, index }) => {
+  const imageSrc = getImageUrl(data.thumbnail ?? '');
   return (
     <Link href={`/product/${data.handle}`}>
       <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3">
         <div class="relative w-full">
-          <DImage
-            dId={data.thumbnail}
-            dType="image/webp"
-            keys={[
-              '320-x-180-jpg',
-              '320-x-180-webp',
-              '770-x-510-jpg',
-              '770-x-510-webp',
-            ]}
-            sizes="
-              (max-width: 640px) 95vw,       
-              (max-width: 1024px) 770px, 25vw"
+          <Image
+            priority={true}
+            layout="constrained"
             alt={data.title}
-            {...(index < 1 && { fetchPriority: 'high' })}
-            class="aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+            width={770}
+            height={510}
+            cdn="directus"
+            src={imageSrc}
+            {...(index < 1 && {
+              priority: true,
+              fetchPriority: 'high',
+            })}
+            class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
           />
           {/* <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div> */}
         </div>

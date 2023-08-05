@@ -9,9 +9,10 @@ import {
   getProductsIds,
 } from '~/services/products/getDirectusProductData';
 import { mdParse } from '~/ui/md-parse';
-import { DImage } from '~/services/directus/DImage';
 import { cleanTitle } from '~/routes/product/productUtil';
 import { Dialog } from '~/ui/dialog';
+import { Image } from '@unpic/qwik';
+import { getImageUrl } from '~/config';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const product = await getProductByHandle(event.params.handle, 'en');
@@ -20,64 +21,65 @@ export const useGetProductByHandle = routeLoader$(async (event) => {
 
 export default component$(() => {
   const product = useGetProductByHandle();
+  const imageSrc = getImageUrl(product.value?.thumbnail ?? '');
   return (
     <section>
       <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 lg:mx-0 lg:max-w-none lg:grid-cols-2">
         <div class="lg:order-2">
           <Dialog>
-            <DImage
-              dId={product.value?.thumbnail}
-              dType="image/webp"
-              keys={[
-                '770-x-510-jpg',
-                '770-x-510-webp',
-                '1080-x-720-jpg',
-                '1080-x-720-webp',
-              ]}
-              sizes="
-              (max-width: 640px) 95vw,       
-              (max-width: 1024px) 770px, 770px"
+            <Image
+              width={1080}
+              height={720}
+              src={imageSrc}
               alt={product.value?.title}
+              priority={true}
               fetchPriority="high"
-              class="aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+              class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+              layout="constrained"
+              cdn="directus"
             />
-            <DImage
+            <Image
               q:slot="dialog"
-              dId={product.value?.thumbnail}
-              dType="image/webp"
-              keys={[
-                '770-x-510-jpg',
-                '770-x-510-webp',
-                '1080-x-720-jpg',
-                '1080-x-720-webp',
-              ]}
-              sizes="
-              (max-width: 640px) 95vw,       
-              (max-width: 1024px) 770px, 770px"
+              width={1080}
+              height={720}
+              src={imageSrc}
               alt={product.value?.title}
+              priority={true}
               fetchPriority="high"
-              class="aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+              class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+              layout="constrained"
+              cdn="directus"
             />
           </Dialog>
           <div class="mt-4 grid grid-cols-4 gap-x-4 gap-y-4">
             {product.value?.media.map((img) => {
+              const imageSrc = getImageUrl(img ?? '');
               return (
                 <Dialog key={img}>
-                  <DImage
-                    dId={img}
-                    dType="image/webp"
-                    keys={['770-x-510-jpg', '770-x-510-webp']}
+                  <Image
+                    key={img}
+                    width={770}
+                    height={510}
+                    src={imageSrc}
                     alt={product.value?.title}
-                    class="aspect-[3/2] rounded-md"
+                    priority={true}
+                    fetchPriority="high"
+                    class="imageerr aspect-[3/2] rounded-md"
+                    layout="constrained"
+                    cdn="directus"
                   />
-                  <DImage
+                  <Image
                     q:slot="dialog"
                     key={img}
-                    dId={img}
-                    dType="image/webp"
-                    keys={['770-x-510-jpg', '770-x-510-webp']}
+                    width={770}
+                    height={510}
+                    src={imageSrc}
                     alt={product.value?.title}
-                    class="aspect-[3/2] rounded-md"
+                    priority={true}
+                    fetchPriority="high"
+                    class="imageerr aspect-[3/2] rounded-md"
+                    layout="constrained"
+                    cdn="directus"
                   />
                 </Dialog>
               );
