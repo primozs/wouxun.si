@@ -2,6 +2,7 @@ import { component$, Slot } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { getProductList } from '~/services/products/getDirectusProductData';
 import { getBanners } from '~/services/banners/getBannersData';
+import { getMedusaApi } from '~/services/medusa';
 
 export const useProducts = routeLoader$(async () => {
   const res = await getProductList('en');
@@ -11,6 +12,18 @@ export const useProducts = routeLoader$(async () => {
 export const useBannersData = routeLoader$(async () => {
   const banners = await getBanners();
   return banners;
+});
+
+export const useGetCountryAndIP = routeLoader$(async () => {
+  const client = getMedusaApi();
+  const result = await client
+    .get('ip')
+    .json<{ ip: string; country_code: string }>();
+
+  return {
+    ip: result.ip,
+    country: result.country_code,
+  };
 });
 
 export default component$(() => {
