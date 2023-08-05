@@ -4,7 +4,6 @@ import { Button } from '~/ui/button';
 import { MenuIcon } from '~/ui/icons/menu-icon';
 import { CloseIcon } from '~/ui/icons/close-icon';
 import { HeaderMenu } from './header-menu';
-import { Transition } from '~/ui/transition';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
@@ -13,31 +12,26 @@ export interface MobileMenuProps {
 export const MobileMainMenu = component$<MobileMenuProps>((props) => {
   return (
     <>
-      <Transition
-        show={props.visible.value}
-        class="overflow-hidden content-visibility-auto"
-        enter="transition ease-in duration-200 transform opacity-0"
-        enterFrom="transform opacity-0"
-        enterTo="transform opacity-100"
-        leave="transition ease-out duration-100"
-        leaveFrom="transform opacity-100"
-        leaveTo="transform opacity-0"
+      <div
+        class={[
+          `
+          bg-white absolute h-screen w-full z-10 sm:hidden
+          transition ease-in duration-200 transform opacity-0
+          `,
+          { ' transform opacity-100': props.visible.value },
+        ]}
+        window:onKeyDown$={(e) => {
+          const ev: KeyboardEvent = e as unknown as KeyboardEvent;
+          if (ev.key === 'Escape') {
+            props.visible.value = false;
+          }
+        }}
+        id="mobile-menu"
       >
-        <div
-          class="h-screen sm:hidden"
-          window:onKeyDown$={(e) => {
-            const ev: KeyboardEvent = e as unknown as KeyboardEvent;
-            if (ev.key === 'Escape') {
-              props.visible.value = false;
-            }
-          }}
-          id="mobile-menu"
-        >
-          <div class="space-y-1 p-10">
-            <HeaderMenu isMobile={true} />
-          </div>
+        <div class="space-y-1 p-10">
+          <HeaderMenu isMobile={true} />
         </div>
-      </Transition>
+      </div>
     </>
   );
 });
