@@ -21,4 +21,6 @@ export const config = {
 
   DEV: ENV_VARIABLES.DEV,
   PROD: ENV_VARIABLES.PROD,
+  DEFAULT_COUNTRY: 'si',
+  DEFAULT_LOCALE: 'sl',
 };

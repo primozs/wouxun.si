@@ -23,7 +23,12 @@ module.exports = {
         900: '#000000',
         950: '#000000',
       },
+      secondary: colors.sky,
       neutral: colors.slate,
+      info: colors.blue,
+      success: colors.green,
+      error: colors.red,
+      warning: colors.yellow,
     },
     fontFamily: {
       sans: [
@@ -38,6 +43,38 @@ module.exports = {
       ],
     },
     extend: {
+      boxShadow: {
+        'card-hover-dark':
+          '0px 0px 0px 1px rgba(255, 255, 255, 0.2), 0px 1px 2px -1px rgba(255, 255, 255, 0.32), 0px 2px 8px 0px rgba(0, 0, 0, 0.64)',
+        'card-hover-light':
+          '0px 0px 0px 1px rgba(17, 24, 28, 0.08), 0px 1px 2px -1px rgba(17, 24, 28, 0.08), 0px 2px 8px 0px rgba(17, 24, 28, 0.1)',
+      },
+      backgroundColor: {
+        'overlay-dark': 'rgba(22, 22, 24, 0.7)',
+        'overlay-light': 'rgba(17, 24, 28, 0.4)',
+      },
+      borderColor: {
+        'tag-blue-dark': '#0D3868',
+        'tag-blue-light': '#B7D9F8',
+        focus: '#6E56CF',
+      },
+      textColor: {
+        'base-dark': '#FFFFFF',
+        'base-light': '#11181C',
+      },
+      outlineColor: {
+        focus: '#6E56CF',
+      },
+      fontSize: {
+        'labels-large': ['16px', '20px'],
+        'labels-regular': ['14px', '20px'],
+        'labels-small': ['13px', '20px'],
+        'labels-xsmall': ['12px', '20px'],
+        'body-regular': ['14px', '24px'],
+        'headers-h2': ['32px', '44px'],
+        'headers-h3': ['24px', '32px'],
+        'headers-h4': ['18px', '28px'],
+      },
       keyframes: {
         fadeIn: {
           from: { opacity: 0 },

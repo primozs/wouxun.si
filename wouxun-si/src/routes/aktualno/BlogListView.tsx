@@ -49,7 +49,7 @@ export const BlogListView = component$(() => {
   return (
     <section>
       <div>
-        <h1>Aktualno</h1>
+        <h1 class="header1">Aktualno</h1>
       </div>
 
       <Resource
@@ -104,7 +104,7 @@ export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
   const imageSrc = getImageUrl(data.image ?? '');
   return (
     <Link href={`/aktualno/${data.slug}`}>
-      <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3">
+      <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3 space-y-3">
         <div class="relative w-full">
           <Image
             {...(index < 6 && {
@@ -119,15 +119,14 @@ export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
             src={imageSrc}
             class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
           />
-          {/* <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div> */}
         </div>
         <div class="max-w-xl">
           <div class="group relative">
-            <h2 class="mt-3 text-lg font-semibold leading-6 text-neutral-800 group-hover:text-neutral-600 dark:text-secondary-200 dark:group-hover:text-neutral-400">
+            <h2 class="header2 mt-3 text-lg font-semibold leading-6 text-neutral-800 group-hover:text-neutral-600 dark:text-secondary-200 dark:group-hover:text-neutral-400 text-ellipsis line-clamp-1">
               {data.title}
             </h2>
-            <p class="mt-3 line-clamp-3 text-base leading-6 text-neutral-600 dark:text-secondary-400">
-              {data.body.slice(0, 150) + '...'}
+            <p class="mt-3 text-ellipsis line-clamp-3 text-base leading-6 text-neutral-600 dark:text-secondary-400">
+              {data.body}
             </p>
           </div>
         </div>

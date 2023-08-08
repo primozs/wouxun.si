@@ -34,6 +34,7 @@ export const HeaderMenu = component$<Props>((props) => {
                 return (
                   <li key={item.text}>
                     <Link
+                      prefetch={true}
                       href={item.href}
                       class={[
                         'text-base font-semibold',

@@ -17,8 +17,9 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
           `
           bg-white absolute h-screen w-full z-10 sm:hidden
           transition ease-in duration-200 transform opacity-0
+          -left-full
           `,
-          { ' transform opacity-100': props.visible.value },
+          { ' transform opacity-100 left-0': props.visible.value },
         ]}
         window:onKeyDown$={(e) => {
           const ev: KeyboardEvent = e as unknown as KeyboardEvent;

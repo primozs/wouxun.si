@@ -1,3 +1,5 @@
+// https://docs.medusajs.com/js-client/overview
+// https://github.com/sindresorhus/ky
 import Medusa from '@medusajs/medusa-js';
 import { config } from '~/config';
 import ky from 'ky';

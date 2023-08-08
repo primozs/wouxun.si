@@ -7,7 +7,7 @@ export const LayoutBlog = component$(() => {
     <>
       <Header />
       <>
-        <main class="max-w-screen-2xl mx-auto px-4 sm:px-5 prose w-full mb-10">
+        <main class="max-w-screen-2xl mx-auto px-4 sm:px-5 w-full mb-10">
           <Slot />
         </main>
       </>

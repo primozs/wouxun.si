@@ -5,12 +5,14 @@ import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
+import { useAppGlobal } from '~/ui/common/appGlobalState';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;
 }
 
 export const BlogView = component$<BlogViewProps>(({ post }) => {
+  const store = useAppGlobal();
   const imageSrc = getImageUrl(post.value?.image ?? '');
   return (
     <section>
@@ -30,13 +32,13 @@ export const BlogView = component$<BlogViewProps>(({ post }) => {
         </div>
         <div class="w-full lg:order-1">
           <div class="max-w-xl space-y-2">
-            <h1>{post.value?.title}</h1>
+            <h1 class="header1">{post.value?.title}</h1>
 
             <div class="my-1 flex items-center gap-x-2">
               <CalendarIcon class="h-6 w-6 fill-none stroke-black dark:stroke-white" />
               <span>
                 {post.value?.date_created
-                  ? formatDate(new Date(post.value.date_created), 'sl')
+                  ? formatDate(new Date(post.value.date_created), store.locale)
                   : ''}
               </span>
             </div>

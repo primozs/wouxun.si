@@ -68,14 +68,17 @@ body {
   outline: solid 1px red;
 } */
 
+.header1,
 .prose h1 {
   @apply text-primary-500 text-2xl font-medium leading-8;
 }
 
+.header2,
 .prose h2 {
   @apply text-primary-500 text-xl font-medium leading-8 mt-2 first-of-type:mt-0;
 }
 
+.header3,
 .prose h2,
 .prose h3 {
   @apply text-primary-500;

@@ -131,6 +131,7 @@ export interface ProductCategory {
     handle: string;
     description: string;
     languages_code: string;
+    ProductCategory_id: string;
   }[];
   category: ProductCategory;
   parent_category_id: string;
@@ -157,6 +158,7 @@ export interface ProductTag {
     id?: number;
     value: string;
     languages_code: string;
+    ProductTag_id: string;
   }[];
 }
 

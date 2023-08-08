@@ -4,7 +4,7 @@ import { Header } from '~/layout/header';
 import { Carousel } from '~/layout/hero';
 import { useBannersData } from '~/routes/layout';
 import OstaliModeli from '~/content/ostaliModeli.mdx';
-import { ProductListAside } from '~/routes/product/ProductListAside';
+import { ProductListAside } from '~/ui/products/ProductListAside';
 
 export const LayoutHomepage = component$(() => {
   const banners = useBannersData();

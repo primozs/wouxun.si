@@ -16,9 +16,12 @@ export default component$(() => {
     const fMap: Record<string, wouxun_file[]> = {};
     for (const file of files.value) {
       const category = file.Category;
-      if (!fMap[category]) fMap[category] = [];
-
-      fMap[category].push(file);
+      if (!Array.isArray(fMap[category])) {
+        fMap[category] = [];
+      } else {
+        // @ts-ignore
+        fMap[category].push(file);
+      }
     }
 
     return fMap;

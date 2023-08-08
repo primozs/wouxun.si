@@ -7,6 +7,8 @@ import {
 import { RouterHead } from './layout/router-head';
 
 import './global.css';
+import { AppGlobalProvider } from '~/ui/common/appGlobalState';
+import { NotificationProvider } from './ui/notification/notificationsState';
 
 export default component$(() => {
   return (
@@ -17,8 +19,12 @@ export default component$(() => {
         <RouterHead />
       </head>
       <body lang="sl">
-        <RouterOutlet />
-        <ServiceWorkerRegister />
+        <AppGlobalProvider>
+          <NotificationProvider>
+            <RouterOutlet />
+            <ServiceWorkerRegister />
+          </NotificationProvider>
+        </AppGlobalProvider>
       </body>
     </QwikCityProvider>
   );

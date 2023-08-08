@@ -3,8 +3,9 @@ import { getDirectusClient, abortAsync } from '~/services/directus';
 import type { wouxun_news } from '~/services/directus/schema';
 import { handleError } from '~/services/logger';
 
-export const getBlogBySlug = async (slug: string) => {
+export const getBlogBySlug = async (slug: string | undefined) => {
   try {
+    if (!slug) return null;
     const directus = getDirectusClient();
     const result = await directus.request(
       readItems('wouxun_news', {

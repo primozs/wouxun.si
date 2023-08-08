@@ -16,7 +16,11 @@ export const Dialog = component$(() => {
 
       <dialog
         ref={ref}
-        class="max-w-xs sm:max-w-xl lg:max-w-3xl xl:max-w-6xl outline-none rounded-md"
+        class="`          
+          outline-none rounded-md overflow-hidden
+          w-full sm:max-w-6xl
+          shadow-lg
+        `"
         onClick$={() => {
           ref.value?.close();
         }}

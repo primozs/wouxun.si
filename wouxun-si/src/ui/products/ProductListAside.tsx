@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import { cleanTitle } from '~/routes/product/productUtil';
+import { cleanTitle } from './cleanTitle';
 import { useProducts } from '~/routes/layout';
 
 export const ProductListAside = component$(() => {

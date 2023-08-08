@@ -1,17 +1,31 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city';
 import { getProductList } from '~/services/products/getDirectusProductData';
 import { getBanners } from '~/services/banners/getBannersData';
 import { getMedusaApi } from '~/services/medusa';
+import { srvSetLocale, getUserLocaleSrv } from '~/ui/common/srvGetLocale';
+import { config } from '~/config';
+import { getRegion } from '~/services/medusa/getRegions';
 
-export const useProducts = routeLoader$(async () => {
-  const res = await getProductList('en');
+export const onGet: RequestHandler = async (reqEvent) => {
+  srvSetLocale(reqEvent);
+};
+
+export const useProducts = routeLoader$(async (event) => {
+  const locale = getUserLocaleSrv(event);
+  const res = await getProductList(locale);
   return res;
 });
 
 export const useBannersData = routeLoader$(async () => {
   const banners = await getBanners();
   return banners;
+});
+
+export const useGetRegion = routeLoader$(async () => {
+  const country_code = config.DEFAULT_COUNTRY;
+  const region = await getRegion(country_code);
+  return region;
 });
 
 export const useGetCountryAndIP = routeLoader$(async () => {
