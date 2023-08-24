@@ -2,34 +2,36 @@ import { component$ } from '@builder.io/qwik';
 import { XCircle } from '../icons/x-circle';
 import { CheckCircle } from '../icons/check-circle';
 import { XMark } from '../icons/x-mark';
-import { useNotifications } from './notificationsState';
-
-interface NotificationProps {
-  type: 'success' | 'error';
-  title: string;
-  description?: string;
-}
+import { useNotifications, type NotificationType } from './notificationsState';
 
 type Props = {
-  notification: NotificationProps | null;
+  notification: NotificationType | null;
+  class?: string;
 };
 
-export const Notification = component$<Props>(({ notification }) => {
+export const Notification = component$<Props>(({ notification, ...rest }) => {
   const { removeNotification } = useNotifications();
 
   return (
     <div
       class={[
+        `      
+        pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg 
+        bg-white shadow-lg ring-1 ring-black ring-opacity-5        
+      `,
         `
-      fixed bottom-5 z-50
-      pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5
-      animate-fadeOut
-      transition ease-in duration-200 transform opacity-0      
-    `,
+        absolute
+        z-50
+        transition ease-in duration-200 transform opacity-0
+      `,
+        { 'right-5 bottom-5': notification?.position === 'bottom-right' },
+        { 'right-5 top-5': notification?.position === 'top-right' },
+        { 'top-5 left-auto': notification?.position === 'top' },
         {
-          'transform opacity-0 -right-full': notification === null,
-          'transform opacity-100 right-5': notification !== null,
+          'transform opacity-0': notification === null,
+          'transform opacity-100': notification !== null,
         },
+        rest.class,
       ]}
     >
       <div class="p-4">

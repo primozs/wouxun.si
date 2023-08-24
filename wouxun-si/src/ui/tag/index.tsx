@@ -15,7 +15,7 @@ export const Tag = component$(
           `rounded-md inline-flex items-center justify-center 
           text-labels-xsmall font-medium`,
           {
-            'bg-neutral-200 dark:bg-neutral-400 border border-neutral-400 dark:border-neutral-200 text-tag-neutral-light dark:text-tag-neutral-dark':
+            'bg-neutral-200 dark:bg-neutral-400 border border-neutral-400 dark:border-neutral-200 text-neutral-600 dark:text-tag-neutral-dark':
               variant === 'neutral',
             'bg-tag-blue-light dark:bg-tag-blue-dark border border-primary-400 dark:bg-neutral-200 text-primary-400 dark:text-neutral-400':
               variant === 'blue',

@@ -5,5 +5,5 @@
 - [Ponudba](/)
 - [Aktualno](/aktualno)
 - [Podpora](/podpora)
-- [Nakup in dostava](/informacije-o-nakupu-in-dostavi)
+- [Dostava](/informacije-o-nakupu-in-dostavi)
 - [Kontakt](/kontakt)

@@ -1,4 +1,7 @@
 import { component$, useSignal, Slot, $ } from '@builder.io/qwik';
+import { Button } from '../button';
+import { XMark } from '../icons/x-mark';
+import { Tag } from '../tag';
 
 // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement
 export const Dialog = component$(() => {
@@ -21,11 +24,29 @@ export const Dialog = component$(() => {
           w-full sm:max-w-6xl
           shadow-lg
         `"
-        onClick$={() => {
-          ref.value?.close();
-        }}
       >
-        <Slot name="dialog" />
+        <div class="w-full h-full rounded-lg flex flex-col items-center">
+          <div class="bg-neutral-50 dark:bg-neutral-600 flex flex-row justify-between p-2 border-b w-full border-neutral-200 dark:border-neutral-400">
+            <div class="flex items-center gap-x-2">
+              <Button
+                intent="icon"
+                onClick$={() => {
+                  ref.value?.close();
+                }}
+                type="button"
+                class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
+              >
+                <XMark class="h-5 w-5 text-neutral-400" />
+              </Button>
+              <Tag class="hidden md:block" size="small" variant="neutral">
+                esc
+              </Tag>
+            </div>
+          </div>
+          <div class="w-full flex items-center justify-center overflow-auto">
+            <Slot name="dialog" />
+          </div>
+        </div>
       </dialog>
     </>
   );

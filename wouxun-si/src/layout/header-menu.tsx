@@ -18,7 +18,8 @@ export const HeaderMenu = component$<Props>((props) => {
               class={[
                 !props.isMobile &&
                   `flex justify-center sm:justify-start items-center 
-                space-x-2 whitespace-nowrap sm:space-x-4`,
+                  mr-4
+                  space-x-2 whitespace-nowrap sm:space-x-4`,
                 props.isMobile &&
                   `space-y-2 whitespace-nowrap text-primary-500`,
               ]}

@@ -4,7 +4,7 @@ import {
   component$,
   useSignal,
   $,
-  useTask$,
+  useVisibleTask$,
 } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
@@ -22,6 +22,7 @@ import { Button } from '../button';
 import { LoadingDots } from '../loading-dots';
 import { getMedusaClient } from '~/services/medusa';
 import { useNotifications } from '../notification/notificationsState';
+import { ShoppingBagIcon } from '../icons/shopping-bag-icon';
 
 export interface DetailsProps {
   product: Signal<ProductDetail>;
@@ -55,7 +56,7 @@ export const ClientPriceAddToCart = component$<ClientPriceAddToCartProps>(
     const store = useAppGlobal();
     const errorMsg = 'Napaka pri prenosu podatkov';
 
-    useTask$(async ({ track }) => {
+    useVisibleTask$(async ({ track }) => {
       try {
         track(product);
         const result = await getProduct(
@@ -116,12 +117,14 @@ export const AddToCart = component$<AddToCartProps>(({ product }) => {
         type: 'success',
         title: 'Dodaj v košarico',
         description: `${product?.title} je bil uspešno dodan.`,
+        position: 'bottom-right',
       });
     } catch (error: any) {
       addNotification({
         type: 'error',
         title: 'Napaka pri dodajanju v košarico',
         description: error?.message,
+        position: 'bottom-right',
       });
     }
 
@@ -132,17 +135,20 @@ export const AddToCart = component$<AddToCartProps>(({ product }) => {
 
   return (
     <Button
-      class="sm:max-w-xs"
+      class="sm:max-w-[250px] space-x-3"
       intent="primary"
       onClick$={handleClickAddToCart}
       disabled={adding.value}
     >
       {adding.value ? (
-        <span class="flex h-6 items-center">
+        <span class="flex h-6 items-center ">
           <LoadingDots class="bg-white dark:bg-neutral-400" />
         </span>
       ) : (
-        <>Dodaj v voziček</>
+        <>
+          <ShoppingBagIcon class="h-5 w-5" />
+          <span>Dodaj v voziček</span>
+        </>
       )}
     </Button>
   );

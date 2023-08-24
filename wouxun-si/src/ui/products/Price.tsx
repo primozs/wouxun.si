@@ -41,7 +41,7 @@ export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
   return (
     <div class="flex items-end gap-x-3">
       <div>
-        <p class="font-medium text-headers-h3 text-primary-400 dark:text-base-dark">
+        <p class="font-semibold text-headers-h3 text-neutral-800 dark:text-base-dark">
           {formatPrice(variantPrice.calculatedPrice, {
             currency: variantPrice.currency_code,
             locale: store.locale,

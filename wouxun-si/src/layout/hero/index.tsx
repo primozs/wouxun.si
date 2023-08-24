@@ -54,7 +54,7 @@ export const Carousel = component$<CarouselProps>((props) => {
     <>
       <div
         ref={ref}
-        class="swiper relative"
+        class="swiper relative bg-primary-500"
         role="region"
         aria-roledescription="carousel"
         aria-label={props.ariaLabel ?? 'Stenar headlines'}
@@ -81,9 +81,10 @@ export const Carousel = component$<CarouselProps>((props) => {
                 >
                   <div
                     class={[
+                      'backdrop-blur-sm',
                       'flex flex-col p-2 sm:p-5 md:px-5 md:py-10 font-semibold overflow-hidden',
-                      { 'text-primary-500': index > 1 },
-                      { 'text-primary-500': index === 0 },
+                      { 'text-white': index > 1 },
+                      { 'text-white': index === 0 },
                       { 'text-white': index === 1 },
                       { 'text-white': index === 2 },
                       { 'text-white': index === 4 },
@@ -99,7 +100,7 @@ export const Carousel = component$<CarouselProps>((props) => {
                 </div>
 
                 <Image
-                  background="white"
+                  background="#0256A1"
                   layout="fullWidth"
                   alt={data.title}
                   width={1200}
@@ -110,9 +111,11 @@ export const Carousel = component$<CarouselProps>((props) => {
                     priority: true,
                     fetchPriority: 'high',
                   })}
-                  {...(index === 1 && { fetchPriority: 'low' })}
-                  class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  class="`
+                    imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
+                  `"
                 />
+                <div class="bg-gradient-to-r from-primary-500 from-20% absolute inset-0"></div>
               </div>
             );
           })}

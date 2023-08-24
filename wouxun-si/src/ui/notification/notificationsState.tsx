@@ -9,10 +9,11 @@ import {
 } from '@builder.io/qwik';
 import { Notification } from '.';
 
-type NotificationType = {
+export type NotificationType = {
+  type: 'success' | 'error';
+  position?: 'top' | 'bottom-right' | 'top-right';
   title: string;
   description?: string;
-  type: 'success' | 'error';
 };
 
 export type NotificationStore = {
@@ -29,7 +30,7 @@ export const useNotifications = () => {
   const addNotification = $((notification: NotificationType) => {
     store.notification = notification;
     setTimeout(() => {
-      // store.notification = null;
+      store.notification = null;
     }, 3500);
   });
 
