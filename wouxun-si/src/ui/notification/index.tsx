@@ -16,20 +16,19 @@ export const Notification = component$<Props>(({ notification, ...rest }) => {
     <div
       class={[
         `      
-        pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg 
+        pointer-events-auto w-full max-w-xs sm:max-w-sm overflow-hidden rounded-lg 
         bg-white shadow-lg ring-1 ring-black ring-opacity-5        
       `,
         `
-        absolute
-        z-50
-        transition ease-in duration-200 transform opacity-0
+        absolute        
+        transition ease-in duration-300 transform opacity-0
       `,
         { 'right-5 bottom-5': notification?.position === 'bottom-right' },
         { 'right-5 top-5': notification?.position === 'top-right' },
         { 'top-5 left-auto': notification?.position === 'top' },
         {
-          'transform opacity-0': notification === null,
-          'transform opacity-100': notification !== null,
+          'transform opacity-0 -z-50': notification === null,
+          'transform opacity-100 visible z-50': notification !== null,
         },
         rest.class,
       ]}
