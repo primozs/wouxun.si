@@ -107,7 +107,7 @@ export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
       <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3 space-y-3">
         <div class="relative w-full">
           <Image
-            {...(index < 6 && {
+            {...(index < 1 && {
               priority: true,
               fetchPriority: 'high',
             })}

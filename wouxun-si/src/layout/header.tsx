@@ -12,7 +12,7 @@ export const Header = component$(() => {
     <header
       class="`
         transform sticky top-0 z-10
-        backdrop-blur bg-white/0
+        backdrop-blur bg-white/90
       `"
     >
       <nav class="max-w-screen-2xl p-3 sm:p6 mx-auto flex items-center justify-between text-primary-500">

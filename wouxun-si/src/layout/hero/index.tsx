@@ -8,8 +8,9 @@ import {
   noSerialize,
   type NoSerialize,
 } from '@builder.io/qwik';
-import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/services/directus';
+import { DImage } from '~/services/directus/DImage';
+// import { Image } from '@unpic/qwik';
+// import { getImageUrl } from '~/services/directus';
 
 // https://swiperjs.com/swiper-api#parameters
 import Swiper from 'swiper';
@@ -63,7 +64,7 @@ export const Carousel = component$<CarouselProps>((props) => {
       >
         <div class="swiper-wrapper">
           {props.banners.value.map((data, index) => {
-            const imageSrc = getImageUrl(data.image ?? '');
+            // const imageSrc = getImageUrl(data.image ?? '');
             return (
               <div
                 class="swiper-slide"
@@ -82,24 +83,36 @@ export const Carousel = component$<CarouselProps>((props) => {
                   <div
                     class={[
                       'backdrop-blur-sm',
-                      'flex flex-col p-2 sm:p-5 md:px-5 md:py-10 font-semibold overflow-hidden',
-                      { 'text-white': index > 1 },
-                      { 'text-white': index === 0 },
-                      { 'text-white': index === 1 },
-                      { 'text-white': index === 2 },
-                      { 'text-white': index === 4 },
+                      `
+                        flex flex-col 
+                        p-3 sm:p-5 md:px-5 md:py-10 
+                        font-semibold overflow-hidden
+
+                        text-white
+                      `,
                     ]}
                   >
-                    <h1 class="text-base sm:text-3xl lg:text-5xl uppercase truncate !leading-normal">
+                    <h1
+                      class="`
+                      text-3xl lg:text-5xl 
+                      break-balanced
+                      truncate !leading-normal
+                    `"
+                    >
                       {data.title}
                     </h1>
-                    <h2 class="text-base sm:text-2xl lg:text-3xl truncate">
+                    <h2
+                      class="`
+                      text-2xl lg:text-3xl 
+                      break-balanced
+                    `"
+                    >
                       {data.subtitle}
                     </h2>
                   </div>
                 </div>
 
-                <Image
+                {/* <Image
                   background="#0256A1"
                   layout="fullWidth"
                   alt={data.title}
@@ -111,6 +124,26 @@ export const Carousel = component$<CarouselProps>((props) => {
                     priority: true,
                     fetchPriority: 'high',
                   })}
+                  class="`
+                    imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
+                  `"
+                /> */}
+                <DImage
+                  dId={data.image}
+                  dType="image/webp"
+                  keys={[
+                    '600-x-150-jpg',
+                    '600-x-150-webp',
+                    '1200-x-300-jpg',
+                    '1200-x-300-webp',
+                  ]}
+                  style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                  layout="unstyled"
+                  sizes="
+                  (max-width: 640px) 95vw,       
+                  (max-width: 1024px) 770px, 770px"
+                  alt={data.title}
+                  {...(index === 0 && { fetchPriority: 'high' })}
                   class="`
                     imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
                   `"
@@ -134,22 +167,16 @@ type SlideControlsProps = {
 
 export const SlideControls = component$<SlideControlsProps>((props) => {
   useStylesScoped$(`
-  /*
-  [1]: All items a forced onto a single line, causing the overflow when necessary.
-  [2]: Automatic overflow means a scroll bar won’t be present if it isn’t needed
-  [3]: Make it smooth scrolling on iOS devices before
-  [4]: Hide the ugly scrollbars in Edge until the scrollable area is hovered
-  [5]: Hide the scroll bar in WebKit browsers
-  */
   .scroll {
-    white-space: nowrap; /* [1] */
-    overflow-x: auto; /* [2] */
-    -webkit-overflow-scrolling: touch; /* [3] */
-    -ms-overflow-style: -ms-autohiding-scrollbar; /* [4] */ }
-  
-  /* [5] */
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar; 
+  }
+
   .scroll::-webkit-scrollbar {
-    display: none; }
+    display: none; 
+  }
   `);
 
   return (

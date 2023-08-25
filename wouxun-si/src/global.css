@@ -121,3 +121,7 @@ img.imageerr::after {
   padding: 20px;
   text-align: center;
 }
+
+.break-balanced {
+  text-wrap: balance;
+}

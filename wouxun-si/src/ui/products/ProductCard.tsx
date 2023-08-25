@@ -77,9 +77,12 @@ const Thumbnail = component$(
               height={510}
               cdn="directus"
               src={getImageUrl(thumbnail)}
-              {...(index < 1 && {
+              {...(index === 0 && {
                 priority: true,
                 fetchPriority: 'high',
+              })}
+              {...(index !== 0 && {
+                loading: 'lazy',
               })}
               class="imageerr rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[3/2]"
             />
