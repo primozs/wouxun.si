@@ -4,6 +4,7 @@ import { Logo } from './logo';
 import { HeaderMenu } from '~/layout/header-menu';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 // import { CartButton } from '~/ui/cart/CartButton';
+import { config } from '~/config';
 
 export const Header = component$(() => {
   const mobileMenuVisible = useSignal(false);
@@ -17,7 +18,12 @@ export const Header = component$(() => {
     >
       <nav class="max-w-screen-2xl p-3 sm:p6 mx-auto flex items-center justify-between text-primary-500">
         <div class="mr-5">
-          <Link href="/" title="Wouxun Slovenija začetna stran">
+          <Link
+            href="/"
+            title={
+              'Wouxun Slovenija začetna stran, v' + config.APPLICATION_VERSION
+            }
+          >
             <Logo />
           </Link>
         </div>
@@ -27,6 +33,7 @@ export const Header = component$(() => {
             <div class="hidden sm:block">
               <HeaderMenu />
             </div>
+
             {/* <CartButton /> */}
           </div>
 

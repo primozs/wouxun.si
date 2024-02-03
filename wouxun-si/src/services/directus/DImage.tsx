@@ -126,11 +126,11 @@ export const DImage = component$<DImageProps>(
 
     return (
       <picture>
-        {dType && sourceSrcSet && <source type={dType} srcSet={sourceSrcSet} />}
+        {dType && sourceSrcSet && <source type={dType} srcset={sourceSrcSet} />}
         <Image
           {...rest}
           src={src}
-          srcSet={imgSrcSet}
+          srcset={imgSrcSet}
           width={imageWidth}
           {...(imageHeight && { height: imageHeight })}
         />
@@ -358,6 +358,8 @@ export const Image = component$<ImageProps>((props) => {
         class={[
           layout === 'responsive' &&
             'relative h-auto w-full max-w-full object-cover object-center',
+          // @ts-ignore
+          props.class,
         ]}
         {...(error.value && { 'data-msg-onerror': errorMsg })}
         data-msg-onerror={errorMsg}

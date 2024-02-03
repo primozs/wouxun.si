@@ -19,9 +19,9 @@
     "types": ["node", "vite/client"],
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "~/*": ["./src/*"]
-    }
+      "~/*": ["./src/*"],
+    },
   },
   "files": ["./.eslintrc.cjs"],
-  "include": ["src", "./*.d.ts"]
+  "include": ["src", "./*.d.ts", "./*.config.ts"],
 }

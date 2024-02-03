@@ -23,6 +23,9 @@ import { LoadingDots } from '../loading-dots';
 import { getMedusaClient } from '~/services/medusa';
 import { useNotifications } from '../notification/notificationsState';
 import { ShoppingBagIcon } from '../icons/shopping-bag-icon';
+import JSCookies from 'js-cookie';
+import { useCart } from '../cart/cartState';
+import { useCartDialog } from '../cart/CartDialog';
 
 export interface DetailsProps {
   product: Signal<ProductDetail>;
@@ -56,6 +59,7 @@ export const ClientPriceAddToCart = component$<ClientPriceAddToCartProps>(
     const store = useAppGlobal();
     const errorMsg = 'Napaka pri prenosu podatkov';
 
+    // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
       try {
         track(product);
@@ -73,12 +77,16 @@ export const ClientPriceAddToCart = component$<ClientPriceAddToCartProps>(
       <div class="min-h-[80px]">
         <Resource
           value={mProduct}
-          onResolved={(product) => {
+          onResolved={(pricedProduct) => {
             return (
               <>
-                <ProductPrice product={product} />
+                <ProductPrice product={pricedProduct} />
                 <div class="flex flex-col">
-                  <AddToCart product={product} />
+                  <AddToCart
+                    product={pricedProduct}
+                    externalId={product.value?.id ?? ''}
+                    thumbnailId={product.value?.thumbnail ?? ''}
+                  />
                 </div>
               </>
             );
@@ -94,65 +102,79 @@ export const ClientPriceAddToCart = component$<ClientPriceAddToCartProps>(
 
 export interface AddToCartProps {
   product: PricedProduct | null;
+  externalId: string;
+  thumbnailId: string;
 }
 
-export const AddToCart = component$<AddToCartProps>(({ product }) => {
-  const adding = useSignal(false);
-  const { addNotification } = useNotifications();
-  // const [cookie] = useCookies(["cartId"]);
+export const AddToCart = component$<AddToCartProps>(
+  ({ product, externalId, thumbnailId }) => {
+    const adding = useSignal(false);
+    const { addNotification } = useNotifications();
+    const { updateCart } = useCart();
+    const { openCartDialog } = useCartDialog();
 
-  const handleClickAddToCart = $(async () => {
-    try {
-      adding.value = !adding.value;
+    const handleClickAddToCart = $(async () => {
+      try {
+        adding.value = !adding.value;
 
-      const client = getMedusaClient();
-      const cartId = ''; // cookie.cartId
-      const lineItem = {
-        variant_id: '',
-        quantity: 1,
-      };
+        const cartId = JSCookies.get('cartId');
+        const variant_id = product?.variants![0]?.id;
 
-      await client.carts.lineItems.create(cartId, lineItem);
-      addNotification({
-        type: 'success',
-        title: 'Dodaj v košarico',
-        description: `${product?.title} je bil uspešno dodan.`,
-        position: 'bottom-right',
-      });
-    } catch (error: any) {
-      addNotification({
-        type: 'error',
-        title: 'Napaka pri dodajanju v košarico',
-        description: error?.message,
-        position: 'bottom-right',
-      });
-    }
+        if (!cartId || !variant_id) throw new Error('no variant id or cart id');
 
-    adding.value = false;
-  });
+        const client = getMedusaClient();
+        const lineItem = {
+          variant_id,
+          quantity: 1,
+          metadata: {
+            externalId,
+            thumbnailId,
+          },
+        };
 
-  if (!product) return null;
+        await client.carts.lineItems.create(cartId, lineItem);
+        await updateCart();
+        openCartDialog();
 
-  return (
-    <Button
-      class="sm:max-w-[250px] space-x-3"
-      intent="primary"
-      onClick$={handleClickAddToCart}
-      disabled={adding.value}
-    >
-      {adding.value ? (
-        <span class="flex h-6 items-center ">
-          <LoadingDots class="bg-white dark:bg-neutral-400" />
-        </span>
-      ) : (
-        <>
-          <ShoppingBagIcon class="h-5 w-5" />
-          <span>Dodaj v voziček</span>
-        </>
-      )}
-    </Button>
-  );
-});
+        // addNotification({
+        //   type: 'success',
+        //   title: 'Dodaj v košarico',
+        //   description: `${product?.title} je bil uspešno dodan.`,
+        // });
+      } catch (error: any) {
+        addNotification({
+          type: 'error',
+          title: 'Napaka pri dodajanju v košarico',
+          description: error?.message,
+        });
+      }
+
+      adding.value = false;
+    });
+
+    if (!product) return null;
+
+    return (
+      <Button
+        class="sm:max-w-[250px] space-x-3"
+        intent="primary"
+        onClick$={handleClickAddToCart}
+        disabled={adding.value}
+      >
+        {adding.value ? (
+          <span class="flex h-6 items-center ">
+            <LoadingDots class="bg-white dark:bg-neutral-400" />
+          </span>
+        ) : (
+          <>
+            <ShoppingBagIcon class="h-5 w-5" />
+            <span>Dodaj v voziček</span>
+          </>
+        )}
+      </Button>
+    );
+  },
+);
 
 export interface TitleProps {
   title: string | undefined;

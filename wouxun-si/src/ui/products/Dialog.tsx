@@ -3,7 +3,6 @@ import { Button } from '../button';
 import { XMark } from '../icons/x-mark';
 import { Tag } from '../tag';
 
-// https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement
 export const Dialog = component$(() => {
   const ref = useSignal<HTMLDialogElement>();
 

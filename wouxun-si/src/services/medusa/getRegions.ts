@@ -8,8 +8,8 @@ export const getRegion = async (country_code: string) => {
     const res = await client.regions.list();
     const regions = res.regions;
 
-    const region = regions.find(
-      (item) => item.countries?.find((c) => c.iso_2 === country_code),
+    const region = regions.find((item) =>
+      item.countries?.find((c) => c.iso_2 === country_code),
     );
 
     return region ? (structuredClone(region) as unknown as Region) : null;

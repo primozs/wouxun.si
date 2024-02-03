@@ -16,10 +16,11 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
         class={[
           `
           bg-white absolute h-screen w-full z-10 sm:hidden
-          transition ease-in duration-200 transform opacity-0
+          transition-all ease-in-out duration-200 opacity-0
           -left-full
+          motion-reduce:transition-none
           `,
-          { ' transform opacity-100 left-0': props.visible.value },
+          { 'opacity-100 left-0': props.visible.value },
         ]}
         window:onKeyDown$={(e) => {
           const ev: KeyboardEvent = e as unknown as KeyboardEvent;

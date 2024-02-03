@@ -7,7 +7,7 @@ import {
   useContextProvider,
   useStore,
 } from '@builder.io/qwik';
-import { Notification } from '.';
+import { NotificationDialog } from '.';
 
 export type NotificationType = {
   type: 'success' | 'error';
@@ -54,7 +54,7 @@ export const NotificationProvider = component$(() => {
   return (
     <>
       <Slot />
-      <Notification notification={store.notification} />
+      <NotificationDialog store={store} position="bottom-right" />
     </>
   );
 });

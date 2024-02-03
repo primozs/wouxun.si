@@ -17,6 +17,12 @@ import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import swiperStyles from './swiper.css?inline';
 
+import ImgGasilci from '~/media/photos/slide_gasilci.jpg?jsx';
+import ImgPadalci from '~/media/photos/slide_padalci.jpg?jsx';
+import ImgRadioamaterji from '~/media/photos/slide_radioamaterji.jpg?jsx';
+import ImgSport from '~/media/photos/slide_sportinprosticas.jpg?jsx';
+import ImgZur from '~/media/photos/slide_zur.jpg?jsx';
+
 export type CarouselSlideData = {
   id: string;
   title: string;
@@ -128,7 +134,62 @@ export const Carousel = component$<CarouselProps>((props) => {
                     imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
                   `"
                 /> */}
-                <DImage
+
+                {data.image === '166168bc-bb90-4fa6-8ffb-efa70ca28d0e' ? (
+                  <ImgGasilci
+                    loading="eager"
+                    alt={data.title}
+                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  />
+                ) : data.image === '7146b7d0-760b-4b38-82d8-00a7981f2b1f' ? (
+                  <ImgZur
+                    alt={data.title}
+                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  />
+                ) : data.image === 'b99899cf-349d-4dda-8638-550e3700ed7e' ? (
+                  <ImgRadioamaterji
+                    alt={data.title}
+                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  />
+                ) : data.image === '1be71fd9-4cf6-47ac-8d44-932b832f5f6e' ? (
+                  <ImgSport
+                    alt={data.title}
+                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  />
+                ) : data.image === '7e681714-af31-482c-81a2-4871ee5c190c' ? (
+                  <ImgPadalci
+                    alt={data.title}
+                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                  />
+                ) : (
+                  <DImage
+                    dId={data.image}
+                    dType="image/webp"
+                    keys={[
+                      '600-x-150-jpg',
+                      '600-x-150-webp',
+                      '1200-x-300-jpg',
+                      '1200-x-300-webp',
+                    ]}
+                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                    layout="unstyled"
+                    sizes="
+                (max-width: 640px) 95vw,
+                (max-width: 1024px) 770px, 770px"
+                    alt={data.title}
+                    {...(index === 0 && { fetchPriority: 'high' })}
+                    class="`
+                  imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]
+                `"
+                  />
+                )}
+
+                {/* <DImage
                   dId={data.image}
                   dType="image/webp"
                   keys={[
@@ -140,14 +201,15 @@ export const Carousel = component$<CarouselProps>((props) => {
                   style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
                   layout="unstyled"
                   sizes="
-                  (max-width: 640px) 95vw,       
-                  (max-width: 1024px) 770px, 770px"
+                (max-width: 640px) 95vw,       
+                (max-width: 1024px) 770px, 770px"
                   alt={data.title}
                   {...(index === 0 && { fetchPriority: 'high' })}
                   class="`
-                    imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
-                  `"
-                />
+                  imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
+                `"
+                /> */}
+
                 <div class="bg-gradient-to-r from-primary-500 from-20% absolute inset-0"></div>
               </div>
             );

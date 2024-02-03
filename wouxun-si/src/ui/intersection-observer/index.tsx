@@ -15,6 +15,7 @@ type Props = {
 };
 
 export const useIntersectionObserver = (props: Props) => {
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(
     ({ cleanup, track }) => {
       track(() => props.target?.value);

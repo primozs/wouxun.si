@@ -75,6 +75,7 @@ export const RouterHead = component$(() => {
       <link
         rel="mask-icon"
         href="/icons/safari-pinned-tab.svg"
+        // @ts-ignore
         color="#5bbad5"
       />
       <meta name="apple-mobile-web-app-capable" content="yes" />

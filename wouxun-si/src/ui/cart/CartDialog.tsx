@@ -1,9 +1,11 @@
 import {
   component$,
-  useSignal,
   Slot,
   $,
   useStylesScoped$,
+  createContextId,
+  type Signal,
+  useContext,
 } from '@builder.io/qwik';
 import { Button } from '../button';
 import { XMark } from '../icons/x-mark';
@@ -11,14 +13,16 @@ import { Tag } from '../tag';
 
 type Props = {};
 
-export const CartDialog = component$<Props>(() => {
-  const dialog = useSignal<HTMLDialogElement>();
+type TCartDialog = Signal<HTMLDialogElement | undefined>;
 
-  const handleClick = $(() => {
-    dialog.value?.show();
-  });
+export const CartDialogContext = createContextId<TCartDialog>(
+  'cart-dialog-context',
+);
 
-  const handleClose = $(() => {
+export const useCartDialog = () => {
+  const dialog = useContext<TCartDialog>(CartDialogContext);
+
+  const closeCardDialog = $(() => {
     dialog.value?.classList.add('hide');
 
     const animationEndHandler = () => {
@@ -34,86 +38,111 @@ export const CartDialog = component$<Props>(() => {
     dialog.value?.addEventListener('animationend', animationEndHandler, false);
   });
 
+  const openCartDialog = $(() => {
+    dialog.value?.showModal();
+  });
+
+  return { dialog, closeCardDialog, openCartDialog };
+};
+
+export const CartDialog = component$<Props>(() => {
+  const { dialog, closeCardDialog, openCartDialog } = useCartDialog();
+
   useStylesScoped$(`
     dialog {      
-      transform: translateX(50%);
-      height: 100vh;
-      position: absolute;
-      top:0;
+      min-inline-size: min(90vw, 750px);
+
+      transition: opacity 0.5s cubic-bezier(.70, 0, 1, 1);
+          
+      margin-inline-end: 0;      
+    
+      max-block-size: 100%;
+      height: 100%;
     }
+
+    dialog::backdrop {
+      /*backdrop-filter: blur(20px);*/
+      /*display: none;*/
+    }    
 
     dialog[open] {
-      animation: show .3s ease normal;
+      animation: slide-in-left .5s cubic-bezier(.25, 0, .3, 1) forwards;
+    }
 
-    }
     dialog.hide {
-        animation: hide 0.3s ease normal;
+      animation: slide-out-right .5s cubic-bezier(.25, 0, .3, 1) forwards;
     }
-    @keyframes show{
-        from {
-            opacity: 0;
-            transform: translateX(110%);
-            backdrop-filter: blur(0.5px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(50%);
-            backdrop-filter: blur(0px);
-        }
+
+    dialog:not([open]) {
+      pointer-events: none;
+      opacity: 0;
     }
-    @keyframes hide{
-        to {
-            opacity: 0;
-            transform: translateX(110%);
-        }
+  
+    @keyframes slide-in-left {
+      from { transform: translateX(100%) }
+    }
+
+    @keyframes slide-out-right {
+      to { transform: translateX(200%) }
+    }
+
+    .content {
+      height: calc(100% - 47px);
     }
   `);
 
   return (
     <>
-      <div onClick$={handleClick} class="cursor-pointer">
-        <Slot />
+      <div onClick$={openCartDialog} class="cursor-pointer">
+        <Slot name="button" />
       </div>
 
       <dialog
         ref={dialog}
         class={[
-          `          
-          outline-none rounded-md overflow-hidden
-          w-1/2
-          shadow-lg
+          `
+          outline-none rounded-l-md shadow-lg
+           p-0
+          overflow-hidden
         `,
         ]}
-        window:onKeyDown$={(e) => {
+        preventdefault:keydown
+        onKeyDown$={(e) => {
           if (e.key === 'Escape') {
-            handleClose();
+            closeCardDialog();
           }
         }}
       >
-        <div class="w-full h-full rounded-lg flex flex-col items-center">
-          <div class="bg-neutral-50 dark:bg-neutral-600 flex flex-row justify-between p-2 border-b w-full border-neutral-200 dark:border-neutral-400">
-            <div class="flex items-center justify-between gap-x-2">
-              <h3 class="text-headers-h4 text-base-light dark:text-base-dark">
-                Nakupna vrečka
-              </h3>
+        <div class="h-full">
+          <div
+            class="`
+          bg-neutral-50 dark:bg-neutral-600
+          border-neutral-200 dark:border-neutral-400
+          p-2 px-3 border-b
+          grid grid-cols-2
+        `"
+          >
+            <h3 class="text-headers-h4 text-base-light dark:text-base-dark">
+              Nakupna vrečka
+            </h3>
 
-              <div class="flex items-center gap-x-1">
-                <Button
-                  intent="icon"
-                  onClick$={handleClose}
-                  type="button"
-                  class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
-                >
-                  <XMark class="h-5 w-5 text-neutral-400" />
-                </Button>
-                <Tag class="hidden md:block" size="small" variant="neutral">
-                  esc
-                </Tag>
-              </div>
+            <div class="flex items-center justify-end gap-3">
+              <Button
+                intent="icon"
+                onClick$={closeCardDialog}
+                type="button"
+                class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
+              >
+                <XMark class="h-5 w-5 text-neutral-400" />
+              </Button>
+              <Tag class="hidden md:block" size="small" variant="neutral">
+                esc
+              </Tag>
             </div>
           </div>
-          <div class="w-full flex items-center justify-center overflow-y-auto overflow-x-hidden">
-            <Slot name="dialog" />
+
+          <div class="overflow-x-hidden overflow-y-auto content">
+            <Slot />
           </div>
         </div>
       </dialog>
