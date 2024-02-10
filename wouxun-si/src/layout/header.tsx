@@ -1,5 +1,4 @@
 import { component$, useSignal } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
 import { Logo } from './logo';
 import { HeaderMenu } from '~/layout/header-menu';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
@@ -18,14 +17,14 @@ export const Header = component$(() => {
     >
       <nav class="max-w-screen-2xl p-3 sm:p6 mx-auto flex items-center justify-between text-primary-500">
         <div class="mr-5">
-          <Link
+          <a
             href="/"
             title={
               'Wouxun Slovenija začetna stran, v' + config.APPLICATION_VERSION
             }
           >
             <Logo />
-          </Link>
+          </a>
         </div>
 
         <div class="flex items-center gap-x-1.5">

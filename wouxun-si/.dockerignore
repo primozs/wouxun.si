@@ -27,3 +27,11 @@ coverage
 *.sw?
 .git
 .env
+
+.vscode
+dist
+deploy
+material
+node_modules
+server
+tmp

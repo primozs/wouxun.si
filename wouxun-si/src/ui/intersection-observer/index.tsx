@@ -42,5 +42,5 @@ export const useIntersectionObserver = (props: Props) => {
 
 export const UseIntersectionObserver = component$<Props>((props) => {
   useIntersectionObserver(props);
-  return <></>;
+  return <div></div>;
 });

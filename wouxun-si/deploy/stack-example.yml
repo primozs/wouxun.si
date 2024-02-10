@@ -5,7 +5,7 @@ services:
     environment:
       TZ: Europe/Ljubljana
     ports:
-      - 3050:80
+      - 3050:3000
     networks:
       - traefik-public
     logging:
@@ -14,7 +14,7 @@ services:
       labels:
         traefik.http.routers.wouxun-si-https.tls: "true"
         traefik.http.routers.wouxun-si-https.entrypoints: https
-        traefik.http.services.wouxun-si.loadbalancer.server.port: "80"
+        traefik.http.services.wouxun-si.loadbalancer.server.port: "3000"
         traefik.http.routers.wouxun-si-https.tls.certresolver: le
         traefik.http.routers.wouxun-si-https.rule: Host(`wouxun.si`)
         traefik.http.routers.wouxun-si-http.rule: Host(`wouxun.si`)

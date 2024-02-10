@@ -1,6 +1,5 @@
 import { type Signal, component$ } from '@builder.io/qwik';
 import type { Cart, LineItem } from '@medusajs/client-types';
-import { Link } from '@builder.io/qwik-city';
 import { EditItemQuantityButton } from './EditItemQuantityButton';
 import { DeleteItemButton } from './DeleteItemButton';
 import { ShoppingBagIcon2 } from '../icons/shopping-bag-icon2';
@@ -56,7 +55,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
                       class="flex justify-between flex-row items-center gap-5 border-b border-neutral-200 px-8 py-6"
                     >
                       <div class="flex flex-row justify-between w-full">
-                        <Link
+                        <a
                           class="flex flex-row space-x-4"
                           href={merchandiseUrl}
                           onClick$={() => {
@@ -92,7 +91,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
                               {item.title}
                             </span>
                           </div>
-                        </Link>
+                        </a>
                         <EditItemQuantityButton item={item} />
                       </div>
                       <div>

@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
 import { cleanTitle } from './cleanTitle';
 import { useProducts } from '~/routes/layout';
 
@@ -13,8 +12,7 @@ export const ProductListAside = component$(() => {
         {products.value.map((item) => {
           return (
             <li key={item.id} class="text-base font-medium leading-6">
-              <Link
-                prefetch={true}
+              <a
                 href={`/product/${item.handle}`}
                 onClick$={() => {
                   const mediaQuery = window.matchMedia('(max-width: 768px)');
@@ -27,10 +25,9 @@ export const ProductListAside = component$(() => {
                     });
                   }
                 }}
-                scroll={false}
               >
                 {cleanTitle(item.title)}
-              </Link>
+              </a>
             </li>
           );
         })}

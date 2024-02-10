@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
 import type { ProductListIem } from '~/services/products/getDirectusProductData';
@@ -13,7 +13,7 @@ type ProductCardProps = {
 export const ProductCard = component$<ProductCardProps>(
   ({ product, index }) => {
     return (
-      <Link href={`/product/${product.handle}`} prefetch={true} scroll={false}>
+      <a href={`/product/${product.handle}`}>
         <article
           class="`
         w-full overflow-hidden rounded-2xl         
@@ -28,7 +28,7 @@ export const ProductCard = component$<ProductCardProps>(
           />
           <Info product={product} />
         </article>
-      </Link>
+      </a>
     );
   },
 );

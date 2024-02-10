@@ -10,7 +10,6 @@ import { getBlogList } from '~/services/blog/getBlogData';
 import { Alert } from '~/ui/alert';
 import { Image } from '@unpic/qwik';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
-import { Link } from '@builder.io/qwik-city';
 import { getImageUrl } from '~/services/directus';
 
 function isBlogItemArray(val: Signal<unknown>): val is Signal<wouxun_news[]> {
@@ -63,6 +62,10 @@ export const BlogListView = component$(() => {
               gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3
               `"
             >
+              {blogs.map((data, index) => {
+                return <BlogCard key={data.id} data={data} index={index} />;
+              })}
+              <div ref={infScrollTarget}></div>
               <UseIntersectionObserver
                 target={infScrollTarget}
                 callback$={(entries) => {
@@ -73,10 +76,6 @@ export const BlogListView = component$(() => {
                   });
                 }}
               />
-              {blogs.map((data, index) => {
-                return <BlogCard key={data.id} data={data} index={index} />;
-              })}
-              <div ref={infScrollTarget}></div>
             </div>
           );
         }}
@@ -103,7 +102,7 @@ type BlogCardProps = {
 export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
   const imageSrc = getImageUrl(data.image ?? '');
   return (
-    <Link href={`/aktualno/${data.slug}`}>
+    <a href={`/aktualno/${data.slug}`}>
       <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3 space-y-3">
         <div class="relative w-full">
           <Image
@@ -131,6 +130,6 @@ export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
           </div>
         </div>
       </article>
-    </Link>
+    </a>
   );
 });

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Link, useLocation, useContent } from '@builder.io/qwik-city';
+import { useLocation, useContent } from '@builder.io/qwik-city';
 
 type Props = {
   darkBg?: boolean;
@@ -34,8 +34,7 @@ export const HeaderMenu = component$<Props>((props) => {
 
                 return (
                   <li key={item.text}>
-                    <Link
-                      prefetch={true}
+                    <a
                       href={item.href}
                       class={[
                         'text-base font-semibold',
@@ -44,7 +43,7 @@ export const HeaderMenu = component$<Props>((props) => {
                       ]}
                     >
                       {item.text}
-                    </Link>
+                    </a>
                   </li>
                 );
               })}
