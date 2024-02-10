@@ -34,4 +34,4 @@ COPY --chown=node --from=builder /app/server ./server
 COPY --chown=node --from=builder /app/package.json ./package.json
 COPY --chown=node --from=proddeps /app/node_modules ./node_modules
 EXPOSE 3000
-CMD ["node", "server/entry.fastify.js"]
+CMD ["node", "server/entry.express.js"]
