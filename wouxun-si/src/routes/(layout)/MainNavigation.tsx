@@ -6,7 +6,7 @@ type Props = {
   isMobile?: boolean;
 };
 
-export const HeaderMenu = component$<Props>((props) => {
+export const MainNavigation = component$<Props>((props) => {
   const { menu } = useContent();
   const { url } = useLocation();
 

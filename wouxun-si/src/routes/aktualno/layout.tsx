@@ -1,10 +1,17 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { LayoutBlog } from '~/layout/LayoutBlog';
+import { Footer } from '~/routes/(layout)/footer';
+import { Header } from '~/routes/(layout)/header';
 
 export default component$(() => {
   return (
-    <LayoutBlog>
-      <Slot />
-    </LayoutBlog>
+    <>
+      <Header />
+      <>
+        <main class="max-w-screen-2xl mx-auto px-4 sm:px-5 w-full mb-10">
+          <Slot />
+        </main>
+      </>
+      <Footer />
+    </>
   );
 });

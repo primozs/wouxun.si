@@ -1,6 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Logo } from './logo';
-import { HeaderMenu } from '~/layout/header-menu';
+import { MainNavigation } from '~/routes/(layout)/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 // import { CartButton } from '~/ui/cart/CartButton';
 import { config } from '~/config';
@@ -30,7 +30,7 @@ export const Header = component$(() => {
         <div class="flex items-center gap-x-1.5">
           <div class="flex items-center">
             <div class="hidden sm:block">
-              <HeaderMenu />
+              <MainNavigation />
             </div>
 
             {/* <CartButton /> */}

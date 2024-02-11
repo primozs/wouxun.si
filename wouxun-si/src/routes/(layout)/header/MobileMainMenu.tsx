@@ -3,7 +3,7 @@ import { useClickOutside } from '~/ui/hooks/useClickOutside';
 import { Button } from '~/ui/button';
 import { MenuIcon } from '~/ui/icons/menu-icon';
 import { CloseIcon } from '~/ui/icons/close-icon';
-import { HeaderMenu } from './header-menu';
+import { MainNavigation } from '../MainNavigation';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
@@ -31,7 +31,7 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
         id="mobile-menu"
       >
         <div class="space-y-1 p-10">
-          <HeaderMenu isMobile={true} />
+          <MainNavigation isMobile={true} />
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import Contact from '~/content/contact.mdx';
-import { HeaderMenu } from './header-menu';
+import { MainNavigation } from '../MainNavigation';
 
 export const Footer = component$(() => {
   return (
@@ -14,7 +14,7 @@ export const Footer = component$(() => {
 
       <div class="max-w-screen-2xl mx-auto p-6">
         <div class="hidden sm:block">
-          <HeaderMenu darkBg={true} />
+          <MainNavigation darkBg={true} />
         </div>
         <div
           class="`    

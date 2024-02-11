@@ -4,7 +4,7 @@ import {
   RouterOutlet,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
-import { RouterHead } from './layout/router-head';
+import { RouterHead } from './router-head';
 
 import './global.css';
 import { AppGlobalProvider } from '~/ui/common/appGlobalState';

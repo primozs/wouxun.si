@@ -20,7 +20,7 @@ type TCartContext = Signal<Cart | null>;
 
 const CartContext = createContextId<TCartContext>('cart-context');
 
-export const createCart = async (region: Region) => {
+const createCart = async (region: Region) => {
   const client = getMedusaClient();
   const { cart } = await client.carts.create({
     region_id: region.id,

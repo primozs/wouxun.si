@@ -1,7 +1,6 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { type RequestHandler, routeLoader$ } from '@builder.io/qwik-city';
 import { getProductList } from '~/services/products/getDirectusProductData';
-import { getBanners } from '~/services/banners/getBannersData';
 import { getMedusaApi } from '~/services/medusa';
 import { srvSetLocale, getUserLocaleSrv } from '~/ui/common/srvGetLocale';
 import { config } from '~/config';
@@ -21,11 +20,6 @@ export const useProducts = routeLoader$(async (event) => {
   const locale = getUserLocaleSrv(event);
   const res = await getProductList(locale);
   return res;
-});
-
-export const useBannersData = routeLoader$(async () => {
-  const banners = await getBanners();
-  return banners;
 });
 
 export const useGetRegion = routeLoader$(async () => {
