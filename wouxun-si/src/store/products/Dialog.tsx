@@ -1,7 +1,7 @@
 import { component$, useSignal, Slot, $ } from '@builder.io/qwik';
-import { Button } from '../button';
-import { XMark } from '../icons/x-mark';
-import { Tag } from '../tag';
+import { Button } from '~/ui/button';
+import { XMark } from '~/ui/icons/x-mark';
+import { Tag } from '~/ui/tag';
 
 export const Dialog = component$(() => {
   const ref = useSignal<HTMLDialogElement>();

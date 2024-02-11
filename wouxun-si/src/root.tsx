@@ -7,7 +7,7 @@ import {
 import { RouterHead } from './router-head';
 
 import './global.css';
-import { AppGlobalProvider } from '~/ui/common/appGlobalState';
+import { AppGlobalProvider } from '~/store/common/AppGlobalProvider';
 import { NotificationProvider } from './ui/notification/notificationsState';
 // import { CartProvider } from '~/ui/cart/cartState';
 

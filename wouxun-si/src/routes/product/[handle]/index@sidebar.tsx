@@ -9,10 +9,10 @@ import {
   getProductByHandle,
   getProductsIds,
 } from '~/services/products/getDirectusProductData';
-import { getUserLocaleSrv } from '~/ui/common/srvGetLocale';
-import { MainImage } from '~/ui/products/ProductDetail';
-import { Gallery } from '~/ui/products/ProductDetail';
-import { Details } from '~/ui/products/ProductDetail';
+import { getUserLocaleSrv } from '~/store/common/srvGetLocale';
+import { MainImage } from '~/store/products/ProductDetail';
+import { Gallery } from '~/store/products/ProductDetail';
+import { Details } from '~/store/products/ProductDetail';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const locale = getUserLocaleSrv(event);

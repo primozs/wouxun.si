@@ -11,9 +11,9 @@ import {
 } from '@builder.io/qwik';
 import JSCookies from 'js-cookie';
 import { config } from '~/config';
-import { useAppGlobal } from '../common/appGlobalState';
+import { useAppGlobal } from '../../store/common/AppGlobalProvider';
 import type { Cart, Region } from '@medusajs/client-types';
-import { CartDialogContext } from '~/ui/cart/CartDialog';
+import { CartDialogContext } from '~/store/cart/CartDialog';
 import { getMedusaClient } from '~/services/medusa';
 
 type TCartContext = Signal<Cart | null>;

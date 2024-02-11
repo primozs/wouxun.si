@@ -8,7 +8,15 @@ import {
 } from '@builder.io/qwik';
 import type { Region } from '@medusajs/client-types';
 import { config } from '~/config';
-import { useGetRegion } from '~/routes/layout';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { getRegion } from '~/services/medusa/getRegions';
+
+// eslint-disable-next-line qwik/loader-location
+export const useGetRegion = routeLoader$(async () => {
+  const country_code = config.DEFAULT_COUNTRY;
+  const region = await getRegion(country_code);
+  return region;
+});
 
 export interface AppGlobalStore {
   country: string | null;

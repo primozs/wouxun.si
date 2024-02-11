@@ -1,8 +1,8 @@
 import { $, component$, useSignal } from '@builder.io/qwik';
 import type { LineItem } from '@medusajs/client-types';
-import { LoadingDots } from '../loading-dots';
 import { getMedusaClient } from '~/services/medusa';
 import { useCart } from './cartState';
+import { LoadingDots } from '~/ui/loading-dots';
 
 type Props = {
   item: LineItem;

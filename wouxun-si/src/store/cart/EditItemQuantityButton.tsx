@@ -1,9 +1,9 @@
 import { $, component$, useSignal } from '@builder.io/qwik';
-import { ChevronUpDown } from '../icons/chevron-up-down';
-import { LoadingDots } from '../loading-dots';
 import type { LineItem } from '@medusajs/client-types';
 import { getMedusaClient } from '~/services/medusa';
 import { useCart } from './cartState';
+import { LoadingDots } from '~/ui/loading-dots';
+import { ChevronUpDown } from '~/ui/icons/chevron-up-down';
 
 type Props = {
   item: LineItem;

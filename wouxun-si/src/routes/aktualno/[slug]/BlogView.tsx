@@ -5,7 +5,7 @@ import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
-import { useAppGlobal } from '~/ui/common/appGlobalState';
+import { useAppGlobal } from '~/store/common/AppGlobalProvider';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;

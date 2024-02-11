@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { useNotifications } from '../notification/notificationsState';
-import { Button } from '../button';
+import { Button } from '~/ui/button';
+import { useNotifications } from '~/ui/notification/notificationsState';
 
 export interface CheckoutButtonsProps {}
 

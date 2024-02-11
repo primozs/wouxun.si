@@ -1,10 +1,25 @@
 import { component$, Slot } from '@builder.io/qwik';
+import { type RequestHandler } from '@builder.io/qwik-city';
+import { srvSetLocale } from '~/store/common/srvGetLocale';
 import { Footer } from '~/routes/(layout)/footer';
 import { Header } from '~/routes/(layout)/header';
 import OstaliModeli from '~/content/ostaliModeli.mdx';
-import { ProductListAside } from '~/ui/products/ProductListAside';
+import { ProductListAside } from '~/store/products/ProductListAside';
 
-export const LayoutSidebar = component$(() => {
+export { useGetRegion } from '~/store/common/AppGlobalProvider';
+export { useProducts } from '~/store/products/ProductListAside';
+
+export const onGet: RequestHandler = async (reqEvent) => {
+  reqEvent.cacheControl({
+    // Always serve a cached response by default, up to a week stale
+    staleWhileRevalidate: 60 * 60 * 24 * 7,
+    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
+    maxAge: 5,
+  });
+  srvSetLocale(reqEvent);
+};
+
+export default component$(() => {
   return (
     <>
       <Header />

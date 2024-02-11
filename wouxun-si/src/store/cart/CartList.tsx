@@ -2,11 +2,11 @@ import { type Signal, component$ } from '@builder.io/qwik';
 import type { Cart, LineItem } from '@medusajs/client-types';
 import { EditItemQuantityButton } from './EditItemQuantityButton';
 import { DeleteItemButton } from './DeleteItemButton';
-import { ShoppingBagIcon2 } from '../icons/shopping-bag-icon2';
+import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { CheckoutButtons } from './CheckoutButtons';
 import { Image } from '@unpic/qwik';
 import { useCartDialog } from './CartDialog';
-import ListPrice from '../products/Price';
+import ListPrice from '~/store/products/Price';
 import { getImageUrl } from '~/services/directus';
 
 export interface CartListProps {

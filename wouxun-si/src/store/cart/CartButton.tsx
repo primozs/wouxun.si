@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { Button } from '../button';
-import { ShoppingBagIcon2 } from '../icons/shopping-bag-icon2';
+import { Button } from '~/ui/button';
+import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { CartDialog } from './CartDialog';
 import { CartList } from './CartList';
 import { useCart } from './cartState';

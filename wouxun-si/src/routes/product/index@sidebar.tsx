@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { type DocumentHead } from '@builder.io/qwik-city';
-import { ProductList } from '~/ui/products/ProductList';
+import { ProductList } from '~/store/products/ProductList';
 
 export default component$(() => {
   return (

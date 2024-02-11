@@ -3,7 +3,7 @@ import { Footer } from '~/routes/(layout)/footer';
 import { Header } from '~/routes/(layout)/header';
 import { Carousel } from './hero';
 import OstaliModeli from '~/content/ostaliModeli.mdx';
-import { ProductListAside } from '~/ui/products/ProductListAside';
+import { ProductListAside } from '~/store/products/ProductListAside';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { getBanners } from '~/services/banners/getBannersData';
 
