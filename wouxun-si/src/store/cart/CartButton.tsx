@@ -3,12 +3,12 @@ import { Button } from '~/ui/button';
 import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { CartDialog } from './CartDialog';
 import { CartList } from './CartList';
-import { useCart } from './cartState';
+import { useCartLoader } from '~/routes/plugin@store';
 
 export interface CartButtonProps {}
 
 export const CartButton = component$<CartButtonProps>(() => {
-  const { cart } = useCart();
+  const cart = useCartLoader();
 
   return (
     <>

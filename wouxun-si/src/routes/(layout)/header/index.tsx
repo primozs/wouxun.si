@@ -2,7 +2,7 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Logo } from './logo';
 import { MainNavigation } from '~/routes/(layout)/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
-// import { CartButton } from '~/ui/cart/CartButton';
+import { CartButton } from '~/store/cart/CartButton';
 import { config } from '~/config';
 
 export const Header = component$(() => {
@@ -33,7 +33,7 @@ export const Header = component$(() => {
               <MainNavigation />
             </div>
 
-            {/* <CartButton /> */}
+            <CartButton />
           </div>
 
           <MobileMainMenuButton visible={mobileMenuVisible} />

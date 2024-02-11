@@ -1,9 +1,8 @@
-import { $, component$, useSignal } from '@builder.io/qwik';
+import { component$, useSignal } from '@builder.io/qwik';
 import type { LineItem } from '@medusajs/client-types';
-import { getMedusaClient } from '~/services/medusa';
-import { useCart } from './cartState';
 import { LoadingDots } from '~/ui/loading-dots';
 import { ChevronUpDown } from '~/ui/icons/chevron-up-down';
+import { useSetCartItemQuantityAction } from '~/routes/plugin@store';
 
 type Props = {
   item: LineItem;
@@ -11,19 +10,7 @@ type Props = {
 
 export const EditItemQuantityButton = component$<Props>(({ item }) => {
   const isLoading = useSignal(false);
-  const { updateCart } = useCart();
-
-  const handleUpdate = $(async (item: LineItem, quantity: number) => {
-    try {
-      isLoading.value = true;
-      const client = getMedusaClient();
-      await client.carts.lineItems.update(item.cart_id!, item.id, { quantity });
-      await updateCart();
-    } finally {
-      isLoading.value = false;
-    }
-  });
-
+  const action = useSetCartItemQuantityAction();
   return (
     <>
       {isLoading.value && (
@@ -34,10 +21,12 @@ export const EditItemQuantityButton = component$<Props>(({ item }) => {
           <select
             class="flex flex-row p-1 bg-transparent text-base-light dark:text-base-dark appearance-none cursor-pointer pr-5 z-50"
             value={item.quantity}
-            onChange$={(e) => {
-              // console.log(e.target.value);
+            onChange$={async (e) => {
               // @ts-ignore
-              handleUpdate(item, parseInt(e.target.value));
+              const quantity = parseInt(e.target.value);
+              isLoading.value = true;
+              await action.submit({ itemId: item.id, quantity });
+              isLoading.value = false;
             }}
           >
             {[1, 2, 3, 4, 5].map((n) => (

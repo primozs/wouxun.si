@@ -5,6 +5,8 @@ import {
   type StaticGenerateHandler,
 } from '@builder.io/qwik-city';
 import { config } from '~/config';
+import { useGetRegionLoader } from '~/routes/plugin@store';
+import { getProduct } from '~/services/medusa/getProducts';
 import {
   getProductByHandle,
   getProductsIds,
@@ -12,32 +14,47 @@ import {
 import { getUserLocaleSrv } from '~/store/common/srvGetLocale';
 import { MainImage } from '~/store/products/ProductDetail';
 import { Gallery } from '~/store/products/ProductDetail';
-import { Details } from '~/store/products/ProductDetail';
+import { ProductDetailView } from '~/store/products/ProductDetail';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const locale = getUserLocaleSrv(event);
-  const product = await getProductByHandle(event.params.handle, locale);
-  return product;
+  const region = await event.resolveValue(useGetRegionLoader);
+  try {
+    const productDirectusP = getProductByHandle(event.params.handle, locale);
+    const productMedusaP = getProduct(event.params.handle, region?.id);
+    const [productDirectus, productMedusa] = await Promise.all([
+      productDirectusP,
+      productMedusaP,
+    ]);
+    return { productDirectus, productMedusa };
+  } catch (error: any) {
+    event.fail(500, {
+      errorMessage: error?.message,
+    });
+    return { productDirectus: null, productMedusa: null };
+  }
 });
 
 export default component$(() => {
-  const product = useGetProductByHandle();
+  const res = useGetProductByHandle();
 
   return (
     <section>
       <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-10 lg:mx-0 lg:max-w-none lg:grid-cols-2">
         <div id="product-image" class="lg:order-2">
           <MainImage
-            image={product.value?.thumbnail ?? ''}
-            productTitle={product.value?.title ?? ''}
+            image={res.value?.productDirectus?.thumbnail ?? ''}
+            productTitle={res.value?.productDirectus?.title ?? ''}
           />
           <Gallery
-            images={product.value?.media ?? ([] as readonly string[])}
-            productTitle={product.value?.title ?? ''}
+            images={
+              res.value?.productDirectus?.media ?? ([] as readonly string[])
+            }
+            productTitle={res.value?.productDirectus?.title ?? ''}
           />
         </div>
         <div class="w-full lg:order-1">
-          <Details product={product} />
+          <ProductDetailView product={res} />
         </div>
       </div>
     </section>
@@ -47,15 +64,16 @@ export default component$(() => {
 export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useGetProductByHandle);
   return {
-    title: `${data?.title}`,
+    title: `${data?.productDirectus?.title}`,
     meta: [
       {
         name: 'description',
-        content: (data?.description?.slice(0, 140) ?? '') + '...',
+        content:
+          (data?.productDirectus?.description?.slice(0, 140) ?? '') + '...',
       },
       {
         name: 'id',
-        content: data?.id,
+        content: data?.productDirectus?.id,
       },
     ],
   };

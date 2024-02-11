@@ -1,9 +1,9 @@
 import { component$ } from '@builder.io/qwik';
 import { ProductCard } from './ProductCard';
-import { useProducts } from '~/routes/layout';
+import { useProductsLoader } from '~/routes/plugin@store';
 
 export const ProductList = component$(() => {
-  const products = useProducts();
+  const products = useProductsLoader();
   return (
     <div
       class="`

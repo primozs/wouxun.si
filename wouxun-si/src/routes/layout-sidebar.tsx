@@ -6,9 +6,6 @@ import { Header } from '~/routes/(layout)/header';
 import OstaliModeli from '~/content/ostaliModeli.mdx';
 import { ProductListAside } from '~/store/products/ProductListAside';
 
-export { useGetRegion } from '~/store/common/AppGlobalProvider';
-export { useProducts } from '~/store/products/ProductListAside';
-
 export const onGet: RequestHandler = async (reqEvent) => {
   reqEvent.cacheControl({
     // Always serve a cached response by default, up to a week stale

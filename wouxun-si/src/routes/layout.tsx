@@ -2,9 +2,6 @@ import { component$, Slot } from '@builder.io/qwik';
 import { type RequestHandler } from '@builder.io/qwik-city';
 import { srvSetLocale } from '~/store/common/srvGetLocale';
 
-export { useGetRegion } from '~/store/common/AppGlobalProvider';
-export { useProducts } from '~/store/products/ProductListAside';
-
 export const onGet: RequestHandler = async (reqEvent) => {
   reqEvent.cacheControl({
     // Always serve a cached response by default, up to a week stale

@@ -1,18 +1,9 @@
 import { component$ } from '@builder.io/qwik';
 import { cleanTitle } from './cleanTitle';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { getUserLocaleSrv } from '~/store/common/srvGetLocale';
-import { getProductList } from '~/services/products/getDirectusProductData';
-
-// eslint-disable-next-line qwik/loader-location
-export const useProducts = routeLoader$(async (event) => {
-  const locale = getUserLocaleSrv(event);
-  const res = await getProductList(locale);
-  return res;
-});
+import { useProductsLoader } from '~/routes/plugin@store';
 
 export const ProductListAside = component$(() => {
-  const products = useProducts();
+  const products = useProductsLoader();
 
   return (
     <>

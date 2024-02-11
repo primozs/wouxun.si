@@ -4,24 +4,18 @@ import {
   createContextId,
   useContext,
   useContextProvider,
+  useSignal,
   useStore,
 } from '@builder.io/qwik';
-import type { Region } from '@medusajs/client-types';
+// import type { Region } from '@medusajs/client-types';
 import { config } from '~/config';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { getRegion } from '~/services/medusa/getRegions';
-
-// eslint-disable-next-line qwik/loader-location
-export const useGetRegion = routeLoader$(async () => {
-  const country_code = config.DEFAULT_COUNTRY;
-  const region = await getRegion(country_code);
-  return region;
-});
+// import { useGetRegionLoader } from '~/routes/plugin@store';
+import { CartDialogContext } from '~/store/cart/CartDialog';
 
 export interface AppGlobalStore {
   country: string | null;
   locale: string;
-  region: Region | null;
+  // region: Region | null;
 }
 
 export const AppGlobalState =
@@ -32,12 +26,12 @@ export const useAppGlobal = () => {
 };
 
 export const AppGlobalProvider = component$(() => {
-  const region = useGetRegion();
+  // const region = useGetRegionLoader();
   const store = useStore<AppGlobalStore>(
     {
       country: config.DEFAULT_COUNTRY,
       locale: config.DEFAULT_LOCALE,
-      region: region.value,
+      // region: region.value,
     },
     {
       deep: true,
@@ -45,6 +39,9 @@ export const AppGlobalProvider = component$(() => {
   );
 
   useContextProvider<AppGlobalStore>(AppGlobalState, store);
+
+  const cartDialog = useSignal<HTMLDialogElement>();
+  useContextProvider(CartDialogContext, cartDialog);
 
   return (
     <>

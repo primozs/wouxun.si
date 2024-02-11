@@ -1,11 +1,4 @@
-import {
-  Resource,
-  type Signal,
-  component$,
-  useSignal,
-  $,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { type Signal, component$, useSignal, $ } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
 import { mdParse } from '~/ui/md-parse';
@@ -14,151 +7,91 @@ import { cleanTitle } from '~/store/products/cleanTitle';
 import type { ProductDetail } from '~/services/products/getDirectusProductData';
 import { Tags } from './Tags';
 import { ProductPrice } from './Price';
-import { getProduct } from '~/services/medusa/getProducts';
-import { useAppGlobal } from '../../store/common/AppGlobalProvider';
 import type { PricedProduct } from '@medusajs/client-types';
-import { Alert } from '~/ui/alert';
 import { Button } from '~/ui/button';
 import { LoadingDots } from '~/ui/loading-dots';
-import { getMedusaClient } from '~/services/medusa';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { ShoppingBagIcon } from '~/ui/icons/shopping-bag-icon';
-import JSCookies from 'js-cookie';
-import { useCart } from '~/store/cart/cartState';
 import { useCartDialog } from '~/store/cart/CartDialog';
+import { useAddToCartAction } from '~/routes/plugin@store';
 
 export interface DetailsProps {
-  product: Signal<ProductDetail>;
+  product: Signal<{
+    productDirectus: ProductDetail | null;
+    productMedusa: PricedProduct | null;
+  }>;
 }
 
-export const Details = component$<DetailsProps>(({ product }) => {
+export const ProductDetailView = component$<DetailsProps>(({ product }) => {
   return (
     <div class="flex flex-col">
       <div class="flex flex-col gap-y-6">
         <div class="flex flex-col gap-y-2">
-          <Title title={product.value?.title} />
-          {/* <ClientPriceAddToCart product={product} /> */}
+          <Title title={product.value.productDirectus?.title} />
+          <>
+            <ProductPrice product={product.value.productMedusa} />
+            <div class="flex flex-col">
+              <AddToCart
+                productMedusa={product.value.productMedusa}
+                productDirectus={product.value.productDirectus}
+              />
+            </div>
+          </>
         </div>
 
         <div class="flex flex-col gap-y-4">
-          <Tags product={product.value} />
-          <Description description={product.value?.description} />
+          <Tags product={product.value.productDirectus} />
+          <Description
+            description={product.value.productDirectus?.description}
+          />
         </div>
       </div>
     </div>
   );
 });
 
-export interface ClientPriceAddToCartProps {
-  product: Signal<ProductDetail>;
-}
-
-export const ClientPriceAddToCart = component$<ClientPriceAddToCartProps>(
-  ({ product }) => {
-    const mProduct = useSignal<PricedProduct | null | Promise<never>>(null);
-    const store = useAppGlobal();
-    const errorMsg = 'Napaka pri prenosu podatkov';
-
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(async ({ track }) => {
-      try {
-        track(product);
-        const result = await getProduct(
-          product.value?.handle,
-          store.region?.id,
-        );
-        mProduct.value = result;
-      } catch (error) {
-        mProduct.value = Promise.reject(error);
-      }
-    });
-
-    return (
-      <div class="min-h-[80px]">
-        <Resource
-          value={mProduct}
-          onResolved={(pricedProduct) => {
-            return (
-              <>
-                <ProductPrice product={pricedProduct} />
-                <div class="flex flex-col">
-                  <AddToCart
-                    product={pricedProduct}
-                    externalId={product.value?.id ?? ''}
-                    thumbnailId={product.value?.thumbnail ?? ''}
-                  />
-                </div>
-              </>
-            );
-          }}
-          onRejected={() => {
-            return <Alert class="mt-9" intent="error" title={errorMsg} />;
-          }}
-        />
-      </div>
-    );
-  },
-);
-
 export interface AddToCartProps {
-  product: PricedProduct | null;
-  externalId: string;
-  thumbnailId: string;
+  productMedusa: PricedProduct | null;
+  productDirectus: ProductDetail | null;
 }
 
 export const AddToCart = component$<AddToCartProps>(
-  ({ product, externalId, thumbnailId }) => {
+  ({ productMedusa, productDirectus }) => {
+    const action = useAddToCartAction();
+
     const adding = useSignal(false);
     const { addNotification } = useNotifications();
-    const { updateCart } = useCart();
     const { openCartDialog } = useCartDialog();
 
-    const handleClickAddToCart = $(async () => {
-      try {
-        adding.value = !adding.value;
-
-        const cartId = JSCookies.get('cartId');
-        const variant_id = product?.variants![0]?.id;
-
-        if (!cartId || !variant_id) throw new Error('no variant id or cart id');
-
-        const client = getMedusaClient();
-        const lineItem = {
-          variant_id,
-          quantity: 1,
-          metadata: {
-            externalId,
-            thumbnailId,
-          },
-        };
-
-        await client.carts.lineItems.create(cartId, lineItem);
-        await updateCart();
-        openCartDialog();
-
-        // addNotification({
-        //   type: 'success',
-        //   title: 'Dodaj v košarico',
-        //   description: `${product?.title} je bil uspešno dodan.`,
-        // });
-      } catch (error: any) {
-        addNotification({
-          type: 'error',
-          title: 'Napaka pri dodajanju v košarico',
-          description: error?.message,
-        });
-      }
-
-      adding.value = false;
-    });
-
-    if (!product) return null;
+    if (!productMedusa || !productDirectus) return null;
+    const variantId = productMedusa?.variants![0]?.id;
+    const directusId = productDirectus.id;
+    const thumbnailId = productDirectus.thumbnail;
 
     return (
       <Button
         class="sm:max-w-[250px] space-x-3"
         intent="primary"
-        onClick$={handleClickAddToCart}
+        onClick$={async () => {
+          adding.value = !adding.value;
+
+          const { value } = await action.submit({
+            variantId: variantId ?? '',
+            directusId,
+            thumbnailId,
+          });
+
+          if (value.failed) {
+            addNotification({
+              type: 'error',
+              title: 'Napaka pri dodajanju v košarico',
+            });
+          } else {
+            openCartDialog();
+          }
+
+          adding.value = false;
+        }}
         disabled={adding.value}
       >
         {adding.value ? (
