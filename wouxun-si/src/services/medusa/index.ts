@@ -3,6 +3,7 @@
 import Medusa from '@medusajs/medusa-js';
 import { config } from '~/config';
 import ky from 'ky';
+import { RequestEvent, RequestEventAction } from '@builder.io/qwik-city';
 
 export const getMedusaClient = () => {
   const medusa = new Medusa({
@@ -18,4 +19,18 @@ export const getMedusaApi = () => {
     retry: 3,
   });
   return api;
+};
+
+export const SESSION_COOKIE_KEY = 'connect.sid';
+
+export const getSrvSessionHeaders = (
+  req: RequestEventAction | RequestEvent,
+  extra?: Record<string, string>,
+) => {
+  const sessionId = req.cookie.get(SESSION_COOKIE_KEY)?.value ?? '';
+  const headers: Record<string, string> = {
+    Cookie: `connect.sid=${sessionId}`,
+    ...extra,
+  };
+  return headers;
 };
