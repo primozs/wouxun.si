@@ -29,6 +29,7 @@ module.exports = {
       success: colors.green,
       error: colors.red,
       warning: colors.yellow,
+      gray: colors.gray,
     },
     fontFamily: {
       sans: [
