@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { RequestHandler, routeLoader$ } from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import { authSignIn, useAuthSignoutAction } from '~/routes/plugin@auth';
 import { Button } from '~/ui/button';
 import * as v from 'valibot';
@@ -13,6 +13,17 @@ import {
 import { Customer } from '@medusajs/client-types';
 import setCookie from 'set-cookie-parser';
 import { SESSION_COOKIE_KEY } from '~/services/medusa';
+import { TextInput } from '~/ui/input/TextInput';
+
+export default component$(() => {
+  return (
+    <div class="flex flex-1 flex-col justify-center px-4 py-6">
+      <div class="mx-auto w-full max-w-sm lg:w-96">
+        <LoginForm />
+      </div>
+    </div>
+  );
+});
 
 type LoginForm = v.Input<typeof LoginSchema>;
 
@@ -86,7 +97,7 @@ export const useFormAction = formAction$<LoginForm, ResponseType>(
   valiForm$(LoginSchema),
 );
 
-export default component$(() => {
+export const LoginForm = component$(() => {
   const [loginForm, { Field, Form }] = useForm<LoginForm>({
     loader: useFormLoader(),
     validate: valiForm$(LoginSchema),
@@ -100,33 +111,29 @@ export default component$(() => {
       <Form>
         <Field name="email">
           {(field, props) => (
-            <label class="block">
-              <span class="text-gray-700">E-naslov</span>
-              <input
-                {...props}
-                type="email"
-                class="mt-1 block w-full"
-                placeholder="janez@example.com"
-                value={field.value}
-              />
-              {field.error && <div>{field.error}</div>}
-            </label>
+            <TextInput
+              {...props}
+              type="email"
+              label="E-naslov"
+              placeholder="Vpišite email"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
 
         <Field name="password">
           {(field, props) => (
-            <label class="block">
-              <span class="text-gray-700">Geslo</span>
-              <input
-                {...props}
-                type="password"
-                class="form-input mt-1 block w-full"
-                placeholder="Vpišite geslo"
-                value={field.value}
-              />
-              {field.error && <div>{field.error}</div>}
-            </label>
+            <TextInput
+              {...props}
+              type="password"
+              label="Geslo"
+              placeholder="Vpišite geslo"
+              value={field.value}
+              error={field.error}
+              required
+            />
           )}
         </Field>
 
