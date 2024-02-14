@@ -11,7 +11,14 @@ export const FormButton = component$<FormButtonProps>(
     return (
       <Button {...rest} intent={intent}>
         <span class={['relative leading-6']}>
-          <span class={[, loading && 'invisible']}>
+          <span
+            class={[
+              'transition-[opacity,transform,visibility] duration-200',
+              loading
+                ? 'invisible translate-x-5 opacity-0'
+                : 'visible delay-300',
+            ]}
+          >
             <Slot />
           </span>
 

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { globalAction$, routeLoader$, z } from '@builder.io/qwik-city';
+import { routeLoader$, z } from '@builder.io/qwik-city';
 import { authSignIn, useAuthSignoutAction } from '~/routes/plugin@auth';
 import * as v from 'valibot';
 import {
@@ -15,6 +15,7 @@ import { SESSION_COOKIE_KEY } from '~/services/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';
+import { FormHeader } from '~/ui/input/FormHeader';
 
 export default component$(() => {
   return (
@@ -40,13 +41,6 @@ const LoginSchema = v.object({
 });
 
 export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => {
-  return {
-    email: '',
-    password: '',
-  };
-});
-
-export const useResetFormAction = globalAction$(() => {
   return {
     email: '',
     password: '',
@@ -85,6 +79,8 @@ export const useFormAction = formAction$<LoginForm, ResponseType>(
       const callbackUrl = event.query.get('callbackUrl');
       if (callbackUrl) {
         return event.redirect(302, callbackUrl);
+      } else {
+        return event.redirect(302, '/');
       }
 
       return {
@@ -114,11 +110,11 @@ export const LoginForm = component$(() => {
   });
 
   const signout = useAuthSignoutAction();
-  const resetFormAction = useResetFormAction();
 
   return (
-    <>
-      <Form>
+    <div class="space-y-4">
+      <FormHeader heading="Prijava" />
+      <Form id="login-form">
         <Field name="email">
           {(field, props) => (
             <TextInput
@@ -147,12 +143,12 @@ export const LoginForm = component$(() => {
           )}
         </Field>
 
-        <div class="flex justify-start gap-4">
+        <div class="flex flex-row-reverse justify-start gap-4">
           <FormButton type="submit" loading={loginForm.submitting}>
             Prijava
           </FormButton>
 
-          <FormButton
+          {/* <FormButton
             type="button"
             intent="secondary"
             onClick$={() => {
@@ -161,11 +157,11 @@ export const LoginForm = component$(() => {
             loading={signout.isRunning}
           >
             Odjava
-          </FormButton>
+          </FormButton> */}
         </div>
-      </Form>
 
-      <Response of={loginForm} />
-    </>
+        <Response of={loginForm} />
+      </Form>
+    </div>
   );
 });
