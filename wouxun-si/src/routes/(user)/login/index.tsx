@@ -1,7 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
+import { globalAction$, routeLoader$, z } from '@builder.io/qwik-city';
 import { authSignIn, useAuthSignoutAction } from '~/routes/plugin@auth';
-import { Button } from '~/ui/button';
 import * as v from 'valibot';
 import {
   useForm,
@@ -14,6 +13,8 @@ import { Customer } from '@medusajs/client-types';
 import setCookie from 'set-cookie-parser';
 import { SESSION_COOKIE_KEY } from '~/services/medusa';
 import { TextInput } from '~/ui/input/TextInput';
+import { Response } from '~/ui/input/Response';
+import { FormButton } from '~/ui/input/FormButton';
 
 export default component$(() => {
   return (
@@ -45,7 +46,15 @@ export const useFormLoader = routeLoader$<InitialValues<LoginForm>>(() => {
   };
 });
 
+export const useResetFormAction = globalAction$(() => {
+  return {
+    email: '',
+    password: '',
+  };
+});
+
 type ResponseType = any; // Customer
+
 export const useFormAction = formAction$<LoginForm, ResponseType>(
   async (user, event) => {
     try {
@@ -105,6 +114,7 @@ export const LoginForm = component$(() => {
   });
 
   const signout = useAuthSignoutAction();
+  const resetFormAction = useResetFormAction();
 
   return (
     <>
@@ -137,24 +147,25 @@ export const LoginForm = component$(() => {
           )}
         </Field>
 
-        <Button type="submit">Prijava</Button>
+        <div class="flex justify-start gap-4">
+          <FormButton type="submit" loading={loginForm.submitting}>
+            Prijava
+          </FormButton>
+
+          <FormButton
+            type="button"
+            intent="secondary"
+            onClick$={() => {
+              signout.submit();
+            }}
+            loading={signout.isRunning}
+          >
+            Odjava
+          </FormButton>
+        </div>
       </Form>
 
-      <div class="text-blue-500">
-        {/* bug modular forms  */}
-        {JSON.parse(JSON.stringify(loginForm.response, null, 2)).message}
-      </div>
-
-      {loginForm.submitting && <p>submitting...</p>}
-
-      <Button
-        type="button"
-        onClick$={() => {
-          signout.submit();
-        }}
-      >
-        Logout
-      </Button>
+      <Response of={loginForm} />
     </>
   );
 });

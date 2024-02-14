@@ -26,7 +26,7 @@ module.exports = {
       secondary: colors.sky,
       neutral: colors.slate,
       info: colors.blue,
-      success: colors.green,
+      success: colors.blue,
       error: colors.red,
       warning: colors.yellow,
       gray: colors.gray,

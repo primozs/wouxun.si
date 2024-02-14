@@ -10,7 +10,7 @@ export const Button = component$<ButtonProps>(
       unstyled: '',
       primary: `
         py-2
-        px-4
+        px-5
         flex flex-row
         items-center
         justify-center
@@ -20,31 +20,32 @@ export const Button = component$<ButtonProps>(
         shadow-sm
         border-transparent
         bg-primary-500
-        hover:bg-primary-600 
+        hover:bg-primary-600/90 
         text-white
         shadow-sm
+        no-underline transition-colors
       `,
       secondary: `
         py-2
-        px-4
+        px-5
         gap-1
         h-fit
         flex flex-row
-        items-center
+        items-center        
         justify-center
+        font-medium
         text-secondary-900
         shadow-sm
         rounded-md
         border
         border-secondary-200
-        bg-gradient-to-b
-        from-secondary-100
-        to-secondary-200
-        hover:bg-primary-200
+        bg-secondary-600/10
+        hover:bg-secondary-600/20
+        no-underline transition-colors
       `,
       error: `
         py-2
-        px-4
+        px-5
         inline-flex
         items-center
         font-medium
@@ -60,9 +61,9 @@ export const Button = component$<ButtonProps>(
         p-2
         inline-flex items-center justify-center
         rounded-md
-        text-gray-700 dark:text-white
-        hover:bg-gray-100 dark:hover:bg-gray-800
-        hover:text-gray-500 dark:hover:text-white
+        text-primary-500 dark:text-white
+        hover:bg-primary-600/90 dark:hover:bg-primary-800
+        hover:text-white dark:hover:text-white
       `,
     };
     const selectedIntent = intents[intent];
@@ -72,6 +73,7 @@ export const Button = component$<ButtonProps>(
         {...rest}
         class={[
           `
+            relative
             focus-visible:outline-none
             focus-visible:ring-2
             focus-visible:ring-offset-1
@@ -81,16 +83,6 @@ export const Button = component$<ButtonProps>(
           selectedIntent,
           rest.class as string,
         ]}
-        // class={{
-        //   [button({
-        //     intent: intent,
-        //     bold: bold,
-        //     fontSize: fontSize,
-        //     active: active,
-        //     class: typeof rest.class === 'string' ? rest.class : null,
-        //   })]: true,
-        //   ...(typeof rest.class === 'object' && { ...rest.class }),
-        // }}
       >
         <Slot />
       </button>
