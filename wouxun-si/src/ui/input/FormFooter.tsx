@@ -8,9 +8,6 @@ type FormFooterProps = {
   form?: string;
 };
 
-/**
- * Form footer with buttons to reset and submit the form.
- */
 export function FormFooter({
   of: formStore,
   resetAction,

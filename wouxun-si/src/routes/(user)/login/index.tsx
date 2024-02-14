@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$, z } from '@builder.io/qwik-city';
+import { Link, routeLoader$, z } from '@builder.io/qwik-city';
 import { authSignIn, useAuthSignoutAction } from '~/routes/plugin@auth';
 import * as v from 'valibot';
 import {
@@ -16,6 +16,8 @@ import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';
 import { FormHeader } from '~/ui/input/FormHeader';
+import { InputDivider } from '~/ui/input/InputDivider';
+import { LinkButton } from '~/ui/link-button';
 
 export default component$(() => {
   return (
@@ -114,7 +116,7 @@ export const LoginForm = component$(() => {
   return (
     <div class="space-y-4">
       <FormHeader heading="Prijava" />
-      <Form id="login-form">
+      <Form id="login-form" class="space-y-6">
         <Field name="email">
           {(field, props) => (
             <TextInput
@@ -143,7 +145,13 @@ export const LoginForm = component$(() => {
           )}
         </Field>
 
-        <div class="flex flex-row-reverse justify-start gap-4">
+        <div class="flex items-center justify-end">
+          <div class="text-sm">
+            <Link href="/password-reset">Ste pozabili geslo</Link>
+          </div>
+        </div>
+
+        <div>
           <FormButton type="submit" loading={loginForm.submitting}>
             Prijava
           </FormButton>
@@ -160,6 +168,17 @@ export const LoginForm = component$(() => {
           </FormButton> */}
         </div>
 
+        <InputDivider>Ali</InputDivider>
+
+        <div>
+          <LinkButton
+            intent="secondary"
+            class="flex w-full justify-center"
+            href="/register"
+          >
+            Ustvari račun
+          </LinkButton>
+        </div>
         <Response of={loginForm} />
       </Form>
     </div>

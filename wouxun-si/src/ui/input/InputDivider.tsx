@@ -1,6 +1,6 @@
 import { component$, Slot } from '@builder.io/qwik';
 
-export const InputDevider = component$(() => {
+export const InputDivider = component$(() => {
   return (
     <div class="relative">
       <div class="absolute inset-0 flex items-center">

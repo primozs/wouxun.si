@@ -27,7 +27,14 @@ export const Checkbox = component$(
         <label class="flex select-none space-x-4 font-medium md:text-lg lg:text-xl">
           <input
             {...props}
-            class="mt-1 h-4 w-4 cursor-pointer lg:mt-1 lg:h-5 lg:w-5"
+            class={[
+              'mt-1 cursor-pointer',
+              'bg-white dark:bg-gray-700',
+              'border-gray-300 rounded',
+              'text-primary-600',
+              'focus:ring-primary-500 dark:focus:ring-white',
+              'h-4 w-4',
+            ]}
             type="checkbox"
             id={name}
             aria-invalid={!!error}
