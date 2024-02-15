@@ -31,14 +31,12 @@ export const getServerSession = (
       return null;
     });
   event.sharedMap.set('session', shared);
-
   return shared as unknown as Promise<Customer>;
 };
 
 export const protectedRoute: RequestHandler = async (event) => {
-  const session = await getServerSession(event);
+  const session = (await event.sharedMap.get('session')) as Customer | null;
   const sessionCookie = event.cookie.get(SESSION_COOKIE_KEY);
-
   if (!sessionCookie?.value || !session) {
     throw event.redirect(302, `/login?callbackUrl=${event.url.pathname}`);
   }

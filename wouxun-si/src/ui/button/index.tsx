@@ -19,7 +19,7 @@ export const buttonIntents: Record<string, string> = {
     border-transparent
     bg-primary-500
     hover:bg-primary-600/90 
-    text-white    
+    !text-white    
     no-underline transition-colors
   `,
   // gap-1
@@ -78,7 +78,7 @@ export const Button = component$<ButtonProps>(
             focus-visible:ring-2
             focus-visible:ring-offset-1
             focus-visible:ring-primary-500 dark:focus-visible:ring-white
-            text-sm tracking-wide font-semibold leading-6
+            text-sm tracking-wide font-semibold leading-6 whitespace-nowrap
           `,
           selectedIntent,
           rest.class as string,

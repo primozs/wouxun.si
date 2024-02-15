@@ -4,6 +4,7 @@ import { MainNavigation } from '~/routes/(layout)/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 import { CartButton } from '~/store/cart/CartButton';
 import { config } from '~/config';
+import { NavBanner } from './NavBanner';
 
 export const Header = component$(() => {
   const mobileMenuVisible = useSignal(false);
@@ -15,6 +16,7 @@ export const Header = component$(() => {
         backdrop-blur bg-white/90
       `"
     >
+      <NavBanner />
       <nav class="max-w-screen-2xl p-3 sm:p6 mx-auto flex items-center justify-between text-primary-500">
         <div class="mr-5">
           <a

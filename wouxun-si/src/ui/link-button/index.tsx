@@ -23,6 +23,7 @@ export const LinkButton = component$(
             focus-visible:ring-offset-1
             focus-visible:ring-primary-500 dark:focus-visible:ring-white
             text-sm tracking-wide font-semibold leading-6
+            whitespace-nowrap no-underline
           `,
           selectedIntent,
           rest.class as string,

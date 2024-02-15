@@ -1,4 +1,11 @@
-import { routeAction$, routeLoader$, z, zod$ } from '@builder.io/qwik-city';
+import {
+  RequestHandler,
+  routeAction$,
+  routeLoader$,
+  z,
+  zod$,
+} from '@builder.io/qwik-city';
+import type { Customer } from '@medusajs/client-types';
 import {
   SESSION_COOKIE_KEY,
   getMedusaClient,
@@ -7,8 +14,8 @@ import {
 import { getServerSession } from '~/store/auth';
 
 export const useAuthSessionLoader = routeLoader$(async (event) => {
-  const customer = await getServerSession(event);
-  return customer;
+  const session = (await event.sharedMap.get('session')) as Customer | null;
+  return session;
 });
 
 export const useAuthSignoutAction = routeAction$(async (_, event) => {
@@ -45,28 +52,6 @@ export const useAuthSignUpAction = routeAction$(
   }),
 );
 
-// export const useAuthSigninAction = routeAction$(
-//   async (user, event) => {
-//     try {
-//       const res = await authSignIn(user);
-//       if (res.response.status !== 200) {
-//         return event.fail(res.response.status, {
-//           message: 'Not signed in',
-//         });
-//       }
-
-//       return {
-//         success: true,
-//         customer: res.customer,
-//       };
-//     } catch (error: any) {
-//       return event.fail(error.response.status, {
-//         message: error.response.statusText,
-//       });
-//     }
-//   },
-//   zod$({
-//     email: z.string(),
-//     password: z.string(),
-//   }),
-// );
+export const onGet: RequestHandler = async (event) => {
+  await getServerSession(event);
+};

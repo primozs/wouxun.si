@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { Link, routeLoader$, z } from '@builder.io/qwik-city';
-import { authSignIn, useAuthSignoutAction } from '~/routes/plugin@auth';
+import { authSignIn } from '~/routes/plugin@auth';
 import * as v from 'valibot';
 import {
   useForm,
@@ -111,8 +111,6 @@ export const LoginForm = component$(() => {
     action: useFormAction(),
   });
 
-  const signout = useAuthSignoutAction();
-
   return (
     <div class="space-y-4">
       <FormHeader heading="Prijava" />
@@ -151,31 +149,16 @@ export const LoginForm = component$(() => {
           </div>
         </div>
 
-        <div>
+        <div class="flex flex-col">
           <FormButton type="submit" loading={loginForm.submitting}>
             Prijava
           </FormButton>
-
-          {/* <FormButton
-            type="button"
-            intent="secondary"
-            onClick$={() => {
-              signout.submit();
-            }}
-            loading={signout.isRunning}
-          >
-            Odjava
-          </FormButton> */}
         </div>
 
         <InputDivider>Ali</InputDivider>
 
-        <div>
-          <LinkButton
-            intent="secondary"
-            class="flex w-full justify-center"
-            href="/register"
-          >
+        <div class="flex flex-col">
+          <LinkButton intent="secondary" href="/register">
             Ustvari račun
           </LinkButton>
         </div>
