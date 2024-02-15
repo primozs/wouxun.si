@@ -2,8 +2,6 @@ import {
   type RequestHandler,
   routeAction$,
   routeLoader$,
-  z,
-  zod$,
 } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/client-types';
 import {
@@ -26,31 +24,6 @@ export const useAuthSignoutAction = routeAction$(async (_, event) => {
   });
   throw event.redirect(302, '/');
 });
-
-export const authSignIn = async (user: { email: string; password: string }) => {
-  const client = getMedusaClient();
-
-  const res = await client.auth.authenticate({
-    email: user.email,
-    password: user.password,
-  });
-  return res;
-};
-
-export const useAuthSignUpAction = routeAction$(
-  async (user) => {
-    const client = getMedusaClient();
-    const res = await client.customers.create(user);
-    return res.customer;
-  },
-  zod$({
-    first_name: z.string(),
-    last_name: z.string(),
-    email: z.string(),
-    password: z.string(),
-    phone: z.optional(z.string()),
-  }),
-);
 
 export const onGet: RequestHandler = async (event) => {
   await getServerSession(event);

@@ -8,10 +8,6 @@ type ResponseProps = {
   class?: string;
 };
 
-/**
- * Response text usually used at the end of a form to provide feedback to the
- * user.
- */
 export const Response = component$(({ of: form, ...props }: ResponseProps) => {
   // Use frozen response signal
   const frozenResponse = useSignal<FormResponse<any>>();
@@ -31,22 +27,19 @@ export const Response = component$(({ of: form, ...props }: ResponseProps) => {
   });
 
   return (
-    <>
-      <Expandable expanded={!!form.response.message}>
-        <div
-          class={[
-            'px-8 text-base',
-            frozenResponse.value?.status === 'success' &&
-              'text-primary-500 dark:text-gray-400',
-            frozenResponse.value?.status === 'error' &&
-              'text-error-500 dark:text-error-400',
-            props.class,
-          ]}
-        >
-          {frozenResponse.value?.message}
-        </div>
-      </Expandable>
-      {/* {form.submitting && <p>pošiljanje ...</p>} */}
-    </>
+    <Expandable expanded={!!form.response.message}>
+      <div
+        class={[
+          'text-sm',
+          frozenResponse.value?.status === 'success' &&
+            'text-primary-500 dark:text-gray-400',
+          frozenResponse.value?.status === 'error' &&
+            'text-error-500 dark:text-error-400',
+          props.class,
+        ]}
+      >
+        {frozenResponse.value?.message}
+      </div>
+    </Expandable>
   );
 });

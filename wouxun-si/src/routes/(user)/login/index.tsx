@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { type DocumentHead, Link, routeLoader$ } from '@builder.io/qwik-city';
-import { authSignIn } from '~/routes/plugin@auth';
 import * as v from 'valibot';
 import {
   useForm,
@@ -9,9 +8,8 @@ import {
   type InitialValues,
   FormError,
 } from '@modular-forms/qwik';
-import type { Customer } from '@medusajs/client-types';
 import setCookie from 'set-cookie-parser';
-import { SESSION_COOKIE_KEY } from '~/services/medusa';
+import { SESSION_COOKIE_KEY, getMedusaClient } from '~/services/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';
@@ -57,52 +55,48 @@ type ResponseType = any; // Customer
 
 export const useFormAction = formAction$<LoginForm, ResponseType>(
   async (user, event) => {
+    const client = getMedusaClient();
+
+    let res: Awaited<ReturnType<typeof client.auth.authenticate>>;
     try {
-      const res = await authSignIn(user);
-      const customer = res.customer as unknown as Customer;
-
-      // get medusa session cookie
-      // @ts-ignore
-      const cookies = setCookie.parse(res.response.headers['set-cookie'], {
-        map: true,
+      res = await client.auth.authenticate({
+        email: user.email,
+        password: user.password,
       });
-
-      const sessionCookie = cookies[SESSION_COOKIE_KEY];
-      if (!sessionCookie) {
-        throw new FormError<LoginForm>(
-          'Prijava ni bila uspešna. Seja ni bila najdena.',
-        );
-      }
-
-      event.cookie.set(SESSION_COOKIE_KEY, sessionCookie.value, {
-        expires: sessionCookie.expires,
-        httpOnly: true,
-        path: sessionCookie.path,
-        secure: true,
-        sameSite: 'Strict',
-      });
-
-      const callbackUrl = event.query.get('callbackUrl');
-      if (callbackUrl) {
-        return event.redirect(302, callbackUrl);
-      } else {
-        return event.redirect(302, '/');
-      }
-
-      return {
-        status: 'success',
-        message: 'Prijava je bila uspešna.',
-        data: customer,
-      };
-    } catch (error: any) {
+    } catch (error) {
       throw new FormError<LoginForm>(
         'Prijava ni bila uspešna. Preverite email in geslo.',
       );
-      // return event.fail(error.response.status, {
-      //   status: 'error',
-      //   code: error.response.status,
-      //   message: error.response.statusText,
-      // });
+    }
+
+    // const customer = res.customer as unknown as Customer;
+
+    // get medusa session cookie
+    // @ts-ignore
+    const cookies = setCookie.parse(res.response.headers['set-cookie'], {
+      map: true,
+    });
+
+    const sessionCookie = cookies[SESSION_COOKIE_KEY];
+    if (!sessionCookie) {
+      throw new FormError<LoginForm>(
+        'Prijava ni bila uspešna. Seja ni bila najdena.',
+      );
+    }
+
+    event.cookie.set(SESSION_COOKIE_KEY, sessionCookie.value, {
+      expires: sessionCookie.expires,
+      httpOnly: true,
+      path: sessionCookie.path,
+      secure: true,
+      sameSite: 'Strict',
+    });
+
+    const callbackUrl = event.query.get('callbackUrl');
+    if (callbackUrl) {
+      return event.redirect(302, callbackUrl);
+    } else {
+      return event.redirect(302, '/');
     }
   },
   valiForm$(LoginSchema),
@@ -118,7 +112,7 @@ export const LoginForm = component$(() => {
   return (
     <div class="space-y-4">
       <FormHeader heading="Prijava" />
-      <Form id="login-form" class="space-y-6">
+      <Form id="login-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (
             <TextInput
@@ -159,6 +153,10 @@ export const LoginForm = component$(() => {
           </FormButton>
         </div>
 
+        <div>
+          <Response of={loginForm} />
+        </div>
+
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
@@ -166,7 +164,6 @@ export const LoginForm = component$(() => {
             Ustvari račun
           </LinkButton>
         </div>
-        <Response of={loginForm} />
       </Form>
     </div>
   );
