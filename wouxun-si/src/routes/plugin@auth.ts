@@ -1,5 +1,5 @@
 import {
-  RequestHandler,
+  type RequestHandler,
   routeAction$,
   routeLoader$,
   z,

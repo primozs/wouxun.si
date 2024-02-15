@@ -1,18 +1,8 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { Footer } from '~/routes/(layout)/footer';
 import { Header } from '~/routes/(layout)/header';
-import OstaliModeli from '~/content/ostaliModeli.mdx';
-import { ProductListAside } from '~/store/products/ProductListAside';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { getBanners } from '~/services/banners/getBannersData';
-
-export const useBannersData = routeLoader$(async () => {
-  const banners = await getBanners();
-  return banners;
-});
 
 export default component$(() => {
-  const banners = useBannersData();
   return (
     <>
       <Header />

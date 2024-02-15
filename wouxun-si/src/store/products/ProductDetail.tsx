@@ -1,4 +1,4 @@
-import { type Signal, component$, useSignal, $ } from '@builder.io/qwik';
+import { type Signal, component$, useSignal } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
 import { mdParse } from '~/ui/md-parse';

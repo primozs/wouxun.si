@@ -3,7 +3,7 @@
 import Medusa from '@medusajs/medusa-js';
 import { config } from '~/config';
 import ky from 'ky';
-import { RequestEvent, RequestEventAction } from '@builder.io/qwik-city';
+import type { RequestEvent, RequestEventAction } from '@builder.io/qwik-city';
 
 export const getMedusaClient = () => {
   const medusa = new Medusa({

@@ -1,9 +1,9 @@
 import {
   type RequestEventLoader,
   type RequestEvent,
-  RequestHandler,
+  type RequestHandler,
 } from '@builder.io/qwik-city';
-import { Customer } from '@medusajs/client-types';
+import type { Customer } from '@medusajs/client-types';
 
 import {
   SESSION_COOKIE_KEY,

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Link, routeLoader$, z } from '@builder.io/qwik-city';
+import { type DocumentHead, Link, routeLoader$ } from '@builder.io/qwik-city';
 import { authSignIn } from '~/routes/plugin@auth';
 import * as v from 'valibot';
 import {
@@ -9,7 +9,7 @@ import {
   type InitialValues,
   FormError,
 } from '@modular-forms/qwik';
-import { Customer } from '@medusajs/client-types';
+import type { Customer } from '@medusajs/client-types';
 import setCookie from 'set-cookie-parser';
 import { SESSION_COOKIE_KEY } from '~/services/medusa';
 import { TextInput } from '~/ui/input/TextInput';
@@ -28,6 +28,10 @@ export default component$(() => {
     </div>
   );
 });
+
+export const head: DocumentHead = {
+  title: 'Prijava',
+};
 
 type LoginForm = v.Input<typeof LoginSchema>;
 
