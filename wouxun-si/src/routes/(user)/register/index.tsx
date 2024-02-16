@@ -13,6 +13,7 @@ import { getMedusaClient } from '~/services/medusa';
 import { FormButton } from '~/ui/input/FormButton';
 import { FormHeader } from '~/ui/input/FormHeader';
 import { InputDivider } from '~/ui/input/InputDivider';
+import { InputPassword } from '~/ui/input/InputPassword';
 import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
 import { LinkButton } from '~/ui/link-button';
@@ -40,6 +41,7 @@ const RegisterSchema = v.object({
     v.minLength(5, 'Prosimo vpišite email'),
     v.email('E-naslov ni pravilen'),
   ]),
+  phone: v.optional(v.string()),
   password: v.string([
     v.minLength(1, 'Prosimo vpišite geslo'),
     v.minLength(8, 'Geslo mora vsebovati 8 znakov ali več'),
@@ -52,6 +54,7 @@ export const useFormLoader = routeLoader$<InitialValues<RegisterForm>>(
       first_name: '',
       last_name: '',
       email: '',
+      phone: '',
       password: '',
     };
   },
@@ -100,7 +103,7 @@ export const RegisterView = component$(() => {
               type="text"
               label="Ime"
               placeholder="Vpišite ime"
-              auto-complete="name"
+              auto-complete="given-name"
               value={field.value}
               error={field.error}
               required
@@ -138,13 +141,28 @@ export const RegisterView = component$(() => {
           )}
         </Field>
 
-        <Field name="password">
+        <Field name="phone">
           {(field, props) => (
             <TextInput
+              {...props}
+              type="tel"
+              label="Telefon"
+              placeholder="Vpišite telefon"
+              auto-complete="tel"
+              value={field.value}
+              error={field.error}
+            />
+          )}
+        </Field>
+
+        <Field name="password">
+          {(field, props) => (
+            <InputPassword
               {...props}
               type="password"
               label="Geslo"
               placeholder="Vpišite geslo"
+              auto-complete="new-password"
               value={field.value}
               error={field.error}
               required
@@ -160,14 +178,14 @@ export const RegisterView = component$(() => {
           </div>
         </div>
 
+        <div>
+          <Response of={registerForm} />
+        </div>
+
         <div class="flex flex-col">
           <FormButton type="submit" loading={registerForm.submitting}>
             Ustvari račun
           </FormButton>
-        </div>
-
-        <div>
-          <Response of={registerForm} />
         </div>
 
         <InputDivider>Ali</InputDivider>

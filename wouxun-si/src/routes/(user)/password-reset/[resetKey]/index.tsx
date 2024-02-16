@@ -142,14 +142,14 @@ export const ChangePasswordView = component$(() => {
           )}
         </Field>
 
+        <div>
+          <Response of={changePasswordForm} />
+        </div>
+
         <div class="flex flex-col">
           <FormButton type="submit" loading={changePasswordForm.submitting}>
             Zamenjaj geslo
           </FormButton>
-        </div>
-
-        <div>
-          <Response of={changePasswordForm} />
         </div>
 
         <InputDivider>Ali</InputDivider>

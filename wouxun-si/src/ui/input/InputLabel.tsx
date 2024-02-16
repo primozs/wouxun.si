@@ -1,45 +1,24 @@
 import type { QwikIntrinsicElements } from '@builder.io/qwik';
 import { component$, Slot } from '@builder.io/qwik';
 
-type Props = QwikIntrinsicElements['label'];
-
-export const InputLabel1 = component$((props: Props) => {
-  return (
-    <label
-      {...props}
-      class={[
-        `block text-sm font-medium
-        text-gray-700 dark:text-gray-200
-      `,
-        props.class,
-      ]}
-    >
-      <Slot />
-    </label>
-  );
-});
-
 type InputLabelProps = {
   name: string;
   label?: string;
   required?: boolean;
-  margin?: 'none';
+  class?: string | string[];
 };
 
-/**
- * Input label for a form field.
- */
 export const InputLabel = component$(
-  ({ name, label, required, margin }: InputLabelProps) => (
+  ({ name, label, required, ...rest }: InputLabelProps) => (
     <>
       {label && (
         <label
           class={[
             `
-          inline-block text-sm font-medium 
-          text-gray-700 dark:text-gray-200
+          block text-sm font-medium leading-6
+          text-gray-800 dark:text-gray-200
           `,
-            !margin && 'mb-1',
+            rest.class,
           ]}
           for={name}
         >
@@ -52,3 +31,21 @@ export const InputLabel = component$(
     </>
   ),
 );
+
+type Props = QwikIntrinsicElements['label'];
+
+export const InputLabel1 = component$((props: Props) => {
+  return (
+    <label
+      {...props}
+      class={[
+        `block text-sm font-medium leading-6
+        text-gray-800 dark:text-gray-200
+      `,
+        props.class,
+      ]}
+    >
+      <Slot />
+    </label>
+  );
+});

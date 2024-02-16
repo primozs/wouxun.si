@@ -104,14 +104,14 @@ export const PasswordResetView = component$(() => {
           )}
         </Field>
 
+        <div>
+          <Response of={resetPasswordForm} />
+        </div>
+
         <div class="flex flex-col">
           <FormButton type="submit" loading={resetPasswordForm.submitting}>
             Pošlji zahtevo
           </FormButton>
-        </div>
-
-        <div>
-          <Response of={resetPasswordForm} />
         </div>
 
         <InputDivider>Ali</InputDivider>

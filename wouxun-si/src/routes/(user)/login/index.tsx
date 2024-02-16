@@ -16,6 +16,7 @@ import { FormButton } from '~/ui/input/FormButton';
 import { FormHeader } from '~/ui/input/FormHeader';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { LinkButton } from '~/ui/link-button';
+import { InputPassword } from '~/ui/input/InputPassword';
 
 export default component$(() => {
   return (
@@ -120,6 +121,7 @@ export const LoginForm = component$(() => {
               type="email"
               label="E-naslov"
               placeholder="Vpišite email"
+              auto-complete="email"
               value={field.value}
               error={field.error}
               required
@@ -129,11 +131,12 @@ export const LoginForm = component$(() => {
 
         <Field name="password">
           {(field, props) => (
-            <TextInput
+            <InputPassword
               {...props}
               type="password"
               label="Geslo"
               placeholder="Vpišite geslo"
+              auto-complete="current-password"
               value={field.value}
               error={field.error}
               required
@@ -147,14 +150,14 @@ export const LoginForm = component$(() => {
           </div>
         </div>
 
+        <div>
+          <Response of={loginForm} />
+        </div>
+
         <div class="flex flex-col">
           <FormButton type="submit" loading={loginForm.submitting}>
             Prijava
           </FormButton>
-        </div>
-
-        <div>
-          <Response of={loginForm} />
         </div>
 
         <InputDivider>Ali</InputDivider>

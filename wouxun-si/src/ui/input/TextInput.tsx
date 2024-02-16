@@ -1,9 +1,15 @@
-import { component$, useSignal, type QRL, useTask$ } from '@builder.io/qwik';
+import {
+  component$,
+  useSignal,
+  type QRL,
+  useTask$,
+  Slot,
+} from '@builder.io/qwik';
 import { InputLabel } from './InputLabel';
 import { InputHelper } from './InputHelper';
 import { InputErrorIcon } from './InputErrorIcon';
 
-type TextInputProps = {
+export type TextInputProps = {
   name: string;
   type: 'text' | 'email' | 'tel' | 'password' | 'url' | 'number' | 'date';
   label?: string;
@@ -17,11 +23,20 @@ type TextInputProps = {
   onBlur$: (event: Event, element: HTMLInputElement) => void;
   class?: string;
   form?: string;
+  disabled?: boolean;
+  labelHidden?: boolean;
 };
 
 export const TextInput = component$(
-  ({ label, value, error, ...props }: TextInputProps) => {
-    const { name, required } = props;
+  ({
+    label,
+    value,
+    error,
+    labelHidden = false,
+    required,
+    ...props
+  }: TextInputProps) => {
+    const { name } = props;
     const input = useSignal<string | number>();
     useTask$(({ track }) => {
       if (!Number.isNaN(track(() => value))) {
@@ -30,8 +45,16 @@ export const TextInput = component$(
     });
     return (
       <div>
-        <InputLabel name={name} label={label} required={required} />
-        <div class="relative mt-1">
+        <div class="flex justify-between">
+          <InputLabel
+            name={name}
+            label={label}
+            required={required}
+            class={labelHidden === true ? 'sr-only' : undefined}
+          />
+          <Slot name="label-end" />
+        </div>
+        <div class="relative mt-2">
           <input
             {...props}
             id={name}
@@ -42,7 +65,7 @@ export const TextInput = component$(
               `
             form-input
             block w-full appearance-none rounded-sm border
-            px-3 py-2
+            px-3 py-2 pr-10
             shadow-sm
             bg-white dark:bg-gray-700
             
@@ -52,6 +75,11 @@ export const TextInput = component$(
             focus:outline-none focus:ring-1
             focus:ring-primary-500 dark:focus:ring-white
             sm:text-sm
+
+            disabled:cursor-not-allowed 
+            disabled:bg-gray-50 
+            disabled:text-gray-500 
+            disabled:ring-gray-200
             `,
               error
                 ? 'border-error-600/50 dark:border-error-400/50'
@@ -62,6 +90,7 @@ export const TextInput = component$(
               `,
             ]}
           />
+          <Slot name="icon-right" />
           <InputErrorIcon isError={!!error} />
         </div>
         <InputHelper id={`${name}-error`} error={!!error} intent="error">
