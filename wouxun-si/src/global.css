@@ -68,6 +68,20 @@ body {
   outline: solid 1px red;
 } */
 
+@layer components {
+  .content-container {
+    @apply max-w-screen-2xl w-full mx-auto px-4 sm:px-5;
+  }
+
+  .link {
+    @apply text-primary-500
+    focus-visible:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-offset-1
+    focus-visible:ring-primary-500 dark:focus-visible:ring-white;
+  }
+}
+
 .header1,
 .prose h1 {
   @apply text-primary-500 text-2xl font-medium leading-8;

@@ -6,13 +6,9 @@ export default component$(() => {
   return (
     <>
       <Header />
-      <div>
-        <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 flex flex-col sm:flex-row sm:gap-5 my-5">
-          <main class="prose flex-grow order-first sm:order-2">
-            <Slot />
-          </main>
-        </div>
-      </div>
+      <main class="content-container flex flex-1 flex-col my-5">
+        <Slot />
+      </main>
       <Footer />
     </>
   );

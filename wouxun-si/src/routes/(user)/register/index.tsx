@@ -20,10 +20,8 @@ import { LinkButton } from '~/ui/link-button';
 
 export default component$(() => {
   return (
-    <div class="flex flex-1 flex-col justify-center px-4 py-6">
-      <div class="mx-auto w-full max-w-sm lg:w-96">
-        <RegisterView />
-      </div>
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <RegisterView />
     </div>
   );
 });
@@ -172,7 +170,10 @@ export const RegisterView = component$(() => {
 
         <div class="flex items-center justify-end">
           <div class="text-sm">
-            <Link href="/sl/terms-and-conditions">
+            <Link
+              class="link text-sm font-medium leading-6"
+              href="/sl/terms-and-conditions"
+            >
               Varstvo osebnih podatkov
             </Link>
           </div>

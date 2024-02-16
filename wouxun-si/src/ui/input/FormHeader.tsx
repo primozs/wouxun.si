@@ -7,7 +7,7 @@ type FormHeaderProps = {
 export const FormHeader = component$<FormHeaderProps>(({ heading }) => {
   return (
     <header class="flex items-center justify-between">
-      <h1 class="text-lg font-medium leading-6 text-gray-800 dark:text-white">
+      <h1 class="text-2xl font-medium leading-8 text-gray-800 dark:text-white">
         {heading}
       </h1>
       <div class="flex space-x-4">

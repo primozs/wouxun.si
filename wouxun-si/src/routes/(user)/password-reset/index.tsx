@@ -19,10 +19,8 @@ import { LinkButton } from '~/ui/link-button';
 
 export default component$(() => {
   return (
-    <div class="flex flex-1 flex-col justify-center px-4 py-6">
-      <div class="mx-auto w-full max-w-sm lg:w-96">
-        <PasswordResetView />
-      </div>
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <PasswordResetView />
     </div>
   );
 });

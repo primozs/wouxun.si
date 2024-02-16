@@ -20,10 +20,8 @@ import { InputPassword } from '~/ui/input/InputPassword';
 
 export default component$(() => {
   return (
-    <div class="flex flex-1 flex-col justify-center px-4 py-6">
-      <div class="mx-auto w-full max-w-sm lg:w-96">
-        <LoginForm />
-      </div>
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <LoginForm />
     </div>
   );
 });
@@ -146,7 +144,12 @@ export const LoginForm = component$(() => {
 
         <div class="flex items-center justify-end">
           <div class="text-sm">
-            <Link href="/password-reset">Ste pozabili geslo</Link>
+            <Link
+              class="link text-sm font-medium leading-6"
+              href="/password-reset"
+            >
+              Ste pozabili geslo
+            </Link>
           </div>
         </div>
 
