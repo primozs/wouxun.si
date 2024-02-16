@@ -46,7 +46,7 @@ export const NavBanner = component$<Props>((props) => {
           )}
 
           {session.value && (
-            <Link href="/profile" class={[linkStyle]}>
+            <Link href="/account" class={[linkStyle]}>
               {session.value?.first_name} {session.value?.last_name}
             </Link>
           )}
