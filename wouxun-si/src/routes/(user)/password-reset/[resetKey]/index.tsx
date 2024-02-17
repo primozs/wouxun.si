@@ -10,12 +10,12 @@ import {
 } from '@modular-forms/qwik';
 import { handleError } from '~/services/logger';
 import { getMedusaClient } from '~/services/medusa';
-import { FormHeader } from '~/ui/input/FormHeader';
 import { TextInput } from '~/ui/input/TextInput';
 import { FormButton } from '~/ui/input/FormButton';
 import { Response } from '~/ui/input/Response';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { LinkButton } from '~/ui/link-button';
+import { UiTitle } from '~/ui/UiTitle';
 
 export default component$(() => {
   return (
@@ -99,7 +99,7 @@ export const ChangePasswordView = component$(() => {
 
   return (
     <div class="space-y-4">
-      <FormHeader heading="Change password" />
+      <UiTitle size="2xl">Change password</UiTitle>
       <Form id="change-password-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (

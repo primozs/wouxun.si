@@ -10,8 +10,8 @@ import {
 import * as v from 'valibot';
 import { handleError } from '~/services/logger';
 import { getMedusaClient } from '~/services/medusa';
+import { UiTitle } from '~/ui/UiTitle';
 import { FormButton } from '~/ui/input/FormButton';
-import { FormHeader } from '~/ui/input/FormHeader';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { Response } from '~/ui/input/Response';
@@ -91,7 +91,7 @@ export const RegisterView = component$(() => {
 
   return (
     <div class="space-y-4">
-      <FormHeader heading="Ustvarite nov račun" />
+      <UiTitle size="2xl">Ustvarite nov račun</UiTitle>
 
       <Form id="register-form" class="space-y-4">
         <Field name="first_name">

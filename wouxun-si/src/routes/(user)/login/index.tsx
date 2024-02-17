@@ -13,10 +13,10 @@ import { SESSION_COOKIE_KEY, getMedusaClient } from '~/services/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';
-import { FormHeader } from '~/ui/input/FormHeader';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { LinkButton } from '~/ui/link-button';
 import { InputPassword } from '~/ui/input/InputPassword';
+import { UiTitle } from '~/ui/UiTitle';
 
 export default component$(() => {
   return (
@@ -110,7 +110,7 @@ export const LoginForm = component$(() => {
 
   return (
     <div class="space-y-4">
-      <FormHeader heading="Prijava" />
+      <UiTitle size="2xl">Prijava</UiTitle>
       <Form id="login-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (

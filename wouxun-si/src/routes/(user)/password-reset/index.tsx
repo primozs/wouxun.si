@@ -10,8 +10,8 @@ import {
 import * as v from 'valibot';
 import { handleError } from '~/services/logger';
 import { getMedusaClient } from '~/services/medusa';
+import { UiTitle } from '~/ui/UiTitle';
 import { FormButton } from '~/ui/input/FormButton';
-import { FormHeader } from '~/ui/input/FormHeader';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
@@ -85,7 +85,7 @@ export const PasswordResetView = component$(() => {
 
   return (
     <div class="space-y-4">
-      <FormHeader heading="Password reset" />
+      <UiTitle size="2xl">Password reset</UiTitle>
       <Form id="reset-password-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (
