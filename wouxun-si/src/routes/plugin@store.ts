@@ -1,10 +1,16 @@
-import { routeAction$, routeLoader$, z, zod$ } from '@builder.io/qwik-city';
+import {
+  type RequestHandler,
+  routeAction$,
+  routeLoader$,
+  z,
+  zod$,
+} from '@builder.io/qwik-city';
 import { config } from '~/config';
 import { getMedusaApi, getMedusaClient } from '~/services/medusa';
 import { getRegion } from '~/services/medusa/getRegions';
 import { getProductList } from '~/services/products/getDirectusProductData';
 import { getUserLocaleSrv } from '~/store/common/srvGetLocale';
-import type { Cart } from '@medusajs/client-types';
+import type { Cart, Region } from '@medusajs/client-types';
 
 export const useSetCartItemQuantityAction = routeAction$(
   async (data, event) => {
@@ -126,9 +132,8 @@ export const useProductsLoader = routeLoader$(async (event) => {
   return res;
 });
 
-export const useGetRegionLoader = routeLoader$(async () => {
-  const country_code = config.DEFAULT_COUNTRY;
-  const region = await getRegion(country_code);
+export const useGetRegionLoader = routeLoader$(async (event) => {
+  const region = (await event.sharedMap.get('region')) as Region | null;
   return region;
 });
 
@@ -143,3 +148,8 @@ export const useGetCountryIPLoader = routeLoader$(async () => {
     country: result.country_code,
   };
 });
+
+export const onGet: RequestHandler = async (event) => {
+  const country_code = config.DEFAULT_COUNTRY;
+  await getRegion(country_code, event);
+};
