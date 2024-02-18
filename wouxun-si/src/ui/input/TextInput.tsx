@@ -3,7 +3,7 @@ import {
   useSignal,
   useTask$,
   Slot,
-  QwikIntrinsicElements,
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { InputLabel } from './InputLabel';
 import { InputHelper } from './InputHelper';

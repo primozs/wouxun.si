@@ -1,6 +1,6 @@
 import { Slot, component$ } from '@builder.io/qwik';
 import { Link, routeLoader$ } from '@builder.io/qwik-city';
-import { Customer } from '@medusajs/client-types';
+import type { Customer } from '@medusajs/client-types';
 import type { Order } from '@medusajs/medusa';
 import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import { handleError } from '~/services/logger';

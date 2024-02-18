@@ -10,26 +10,24 @@ import {
   useStyles$,
   type QRL,
   $,
-  type PropFunction,
 } from '@builder.io/qwik';
 import intlTelInput from 'intl-tel-input';
 import globalStyles from 'intl-tel-input/build/css/intlTelInput.css?inline';
 import { TextInput, type TextInputProps } from './TextInput';
+import {
+  setValue,
+  setError,
+  clearError,
+  type FormStore,
+} from '@modular-forms/qwik';
 
 type InputPhoneProps = Omit<TextInputProps, 'ref' | 'type'> & {
   country?: string | null;
-  isValid?: PropFunction<(name: string, value: string, valid: boolean) => void>;
+  of: FormStore<any, any>;
 };
 
 export const InputPhone = component$<InputPhoneProps>(
-  ({
-    value,
-    country,
-    isValid,
-    // onInput$,
-    onBlur$,
-    ...props
-  }) => {
+  ({ of: formStore, value, country, onBlur$, ...props }) => {
     const utilsLoaded = useSignal(false);
     useStyles$(globalStyles);
     useStyles$(`
@@ -40,6 +38,18 @@ export const InputPhone = component$<InputPhoneProps>(
         .iti__flag {background-image: url("/phone/flags@2x.png");}
       }
     `);
+
+    const handleIsValidPhone = $(
+      (name: string, value: string, valid: boolean) => {
+        if (!valid) {
+          setError(formStore, name, 'Number is not valid');
+          // setValue(formStore, name, '');
+        } else {
+          clearError(formStore, name);
+          setValue(formStore, name, value);
+        }
+      },
+    );
 
     const input = useSignal<HTMLInputElement>();
 
@@ -74,7 +84,9 @@ export const InputPhone = component$<InputPhoneProps>(
         // iti?.destroy();
         try {
           iti?.destroy();
-        } catch {}
+        } catch {
+          //
+        }
       };
     });
 
@@ -96,7 +108,7 @@ export const InputPhone = component$<InputPhoneProps>(
             const value = iti.getNumber(intlTelInputUtils.numberFormat.E164);
             const isNumberValid = iti.isValidNumber();
             console.log(value, isNumberValid);
-            isValid && isValid(name, value, isNumberValid);
+            handleIsValidPhone(name, value, isNumberValid);
           }
         })}
         onInput$={$(() => {

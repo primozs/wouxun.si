@@ -9,12 +9,15 @@ import {
   type InitialValues,
   useForm,
 } from '@modular-forms/qwik';
-import { getMedusaClient } from '~/services/medusa';
+import { getMedusaClient, getSrvSessionHeaders } from '~/services/medusa';
 import { handleError } from '~/services/logger';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';
 import { useGetRegionLoader } from '~/routes/plugin@store';
+import { Select } from '~/ui/input/Select';
+import { InputPhone } from '~/ui/input/InputPhone';
+import { config } from '~/config';
 
 export interface AddressFormProps {}
 
@@ -23,20 +26,20 @@ type AddressForm = v.Input<typeof AddressSchema>;
 const AddressSchema = v.object({
   first_name: v.string([v.minLength(1, 'Prosimo vpišite ime')]),
   last_name: v.string([v.minLength(1, 'Prosimo vpišite priimek')]),
-  company: v.optional(v.string([v.minLength(1, 'Prosimo vpišite podjetje')])),
-  address_1: v.string([v.minLength(1, 'Naslov 1')]),
-  address_2: v.optional(v.string([v.minLength(1, 'Naslov 2')])),
-  postal_code: v.string([v.minLength(1, 'Poštna številka')]),
-  city: v.string([v.minLength(1, 'Mesto')]),
-  province: v.optional(v.string([v.minLength(1, 'Provinca')])),
-  country_code: v.string([v.minLength(1, 'Country')]),
-  phone: v.string([v.minLength(1, 'Country')]),
+  company: v.string(),
+  address_1: v.string([v.minLength(1, 'Prosimo vpišite naslov')]),
+  address_2: v.string(),
+  postal_code: v.string([v.minLength(1, 'Prosimo vpišite poštno številko')]),
+  city: v.string([v.minLength(1, 'Prosimo vpišite mesto')]),
+  province: v.string(),
+  country_code: v.string([v.minLength(1, 'Prosimo vpišite državo')]),
+  phone: v.string(),
 });
 
 // eslint-disable-next-line qwik/loader-location
 export const useAddressFormLoader = routeLoader$<InitialValues<AddressForm>>(
   async () => {
-    return {
+    const loaderData = {
       first_name: '',
       last_name: '',
       company: '',
@@ -48,6 +51,7 @@ export const useAddressFormLoader = routeLoader$<InitialValues<AddressForm>>(
       country_code: '',
       phone: '',
     };
+    return loaderData;
   },
 );
 
@@ -55,18 +59,18 @@ type ResponseType = any;
 
 export const useFormAction = formAction$<AddressForm, ResponseType>(
   async (data, event) => {
-    const client = getMedusaClient();
-
-    // const existRes = await client.auth.exists(user.email);
-    // if (existRes.exists) {
-    //   throw new FormError<RegisterForm>({
-    //     email: 'Uporabnik s tem e-naslovom že obstaja.',
-    //   });
-    // }
-
     try {
-      // await client.customers.create(user);
-      // return event.redirect(302, '/login');
+      const client = getMedusaClient();
+      const res = await client.customers.addresses.addAddress(
+        { address: { metadata: {}, ...data } },
+        getSrvSessionHeaders(event),
+      );
+
+      return {
+        status: 'success',
+        message: 'Added success',
+        data: { customer: res.customer },
+      };
     } catch (error: any) {
       handleError(error);
       throw new FormError<AddressForm>('Pošiljanje naslova ni bilo uspešno.');
@@ -77,6 +81,7 @@ export const useFormAction = formAction$<AddressForm, ResponseType>(
 
 export const AddressForm = component$<AddressFormProps>(() => {
   const region = useGetRegionLoader();
+
   const [addressForm, { Form, Field }] = useForm<AddressForm>({
     loader: useAddressFormLoader(),
     validate: valiForm$(AddressSchema),
@@ -209,29 +214,37 @@ export const AddressForm = component$<AddressFormProps>(() => {
 
         <Field name="country_code">
           {(field, props) => (
-            <TextInput
+            <Select
               {...props}
-              type="text"
               label="Država"
               placeholder="Vpišite državo"
               auto-complete="country"
               required
               value={field.value}
               error={field.error}
+              options={
+                region.value?.countries?.map((item) => {
+                  return {
+                    label: item.name,
+                    value: item.iso_2,
+                  };
+                }) ?? []
+              }
             />
           )}
         </Field>
 
         <Field name="phone">
           {(field, props) => (
-            <TextInput
+            <InputPhone
               {...props}
-              type="tel"
+              of={addressForm}
               label="Telefon"
               placeholder="Vpišite telefon"
               auto-complete="phone"
               value={field.value}
               error={field.error}
+              country={config.DEFAULT_COUNTRY}
             />
           )}
         </Field>
@@ -240,9 +253,9 @@ export const AddressForm = component$<AddressFormProps>(() => {
           <Response of={addressForm} />
         </div>
 
-        <div class="flex flex-col">
+        <div class="flex justify-end">
           <FormButton type="submit" loading={addressForm.submitting}>
-            Pošlji
+            Shrani
           </FormButton>
         </div>
       </Form>

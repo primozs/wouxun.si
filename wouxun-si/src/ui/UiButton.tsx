@@ -2,7 +2,7 @@ import {
   Slot,
   component$,
   useComputed$,
-  QwikIntrinsicElements,
+  type QwikIntrinsicElements,
 } from '@builder.io/qwik';
 
 type Props = QwikIntrinsicElements['button'] & {

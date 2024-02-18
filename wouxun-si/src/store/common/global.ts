@@ -1,4 +1,4 @@
-import { Region } from '@medusajs/client-types';
+import type { Region } from '@medusajs/client-types';
 
 export type RegionInfo = Pick<
   Region,
