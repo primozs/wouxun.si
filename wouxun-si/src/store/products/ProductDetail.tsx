@@ -114,7 +114,7 @@ export interface TitleProps {
 }
 
 export const Title = component$<TitleProps>(({ title }) => {
-  return <h1 class="font-medium text-headers-h2">{cleanTitle(title)}</h1>;
+  return <h1 class="font-medium text-xl">{cleanTitle(title)}</h1>;
 });
 
 export interface DescriptionProps {

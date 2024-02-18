@@ -54,37 +54,7 @@ module.exports = {
         'overlay-dark': 'rgba(22, 22, 24, 0.7)',
         'overlay-light': 'rgba(17, 24, 28, 0.4)',
       },
-      borderColor: {
-        'tag-blue-dark': '#0D3868',
-        'tag-blue-light': '#B7D9F8',
-        focus: '#6E56CF',
-      },
-      textColor: {
-        'base-dark': '#FFFFFF',
-        'base-light': '#11181C',
-      },
-      outlineColor: {
-        focus: '#6E56CF',
-      },
-      fontSize: {
-        'labels-large': ['16px', '20px'],
-        'labels-regular': ['14px', '20px'],
-        'labels-small': ['13px', '20px'],
-        'labels-xsmall': ['12px', '20px'],
-        'body-regular': ['14px', '24px'],
-        'headers-h2': ['32px', '44px'],
-        'headers-h3': ['24px', '32px'],
-        'headers-h4': ['18px', '28px'],
-      },
       keyframes: {
-        fadeIn: {
-          from: { opacity: 0 },
-          to: { opacity: 1 },
-        },
-        fadeOut: {
-          from: { opacity: 1 },
-          to: { opacity: 0 },
-        },
         blink: {
           '0%': { opacity: 0.2 },
           '20%': { opacity: 1 },
@@ -92,8 +62,6 @@ module.exports = {
         },
       },
       animation: {
-        fadeIn: 'fadeIn .3s ease-in-out',
-        fadeOut: 'fadeOut .3s ease-in-out',
         blink: 'blink 1.4s both infinite',
       },
     },

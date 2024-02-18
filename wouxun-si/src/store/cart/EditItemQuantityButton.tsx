@@ -19,7 +19,7 @@ export const EditItemQuantityButton = component$<Props>(({ item }) => {
       {!isLoading.value && (
         <div class="flex items-center cursor-pointer relative">
           <select
-            class="flex flex-row p-1 bg-transparent text-base-light dark:text-base-dark appearance-none cursor-pointer pr-5 z-50"
+            class="flex flex-row p-1 bg-transparent text-neutral-800 dark:text-neutral-300 appearance-none cursor-pointer pr-5 z-50"
             value={item.quantity}
             onChange$={async (e) => {
               // @ts-ignore

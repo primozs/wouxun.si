@@ -122,7 +122,7 @@ export const CartDialog = component$<Props>(() => {
           grid grid-cols-2
         `"
           >
-            <h3 class="text-headers-h4 text-base-light dark:text-base-dark">
+            <h3 class="text-xl text-neutral-800 dark:text-neutral-300">
               Nakupna vrečka
             </h3>
 
