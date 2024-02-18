@@ -8,7 +8,7 @@ export const UiSplitPane = component$<Props>((props) => {
   return (
     <div
       class={[
-        `
+        `ui-split-pane
             h-full 
             overflow-x-hidden
             flex flex-wrap sm:flex-nowrap
@@ -19,8 +19,9 @@ export const UiSplitPane = component$<Props>((props) => {
       <div
         class={[
           `
+          ui-split-pane-start
           flex flex-col 
-          flex-grow-0 flex-shrink-0 basis-auto
+          flex-grow sm:flex-grow-0 flex-shrink-0 basis-auto
         `,
         ]}
       >
@@ -30,6 +31,7 @@ export const UiSplitPane = component$<Props>((props) => {
       <div
         class={[
           `        
+          ui-split-pane-center
           flex flex-col 
           flex-grow flex-shrink basis-auto
         `,
@@ -41,6 +43,7 @@ export const UiSplitPane = component$<Props>((props) => {
       <div
         class={[
           `      
+          ui-split-pane-end
           flex flex-col 
           flex-grow-0 flex-shrink-0 basis-auto
         `,
