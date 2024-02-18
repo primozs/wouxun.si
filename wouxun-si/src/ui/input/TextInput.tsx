@@ -1,9 +1,9 @@
 import {
   component$,
   useSignal,
-  type QRL,
   useTask$,
   Slot,
+  QwikIntrinsicElements,
 } from '@builder.io/qwik';
 import { InputLabel } from './InputLabel';
 import { InputHelper } from './InputHelper';
@@ -17,7 +17,7 @@ export type TextInputProps = {
   value: string | number | undefined;
   error: string;
   required?: boolean;
-  ref: QRL<(element: HTMLInputElement) => void>;
+  ref: QwikIntrinsicElements['input']['ref'];
   onInput$: (event: Event, element: HTMLInputElement) => void;
   onChange$: (event: Event, element: HTMLInputElement) => void;
   onBlur$: (event: Event, element: HTMLInputElement) => void;
@@ -88,6 +88,7 @@ export const TextInput = component$(
               hover:border-gray-400 dark:hover:border-white
               focus:border-primary-500 dark:focus:border-white
               `,
+              props.class,
             ]}
           />
           <Slot name="icon-right" />
