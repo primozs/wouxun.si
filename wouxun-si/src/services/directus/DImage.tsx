@@ -22,9 +22,13 @@ usage
 
 */
 
-import { component$ } from '@builder.io/qwik';
-import { Image, type ImageProps } from '~/ui/image';
-import { getFileUrl, type imageKeys, imageKeysData } from '.';
+import {
+  type QwikIntrinsicElements,
+  component$,
+  useStylesScoped$,
+  useSignal,
+} from '@builder.io/qwik';
+import { getFileUrl } from '.';
 
 type ValuesOf<T> = T[keyof T];
 type Keys = ValuesOf<typeof imageKeys>;
@@ -70,6 +74,7 @@ export const DImage = component$<DImageProps>(
           .map((item) => item.src + item.scrWidth)
           .join(',');
       }
+      // @ts-ignore
       src = imgSrcSetObj.slice(-1)[0].src;
       imageWidth = widths.slice(-1)[0];
       imageHeight = heights ? heights.slice(-1)[0] : undefined;
@@ -110,8 +115,10 @@ export const DImage = component$<DImageProps>(
         .join(',');
 
       const srcKey = jpgKeys.slice(-1)[0];
+      // @ts-ignore
       const srcData = jpgKeysData[srcKey];
 
+      // @ts-ignore
       src = imgSrcSetObj.slice(-1)[0].src;
       imageWidth = srcData.width;
       imageHeight = srcData.height;
@@ -119,11 +126,11 @@ export const DImage = component$<DImageProps>(
 
     return (
       <picture>
-        {dType && sourceSrcSet && <source type={dType} srcSet={sourceSrcSet} />}
+        {dType && sourceSrcSet && <source type={dType} srcset={sourceSrcSet} />}
         <Image
           {...rest}
           src={src}
-          srcSet={imgSrcSet}
+          srcset={imgSrcSet}
           width={imageWidth}
           {...(imageHeight && { height: imageHeight })}
         />
@@ -261,3 +268,105 @@ https://responsivebreakpoints.com/
     />
   </picture>             
 */
+
+export const imageKeys = {
+  '1900-x-540-jpg': '1900-x-540-jpg',
+  '1900-x-540-webp': '1900-x-540-webp',
+  '1280-x-720-jpg': '1280-x-720-jpg',
+  '1280-x-720-webp': '1280-x-720-webp',
+  '1080-x-720-jpg': '1080-x-720-jpg',
+  '1080-x-720-webp': '1080-x-720-webp',
+  '1080-x-1080-jpg': '1080-x-1080-jpg',
+  '1080-x-1080-webp': '1080-x-1080-webp',
+  '800-x-800-webp': '800-x-800-webp',
+  '800-x-800-jpg': '800-x-800-jpg',
+  '320-x-180-jpg': '320-x-180-jpg',
+  '320-x-180-webp': '320-x-180-webp',
+  '770-x-510-jpg': '770-x-510-jpg',
+  '770-x-510-webp': '770-x-510-webp',
+  '1200-x-300-jpg': '1200-x-300-jpg',
+  '1200-x-300-webp': '1200-x-300-webp',
+  '600-x-150-jpg': '600-x-150-jpg',
+  '600-x-150-webp': '600-x-150-webp',
+} as const;
+
+export const imageKeysData = {
+  '1900-x-540-jpg': { width: 1900, height: 540, format: 'jpg' },
+  '1900-x-540-webp': { width: 1900, height: 540, format: 'webp' },
+  '1280-x-720-jpg': { width: 1280, height: 720, format: 'jpg' },
+  '1280-x-720-webp': { width: 1280, height: 720, format: 'webp' },
+  '1080-x-720-jpg': { width: 1080, height: 720, format: 'jpg' },
+  '1080-x-720-webp': { width: 1080, height: 720, format: 'webp' },
+  '1080-x-1080-jpg': { width: 1080, height: 1080, format: 'jpg' },
+  '1080-x-1080-webp': { width: 1080, height: 1080, format: 'webp' },
+  '800-x-800-webp': { width: 800, height: 800, format: 'webp' },
+  '800-x-800-jpg': { width: 800, height: 800, format: 'jpg' },
+  '320-x-180-jpg': { width: 320, height: 180, format: 'jpg' },
+  '320-x-180-webp': { width: 320, height: 180, format: 'webp' },
+  '770-x-510-jpg': { width: 770, height: 510, format: 'jpg' },
+  '770-x-510-webp': { width: 770, height: 510, format: 'webp' },
+  '1200-x-300-jpg': { width: 1200, height: 300, format: 'jpg' },
+  '1200-x-300-webp': { width: 1200, height: 300, format: 'webp' },
+  '600-x-150-jpg': { width: 600, height: 150, format: 'jpg' },
+  '600-x-150-webp': { width: 600, height: 150, format: 'webp' },
+} as const;
+
+export type ImageProps = Omit<QwikIntrinsicElements['img'], 'children'> & {
+  fetchPriority?: 'high' | 'low' | 'auto';
+  layout?: 'responsive' | 'unstyled';
+};
+
+export const Image = component$<ImageProps>((props) => {
+  useStylesScoped$(`
+    img:after {  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background-color: #e5e7eb;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;      
+      content: attr(alt) ' ' attr(data-msg-onerror);
+      padding: 20px;
+      text-align: center;
+    }
+  `);
+
+  const error = useSignal(false);
+  const errorMsg = 'Image was not found';
+
+  // lazy default, priority setting
+  let lazy = true;
+  if (props.fetchPriority) {
+    lazy = false;
+  }
+  const layout = props.layout ?? 'responsive';
+
+  return (
+    <>
+      <img
+        {...(lazy && {
+          loading: 'lazy',
+          decoding: 'async',
+        })}
+        {...(!lazy && {
+          loading: 'eager',
+        })}
+        {...props}
+        class={[
+          layout === 'responsive' &&
+            'relative h-auto w-full max-w-full object-cover object-center',
+          // @ts-ignore
+          props.class,
+        ]}
+        {...(error.value && { 'data-msg-onerror': errorMsg })}
+        data-msg-onerror={errorMsg}
+        onError$={() => {
+          error.value = true;
+        }}
+      />
+    </>
+  );
+});

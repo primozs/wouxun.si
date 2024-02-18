@@ -4,9 +4,11 @@ import {
   RouterOutlet,
   ServiceWorkerRegister,
 } from '@builder.io/qwik-city';
-import { RouterHead } from './layout/router-head';
+import { RouterHead } from './router-head';
 
 import './global.css';
+import { AppGlobalProvider } from '~/store/common/AppGlobalProvider';
+import { NotificationProvider } from './ui/notification/notificationsState';
 
 export default component$(() => {
   return (
@@ -15,10 +17,14 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
+        <ServiceWorkerRegister />
       </head>
       <body lang="sl">
-        <RouterOutlet />
-        <ServiceWorkerRegister />
+        <AppGlobalProvider>
+          <NotificationProvider>
+            <RouterOutlet />
+          </NotificationProvider>
+        </AppGlobalProvider>
       </body>
     </QwikCityProvider>
   );

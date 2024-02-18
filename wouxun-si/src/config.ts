@@ -1,4 +1,5 @@
 import z from 'zod';
+import packageJson from '../package.json';
 
 const envVariables = z.object({
   DEV: z.boolean(),
@@ -9,16 +10,21 @@ const envVariables = z.object({
 
   VITE_PUBLIC_DIRECTUS_API_URL: z.string(),
   VITE_PUBLIC_MEDUSA_API_URL: z.string(),
+  VITE_PUBLIC_MEDUSA_SALES_CHANNEL_ID: z.string(),
 });
 
 const ENV_VARIABLES = envVariables.parse(import.meta.env);
 
 export const config = {
+  APPLICATION_VERSION: packageJson.version,
   META_TITLE: ENV_VARIABLES.VITE_PUBLIC_META_TITLE,
   META_DESCRIPTION: ENV_VARIABLES.VITE_PUBLIC_META_DESCRIPTION,
   DIRECTUS_API_URL: ENV_VARIABLES.VITE_PUBLIC_DIRECTUS_API_URL,
   MEDUSA_API_URL: ENV_VARIABLES.VITE_PUBLIC_MEDUSA_API_URL,
+  MEDUSA_SALES_CHANNEL_ID: ENV_VARIABLES.VITE_PUBLIC_MEDUSA_SALES_CHANNEL_ID,
 
   DEV: ENV_VARIABLES.DEV,
   PROD: ENV_VARIABLES.PROD,
+  DEFAULT_COUNTRY: 'si',
+  DEFAULT_LOCALE: 'sl',
 };

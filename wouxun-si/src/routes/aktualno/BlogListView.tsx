@@ -5,13 +5,14 @@ import {
   useTask$,
   type Signal,
 } from '@builder.io/qwik';
-import { getBlogList, type BlogListItem } from '~/services/blog/getBlogData';
+import type { wouxun_news } from '~/services/directus/schema';
+import { getBlogList } from '~/services/blog/getBlogData';
 import { Alert } from '~/ui/alert';
-import { DImage } from '~/services/directus/DImage';
+import { Image } from '@unpic/qwik';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
-import { Link } from '@builder.io/qwik-city';
+import { getImageUrl } from '~/services/directus';
 
-function isBlogItemArray(val: Signal<unknown>): val is Signal<BlogListItem[]> {
+function isBlogItemArray(val: Signal<unknown>): val is Signal<wouxun_news[]> {
   if (!Array.isArray(val.value)) {
     return false;
   }
@@ -20,7 +21,7 @@ function isBlogItemArray(val: Signal<unknown>): val is Signal<BlogListItem[]> {
 
 export const BlogListView = component$(() => {
   const page = useSignal(1);
-  const blogs = useSignal<BlogListItem[] | Promise<never>>([]);
+  const blogs = useSignal<wouxun_news[] | Promise<never>>([]);
   const errorMsg = 'Napaka pri prenosu podatkov';
   const infScrollTarget = useSignal<Element>();
 
@@ -32,7 +33,7 @@ export const BlogListView = component$(() => {
       cleanup(() => controller.abort('cleanup'));
       const signal = controller.signal;
 
-      let prevValues: BlogListItem[] = [];
+      let prevValues: wouxun_news[] = [];
       if (isBlogItemArray(blogs)) {
         prevValues = blogs.value;
       }
@@ -47,7 +48,7 @@ export const BlogListView = component$(() => {
   return (
     <section>
       <div>
-        <h1>Aktualno</h1>
+        <h1 class="header1">Aktualno</h1>
       </div>
 
       <Resource
@@ -61,6 +62,10 @@ export const BlogListView = component$(() => {
               gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3
               `"
             >
+              {blogs.map((data, index) => {
+                return <BlogCard key={data.id} data={data} index={index} />;
+              })}
+              <div ref={infScrollTarget}></div>
               <UseIntersectionObserver
                 target={infScrollTarget}
                 callback$={(entries) => {
@@ -71,10 +76,6 @@ export const BlogListView = component$(() => {
                   });
                 }}
               />
-              {blogs.map((data, index) => {
-                return <BlogCard key={data.id} data={data} index={index} />;
-              })}
-              <div ref={infScrollTarget}></div>
             </div>
           );
         }}
@@ -94,39 +95,41 @@ export const BlogListView = component$(() => {
 });
 
 type BlogCardProps = {
-  data: BlogListItem;
+  data: wouxun_news;
   index: number;
 };
 
 export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
+  const imageSrc = getImageUrl(data.image ?? '');
   return (
-    <Link href={`/aktualno/${data.slug}`}>
-      <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3">
+    <a href={`/aktualno/${data.slug}`}>
+      <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3 space-y-3">
         <div class="relative w-full">
-          <DImage
-            dId={data.image}
-            dType="image/webp"
-            keys={['770-x-510-jpg', '770-x-510-webp']}
-            sizes="
-              (max-width: 640px) 95vw,       
-              (max-width: 1024px) 770px, 25vw"
+          <Image
+            {...(index < 1 && {
+              priority: true,
+              fetchPriority: 'high',
+            })}
+            layout="constrained"
             alt={data.title}
-            {...(index < 6 && { fetchPriority: 'high' })}
-            class="aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
+            width={770}
+            height={510}
+            cdn="directus"
+            src={imageSrc}
+            class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
           />
-          {/* <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-neutral-900/10"></div> */}
         </div>
         <div class="max-w-xl">
           <div class="group relative">
-            <h2 class="mt-3 text-lg font-semibold leading-6 text-neutral-800 group-hover:text-neutral-600 dark:text-secondary-200 dark:group-hover:text-neutral-400">
+            <h2 class="header2 mt-3 text-lg font-semibold leading-6 text-neutral-800 group-hover:text-neutral-600 dark:text-secondary-200 dark:group-hover:text-neutral-400 text-ellipsis line-clamp-1">
               {data.title}
             </h2>
-            <p class="mt-3 line-clamp-3 text-base leading-6 text-neutral-600 dark:text-secondary-400">
-              {data.body.slice(0, 150) + '...'}
+            <p class="mt-3 text-ellipsis line-clamp-3 text-base leading-6 text-neutral-600 dark:text-secondary-400">
+              {data.body}
             </p>
           </div>
         </div>
       </article>
-    </Link>
+    </a>
   );
 });

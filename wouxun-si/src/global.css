@@ -3,7 +3,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local('Inter Regular'), local('Inter-Regular'),
+  src:
+    local('Inter Regular'),
+    local('Inter-Regular'),
     url('/fonts/inter/Inter-Regular.woff2?v=3.19') format('woff2');
 }
 
@@ -12,7 +14,9 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: local('Inter Medium'), local('Inter-Medium'),
+  src:
+    local('Inter Medium'),
+    local('Inter-Medium'),
     url('/fonts/inter/Inter-Medium.woff2?v=3.19') format('woff2');
 }
 
@@ -21,7 +25,9 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local('Inter SemiBold'), local('Inter-SemiBold'),
+  src:
+    local('Inter SemiBold'),
+    local('Inter-SemiBold'),
     url('/fonts/inter/Inter-SemiBold.woff2?v=3.19') format('woff2');
 }
 
@@ -62,14 +68,31 @@ body {
   outline: solid 1px red;
 } */
 
+@layer components {
+  .content-container {
+    @apply max-w-screen-2xl w-full mx-auto px-4 sm:px-5;
+  }
+
+  .link {
+    @apply text-primary-500
+    focus-visible:outline-none
+    focus-visible:ring-2
+    focus-visible:ring-offset-1
+    focus-visible:ring-primary-500 dark:focus-visible:ring-white;
+  }
+}
+
+.header1,
 .prose h1 {
   @apply text-primary-500 text-2xl font-medium leading-8;
 }
 
+.header2,
 .prose h2 {
   @apply text-primary-500 text-xl font-medium leading-8 mt-2 first-of-type:mt-0;
 }
 
+.header3,
 .prose h2,
 .prose h3 {
   @apply text-primary-500;
@@ -93,4 +116,46 @@ body {
 
 .prose ul {
   @apply list-disc list-outside pl-8 max-w-2xl;
+}
+
+img.imageerr {
+  position: relative;
+}
+img.imageerr::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #e5e7eb;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: attr(alt) ' ' attr(data-msg-onerror);
+  padding: 20px;
+  text-align: center;
+}
+
+.break-balanced {
+  text-wrap: balance;
+}
+
+/* forms */
+[type='date'] {
+  @apply flex appearance-none items-center justify-start;
+}
+
+/* https://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
