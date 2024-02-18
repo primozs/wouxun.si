@@ -1,7 +1,6 @@
 import { component$, type QRL, useSignal, useTask$ } from '@builder.io/qwik';
 import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
-import { ChevronDownIcon } from '../icons/chevron-down';
 
 type SelectProps = {
   ref: QRL<(element: HTMLSelectElement) => void>;
@@ -100,9 +99,9 @@ export const Select = component$(
               );
             })}
           </select>
-          {!multiple && (
-            <ChevronDownIcon class="pointer-events-none absolute right-2.5 h-5" />
-          )}
+          {/* {!multiple && (
+            <IoChevronDownOutline class="pointer-events-none absolute right-2.5 h-5" />
+          )} */}
         </div>
         <InputError name={name} error={error} />
       </div>

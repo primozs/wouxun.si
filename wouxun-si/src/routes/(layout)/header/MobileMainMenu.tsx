@@ -1,9 +1,9 @@
 import { type Signal, component$, useSignal, $ } from '@builder.io/qwik';
 import { useClickOutside } from '~/ui/hooks/useClickOutside';
 import { Button } from '~/ui/button';
-import { MenuIcon } from '~/ui/icons/menu-icon';
-import { CloseIcon } from '~/ui/icons/close-icon';
 import { MainNavigation } from '../MainNavigation';
+import { IoCloseOutline } from '@qwikest/icons/ionicons';
+import { HiBars3Outline } from '@qwikest/icons/heroicons';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
@@ -68,13 +68,13 @@ export const MobileMainMenuButton = component$<MobileMainMenuButtonProps>(
         class="sm:hidden"
       >
         <span class="sr-only">Odpri glavni meni</span>
-        <MenuIcon
+        <HiBars3Outline
           class={{
             'h-6 w-6': true,
             hidden: props.visible.value === true,
           }}
         />
-        <CloseIcon
+        <IoCloseOutline
           class={{
             'h-6 w-6': true,
             hidden: props.visible.value === false,

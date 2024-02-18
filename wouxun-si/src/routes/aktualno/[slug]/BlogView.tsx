@@ -1,11 +1,11 @@
 import { component$, type Signal } from '@builder.io/qwik';
-import { CalendarIcon } from '~/ui/icons/calendar-icon';
 import type { wouxun_news } from '~/services/directus/schema';
 import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/services/directus';
 import { useAppGlobal } from '~/store/common/AppGlobalProvider';
+import { IoCalendarClearOutline } from '@qwikest/icons/ionicons';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;
@@ -35,7 +35,7 @@ export const BlogView = component$<BlogViewProps>(({ post }) => {
             <h1 class="header1">{post.value?.title}</h1>
 
             <div class="my-1 flex items-center gap-x-2">
-              <CalendarIcon class="h-6 w-6 fill-none stroke-black dark:stroke-white" />
+              <IoCalendarClearOutline class="h-5 w-5" />
               <span>
                 {post.value?.date_created
                   ? formatDate(new Date(post.value.date_created), store.locale)

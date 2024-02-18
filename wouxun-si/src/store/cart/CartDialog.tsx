@@ -8,7 +8,7 @@ import {
   useContext,
 } from '@builder.io/qwik';
 import { Button } from '~/ui/button';
-import { XMark } from '~/ui/icons/x-mark';
+import { IoCloseOutline } from '@qwikest/icons/ionicons';
 import { Tag } from '~/ui/tag';
 
 type Props = {};
@@ -133,7 +133,7 @@ export const CartDialog = component$<Props>(() => {
                 type="button"
                 class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
               >
-                <XMark class="h-5 w-5 text-neutral-400" />
+                <IoCloseOutline class="h-5 w-5 text-neutral-400" />
               </Button>
               <Tag class="hidden md:block" size="small" variant="neutral">
                 esc

@@ -1,7 +1,7 @@
 import { component$, useSignal, Slot, $ } from '@builder.io/qwik';
 import { Button } from '~/ui/button';
-import { XMark } from '~/ui/icons/x-mark';
 import { Tag } from '~/ui/tag';
+import { IoCloseOutline } from '@qwikest/icons/ionicons';
 
 export const Dialog = component$(() => {
   const ref = useSignal<HTMLDialogElement>();
@@ -35,7 +35,7 @@ export const Dialog = component$(() => {
                 type="button"
                 class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
               >
-                <XMark class="h-5 w-5 text-neutral-400" />
+                <IoCloseOutline class="h-5 w-5 text-neutral-400" />
               </Button>
               <Tag class="hidden md:block" size="small" variant="neutral">
                 esc

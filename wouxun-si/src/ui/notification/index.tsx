@@ -5,9 +5,11 @@ import {
   useStylesScoped$,
   useTask$,
 } from '@builder.io/qwik';
-import { XCircle } from '../icons/x-circle';
-import { CheckCircle } from '../icons/check-circle';
-import { XMark } from '../icons/x-mark';
+import {
+  IoCheckmarkCircleSharp,
+  IoCloseCircleSharp,
+  IoCloseOutline,
+} from '@qwikest/icons/ionicons';
 import {
   useNotifications,
   type NotificationType,
@@ -53,9 +55,9 @@ export const Notification = component$<Props>(
               {notification && (
                 <>
                   {notification.type === 'success' ? (
-                    <CheckCircle class="h-6 w-6 text-success-400" />
+                    <IoCheckmarkCircleSharp class="h-6 w-6 text-success-400" />
                   ) : (
-                    <XCircle class="h-6 w-6 text-error-400" />
+                    <IoCloseCircleSharp class="h-6 w-6 text-error-400" />
                   )}
                 </>
               )}
@@ -78,7 +80,7 @@ export const Notification = component$<Props>(
                   onClick$={() => removeNotification()}
                 >
                   <span class="sr-only">Zapri</span>
-                  <XMark class="h-5 w-5" />
+                  <IoCloseOutline class="h-5 w-5" />
                 </button>
               </div>
             )}
@@ -192,9 +194,9 @@ export const NotificationDialog = component$<NotificationDialogProps>(
                 {store.notification && (
                   <>
                     {store.notification.type === 'success' ? (
-                      <CheckCircle class="h-6 w-6 text-success-400" />
+                      <IoCheckmarkCircleSharp class="h-6 w-6 text-success-400" />
                     ) : (
-                      <XCircle class="h-6 w-6 text-error-400" />
+                      <IoCloseCircleSharp class="h-6 w-6 text-error-400" />
                     )}
                   </>
                 )}
@@ -217,7 +219,7 @@ export const NotificationDialog = component$<NotificationDialogProps>(
                     onClick$={() => removeNotification()}
                   >
                     <span class="sr-only">Zapri</span>
-                    <XMark class="h-5 w-5" />
+                    <IoCloseOutline class="h-5 w-5" />
                   </button>
                 </div>
               )}

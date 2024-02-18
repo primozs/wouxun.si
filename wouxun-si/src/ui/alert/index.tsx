@@ -1,9 +1,13 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { CheckCircle } from '~/ui/icons/check-circle';
-import { ExclamationTriangle } from '~/ui/icons/exclamation-triangle';
-import { InformationCircle } from '~/ui/icons/information-circle';
-import { XCircle } from '~/ui/icons/x-circle';
-import { XMark } from '~/ui/icons/x-mark';
+
+import {
+  IoCheckmarkCircleSharp,
+  IoCloseCircleSharp,
+  IoCloseOutline,
+  IoAlertCircleSharp,
+} from '@qwikest/icons/ionicons';
+
+import { HiExclamationTriangleSolid } from '@qwikest/icons/heroicons';
 
 type AlertProps = {
   title: string;
@@ -37,14 +41,16 @@ export const Alert = component$<AlertProps>(
         <div class="flex items-center">
           <div class="flex-shrink-0">
             {intent === 'information' && (
-              <InformationCircle class="h-5 w-5 text-info-400" />
+              <IoAlertCircleSharp class="h-5 w-5 text-info-400" />
             )}
             {intent === 'success' && (
-              <CheckCircle class="h-5 w-5 text-success-400" />
+              <IoCheckmarkCircleSharp class="h-5 w-5 text-success-400" />
             )}
-            {intent === 'error' && <XCircle class="h-5 w-5 text-error-400" />}
+            {intent === 'error' && (
+              <IoCloseCircleSharp class="h-5 w-5 text-error-400" />
+            )}
             {intent === 'warning' && (
-              <ExclamationTriangle class="h-5 w-5 text-warning-400" />
+              <HiExclamationTriangleSolid class="h-5 w-5 text-warning-400" />
             )}
           </div>
           <div class="ml-3">
@@ -200,7 +206,7 @@ export const AlertCloseButton = component$(
             ]}
           >
             <span class="sr-only">Dismiss</span>
-            <XMark class="h-5 w-5" />
+            <IoCloseOutline class="h-5 w-5" />
           </button>
         </div>
       </div>

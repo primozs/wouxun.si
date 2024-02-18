@@ -1,6 +1,6 @@
 import { Slot, component$, type PropFunction } from '@builder.io/qwik';
-import { ChevronRightIcon } from './icons/chevron-right';
 import { Link } from '@builder.io/qwik-city';
+import { IoChevronForwardOutline } from '@qwikest/icons/ionicons';
 
 type Props = {
   class?: string | string[];
@@ -104,7 +104,7 @@ export const UiItem = component$<Props>(
 
           {detail && (
             <div class="ml-3 flex-shrink-0 h-5 w-5 text-gray-500 dark:text-gray-400">
-              <ChevronRightIcon />
+              <IoChevronForwardOutline class="h-5 w-5" />
             </div>
           )}
         </div>

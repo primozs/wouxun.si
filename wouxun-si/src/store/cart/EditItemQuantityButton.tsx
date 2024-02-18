@@ -1,8 +1,8 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import type { LineItem } from '@medusajs/client-types';
 import { LoadingDots } from '~/ui/loading-dots';
-import { ChevronUpDown } from '~/ui/icons/chevron-up-down';
 import { useSetCartItemQuantityAction } from '~/routes/plugin@store';
+import { IoChevronExpandOutline } from '@qwikest/icons/ionicons';
 
 type Props = {
   item: LineItem;
@@ -35,7 +35,7 @@ export const EditItemQuantityButton = component$<Props>(({ item }) => {
               </option>
             ))}
           </select>
-          <ChevronUpDown class="absolute left-4" />
+          <IoChevronExpandOutline class="absolute left-4" />
         </div>
       )}
     </>

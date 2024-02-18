@@ -6,7 +6,7 @@ import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import { handleError } from '~/services/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/services/medusa';
 import { formatAmount } from '~/store/common/prices';
-import { ChevronRightIcon } from '~/ui/icons/chevron-right';
+import { IoChevronForwardOutline } from '@qwikest/icons/ionicons';
 
 export const useCutomerOrders = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -93,7 +93,7 @@ export const OrderItem = component$<OrderItemProps>(({ order }) => {
         </div>
         <button class="flex items-center justify-between">
           <span class="sr-only">Go to order #{order.display_id}</span>
-          <ChevronRightIcon />
+          <IoChevronForwardOutline />
         </button>
       </div>
     </Link>

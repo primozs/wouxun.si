@@ -1,7 +1,6 @@
 import { $, component$, sync$, useSignal } from '@builder.io/qwik';
 import { TextInput, type TextInputProps } from './TextInput';
-import { EyeIcon } from '../icons/eye-icon';
-import { EyeOffIcon } from '../icons/eye-off-icon';
+import { IoEyeOutline, IoEyeOffOutline } from '@qwikest/icons/ionicons';
 
 export const InputPassword = component$<TextInputProps>((props) => {
   const showPassword = useSignal(false);
@@ -40,9 +39,9 @@ export const InputPassword = component$<TextInputProps>((props) => {
           ]}
         >
           {showPassword.value === false ? (
-            <EyeOffIcon class="text-gray-400" />
+            <IoEyeOffOutline class="text-gray-400 h-5 w-5" />
           ) : (
-            <EyeIcon class="text-gray-400" />
+            <IoEyeOutline class="text-gray-400 h-5 w-5" />
           )}
         </button>
       </div>

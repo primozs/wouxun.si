@@ -10,10 +10,9 @@ import { UiItem } from '~/ui/UiItem';
 import { UiLabel } from '~/ui/UiLabel';
 import { UiList } from '~/ui/UiList';
 import { UiListHeader } from '~/ui/UiListHeader';
-import { LogoutIcon } from '~/ui/icons/logout-icon';
-import { MapPinIcon } from '~/ui/icons/map-pin-icon';
 import { PackageIcon } from '~/ui/icons/package-icon';
-import { UserIcon } from '~/ui/icons/user-icon';
+import { HiUserCircleOutline } from '@qwikest/icons/heroicons';
+import { IoLogOutOutline, IoLocationOutline } from '@qwikest/icons/ionicons';
 
 type Props = {
   customer: Customer;
@@ -30,14 +29,14 @@ export const AccountNav = component$<Props>(() => {
         <UiListHeader>Hello {customer.value?.first_name}</UiListHeader>
         <UiItem detail to="/account/profile">
           <UiIcon q:slot="start">
-            <UserIcon />
+            <HiUserCircleOutline />
           </UiIcon>
           <UiLabel>Profile</UiLabel>
         </UiItem>
 
         <UiItem detail to="/account/addresses">
           <UiIcon q:slot="start">
-            <MapPinIcon />
+            <IoLocationOutline />
           </UiIcon>
           <UiLabel>Addresses</UiLabel>
         </UiItem>
@@ -55,7 +54,7 @@ export const AccountNav = component$<Props>(() => {
           }}
         >
           <UiIcon q:slot="start">
-            <LogoutIcon />
+            <IoLogOutOutline />
           </UiIcon>
           <UiLabel>Logout</UiLabel>
         </UiItem>
