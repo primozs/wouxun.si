@@ -81,10 +81,12 @@ export const Select = component$(
               placeholder &&
                 !values.value?.length &&
                 'text-gray-400 dark:text-gray-400',
+              multiple && 'py-3',
             ]}
             id={name}
             aria-invalid={!!error}
             aria-errormessage={`${name}-error`}
+            multiple={multiple}
           >
             <option value="" disabled hidden selected={!value}>
               {placeholder}
@@ -98,9 +100,9 @@ export const Select = component$(
               );
             })}
           </select>
-          {/* {!multiple && (
-            <ChevronDownIcon class="pointer-events-none absolute right-6 h-5 lg:right-8 lg:h-6" />
-          )} */}
+          {!multiple && (
+            <ChevronDownIcon class="pointer-events-none absolute right-2.5 h-5" />
+          )}
         </div>
         <InputError name={name} error={error} />
       </div>
