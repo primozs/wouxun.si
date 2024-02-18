@@ -26,8 +26,15 @@ type SelectProps = {
  * entry requirements.
  */
 export const Select = component$(
-  ({ value, options, label, error, ...props }: SelectProps) => {
-    const { name, required, multiple, placeholder } = props;
+  ({
+    value,
+    options,
+    label,
+    error,
+    multiple = false,
+    ...props
+  }: SelectProps) => {
+    const { name, required, placeholder } = props;
 
     // Create computed value of selected values
     const values = useSignal<string[]>();
@@ -41,18 +48,39 @@ export const Select = component$(
     });
 
     return (
-      <div class={['px-8 lg:px-10', props.class]}>
+      <div class={[props.class]}>
         <InputLabel name={name} label={label} required={required} />
         <div class="relative flex items-center">
           <select
             {...props}
             class={[
-              'w-full appearance-none space-y-2 rounded-2xl border-2 bg-transparent px-5 outline-none md:text-lg lg:space-y-3 lg:px-6 lg:text-xl',
+              multiple ? 'form-multiselect' : 'form-select',
+              `            
+            block w-full appearance-none rounded-sm border
+            
+            shadow-sm
+            bg-white dark:bg-gray-700                
+            
+            focus:text-gray-800 dark:focus:text-gray-200
+            focus:outline-none focus:ring-1
+            focus:ring-primary-500 dark:focus:ring-white
+            sm:text-sm
+
+            disabled:cursor-not-allowed 
+            disabled:bg-gray-50 
+            disabled:text-gray-500 
+            disabled:ring-gray-200
+            `,
               error
-                ? 'border-red-600/50 dark:border-red-400/50'
-                : 'border-slate-200 hover:border-slate-300 focus:border-sky-600/50 dark:border-slate-800 dark:hover:border-slate-700 dark:focus:border-sky-400/50',
-              multiple ? 'py-5' : 'h-14 md:h-16 lg:h-[70px]',
-              placeholder && !values.value?.length && 'text-slate-500',
+                ? 'border-error-600/50 dark:border-error-400/50'
+                : `
+              border-gray-300 dark:border-transparent
+              hover:border-gray-400 dark:hover:border-white
+              focus:border-primary-500 dark:focus:border-white
+              `,
+              placeholder &&
+                !values.value?.length &&
+                'text-gray-400 dark:text-gray-400',
             ]}
             id={name}
             aria-invalid={!!error}
@@ -61,19 +89,18 @@ export const Select = component$(
             <option value="" disabled hidden selected={!value}>
               {placeholder}
             </option>
-            {options.map(({ label, value }) => (
-              <option
-                key={value}
-                value={value}
-                selected={values.value?.includes(value)}
-              >
-                {label}
-              </option>
-            ))}
+            {options.map(({ label, value }) => {
+              const selected = values.value?.includes(value);
+              return (
+                <option key={value} value={value} selected={selected}>
+                  {label}
+                </option>
+              );
+            })}
           </select>
-          {!multiple && (
+          {/* {!multiple && (
             <ChevronDownIcon class="pointer-events-none absolute right-6 h-5 lg:right-8 lg:h-6" />
-          )}
+          )} */}
         </div>
         <InputError name={name} error={error} />
       </div>

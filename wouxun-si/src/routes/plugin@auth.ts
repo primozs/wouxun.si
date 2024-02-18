@@ -12,7 +12,11 @@ import {
 import { getServerSession } from '~/store/auth';
 
 export const useAuthSessionLoader = routeLoader$(async (event) => {
-  const session = (await event.sharedMap.get('session')) as Customer | null;
+  // server
+  let session = (await event.sharedMap.get('session')) as Customer | null;
+  if (!session) {
+    session = await getServerSession(event);
+  }
   return session;
 });
 

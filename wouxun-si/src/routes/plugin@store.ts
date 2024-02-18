@@ -133,7 +133,13 @@ export const useProductsLoader = routeLoader$(async (event) => {
 });
 
 export const useGetRegionLoader = routeLoader$(async (event) => {
-  const region = (await event.sharedMap.get('region')) as Region | null;
+  // server
+  let region = (await event.sharedMap.get('region')) as Region | null;
+  // client
+  if (!region) {
+    const country_code = config.DEFAULT_COUNTRY;
+    region = await getRegion(country_code, event);
+  }
   return region;
 });
 
