@@ -1,6 +1,6 @@
 import { type Query, readItems } from '@directus/sdk';
-import { getDirectusClient } from '~/services/directus';
-import { handleError } from '~/services/logger';
+import { getDirectusClient } from '~/modules/directus';
+import { handleError } from '~/modules/logger';
 import type {
   DirectusSchema,
   Product,

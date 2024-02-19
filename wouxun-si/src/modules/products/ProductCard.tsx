@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik';
 
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/services/directus';
-import type { ProductListIem } from '~/services/products/getDirectusProductData';
+import { getImageUrl } from '~/modules/directus';
+import type { ProductListIem } from '~/modules/products/getDirectusProductData';
 import { cleanTitle } from './cleanTitle';
 
 type ProductCardProps = {

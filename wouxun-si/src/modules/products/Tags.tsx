@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { Tag } from '~/ui/tag';
-import type { ProductDetail } from '~/services/products/getDirectusProductData';
+import type { ProductDetail } from '~/modules/products/getDirectusProductData';
 // import { ProductCategory, ProductTag } from '@medusajs/client-types';
 
 export interface TagsProps {

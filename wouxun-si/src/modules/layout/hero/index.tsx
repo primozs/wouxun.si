@@ -8,7 +8,7 @@ import {
   noSerialize,
   type NoSerialize,
 } from '@builder.io/qwik';
-import { DImage } from '~/services/directus/DImage';
+import { DImage } from '~/modules/directus/DImage';
 // import { Image } from '@unpic/qwik';
 // import { getImageUrl } from '~/services/directus';
 

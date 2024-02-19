@@ -7,7 +7,7 @@ import {
 import { RouterHead } from './router-head';
 
 import './global.css';
-import { AppGlobalProvider } from '~/store/common/AppGlobalProvider';
+import { AppGlobalProvider } from '~/modules/common/AppGlobalProvider';
 import { NotificationProvider } from './ui/notification/notificationsState';
 
 export default component$(() => {

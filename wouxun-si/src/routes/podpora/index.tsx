@@ -1,8 +1,26 @@
 import { component$, useComputed$ } from '@builder.io/qwik';
 import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
-import { getFilesList } from '~/services/files/getFilesData';
-import { getFileUrl } from '~/services/directus';
-import type { wouxun_file } from '~/services/directus/schema';
+import { getFileUrl } from '~/modules/directus';
+import type { wouxun_file } from '~/modules/directus/schema';
+import { readItems } from '@directus/sdk';
+import { getDirectusClient } from '~/modules/directus';
+import { handleError } from '~/modules/logger';
+
+export const getFilesList = async (): Promise<wouxun_file[]> => {
+  try {
+    const directus = getDirectusClient();
+    const result = await directus.request(
+      readItems('wouxun_file', {
+        fields: ['*'],
+      }),
+    );
+
+    return result ?? [];
+  } catch (error: any) {
+    handleError(error);
+    return [];
+  }
+};
 
 export const useFilesData = routeLoader$(async () => {
   const files = await getFilesList();

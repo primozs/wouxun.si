@@ -6,15 +6,15 @@ import {
 } from '@builder.io/qwik-city';
 import { config } from '~/config';
 import { useGetRegionLoader } from '~/routes/plugin@store';
-import { getProduct } from '~/services/medusa/getProducts';
+import { getProduct } from '~/modules/medusa/getProducts';
 import {
   getProductByHandle,
   getProductsIds,
-} from '~/services/products/getDirectusProductData';
-import { getUserLocaleSrv } from '~/store/common/srvGetLocale';
-import { MainImage } from '~/store/products/ProductDetail';
-import { Gallery } from '~/store/products/ProductDetail';
-import { ProductDetailView } from '~/store/products/ProductDetail';
+} from '~/modules/products/getDirectusProductData';
+import { getUserLocaleSrv } from '~/modules/common/srvGetLocale';
+import { MainImage } from '~/modules/products/ProductDetail';
+import { Gallery } from '~/modules/products/ProductDetail';
+import { ProductDetailView } from '~/modules/products/ProductDetail';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const locale = getUserLocaleSrv(event);

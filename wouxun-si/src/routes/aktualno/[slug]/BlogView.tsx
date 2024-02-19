@@ -1,10 +1,10 @@
 import { component$, type Signal } from '@builder.io/qwik';
-import type { wouxun_news } from '~/services/directus/schema';
+import type { wouxun_news } from '~/modules/directus/schema';
 import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/services/directus';
-import { useAppGlobal } from '~/store/common/AppGlobalProvider';
+import { getImageUrl } from '~/modules/directus';
+import { useAppGlobal } from '~/modules/common/AppGlobalProvider';
 import { IoCalendarClearOutline } from '@qwikest/icons/ionicons';
 
 export interface BlogViewProps {

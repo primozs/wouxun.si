@@ -8,8 +8,8 @@ import {
   FormError,
 } from '@modular-forms/qwik';
 import * as v from 'valibot';
-import { handleError } from '~/services/logger';
-import { getMedusaClient } from '~/services/medusa';
+import { handleError } from '~/modules/logger';
+import { getMedusaClient } from '~/modules/medusa';
 import { UiTitle } from '~/ui/UiTitle';
 import { FormButton } from '~/ui/input/FormButton';
 import { InputDivider } from '~/ui/input/InputDivider';

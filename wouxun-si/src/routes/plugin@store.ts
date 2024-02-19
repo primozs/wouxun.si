@@ -6,10 +6,10 @@ import {
   zod$,
 } from '@builder.io/qwik-city';
 import { config } from '~/config';
-import { getMedusaApi, getMedusaClient } from '~/services/medusa';
-import { getRegion } from '~/services/medusa/getRegions';
-import { getProductList } from '~/services/products/getDirectusProductData';
-import { getUserLocaleSrv } from '~/store/common/srvGetLocale';
+import { getMedusaApi, getMedusaClient } from '~/modules/medusa';
+import { getRegion } from '~/modules/medusa/getRegions';
+import { getProductList } from '~/modules/products/getDirectusProductData';
+import { getUserLocaleSrv } from '~/modules/common/srvGetLocale';
 import type { Cart, Region } from '@medusajs/client-types';
 
 export const useSetCartItemQuantityAction = routeAction$(

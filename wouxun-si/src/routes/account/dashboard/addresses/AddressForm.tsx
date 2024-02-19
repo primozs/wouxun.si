@@ -9,8 +9,8 @@ import {
   type InitialValues,
   useForm,
 } from '@modular-forms/qwik';
-import { getMedusaClient, getSrvSessionHeaders } from '~/services/medusa';
-import { handleError } from '~/services/logger';
+import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
+import { handleError } from '~/modules/logger';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';

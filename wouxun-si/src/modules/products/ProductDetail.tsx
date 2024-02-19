@@ -1,10 +1,10 @@
 import { type Signal, component$, useSignal } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
-import { getImageUrl } from '~/services/directus';
+import { getImageUrl } from '~/modules/directus';
 import { mdParse } from '~/ui/md-parse';
 import { Dialog } from './Dialog';
-import { cleanTitle } from '~/store/products/cleanTitle';
-import type { ProductDetail } from '~/services/products/getDirectusProductData';
+import { cleanTitle } from '~/modules/products/cleanTitle';
+import type { ProductDetail } from '~/modules/products/getDirectusProductData';
 import { Tags } from './Tags';
 import { ProductPrice } from './Price';
 import type { PricedProduct } from '@medusajs/client-types';
@@ -12,7 +12,7 @@ import { Button } from '~/ui/button';
 import { LoadingDots } from '~/ui/loading-dots';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { ShoppingBagIcon } from '~/ui/icons/shopping-bag-icon';
-import { useCartDialog } from '~/store/cart/CartDialog';
+import { useCartDialog } from '~/modules/cart/CartDialog';
 import { useAddToCartAction } from '~/routes/plugin@store';
 
 export interface DetailsProps {

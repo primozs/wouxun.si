@@ -8,8 +8,8 @@ import {
   SESSION_COOKIE_KEY,
   getMedusaClient,
   getSrvSessionHeaders,
-} from '~/services/medusa';
-import { getServerSession } from '~/store/auth';
+} from '~/modules/medusa';
+import { getServerSession } from '~/modules/auth';
 
 export const useAuthSessionLoader = routeLoader$(async (event) => {
   // server

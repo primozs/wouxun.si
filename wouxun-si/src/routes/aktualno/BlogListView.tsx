@@ -5,12 +5,32 @@ import {
   useTask$,
   type Signal,
 } from '@builder.io/qwik';
-import type { wouxun_news } from '~/services/directus/schema';
-import { getBlogList } from '~/services/blog/getBlogData';
+import type { wouxun_news } from '~/modules/directus/schema';
 import { Alert } from '~/ui/alert';
 import { Image } from '@unpic/qwik';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
-import { getImageUrl } from '~/services/directus';
+import { getImageUrl } from '~/modules/directus';
+import { readItems } from '@directus/sdk';
+import { getDirectusClient, abortAsync } from '~/modules/directus';
+
+export const getBlogList = async (
+  page: number,
+  signal: AbortSignal,
+): Promise<wouxun_news[]> => {
+  const result = (await abortAsync(signal, async () => {
+    const directus = getDirectusClient();
+    return directus.request(
+      readItems('wouxun_news', {
+        limit: 6,
+        page,
+        sort: ['-date_created'],
+        fields: ['*'],
+      }),
+    );
+  })) as wouxun_news[];
+
+  return result ?? [];
+};
 
 function isBlogItemArray(val: Signal<unknown>): val is Signal<wouxun_news[]> {
   if (!Array.isArray(val.value)) {

@@ -2,7 +2,7 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Logo } from './logo';
 import { MainNavigation } from '~/modules/layout/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
-import { CartButton } from '~/store/cart/CartButton';
+import { CartButton } from '~/modules/cart/CartButton';
 import { config } from '~/config';
 import { NavBanner } from './NavBanner';
 

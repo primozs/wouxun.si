@@ -9,7 +9,7 @@ import {
 } from '@builder.io/qwik';
 import { config } from '~/config';
 // import { useGetRegionLoader } from '~/routes/plugin@store';
-import { CartDialogContext } from '~/store/cart/CartDialog';
+import { CartDialogContext } from '~/modules/cart/CartDialog';
 
 export interface AppGlobalStore {
   country: string | null;

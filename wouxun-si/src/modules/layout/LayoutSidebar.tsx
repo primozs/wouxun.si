@@ -2,7 +2,7 @@ import { component$, Slot } from '@builder.io/qwik';
 import { Footer } from '~/modules/layout/footer';
 import { Header } from '~/modules/layout/header';
 import OstaliModeli from '~/content/ostaliModeli.mdx';
-import { ProductListAside } from '~/store/products/ProductListAside';
+import { ProductListAside } from '~/modules/products/ProductListAside';
 
 export const LayoutSidebar = component$(() => {
   return (

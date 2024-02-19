@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
-import { formatPrice } from '~/store/common/formatPrice';
+import { formatPrice } from '~/modules/common/formatPrice';
 import type { PricedProduct, MoneyAmount } from '@medusajs/client-types';
-import { useAppGlobal } from '../../store/common/AppGlobalProvider';
+import { useAppGlobal } from '../../modules/common/AppGlobalProvider';
 
 export interface ProductPriceProps {
   product: PricedProduct | null;

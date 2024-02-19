@@ -4,7 +4,9 @@ import {
   routeLoader$,
   type StaticGenerateHandler,
 } from '@builder.io/qwik-city';
-import { getBlogBySlug, getBlogIds } from '~/services/blog/getBlogData';
+import { readItems } from '@directus/sdk';
+import { getDirectusClient } from '~/modules/directus';
+import { handleError } from '~/modules/logger';
 import { BlogView } from './BlogView';
 
 export const useGetPostBySlug = routeLoader$(async (event) => {
@@ -46,4 +48,42 @@ export const onStaticGenerate: StaticGenerateHandler = async () => {
       return { slug: item.slug };
     }),
   };
+};
+
+export const getBlogBySlug = async (slug: string | undefined) => {
+  try {
+    if (!slug) return null;
+    const directus = getDirectusClient();
+    const result = await directus.request(
+      readItems('wouxun_news', {
+        limit: 1,
+        fields: ['*'],
+        filter: {
+          slug: {
+            _eq: slug,
+          },
+        },
+      }),
+    );
+
+    if (result.length === 0) return null;
+
+    const item = result[0];
+    return item;
+  } catch (error: any) {
+    handleError(error, 'Get post by slug');
+    return null;
+  }
+};
+
+export const getBlogIds = async (): Promise<{ slug: string }[]> => {
+  const directus = getDirectusClient();
+
+  const result = await directus.request(
+    readItems('wouxun_news', {
+      fields: ['slug'],
+    }),
+  );
+
+  return result ?? [];
 };

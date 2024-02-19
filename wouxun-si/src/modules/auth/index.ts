@@ -9,7 +9,7 @@ import {
   SESSION_COOKIE_KEY,
   getMedusaClient,
   getSrvSessionHeaders,
-} from '~/services/medusa';
+} from '~/modules/medusa';
 
 export const getServerSession = (
   event: RequestEventLoader | RequestEvent,

@@ -6,8 +6,8 @@ import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { CheckoutButtons } from './CheckoutButtons';
 import { Image } from '@unpic/qwik';
 import { useCartDialog } from './CartDialog';
-import ListPrice from '~/store/products/Price';
-import { getImageUrl } from '~/services/directus';
+import ListPrice from '~/modules/products/Price';
+import { getImageUrl } from '~/modules/directus';
 
 export interface CartListProps {
   cart: Signal<Cart | null>;

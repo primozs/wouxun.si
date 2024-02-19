@@ -3,9 +3,9 @@ import { Link, routeLoader$ } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/client-types';
 import type { Order } from '@medusajs/medusa';
 import { useAuthSessionLoader } from '~/routes/plugin@auth';
-import { handleError } from '~/services/logger';
-import { getMedusaClient, getSrvSessionHeaders } from '~/services/medusa';
-import { formatAmount } from '~/store/common/prices';
+import { handleError } from '~/modules/logger';
+import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
+import { formatAmount } from '~/modules/common/prices';
 import { IoChevronForwardOutline } from '@qwikest/icons/ionicons';
 
 export const useCutomerOrders = routeLoader$(async (event) => {

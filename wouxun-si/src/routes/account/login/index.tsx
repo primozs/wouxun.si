@@ -9,7 +9,7 @@ import {
   FormError,
 } from '@modular-forms/qwik';
 import setCookie from 'set-cookie-parser';
-import { SESSION_COOKIE_KEY, getMedusaClient } from '~/services/medusa';
+import { SESSION_COOKIE_KEY, getMedusaClient } from '~/modules/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';

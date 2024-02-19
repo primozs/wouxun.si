@@ -8,8 +8,8 @@ import {
   useForm,
   valiForm$,
 } from '@modular-forms/qwik';
-import { handleError } from '~/services/logger';
-import { getMedusaClient } from '~/services/medusa';
+import { handleError } from '~/modules/logger';
+import { getMedusaClient } from '~/modules/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { FormButton } from '~/ui/input/FormButton';
 import { Response } from '~/ui/input/Response';
