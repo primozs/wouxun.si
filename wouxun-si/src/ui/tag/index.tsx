@@ -15,10 +15,9 @@ export const Tag = component$(
           `rounded-md inline-flex items-center justify-center 
           text-sm font-medium`,
           {
-            'bg-neutral-200 dark:bg-neutral-400 border border-neutral-400 dark:border-neutral-200 text-neutral-600 dark:text-tag-neutral-dark':
+            'bg-neutral border border-neutral-content text-neutral-content':
               variant === 'neutral',
-            'border border-primary-500 text-primary-500 dark:text-neutral-400':
-              variant === 'blue',
+            'border border-primary text-primary': variant === 'blue',
           },
           { 'py-0.5 px-2': size === 'medium', 'px-1.5': size === 'small' },
         ]}

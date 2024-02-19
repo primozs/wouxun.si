@@ -24,10 +24,7 @@ export const InputError = component$(({ name, error }: InputErrorProps) => {
 
   return (
     <Expandable expanded={!!error}>
-      <div
-        class="pt-4 text-sm text-error-500 dark:text-error-400"
-        id={`${name}-error`}
-      >
+      <div class="pt-4 text-sm text-error" id={`${name}-error`}>
         {frozenError.value}
       </div>
     </Expandable>

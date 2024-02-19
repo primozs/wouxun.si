@@ -18,7 +18,7 @@ export const ProductCard = component$<ProductCardProps>(
           class="`
         w-full overflow-hidden rounded-2xl         
         group/card 
-        shadow-card-hover-light dark:shadow-card-hover-dark
+        shadow-card-hover-light
       `"
         >
           <Thumbnail
@@ -53,9 +53,9 @@ const Thumbnail = component$(
           absolute inset-0 rounded-t-2xl flex opacity-0 
           group-focus-within:card:opacity-100
           md:group-hover/card:opacity-100
-          bg-overlay-light dark:bg-overlay-dark
+          bg-overlay-light
           z-10 items-center justify-center transition-all
-          text-white
+          text-primary-content
         `"
         >
           <p>Ogled produkta</p>
@@ -104,8 +104,8 @@ const Info = component$(({ product }: InfoProps) => {
         <h2
           class="`
             text-lg font-semibold leading-6 
-            text-neutral-800 dark:text-secondary-200
-            group-hover:text-neutral-600 dark:group-hover:text-neutral-400
+            text-base-content
+            group-hover:text-base-content/90
             line-clamp-1 text-ellipsis
           `"
         >
@@ -114,7 +114,7 @@ const Info = component$(({ product }: InfoProps) => {
         <p
           class="`
             text-base leading-6 text-ellipsis line-clamp-2            
-            text-neutral-600 dark:text-secondary-400            
+            text-base-content/90
           `"
         >
           {product.description}

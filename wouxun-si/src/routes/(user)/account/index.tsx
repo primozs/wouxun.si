@@ -30,7 +30,7 @@ export default component$(() => {
           Signed in: {customer.value?.email}
         </span>
       </div>
-      <div class="flex flex-col py-8 border-t border-gray-200">
+      <div class="flex flex-col py-8 border-t border-base-300">
         <div class="flex flex-col gap-y-4 h-full col-span-1 row-span-2 flex-1">
           <div class="flex items-start gap-x-16 mb-6">
             <Item
@@ -74,7 +74,7 @@ export interface OrderItemProps {
 export const OrderItem = component$<OrderItemProps>(({ order }) => {
   return (
     <Link href={`/account/orders/details/${order.id}`}>
-      <div class="bg-gray-50 flex justify-between items-center p-4">
+      <div class="bg-base-200 flex justify-between items-center p-4">
         <div class="grid grid-cols-3 grid-rows-2 text-xs leading-5 font-normal gap-x-4 flex-1">
           <span class="font-semibold">Date placed</span>
           <span class="font-semibold">Order number</span>

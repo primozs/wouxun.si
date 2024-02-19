@@ -16,16 +16,13 @@ export const InputLabel = component$(
           class={[
             `
           block text-sm font-medium leading-6
-          text-gray-800 dark:text-gray-200
+          text-base-content
           `,
             rest.class,
           ]}
           for={name}
         >
-          {label}{' '}
-          {required && (
-            <span class="ml-1 text-error-600 dark:text-error-400">*</span>
-          )}
+          {label} {required && <span class="ml-1 text-error">*</span>}
         </label>
       )}
     </>
@@ -40,7 +37,7 @@ export const InputLabel1 = component$((props: Props) => {
       {...props}
       class={[
         `block text-sm font-medium leading-6
-        text-gray-800 dark:text-gray-200
+        text-base-content
       `,
         props.class,
       ]}

@@ -1,5 +1,4 @@
 import { component$, useSignal, Slot, $ } from '@builder.io/qwik';
-import { Button } from '~/ui/button';
 import { Tag } from '~/ui/tag';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
 
@@ -25,18 +24,17 @@ export const Dialog = component$(() => {
         `"
       >
         <div class="w-full h-full rounded-lg flex flex-col items-center">
-          <div class="bg-neutral-50 dark:bg-neutral-600 flex flex-row justify-between p-2 border-b w-full border-neutral-200 dark:border-neutral-400">
+          <div class="bg-base-200 flex flex-row justify-between p-2 border-b w-full border-base-300">
             <div class="flex items-center gap-x-2">
-              <Button
-                intent="icon"
+              <button
+                type="button"
                 onClick$={() => {
                   ref.value?.close();
                 }}
-                type="button"
-                class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
+                class="btn btn-square btn-sm btn-neutral"
               >
-                <IoCloseOutline class="h-5 w-5 text-neutral-400" />
-              </Button>
+                <IoCloseOutline class="h-5 w-5" />
+              </button>
               <Tag class="hidden md:block" size="small" variant="neutral">
                 esc
               </Tag>

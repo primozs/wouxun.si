@@ -6,8 +6,10 @@ import { ProductList } from '~/store/products/ProductList';
 export default component$(() => {
   return (
     <>
-      <section>
+      <section class="prose mb-10">
         <ProdajniProgram />
+      </section>
+      <section>
         <ProductList />
       </section>
     </>

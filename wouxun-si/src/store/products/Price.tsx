@@ -41,7 +41,7 @@ export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
   return (
     <div class="flex items-end gap-x-3">
       <div>
-        <p class="font-semibold text-xl text-neutral-800 dark:text-neutral-300">
+        <p class="font-semibold text-xl text-base-content/90">
           {formatPrice(variantPrice.calculatedPrice, {
             currency: variantPrice.currency_code,
             locale: store.locale,
@@ -50,7 +50,7 @@ export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
       </div>
       {variantPrice.hasDiff && variantPrice.originalPrice !== undefined && (
         <div>
-          <p class="font-medium line-through text-[18px,28px] text-icon-subtle-light dark:text-icon-subtle-dark">
+          <p class="font-medium line-through text-[18px,28px] text-base-content/90">
             {formatPrice(variantPrice.originalPrice, {
               currency: variantPrice.currency_code,
               locale: store.locale,
@@ -80,7 +80,7 @@ export const CardPrice = component$<CardPriceProps>(({ product }) => {
         })}
       </div>
       {variantPrice.hasDiff && variantPrice.originalPrice !== undefined && (
-        <div class="text-xs line-through text-icon-subtle-light dark:text-icon-subtle-dark">
+        <div class="text-xs line-through text-base-content/90">
           {formatPrice(variantPrice.originalPrice, {
             currency: variantPrice.currency_code,
             locale: store.locale,

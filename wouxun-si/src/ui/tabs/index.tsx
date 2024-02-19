@@ -47,7 +47,7 @@ export const Tabs = component$((props: TabsProps) => {
 
   return (
     <div class="scrollbar-none flex scroll-px-8 overflow-x-auto scroll-smooth px-8">
-      <div class="relative flex-1 border-b-2 border-b-slate-200 dark:border-b-slate-800">
+      <div class="relative flex-1 border-b-2 border-b-base-300">
         <nav class="flex space-x-8 lg:space-x-14" ref={navElement}>
           {props.items.map((item) => {
             const href = `/${item.toLowerCase().replace(/ /g, '-')}/`;
@@ -57,8 +57,8 @@ export const Tabs = component$((props: TabsProps) => {
                 class={[
                   'block pb-4 lg:text-lg',
                   location.url.pathname.endsWith(href)
-                    ? 'text-sky-600 dark:text-sky-400'
-                    : 'hover:text-slate-900 dark:hover:text-slate-200',
+                    ? 'text-primary'
+                    : 'hover:text-base-content',
                 ]}
                 href={`..${href}`}
                 // TODO: Enable once issue #3223 is fixed
@@ -76,7 +76,7 @@ export const Tabs = component$((props: TabsProps) => {
         </nav>
         <div
           window:onResize$={updateIndicatorStyle}
-          class="absolute -bottom-0.5 m-0 h-0.5 rounded bg-sky-600 duration-200 dark:bg-sky-400"
+          class="absolute -bottom-0.5 m-0 h-0.5 rounded bg-primary duration-200"
           style={indicatorStyle.value}
         />
       </div>

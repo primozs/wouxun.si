@@ -7,42 +7,39 @@ module.exports = {
       inherit: 'inherit',
       current: 'currentColor',
       transparent: 'transparent',
-      black: '#000',
-      white: '#fff',
+      // black: '#000',
+      // white: '#fff',
       // https://www.tailwindshades.com/
-      primary: {
-        50: '#5EB2FD',
-        100: '#49A8FD',
-        200: '#2195FC',
-        300: '#0381F2',
-        400: '#036CC9',
-        500: '#0256A1',
-        600: '#01386A',
-        700: '#011B32',
-        800: '#000000',
-        900: '#000000',
-        950: '#000000',
-      },
-      secondary: colors.sky,
-      neutral: colors.slate,
-      info: colors.blue,
-      success: colors.blue,
-      error: colors.red,
-      warning: colors.yellow,
-      gray: colors.gray,
+      // primary: {
+      //   50: '#5EB2FD',
+      //   100: '#49A8FD',
+      //   200: '#2195FC',
+      //   300: '#0381F2',
+      //   400: '#036CC9',
+      //   500: '#0256A1',
+      //   600: '#01386A',
+      //   700: '#011B32',
+      // },
+      // secondary: colors.sky,
+      // neutral: colors.slate,
+      // info: colors.blue,
+      // success: colors.blue,
+      // error: colors.red,
+      // warning: colors.yellow,
+      // gray: colors.gray,
     },
-    fontFamily: {
-      sans: [
-        'Inter',
-        'Arial',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        '"Noto Sans"',
-        'sans-serif',
-      ],
-    },
+    // fontFamily: {
+    //   sans: [
+    //     'Inter',
+    //     'Arial',
+    //     'BlinkMacSystemFont',
+    //     '"Segoe UI"',
+    //     'Roboto',
+    //     '"Helvetica Neue"',
+    //     '"Noto Sans"',
+    //     'sans-serif',
+    //   ],
+    // },
     extend: {
       boxShadow: {
         'card-hover-dark':
@@ -66,5 +63,74 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+
+  // https://daisyui.com/docs/config/
+  // https://daisyui.com/docs/themes/
+  // https://daisyui.com/docs/utilities/
+  // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
+  plugins: [require('@tailwindcss/forms'), require('daisyui')],
+  daisyui: {
+    themes: [
+      {
+        wouxun: {
+          fontFamily:
+            'Inter,Arial,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif',
+          'color-scheme': 'light',
+          primary: '#0256A1',
+          'primary-content': '#ffffff',
+          secondary: '#e5f2f9', // '#0284c7',
+          'secondary-content': '#0c4a6e',
+          accent: '#9333ea',
+          'accent-content': '#fff',
+          neutral: '#f7f7f7', // toolbar //  light '#f4f5f8'
+          'neutral-content': '#334155',
+          'base-100': '#ffff',
+          'base-200': '#f8fafc', // slate-50 // '#f9fafb', // gray-50
+          'base-300': '#e5e7eb', //'#f3f4f6', // border // gray-200 '#e5e7eb'
+          'base-content': '#1f2937',
+          info: '#0ea5e9',
+          success: '#16a34a',
+          warning: '#ea580c',
+          error: '#dc2626',
+          '--rounded-box': '0.125rem',
+          '--rounded-btn': '0.375rem',
+          '--border-btn': '1px',
+          '--rounded-badge': '9999px',
+          '--animation-btn': '0', // '0.25s',
+          '--animation-input': '0.2s',
+          '--btn-focus-scale': '1',
+          '--tab-radius': '0.125rem',
+          '--tab-border': '1px',
+        },
+        night: {
+          'color-scheme': 'dark',
+          primary: '#38bdf8',
+          secondary: '#818CF8',
+          accent: '#F471B5',
+          neutral: '#1E293B',
+          'base-100': '#0F172A',
+          info: '#0ea5e9',
+          success: '#16a34a',
+          warning: '#ea580c',
+          error: '#dc2626',
+          '--rounded-box': '0.125rem',
+          '--rounded-btn': '0.375rem',
+          '--border-btn': '1px',
+          '--rounded-badge': '9999px',
+          '--animation-btn': '0', // '0.25s',
+          '--animation-input': '0.2s',
+          '--btn-focus-scale': '1',
+          '--tab-radius': '0.125rem',
+          '--tab-border': '1px',
+        },
+      },
+    ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    darkTheme: 'dark', // name of one of the included themes for dark mode
+    base: true, // true, // applies background color and foreground color for root element by default
+    styled: true, // true, // include daisyUI colors and design decisions for all components
+    utils: true, //true, // adds responsive and modifier utility classes
+    prefix: '', // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
+    logs: true, // Shows info about daisyUI version and used config in the console when building your CSS
+    themeRoot: ':root', // The element that receives theme color CSS variables
+  },
 };

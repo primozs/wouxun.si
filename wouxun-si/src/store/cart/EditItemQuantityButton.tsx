@@ -13,13 +13,11 @@ export const EditItemQuantityButton = component$<Props>(({ item }) => {
   const action = useSetCartItemQuantityAction();
   return (
     <>
-      {isLoading.value && (
-        <LoadingDots class="bg-neutral-400 dark:bg-neutral-400" />
-      )}
+      {isLoading.value && <LoadingDots class="bg-base-content/50" />}
       {!isLoading.value && (
         <div class="flex items-center cursor-pointer relative">
           <select
-            class="flex flex-row p-1 bg-transparent text-neutral-800 dark:text-neutral-300 appearance-none cursor-pointer pr-5 z-50"
+            class="flex flex-row p-1 text-base-content appearance-none cursor-pointer pr-5 z-50"
             value={item.quantity}
             onChange$={async (e) => {
               // @ts-ignore

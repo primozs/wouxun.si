@@ -17,8 +17,8 @@ export const UiIcon = component$<Props>(
             'h-4 w-4 [&>svg]:h-4 [&>svg]:w-4': size === 'sm',
             'h-6 w-6 [&>svg]:h-6 [&>svg]:w-6': size === 'base',
             'h-7 w-7 [&>svg]:h-7 [&>svg]:w-7': size === 'md',
-            'text-primary-500': color === 'primary',
-            'text-gray-600 dark:text-white': color === 'secondary',
+            'text-primary': color === 'primary',
+            'text-secondary': color === 'secondary',
           },
           props.class && props.class,
         ]}

@@ -7,7 +7,7 @@ export interface CheckoutButtonsProps {}
 export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
   const { addNotification } = useNotifications();
   return (
-    <div class="border-t border-neutral-200 p-8 flex flex-col md:flex-row justify-between gap-4 z-0">
+    <div class="border-t border-base-300 p-8 flex flex-col md:flex-row justify-between gap-4 z-0">
       <Button
         class="md:w-1/2 w-100"
         intent="primary"

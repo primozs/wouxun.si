@@ -9,8 +9,8 @@ type Props = QwikIntrinsicElements['p'] & {
 export const InputHelper = component$(
   ({ intent = 'help', error, ...rest }: Props) => {
     const intents: Record<string, string> = {
-      help: 'text-gray-600 dark:text-gray-200',
-      error: 'text-error-600',
+      help: 'text-base-content/60',
+      error: 'text-error',
     };
     const selectedIntent = intents[error ? 'error' : intent];
     return (

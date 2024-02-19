@@ -34,7 +34,7 @@ export const UiButton = component$<Props>(
           focus-visible:outline 
           focus-visible:outline-2 
           focus-visible:outline-offset-2 
-          focus-visible:outline-primary-600 dark:focus-visible:outline-white
+          focus-visible:outline-primary
           
           flex justify-center items-center gap-x-1.5
           text-sm font-semibold
@@ -45,28 +45,28 @@ export const UiButton = component$<Props>(
           fillStyle.value === 'solid' &&
             color === 'primary' &&
             `
-          bg-primary-600 text-white hover:bg-primary-500
+          bg-primary text-primary-content hover:bg-primary/90
           `,
 
           fillStyle.value === 'solid' &&
             color === 'secondary' &&
             `
-          bg-gray-100 dark:bg-gray-800
-          text-gray-800 dark:text-gray-400 
-          hover:bg-gray-200 dark:hover:bg-gray-700
+          bg-secondary
+          text-secondary-content
+          hover:bg-secondary-content/5    
           `,
 
           fillStyle.value === 'clear' &&
             color === 'primary' &&
             `
-          text-primary-600 hover:text-primary-500
+          text-primary hover:text-primary
           `,
 
           fillStyle.value === 'clear' &&
             color === 'secondary' &&
             `
-          text-gray-800 dark:text-gray-400 
-          hover:text-gray-700 dark:hover:text-gray-300
+          text-base-content
+          hover:text-base-content/90
           `,
           padding && 'p-2',
           props.class && props.class,

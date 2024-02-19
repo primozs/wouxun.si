@@ -16,8 +16,8 @@ export const UiFooter = component$<Props>(
           z-10
           `,
           {
-            'bg-light-200 dark:bg-gray-900': !translucent,
-            'backdrop-blur bg-white/60 dark:bg-gray-900': translucent,
+            'bg-neutral': !translucent,
+            'backdrop-blur bg-base-100/60': translucent,
           },
           props.class && props.class,
         ]}

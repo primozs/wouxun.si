@@ -26,9 +26,9 @@ export const FormButton = component$<FormButtonProps>(
             <span class="absolute inset-0 -top-0.5">
               <LoadingDots
                 class={[
-                  intent === 'primary'
-                    ? 'bg-white dark:bg-white'
-                    : 'bg-secondary-900 dark:bg-secondary-900',
+                  intent === 'secondary'
+                    ? 'bg-secondary-content'
+                    : 'bg-primary-content',
                 ]}
               />
             </span>

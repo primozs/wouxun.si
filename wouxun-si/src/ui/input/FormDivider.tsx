@@ -7,10 +7,7 @@ type Props = {
 export const FormDivider = component$((props: Props) => {
   return (
     <div
-      class={[
-        'space-y-6 divide-y divide-gray-200 dark:divide-gray-700 sm:space-y-5',
-        props.class,
-      ]}
+      class={['space-y-6 divide-y divide-base-300 sm:space-y-5', props.class]}
     >
       <Slot />
     </div>

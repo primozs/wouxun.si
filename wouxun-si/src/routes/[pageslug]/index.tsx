@@ -1,9 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  type DocumentHead,
-  routeLoader$,
-  // type StaticGenerateHandler,
-} from '@builder.io/qwik-city';
+import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import { getPageBySlug } from '~/services/pages/getPageData';
 import { mdParse } from '~/ui/md-parse';
 
@@ -38,13 +34,3 @@ export const head: DocumentHead = ({ resolveValue }) => {
     ],
   };
 };
-
-// export const onStaticGenerate: StaticGenerateHandler = async () => {
-//   const items = await getPagesIds();
-
-//   return {
-//     params: items.map((item) => {
-//       return { pageslug: item.slug };
-//     }),
-//   };
-// };

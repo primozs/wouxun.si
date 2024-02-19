@@ -96,7 +96,7 @@ export const AddToCart = component$<AddToCartProps>(
       >
         {adding.value ? (
           <span class="flex h-6 items-center ">
-            <LoadingDots class="bg-white dark:bg-neutral-400" />
+            <LoadingDots class="bg-primary-content" />
           </span>
         ) : (
           <>
@@ -114,7 +114,7 @@ export interface TitleProps {
 }
 
 export const Title = component$<TitleProps>(({ title }) => {
-  return <h1 class="font-medium text-xl">{cleanTitle(title)}</h1>;
+  return <h1 class="header1">{cleanTitle(title)}</h1>;
 });
 
 export interface DescriptionProps {

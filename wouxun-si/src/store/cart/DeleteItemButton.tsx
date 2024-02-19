@@ -20,11 +20,7 @@ export const DeleteItemButton = component$<Props>(({ item }) => {
         removing.value = false;
       }}
     >
-      {removing.value ? (
-        <LoadingDots class="bg-neutral-500 dark:bg-neutral-400" />
-      ) : (
-        'Odstrani'
-      )}
+      {removing.value ? <LoadingDots class="bg-base-content/50" /> : 'Odstrani'}
     </button>
   );
 });

@@ -28,7 +28,7 @@ export default component$(() => {
   });
 
   return (
-    <>
+    <article class="prose">
       <h1>Podpora</h1>
 
       {Object.keys(filesMap.value ?? {}).map((category) => {
@@ -61,7 +61,7 @@ export default component$(() => {
         </a>
         .
       </p>
-    </>
+    </article>
   );
 });
 

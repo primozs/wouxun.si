@@ -39,9 +39,9 @@ export const InputPassword = component$<TextInputProps>((props) => {
           ]}
         >
           {showPassword.value === false ? (
-            <IoEyeOffOutline class="text-gray-400 h-5 w-5" />
+            <IoEyeOffOutline class="text-base-content/40 h-5 w-5" />
           ) : (
-            <IoEyeOutline class="text-gray-400 h-5 w-5" />
+            <IoEyeOutline class="text-base-content/40 h-5 w-5" />
           )}
         </button>
       </div>

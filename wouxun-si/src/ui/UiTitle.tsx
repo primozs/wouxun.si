@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const UiTitle = component$<Props>(
-  ({ color = 'base', size = 'base', ...props }) => {
+  ({ color = 'base', size = 'base', ...props }: Props) => {
     return (
       <div
         class={[
@@ -16,7 +16,9 @@ export const UiTitle = component$<Props>(
         whitespace-nowrap overflow-hidden text-ellipsis          
         py-[3px]        
       `,
-          color === 'base' && 'text-gray-800 dark:text-gray-100',
+          color === 'base' && 'text-base-content',
+          color === 'primary' && 'text-primary',
+          color === 'secondary' && 'text-secondary',
           size === 'base' && 'font-semibold',
           size === 'lg' && 'text-lg font-semibold',
           size === 'xl' && 'text-xl font-semibold',
