@@ -73,7 +73,7 @@ export const useFormAction = formAction$<RegisterForm, ResponseType>(
 
     try {
       await client.customers.create(user);
-      return event.redirect(302, '/login');
+      return event.redirect(302, '/account/login');
     } catch (error: any) {
       handleError(error);
       throw new FormError<RegisterForm>('Registracija ni bila uspešna.');
@@ -192,7 +192,7 @@ export const RegisterView = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/login">
+          <LinkButton intent="secondary" href="/account/login">
             Prijava
           </LinkButton>
         </div>

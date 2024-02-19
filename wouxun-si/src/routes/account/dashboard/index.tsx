@@ -73,7 +73,7 @@ export interface OrderItemProps {
 
 export const OrderItem = component$<OrderItemProps>(({ order }) => {
   return (
-    <Link href={`/account/orders/details/${order.id}`}>
+    <Link href={`/account/dashboard/orders/details/${order.id}`}>
       <div class="bg-base-200 flex justify-between items-center p-4">
         <div class="grid grid-cols-3 grid-rows-2 text-xs leading-5 font-normal gap-x-4 flex-1">
           <span class="font-semibold">Date placed</span>

@@ -34,19 +34,19 @@ export const NavBanner = component$<Props>((props) => {
           ]}
         >
           {!session.value && (
-            <Link href="/login" class={[linkStyle]}>
+            <Link href="/account/login" class={[linkStyle]}>
               Prijava <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
 
           {!session.value && (
-            <Link href="/register" class={[linkStyle]}>
+            <Link href="/account/register" class={[linkStyle]}>
               Registracija
             </Link>
           )}
 
           {session.value && (
-            <Link href="/account" class={[linkStyle]}>
+            <Link href="/account/dashboard" class={[linkStyle]}>
               {session.value?.first_name} {session.value?.last_name}
             </Link>
           )}

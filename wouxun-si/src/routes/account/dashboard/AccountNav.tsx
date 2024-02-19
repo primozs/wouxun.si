@@ -27,21 +27,21 @@ export const AccountNav = component$<Props>(() => {
     <>
       <UiList class="sm:hidden">
         <UiListHeader>Hello {customer.value?.first_name}</UiListHeader>
-        <UiItem detail to="/account/profile">
+        <UiItem detail to="/account/dashboard/profile">
           <UiIcon q:slot="start">
             <HiUserCircleOutline />
           </UiIcon>
           <UiLabel>Profile</UiLabel>
         </UiItem>
 
-        <UiItem detail to="/account/addresses">
+        <UiItem detail to="/account/dashboard/addresses">
           <UiIcon q:slot="start">
             <IoLocationOutline />
           </UiIcon>
           <UiLabel>Addresses</UiLabel>
         </UiItem>
 
-        <UiItem detail to="/account/orders">
+        <UiItem detail to="/account/dashboard/orders">
           <UiIcon q:slot="start">
             <PackageIcon />
           </UiIcon>
@@ -61,11 +61,11 @@ export const AccountNav = component$<Props>(() => {
       </UiList>
 
       <UiList class="hidden sm:block">
-        <UiItem lines="none" to="/account">
+        <UiItem lines="none" to="/account/dashboard">
           <UiLabel
             color="primary"
             weight={
-              location.url.pathname === '/account/'
+              location.url.pathname === '/account/dashboard/'
                 ? 'font-semibold'
                 : 'font-medium'
             }
@@ -74,11 +74,11 @@ export const AccountNav = component$<Props>(() => {
           </UiLabel>
         </UiItem>
 
-        <UiItem lines="none" to="/account/profile">
+        <UiItem lines="none" to="/account/dashboard/profile">
           <UiLabel
             color="primary"
             weight={
-              location.url.pathname === '/account/profile/'
+              location.url.pathname === '/account/dashboard/profile/'
                 ? 'font-semibold'
                 : 'font-medium'
             }
@@ -87,11 +87,11 @@ export const AccountNav = component$<Props>(() => {
           </UiLabel>
         </UiItem>
 
-        <UiItem lines="none" to="/account/addresses">
+        <UiItem lines="none" to="/account/dashboard/addresses">
           <UiLabel
             color="primary"
             weight={
-              location.url.pathname === '/account/addresses/'
+              location.url.pathname === '/account/dashboard/addresses/'
                 ? 'font-semibold'
                 : 'font-medium'
             }
@@ -100,11 +100,11 @@ export const AccountNav = component$<Props>(() => {
           </UiLabel>
         </UiItem>
 
-        <UiItem lines="none" to="/account/orders">
+        <UiItem lines="none" to="/account/dashboard/orders">
           <UiLabel
             color="primary"
             weight={
-              location.url.pathname === '/account/orders/'
+              location.url.pathname === '/account/dashboard/orders/'
                 ? 'font-semibold'
                 : 'font-medium'
             }

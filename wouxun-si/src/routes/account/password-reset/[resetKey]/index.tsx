@@ -19,10 +19,8 @@ import { UiTitle } from '~/ui/UiTitle';
 
 export default component$(() => {
   return (
-    <div class="flex flex-1 flex-col justify-center px-4 py-6">
-      <div class="mx-auto w-full max-w-sm lg:w-96">
-        <ChangePasswordView />
-      </div>
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <ChangePasswordView />
     </div>
   );
 });
@@ -81,7 +79,7 @@ export const useFormAction = formAction$<ChangePasswordForm, ResponseType>(
         password: data.password,
         token,
       });
-      return event.redirect(302, '/login');
+      return event.redirect(302, '/account/login');
     } catch (error: any) {
       handleError(error);
       throw new FormError<ChangePasswordForm>('Password reset failed');
@@ -155,7 +153,7 @@ export const ChangePasswordView = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/login">
+          <LinkButton intent="secondary" href="/account/login">
             Prijava
           </LinkButton>
         </div>

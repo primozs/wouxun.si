@@ -115,7 +115,7 @@ export const PasswordResetView = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/login">
+          <LinkButton intent="secondary" href="/account/login">
             Prijava
           </LinkButton>
         </div>

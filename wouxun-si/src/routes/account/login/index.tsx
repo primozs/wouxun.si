@@ -146,7 +146,7 @@ export const LoginForm = component$(() => {
           <div class="text-sm">
             <Link
               class="link text-sm font-medium leading-6"
-              href="/password-reset"
+              href="/account/password-reset"
             >
               Ste pozabili geslo
             </Link>
@@ -166,7 +166,7 @@ export const LoginForm = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/register">
+          <LinkButton intent="secondary" href="/account/register">
             Ustvari račun
           </LinkButton>
         </div>

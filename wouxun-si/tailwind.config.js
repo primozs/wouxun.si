@@ -104,11 +104,11 @@ module.exports = {
         },
         night: {
           'color-scheme': 'dark',
-          primary: '#38bdf8',
+          primary: '#ffffff',
           secondary: '#818CF8',
           accent: '#F471B5',
           neutral: '#1E293B',
-          'base-100': '#0F172A',
+          'base-100': '#1A2748',
           info: '#0ea5e9',
           success: '#16a34a',
           warning: '#ea580c',

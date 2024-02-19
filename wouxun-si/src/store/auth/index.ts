@@ -38,6 +38,9 @@ export const protectedRoute: RequestHandler = async (event) => {
   const session = (await event.sharedMap.get('session')) as Customer | null;
   const sessionCookie = event.cookie.get(SESSION_COOKIE_KEY);
   if (!sessionCookie?.value || !session) {
-    throw event.redirect(302, `/login?callbackUrl=${event.url.pathname}`);
+    throw event.redirect(
+      302,
+      `/account/login?callbackUrl=${event.url.pathname}`,
+    );
   }
 };
