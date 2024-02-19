@@ -1,6 +1,6 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Logo } from './logo';
-import { MainNavigation } from '~/routes/(layout)/MainNavigation';
+import { MainNavigation } from '~/modules/layout/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 import { CartButton } from '~/store/cart/CartButton';
 import { config } from '~/config';
@@ -13,11 +13,11 @@ export const Header = component$(() => {
     <header
       class="`
         transform sticky top-0 z-10
-        backdrop-blur bg-white/90
+        backdrop-blur bg-base-100/90
       `"
     >
       <NavBanner />
-      <nav class="max-w-screen-2xl p-3 sm:p6 mx-auto flex items-center justify-between text-primary-500">
+      <nav class="max-w-screen-2xl p-3 sm:p6 mx-auto flex items-center justify-between text-primary">
         <div class="mr-5">
           <a
             href="/"

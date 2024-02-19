@@ -20,8 +20,7 @@ export const MainNavigation = component$<Props>((props) => {
                   `flex justify-center sm:justify-start items-center 
                   mr-4
                   space-x-2 whitespace-nowrap sm:space-x-4`,
-                props.isMobile &&
-                  `space-y-2 whitespace-nowrap text-primary-500`,
+                props.isMobile && `space-y-2 whitespace-nowrap text-primary`,
               ]}
               key={item.text}
             >
@@ -38,8 +37,8 @@ export const MainNavigation = component$<Props>((props) => {
                       href={item.href}
                       class={[
                         'text-base font-semibold',
-                        { 'text-primary-600': !props.darkBg && active },
-                        { 'text-white': props.darkBg && active },
+                        { 'text-primary': !props.darkBg && active },
+                        { 'text-primary-content': props.darkBg && active },
                       ]}
                     >
                       {item.text}

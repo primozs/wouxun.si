@@ -3,7 +3,6 @@ import { component$, Slot } from '@builder.io/qwik';
 import {
   IoCheckmarkCircleSharp,
   IoCloseCircleSharp,
-  IoCloseOutline,
   IoAlertCircleSharp,
 } from '@qwikest/icons/ionicons';
 
@@ -24,16 +23,16 @@ export const Alert = component$<AlertProps>(
         class={[
           'rounded-md p-4',
           {
-            'bg-info-50': intent === 'information',
+            'bg-info/5': intent === 'information',
           },
           {
-            'bg-success-50': intent === 'success',
+            'bg-success/5': intent === 'success',
           },
           {
-            'bg-error-50': intent === 'error',
+            'bg-error/5': intent === 'error',
           },
           {
-            'bg-warning-50': intent === 'warning',
+            'bg-warning/5': intent === 'warning',
           },
           rest.class,
         ]}
@@ -41,16 +40,16 @@ export const Alert = component$<AlertProps>(
         <div class="flex items-center">
           <div class="flex-shrink-0">
             {intent === 'information' && (
-              <IoAlertCircleSharp class="h-5 w-5 text-info-400" />
+              <IoAlertCircleSharp class="h-5 w-5 text-info" />
             )}
             {intent === 'success' && (
-              <IoCheckmarkCircleSharp class="h-5 w-5 text-success-400" />
+              <IoCheckmarkCircleSharp class="h-5 w-5 text-success" />
             )}
             {intent === 'error' && (
-              <IoCloseCircleSharp class="h-5 w-5 text-error-400" />
+              <IoCloseCircleSharp class="h-5 w-5 text-error" />
             )}
             {intent === 'warning' && (
-              <HiExclamationTriangleSolid class="h-5 w-5 text-warning-400" />
+              <HiExclamationTriangleSolid class="h-5 w-5 text-warning" />
             )}
           </div>
           <div class="ml-3">
@@ -59,9 +58,6 @@ export const Alert = component$<AlertProps>(
               <AlertDescription intent={intent}>
                 {rest.description}
               </AlertDescription>
-            )}
-            {rest.textList && (
-              <AlertTextList intent={intent} textList={rest.textList} />
             )}
           </div>
 
@@ -83,16 +79,16 @@ export const AlertTitle = component$(
         class={[
           'text-sm font-medium',
           {
-            'text-info-800': intent === 'information',
+            'text-info': intent === 'information',
           },
           {
-            'text-success-800': intent === 'success',
+            'text-success': intent === 'success',
           },
           {
-            'text-error-800': intent === 'error',
+            'text-error': intent === 'error',
           },
           {
-            'text-warning-800': intent === 'warning',
+            'text-warning': intent === 'warning',
           },
         ]}
       >
@@ -113,102 +109,22 @@ export const AlertDescription = component$(
         class={[
           'text-sm font-medium',
           {
-            'text-info-700': intent === 'information',
+            'text-info': intent === 'information',
           },
           {
-            'text-success-700': intent === 'success',
+            'text-success': intent === 'success',
           },
           {
-            'text-error-700': intent === 'error',
+            'text-error': intent === 'error',
           },
           {
-            'text-warning-700': intent === 'warning',
+            'text-warning': intent === 'warning',
           },
         ]}
       >
         <p>
           <Slot />
         </p>
-      </div>
-    );
-  },
-);
-
-type AlertTextListProps = {
-  textList: string[];
-  intent?: 'information' | 'success' | 'error' | 'warning';
-};
-
-export const AlertTextList = component$(
-  ({ intent = 'information', textList }: AlertTextListProps) => {
-    return (
-      <div
-        class={[
-          'text-sm font-medium',
-          {
-            'text-info-700': intent === 'information',
-          },
-          {
-            'text-success-700': intent === 'success',
-          },
-          {
-            'text-error-700': intent === 'error',
-          },
-          {
-            'text-warning-700': intent === 'warning',
-          },
-        ]}
-      >
-        <ul role="list" class="list-disc space-y-1 pl-5">
-          {textList.map((item) => {
-            return <li key={item}>{item}</li>;
-          })}
-        </ul>
-      </div>
-    );
-  },
-);
-
-type AlertCloseButtonProps = {
-  intent?: 'information' | 'success' | 'error' | 'warning';
-  class?: string;
-};
-
-export const AlertCloseButton = component$(
-  ({ intent = 'information', ...rest }: AlertCloseButtonProps) => {
-    return (
-      <div class="ml-auto pl-3">
-        <div class="-mx-1.5 -my-1.5">
-          <button
-            type="button"
-            {...rest}
-            class={[
-              'inline-flex rounded-md',
-              'p-1.5  focus:outline-none focus:ring-2',
-              'focus:ring-offset-2',
-              {
-                'bg-info-50 text-info-500 hover:bg-info-100 focus:ring-info-600 focus:ring-offset-info-50':
-                  intent === 'information',
-              },
-              {
-                'bg-success-50 text-success-500 hover:bg-success-100 focus:ring-success-600 focus:ring-offset-success-50':
-                  intent === 'success',
-              },
-              {
-                'bg-error-50 text-error-500 hover:bg-error-100 focus:ring-error-600 focus:ring-offset-error-50':
-                  intent === 'error',
-              },
-              {
-                'bg-warning-50 text-warning-500 hover:bg-warning-100 focus:ring-warning-600 focus:ring-offset-warning-50':
-                  intent === 'warning',
-              },
-              rest.class,
-            ]}
-          >
-            <span class="sr-only">Dismiss</span>
-            <IoCloseOutline class="h-5 w-5" />
-          </button>
-        </div>
       </div>
     );
   },

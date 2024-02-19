@@ -52,19 +52,14 @@ export const UiItem = component$<Props>(
           color === 'base' &&
             !translucent &&
             `
-          bg-white text-gray-900 dark:bg-gray-900 dark:text-white
+          bg-base-100 text-base-content
           `,
-          color === 'transparent' && 'bg-transparent',
-          translucent && 'backdrop-blur bg-white/60 dark:bg-gray-900/60',
+          translucent && 'backdrop-blur bg-base-100/60',
           translucent || color === 'transparent'
-            ? 'border-light-300/60 dark:border-white/5'
-            : 'border-light-300 dark:border-white/5',
-          selected &&
-            color !== 'transparent' &&
-            '!bg-light-200 dark:!bg-darkcustomhover',
-          selected &&
-            color === 'transparent' &&
-            '!bg-light-400/70 dark:!bg-darkcustomhover/80',
+            ? 'border-base-300/60'
+            : 'border-base-300',
+          selected && color !== 'transparent' && '!bg-base-200',
+          selected && color === 'transparent' && '!bg-base-300/70',
           to && 'cursor-pointer',
           props.onClick$ && 'cursor-pointer',
           props.class && props.class,
@@ -91,7 +86,7 @@ export const UiItem = component$<Props>(
               `
                 absolute top-[10px] end-[10px] 
                 flex items-center
-                text-gray-500 dark:text-gray-400
+                text-text-base-content/60
               `,
             ]}
           >
@@ -103,8 +98,8 @@ export const UiItem = component$<Props>(
           </div>
 
           {detail && (
-            <div class="ml-3 flex-shrink-0 h-5 w-5 text-gray-500 dark:text-gray-400">
-              <IoChevronForwardOutline class="h-5 w-5" />
+            <div class="ml-3 flex-shrink-0 h-5 w-5 text-text-base-content/60">
+              <IoChevronForwardOutline class="h-5 w-5 text-base-content/60" />
             </div>
           )}
         </div>

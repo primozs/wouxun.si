@@ -17,9 +17,9 @@ export const buttonIntents: Record<string, string> = {
     rounded-md
     shadow-sm
     border-transparent
-    bg-primary-500
-    hover:bg-primary-600/90 
-    !text-white    
+    bg-primary
+    hover:bg-primary/90    
+    !text-primary-content    
     no-underline transition-colors
   `,
   // gap-1
@@ -34,10 +34,10 @@ export const buttonIntents: Record<string, string> = {
     border
     rounded-md    
     shadow-sm
-    border-secondary-200    
-    bg-secondary-600/10
-    hover:bg-secondary-600/20
-    text-secondary-900
+    border-secondary-content/10
+    bg-secondary    
+    hover:bg-primary/5    
+    text-secondary-content
     no-underline transition-colors
   `,
   error: `
@@ -50,17 +50,17 @@ export const buttonIntents: Record<string, string> = {
     rounded-md
     shadow-sm
     border-transparent
-    bg-error-600
-    hover:bg-error-700 
-    text-white shadow-sm
+    bg-error
+    hover:bg-error/90 
+    text-error-content shadow-sm
   `,
   icon: `
     p-2
     inline-flex items-center justify-center
     rounded-md
-    text-primary-500 dark:text-white
-    hover:bg-primary-600/90 dark:hover:bg-primary-800
-    hover:text-white dark:hover:text-white
+    text-primary
+    hover:bg-primary/90
+    hover:text-primary-content
   `,
 };
 
@@ -72,12 +72,12 @@ export const Button = component$<ButtonProps>(
       <button
         {...rest}
         class={[
-          `
+          `rounded-full
             relative
             focus-visible:outline-none
             focus-visible:ring-2
             focus-visible:ring-offset-1
-            focus-visible:ring-primary-500 dark:focus-visible:ring-white
+            focus-visible:ring-primary
             text-sm tracking-wide font-semibold leading-6 whitespace-nowrap
           `,
           selectedIntent,

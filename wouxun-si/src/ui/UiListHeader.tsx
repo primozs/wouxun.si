@@ -21,7 +21,7 @@ export const UiListHeader = component$<Props>(
         `,
           color === 'base' &&
             `
-          bg-white text-gray-900 dark:bg-gray-900 dark:text-white
+          bg-base-100 text-base-content
         `,
           props.class && props.class,
         ]}

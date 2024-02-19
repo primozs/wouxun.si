@@ -15,7 +15,7 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
       <div
         class={[
           `
-          bg-white absolute h-screen w-full z-10 sm:hidden
+          bg-base-100 absolute h-screen w-full z-10 sm:hidden
           transition-all ease-in-out duration-200 opacity-0
           -left-full
           motion-reduce:transition-none

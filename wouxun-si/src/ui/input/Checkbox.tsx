@@ -29,10 +29,10 @@ export const Checkbox = component$(
             {...props}
             class={[
               'mt-1 cursor-pointer',
-              'bg-white dark:bg-gray-700',
-              'border-gray-300 rounded',
-              'text-primary-600',
-              'focus:ring-primary-500 dark:focus:ring-white',
+              'bg-base-100',
+              'border-base-300 rounded',
+              'text-primary',
+              'focus:ring-primary',
               'h-4 w-4',
             ]}
             type="checkbox"
@@ -41,9 +41,7 @@ export const Checkbox = component$(
             aria-errormessage={`${name}-error`}
           />
           <span>{label}</span>{' '}
-          {required && (
-            <span class="ml-1 text-red-600 dark:text-red-400">*</span>
-          )}
+          {required && <span class="ml-1 text-error">*</span>}
         </label>
         <InputError name={name} error={error} />
       </div>

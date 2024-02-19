@@ -5,7 +5,7 @@ import { MainNavigation } from '../MainNavigation';
 export const Footer = component$(() => {
   return (
     <footer
-      class="content-visibility-auto contain-intrinsic-size-[auto_1000px] bg-primary-500 text-white"
+      class="content-visibility-auto contain-intrinsic-size-[auto_1000px] bg-primary text-primary-content"
       aria-labelledby="footer-heading"
     >
       <h2 id="footer-heading" class="sr-only">
@@ -19,7 +19,7 @@ export const Footer = component$(() => {
         <div
           class="`    
           sm:pt-5 sm:mt-5   
-          sm:border-t border-neutral-900/10           
+          sm:border-t border-base-content/10           
           md:flex md:justify-between md:items-center
         `"
         >

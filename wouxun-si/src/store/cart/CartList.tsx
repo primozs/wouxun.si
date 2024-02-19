@@ -21,7 +21,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
       {cart.value?.items?.length === 0 ? (
         <div class="mt-20 flex w-full flex-col items-center justify-center overflow-hidden p-8">
           <ShoppingBagIcon2 class="!h-16 !w-16" isEmpty={true} />
-          <p class="mt-3 text-center font-medium break-balanced text-base-light dark:text-base-light">
+          <p class="mt-3 text-center font-medium text-balance text-base-content">
             Nakupovalna vrečka je prazna.
           </p>
         </div>
@@ -52,7 +52,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
                   return (
                     <li
                       key={i}
-                      class="flex justify-between flex-row items-center gap-5 border-b border-neutral-200 px-8 py-6"
+                      class="flex justify-between flex-row items-center gap-5 border-b border-base-300 px-8 py-6"
                     >
                       <div class="flex flex-row justify-between w-full">
                         <a
@@ -62,7 +62,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
                             closeCardDialog();
                           }}
                         >
-                          <div class="relative h-14 w-18 cursor-pointer overflow-hidden bg-white rounded">
+                          <div class="relative h-14 w-18 cursor-pointer overflow-hidden bg-base-100 rounded">
                             {/* image from medusa */}
                             {/* <Image
                               class="!h-14 !w-18 object-cover"
@@ -87,7 +87,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
                             />
                           </div>
                           <div class="flex flex-1 flex-col justify-center">
-                            <span class="text-labels-regular font-medium">
+                            <span class="text-sm font-medium">
                               {item.title}
                             </span>
                           </div>
@@ -110,7 +110,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
             </ul>
           </div>
           <div class="flex flex-grow flex-col h-fit justify-between">
-            <div class="text-labels-regular text-base-light dark:text-base-dark font-medium px-8 py-6">
+            <div class="text-sm text-base-content font-medium px-8 py-6">
               <div class="mb-2 flex items-center justify-between">
                 <p>Vmesni seštevek</p>
                 <ListPrice
@@ -125,7 +125,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
               <div class="mb-2 flex items-center justify-between">
                 <p>Skupaj</p>
                 <ListPrice
-                  class="text-right text-base-light dark:text-base-dark"
+                  class="text-right text-base-content"
                   amount={cart.value?.total || 0}
                   currency={cart.value?.region!.currency_code}
                 />

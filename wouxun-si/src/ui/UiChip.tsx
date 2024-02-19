@@ -27,11 +27,11 @@ export const UiChip = component$<Props>(
        `,
           color === 'light' &&
             `
-          bg-light-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300
+          bg-base-300 text-base-content
         `,
           color === 'middle' &&
             `
-              bg-light-200 text-gray-800 dark:bg-gray-800 dark:text-gray-300
+              bg-neutral text-base-content
             `,
           maxWidth === 'xs' && 'max-w-xs',
           props.class,

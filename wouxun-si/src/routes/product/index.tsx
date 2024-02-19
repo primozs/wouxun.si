@@ -5,7 +5,7 @@ import { ProductList } from '~/store/products/ProductList';
 export default component$(() => {
   return (
     <>
-      <h1>Prodajni program</h1>
+      <h1 class="header1">Prodajni program</h1>
       <ProductList />
     </>
   );

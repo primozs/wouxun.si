@@ -16,9 +16,8 @@ export const UiHeader = component$<Props>(
           z-10
           `,
           {
-            'bg-light-200 dark:bg-gray-900': color === 'header-color',
-            'backdrop-blur bg-white/50 dark:bg-gray-900/60':
-              color === 'translucent',
+            'bg-neutral': color === 'header-color',
+            'backdrop-blur bg-base-100/50': color === 'translucent',
           },
           props.class && props.class,
         ]}

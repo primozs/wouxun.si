@@ -19,7 +19,7 @@ export default component$(() => {
         <RouterHead />
         <ServiceWorkerRegister />
       </head>
-      <body lang="sl">
+      <body lang="sl" data-theme="wouxun">
         <AppGlobalProvider>
           <NotificationProvider>
             <RouterOutlet />

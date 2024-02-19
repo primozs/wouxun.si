@@ -10,7 +10,7 @@ export const InputErrorIcon = component$((props: Props) => {
       {(typeof props.isError === 'undefined' || props.isError === true) && (
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
           <svg
-            class="h-5 w-5 text-error-500"
+            class="h-5 w-5 text-error"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"

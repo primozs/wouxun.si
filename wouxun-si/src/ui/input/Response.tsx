@@ -31,10 +31,8 @@ export const Response = component$(({ of: form, ...props }: ResponseProps) => {
       <div
         class={[
           'text-sm',
-          frozenResponse.value?.status === 'success' &&
-            'text-primary-500 dark:text-gray-400',
-          frozenResponse.value?.status === 'error' &&
-            'text-error-500 dark:text-error-400',
+          frozenResponse.value?.status === 'success' && 'text-primary',
+          frozenResponse.value?.status === 'error' && 'text-error',
           props.class,
         ]}
       >

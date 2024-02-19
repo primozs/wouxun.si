@@ -103,7 +103,7 @@ export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
   const imageSrc = getImageUrl(data.image ?? '');
   return (
     <a href={`/aktualno/${data.slug}`}>
-      <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-neutral-900/10 p-3 space-y-3">
+      <article class="flex flex-col items-start justify-between rounded-2xl ring-1 ring-inset ring-base-content/10 p-5 space-y-3">
         <div class="relative w-full">
           <Image
             {...(index < 1 && {
@@ -121,10 +121,10 @@ export const BlogCard = component$<BlogCardProps>(({ data, index }) => {
         </div>
         <div class="max-w-xl">
           <div class="group relative">
-            <h2 class="header2 mt-3 text-lg font-semibold leading-6 text-neutral-800 group-hover:text-neutral-600 dark:text-secondary-200 dark:group-hover:text-neutral-400 text-ellipsis line-clamp-1">
+            <h2 class="mt-3 text-lg font-semibold leading-6 text-base-content group-hover:text-base-content/90 text-ellipsis line-clamp-1">
               {data.title}
             </h2>
-            <p class="mt-3 text-ellipsis line-clamp-3 text-base leading-6 text-neutral-600 dark:text-secondary-400">
+            <p class="mt-3 text-ellipsis line-clamp-3 text-base leading-6 text-base-content/80">
               {data.body}
             </p>
           </div>

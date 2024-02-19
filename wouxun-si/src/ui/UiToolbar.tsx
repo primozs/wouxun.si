@@ -15,7 +15,7 @@ export const UiToolbar = component$<UiToolbarProps>(
         relative
         items-center 
         
-        border-gray-200 dark:border-white/10 
+        border-base-300
         overflow-hidden        
         z-10        
       `,

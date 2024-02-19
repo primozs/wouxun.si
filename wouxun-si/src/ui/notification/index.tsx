@@ -31,7 +31,7 @@ export const Notification = component$<Props>(
         class={[
           `
           pointer-events-auto w-full max-w-xs sm:max-w-sm overflow-hidden rounded-lg
-          bg-white shadow-lg ring-1 ring-black ring-opacity-5
+          bg-base-100 shadow-lg ring-1 ring-base-content ring-opacity-5
         `,
           `
           fixed
@@ -55,19 +55,19 @@ export const Notification = component$<Props>(
               {notification && (
                 <>
                   {notification.type === 'success' ? (
-                    <IoCheckmarkCircleSharp class="h-6 w-6 text-success-400" />
+                    <IoCheckmarkCircleSharp class="h-6 w-6 text-success" />
                   ) : (
-                    <IoCloseCircleSharp class="h-6 w-6 text-error-400" />
+                    <IoCloseCircleSharp class="h-6 w-6 text-error" />
                   )}
                 </>
               )}
             </div>
             <div class="ml-3 w-0 flex-1 pt-0.5">
-              <p class="text-sm font-medium text-neutral-900">
+              <p class="text-sm font-medium text-base-content">
                 {notification?.title}
               </p>
               {notification?.description && (
-                <p class="mt-1 text-sm text-neutral-500">
+                <p class="mt-1 text-sm text-base-content/60">
                   {notification.description}
                 </p>
               )}
@@ -76,7 +76,7 @@ export const Notification = component$<Props>(
               <div class="ml-4 flex flex-shrink-0">
                 <button
                   type="button"
-                  class="inline-flex rounded-md bg-white text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                  class="inline-flex rounded-md bg-base-100 text-base-content/50 hover:text-base-content/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   onClick$={() => removeNotification()}
                 >
                   <span class="sr-only">Zapri</span>
@@ -181,7 +181,7 @@ export const NotificationDialog = component$<NotificationDialogProps>(
       <dialog
         ref={notification}
         class={[
-          `bg-white shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden rounded-lg`,
+          `bg-base-100 shadow-lg ring-1 ring-base-content ring-opacity-5 overflow-hidden rounded-lg`,
           position === 'bottom-right' && 'bottom-right',
           position === 'top-right' && 'top-right',
           position === 'top' && 'top',
@@ -194,19 +194,19 @@ export const NotificationDialog = component$<NotificationDialogProps>(
                 {store.notification && (
                   <>
                     {store.notification.type === 'success' ? (
-                      <IoCheckmarkCircleSharp class="h-6 w-6 text-success-400" />
+                      <IoCheckmarkCircleSharp class="h-6 w-6 text-success" />
                     ) : (
-                      <IoCloseCircleSharp class="h-6 w-6 text-error-400" />
+                      <IoCloseCircleSharp class="h-6 w-6 text-error" />
                     )}
                   </>
                 )}
               </div>
               <div class="ml-3 w-0 flex-1 pt-0.5">
-                <p class="text-sm font-medium text-neutral-900">
+                <p class="text-sm font-medium text-base-content">
                   {store.notification?.title}
                 </p>
                 {store.notification?.description && (
-                  <p class="mt-1 text-sm text-neutral-500">
+                  <p class="mt-1 text-sm text-base-content/60">
                     {store.notification.description}
                   </p>
                 )}
@@ -215,7 +215,7 @@ export const NotificationDialog = component$<NotificationDialogProps>(
                 <div class="ml-4 flex flex-shrink-0">
                   <button
                     type="button"
-                    class="inline-flex rounded-md bg-white text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    class="inline-flex rounded-md bg-base-100 text-base-content/50 hover:text-base-content/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                     onClick$={() => removeNotification()}
                   >
                     <span class="sr-only">Zapri</span>

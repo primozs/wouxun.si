@@ -58,28 +58,26 @@ export const Select = component$(
             block w-full appearance-none rounded-sm border
             
             shadow-sm
-            bg-white dark:bg-gray-700                
+            bg-base-100
             
-            focus:text-gray-800 dark:focus:text-gray-200
+            focus:text-base-content
             focus:outline-none focus:ring-1
-            focus:ring-primary-500 dark:focus:ring-white
+            focus:ring-primary
             sm:text-sm
 
             disabled:cursor-not-allowed 
-            disabled:bg-gray-50 
-            disabled:text-gray-500 
-            disabled:ring-gray-200
+            disabled:bg-base-200 
+            disabled:text-base-content/40 
+            disabled:ring-base-300
             `,
               error
-                ? 'border-error-600/50 dark:border-error-400/50'
+                ? 'border-error'
                 : `
-              border-gray-300 dark:border-transparent
-              hover:border-gray-400 dark:hover:border-white
-              focus:border-primary-500 dark:focus:border-white
+              border-base-content/20
+              hover:border-base-content/30
+              focus:border-primary
               `,
-              placeholder &&
-                !values.value?.length &&
-                'text-gray-400 dark:text-gray-400',
+              placeholder && !values.value?.length && 'text-base-content/50',
               multiple && 'py-3',
             ]}
             id={name}

@@ -2,12 +2,12 @@ import { Slot, component$ } from '@builder.io/qwik';
 
 type Props = {
   class?: string | string[];
-  color?: 'light' | 'primary' | 'dark';
+  color?: 'light' | 'primary' | 'base';
   wrap?: boolean;
 };
 
 export const UiNote = component$<Props>(
-  ({ color = 'base', wrap = false, ...props }) => {
+  ({ color = 'base', wrap = false, ...props }: Props) => {
     return (
       <div
         class={[
@@ -16,9 +16,9 @@ export const UiNote = component$<Props>(
         text-base
         font-normal
         `,
-          color === 'light' && 'text-gray-500 dark:text-gray-500',
-          color === 'primary' && 'text-primary-600',
-          color === 'dark' && 'text-gray-800 dark:text-gray-400',
+          color === 'light' && 'text-base-content/60',
+          color === 'primary' && 'text-primary',
+          color === 'base' && 'text-base-content',
           wrap && 'text-balance',
 
           props.class && props.class,

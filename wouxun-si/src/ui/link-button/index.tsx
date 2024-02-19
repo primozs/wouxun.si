@@ -21,7 +21,7 @@ export const LinkButton = component$(
             focus-visible:outline-none
             focus-visible:ring-2
             focus-visible:ring-offset-1
-            focus-visible:ring-primary-500 dark:focus-visible:ring-white
+            focus-visible:ring-primary
             text-sm tracking-wide font-semibold leading-6
             whitespace-nowrap no-underline
           `,

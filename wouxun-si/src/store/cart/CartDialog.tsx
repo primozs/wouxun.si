@@ -7,7 +7,6 @@ import {
   type Signal,
   useContext,
 } from '@builder.io/qwik';
-import { Button } from '~/ui/button';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
 import { Tag } from '~/ui/tag';
 
@@ -116,25 +115,22 @@ export const CartDialog = component$<Props>(() => {
         <div class="h-full">
           <div
             class="`
-          bg-neutral-50 dark:bg-neutral-600
-          border-neutral-200 dark:border-neutral-400
+          bg-base-200
+          border-base-300
           p-2 px-3 border-b
           grid grid-cols-2
         `"
           >
-            <h3 class="text-headers-h4 text-base-light dark:text-base-dark">
-              Nakupna vrečka
-            </h3>
+            <h3 class="text-xl text-base-content">Nakupna vrečka</h3>
 
             <div class="flex items-center justify-end gap-3">
-              <Button
-                intent="icon"
-                onClick$={closeCardDialog}
+              <button
                 type="button"
-                class="p-[5px] focus-visible:ring-1 focus-visible:ring-neutral-400"
+                onClick$={closeCardDialog}
+                class="btn btn-square btn-sm btn-neutral"
               >
-                <IoCloseOutline class="h-5 w-5 text-neutral-400" />
-              </Button>
+                <IoCloseOutline class="h-5 w-5" />
+              </button>
               <Tag class="hidden md:block" size="small" variant="neutral">
                 esc
               </Tag>

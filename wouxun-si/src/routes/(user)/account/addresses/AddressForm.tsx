@@ -90,7 +90,7 @@ export const AddressForm = component$<AddressFormProps>(() => {
 
   return (
     <div class="space-y-4">
-      <UiTitle size="2xl">Address</UiTitle>
+      <UiTitle size="xl">Shipping address</UiTitle>
       <Form id="address-form" class="space-y-4">
         <div class="grid grid-cols-2 gap-x-2">
           <Field name="first_name">

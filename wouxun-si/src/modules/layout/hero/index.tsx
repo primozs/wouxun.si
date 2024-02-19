@@ -61,7 +61,7 @@ export const Carousel = component$<CarouselProps>((props) => {
     <>
       <div
         ref={ref}
-        class="swiper relative bg-primary-500"
+        class="swiper relative bg-primary"
         role="region"
         aria-roledescription="carousel"
         aria-label={props.ariaLabel ?? 'Stenar headlines'}
@@ -94,14 +94,14 @@ export const Carousel = component$<CarouselProps>((props) => {
                         p-3 sm:p-5 md:px-5 md:py-10 
                         font-semibold overflow-hidden
 
-                        text-white
+                        text-primary-content
                       `,
                     ]}
                   >
                     <h1
                       class="`
                       text-3xl lg:text-5xl 
-                      break-balanced
+                      text-balance
                       truncate !leading-normal
                     `"
                     >
@@ -110,7 +110,7 @@ export const Carousel = component$<CarouselProps>((props) => {
                     <h2
                       class="`
                       text-2xl lg:text-3xl 
-                      break-balanced
+                      text-balance
                     `"
                     >
                       {data.subtitle}
@@ -210,7 +210,7 @@ export const Carousel = component$<CarouselProps>((props) => {
                 `"
                 /> */}
 
-                <div class="bg-gradient-to-r from-primary-500 from-20% absolute inset-0"></div>
+                <div class="bg-gradient-to-r from-primary from-20% absolute inset-0"></div>
               </div>
             );
           })}
@@ -246,8 +246,8 @@ export const SlideControls = component$<SlideControlsProps>((props) => {
       role="group"
       aria-label="Slide controls"
       class="`        
-        bg-primary-500
-        text-sm text-white leading-5 font-semibold        
+        bg-primary
+        text-sm text-primary-content leading-5 font-semibold        
       `"
     >
       <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 py-1">

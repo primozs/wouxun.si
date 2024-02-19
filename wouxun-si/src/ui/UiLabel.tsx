@@ -2,7 +2,7 @@ import { Slot, component$, useStyles$ } from '@builder.io/qwik';
 
 type Props = {
   class?: string | string[];
-  color?: 'base' | 'light' | 'primary' | 'dark';
+  color?: 'base' | 'light' | 'primary';
   weight?: 'font-normal' | 'font-medium' | 'font-semibold';
   marginY?: 'base' | 'none';
 };
@@ -57,10 +57,9 @@ export const UiLabel = component$<Props>(
       flex-1    
       ms-0 me-2
       `,
-          color === 'base' && 'text-gray-900 dark:text-white',
-          color === 'light' && 'text-gray-500 dark:text-gray-500',
-          color === 'primary' && 'text-primary-600',
-          color === 'dark' && 'text-gray-800 dark:text-gray-400',
+          color === 'base' && 'text-base-content',
+          color === 'light' && 'text-base-content/60',
+          color === 'primary' && 'text-primary',
           marginY === 'base' && 'my-2',
           weight,
           props.class && props.class,

@@ -14,18 +14,18 @@ export const NavBanner = component$<Props>((props) => {
   const signout = useAuthSignoutAction();
 
   const linkStyle = `
-    text-white dark:text-gray-300
-    hover:text-gray-200 dark:hover:text-white
+    text-primary-content
+    hover:text-primary-content/90
     py-0 px-3
     inline-flex items-center
     text-sm font-semibold leading-6
     gap-x-1
-    focus-visible:ring-white
+    focus-visible:ring-primary-content
   `;
 
   return (
     <>
-      <div class={['bg-primary-500 dark:bg-secondary-600', props.class]}>
+      <div class={['bg-primary', props.class]}>
         <div
           class={[
             // max-w-screen-2xl px-3
