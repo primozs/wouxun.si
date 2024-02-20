@@ -15,7 +15,7 @@ import { FormButton } from '~/ui/input/FormButton';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
-import { LinkButton } from '~/ui/link-button';
+import { NavLink } from '~/ui/button';
 
 export default component$(() => {
   return (
@@ -115,9 +115,9 @@ export const PasswordResetView = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/account/login">
+          <NavLink intent="button" color="secondary" href="/account/login">
             Prijava
-          </LinkButton>
+          </NavLink>
         </div>
       </Form>
     </div>

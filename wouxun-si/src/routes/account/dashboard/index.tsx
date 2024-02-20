@@ -1,12 +1,13 @@
 import { Slot, component$ } from '@builder.io/qwik';
-import { Link, routeLoader$ } from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/client-types';
 import type { Order } from '@medusajs/medusa';
 import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { formatAmount } from '~/modules/common/prices';
-import { IoChevronForwardOutline } from '@qwikest/icons/ionicons';
+import { UiList } from '~/ui/UiList';
+import { UiItem } from '~/ui/UiItem';
 
 export const useCutomerOrders = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -47,19 +48,15 @@ export default component$(() => {
           </div>
 
           <Item title="Recent orders" value="" type="">
-            <ul class="flex flex-col gap-y-4">
+            <UiList>
               {orders.value?.length ?? 0 > 0 ? (
                 orders.value?.slice(0, 5).map((order) => {
-                  return (
-                    <li key={order.id}>
-                      <OrderItem order={order} />
-                    </li>
-                  );
+                  return <OrderItem order={order} key={order.id} />;
                 })
               ) : (
                 <span>No recent orders</span>
               )}
-            </ul>
+            </UiList>
           </Item>
         </div>
       </div>
@@ -73,8 +70,12 @@ export interface OrderItemProps {
 
 export const OrderItem = component$<OrderItemProps>(({ order }) => {
   return (
-    <Link href={`/account/dashboard/orders/details/${order.id}`}>
-      <div class="bg-base-200 flex justify-between items-center p-4">
+    <UiItem
+      to={`/account/dashboard/orders/details/${order.id}`}
+      detail
+      class="bg-base-200"
+    >
+      <div class=" flex justify-between items-center p-4">
         <div class="grid grid-cols-3 grid-rows-2 text-xs leading-5 font-normal gap-x-4 flex-1">
           <span class="font-semibold">Date placed</span>
           <span class="font-semibold">Order number</span>
@@ -91,12 +92,12 @@ export const OrderItem = component$<OrderItemProps>(({ order }) => {
               })}
           </span>
         </div>
-        <button class="flex items-center justify-between">
+        {/* <button class="flex items-center justify-between">
           <span class="sr-only">Go to order #{order.display_id}</span>
           <IoChevronForwardOutline />
-        </button>
+        </button> */}
       </div>
-    </Link>
+    </UiItem>
   );
 });
 

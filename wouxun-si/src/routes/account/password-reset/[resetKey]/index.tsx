@@ -14,7 +14,7 @@ import { TextInput } from '~/ui/input/TextInput';
 import { FormButton } from '~/ui/input/FormButton';
 import { Response } from '~/ui/input/Response';
 import { InputDivider } from '~/ui/input/InputDivider';
-import { LinkButton } from '~/ui/link-button';
+import { NavLink } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
 
 export default component$(() => {
@@ -153,9 +153,9 @@ export const ChangePasswordView = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/account/login">
+          <NavLink intent="button" color="secondary" href="/account/login">
             Prijava
-          </LinkButton>
+          </NavLink>
         </div>
       </Form>
     </div>

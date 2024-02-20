@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { type DocumentHead, Link, routeLoader$ } from '@builder.io/qwik-city';
+import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import * as v from 'valibot';
 import {
   useForm,
@@ -14,7 +14,7 @@ import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
 import { FormButton } from '~/ui/input/FormButton';
 import { InputDivider } from '~/ui/input/InputDivider';
-import { LinkButton } from '~/ui/link-button';
+import { NavLink } from '~/ui/button';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { UiTitle } from '~/ui/UiTitle';
 
@@ -143,14 +143,9 @@ export const LoginForm = component$(() => {
         </Field>
 
         <div class="flex items-center justify-end">
-          <div class="text-sm">
-            <Link
-              class="link text-sm font-medium leading-6"
-              href="/account/password-reset"
-            >
-              Ste pozabili geslo
-            </Link>
-          </div>
+          <NavLink size="sm" href="/account/password-reset">
+            Ste pozabili geslo
+          </NavLink>
         </div>
 
         <div>
@@ -166,9 +161,9 @@ export const LoginForm = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/account/register">
+          <NavLink intent="button" color="secondary" href="/account/register">
             Ustvari račun
-          </LinkButton>
+          </NavLink>
         </div>
       </Form>
     </div>

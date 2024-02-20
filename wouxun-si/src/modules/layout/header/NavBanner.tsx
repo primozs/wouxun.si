@@ -1,9 +1,9 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
 import {
   useAuthSessionLoader,
   useAuthSignoutAction,
 } from '~/routes/plugin@auth';
+import { NavLink } from '~/ui/button';
 
 type Props = {
   class?: string | string[];
@@ -12,17 +12,6 @@ type Props = {
 export const NavBanner = component$<Props>((props) => {
   const session = useAuthSessionLoader();
   const signout = useAuthSignoutAction();
-
-  const linkStyle = `
-    text-primary-content
-    hover:text-primary-content/90
-    py-0 px-3
-    inline-flex items-center
-    text-sm font-semibold leading-6
-    gap-x-1
-    focus-visible:ring-primary-content
-  `;
-
   return (
     <>
       <div class={['bg-primary', props.class]}>
@@ -30,37 +19,38 @@ export const NavBanner = component$<Props>((props) => {
           class={[
             // max-w-screen-2xl px-3
             'max-w-8xl mx-auto flex items-center justify-center sm:justify-end',
-            'px-4 py-1 sm:px-6 lg:px-8',
+            'px-4 py-1 sm:px-6 lg:px-8 space-x-4',
           ]}
         >
           {!session.value && (
-            <Link href="/account/login" class={[linkStyle]}>
+            <NavLink href="/account/login" color="neutral" size="sm">
               Prijava <span aria-hidden="true">&rarr;</span>
-            </Link>
+            </NavLink>
           )}
 
           {!session.value && (
-            <Link href="/account/register" class={[linkStyle]}>
+            <NavLink href="/account/register" color="neutral" size="sm">
               Registracija
-            </Link>
+            </NavLink>
           )}
 
           {session.value && (
-            <Link href="/account/dashboard" class={[linkStyle]}>
+            <NavLink href="/account/dashboard" color="neutral" size="sm">
               {session.value?.first_name} {session.value?.last_name}
-            </Link>
+            </NavLink>
           )}
 
           {session.value && (
-            <Link
+            <NavLink
               type="button"
-              class={[linkStyle, 'cursor-pointer']}
+              color="neutral"
+              size="sm"
               onClick$={() => {
                 signout.submit();
               }}
             >
               Odjava
-            </Link>
+            </NavLink>
           )}
         </div>
       </div>

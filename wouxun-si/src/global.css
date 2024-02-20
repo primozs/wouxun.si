@@ -73,14 +73,6 @@ body {
     @apply max-w-screen-2xl w-full mx-auto px-4 sm:px-5;
   }
 
-  .link {
-    @apply text-primary
-    focus-visible:outline-none
-    focus-visible:ring-2
-    focus-visible:ring-offset-1
-    focus-visible:ring-primary;
-  }
-
   [data-theme='wouxun'] .btn-md {
     @apply h-10 min-h-10;
   }

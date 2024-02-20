@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$, type DocumentHead, Link } from '@builder.io/qwik-city';
+import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import {
   type InitialValues,
   formAction$,
@@ -16,7 +16,7 @@ import { InputDivider } from '~/ui/input/InputDivider';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
-import { LinkButton } from '~/ui/link-button';
+import { NavLink } from '~/ui/button';
 
 export default component$(() => {
   return (
@@ -169,14 +169,9 @@ export const RegisterView = component$(() => {
         </Field>
 
         <div class="flex items-center justify-end">
-          <div class="text-sm">
-            <Link
-              class="link text-sm font-medium leading-6"
-              href="/sl/terms-and-conditions"
-            >
-              Varstvo osebnih podatkov
-            </Link>
-          </div>
+          <NavLink size="sm" href="/sl/terms-and-conditions">
+            Varstvo osebnih podatkov
+          </NavLink>
         </div>
 
         <div>
@@ -192,9 +187,9 @@ export const RegisterView = component$(() => {
         <InputDivider>Ali</InputDivider>
 
         <div class="flex flex-col">
-          <LinkButton intent="secondary" href="/account/login">
+          <NavLink intent="button" color="secondary" href="/account/login">
             Prijava
-          </LinkButton>
+          </NavLink>
         </div>
       </Form>
     </div>
