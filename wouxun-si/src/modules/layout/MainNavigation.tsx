@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik';
-import { useLocation, useContent } from '@builder.io/qwik-city';
+import { useContent } from '@builder.io/qwik-city';
+import { NavLink } from '~/ui/button';
 
 type Props = {
   darkBg?: boolean;
@@ -8,7 +9,6 @@ type Props = {
 
 export const MainNavigation = component$<Props>((props) => {
   const { menu } = useContent();
-  const { url } = useLocation();
 
   return (
     <>
@@ -25,24 +25,18 @@ export const MainNavigation = component$<Props>((props) => {
               key={item.text}
             >
               {item.items?.map((item) => {
-                const active =
-                  url.pathname ===
-                  (item.href?.slice(-1)[0] === '/'
-                    ? item.href
-                    : item.href + '/');
-
                 return (
                   <li key={item.text}>
-                    <a
+                    <NavLink
                       href={item.href}
-                      class={[
-                        'text-base font-semibold',
-                        { 'text-primary': !props.darkBg && active },
-                        { 'text-primary-content': props.darkBg && active },
-                      ]}
+                      color={props.darkBg ? 'neutral' : 'primary'}
+                      size="md"
+                      {...(!props.darkBg && {
+                        activeClass: 'font-semibold text-accent',
+                      })}
                     >
                       {item.text}
-                    </a>
+                    </NavLink>
                   </li>
                 );
               })}

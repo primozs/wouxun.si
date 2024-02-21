@@ -63,19 +63,39 @@ export const AccountNav = component$<Props>(() => {
 
       <UiList class="hidden sm:block">
         <UiItem lines="none">
-          <NavLink href="/account/dashboard">Account</NavLink>
+          <NavLink
+            href="/account/dashboard"
+            activeClass="font-semibold text-accent"
+          >
+            Account
+          </NavLink>
         </UiItem>
 
         <UiItem lines="none">
-          <NavLink href="/account/dashboard/profile">Profile</NavLink>
+          <NavLink
+            href="/account/dashboard/profile"
+            activeClass="font-semibold text-accent"
+          >
+            Profile
+          </NavLink>
         </UiItem>
 
         <UiItem lines="none">
-          <NavLink href="/account/dashboard/addresses">Addresses</NavLink>
+          <NavLink
+            href="/account/dashboard/addresses"
+            activeClass="font-semibold text-accent"
+          >
+            Addresses
+          </NavLink>
         </UiItem>
 
         <UiItem lines="none">
-          <NavLink href="/account/dashboard/orders">Orders</NavLink>
+          <NavLink
+            href="/account/dashboard/orders"
+            activeClass="font-semibold text-accent"
+          >
+            Orders
+          </NavLink>
         </UiItem>
 
         <UiItem

@@ -81,7 +81,7 @@ module.exports = {
           'primary-content': '#ffffff',
           secondary: '#e5f2f9', // '#0284c7',
           'secondary-content': '#0c4a6e',
-          accent: '#9333ea',
+          accent: '#01386A',
           'accent-content': '#fff',
           neutral: '#f7f7f7', // toolbar //  light '#f4f5f8'
           'neutral-content': '#334155',

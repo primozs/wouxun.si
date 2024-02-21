@@ -131,6 +131,7 @@ type NavLinkProps = LinkProps & {
   color?: 'base' | 'primary' | 'secondary' | 'error' | 'neutral' | 'accent';
   fill?: 'clear' | 'outline' | 'solid';
   size?: 'base' | 'sm' | 'md' | 'xl';
+  activeClass?: QwikIntrinsicElements['a']['class'];
 };
 
 export const NavLink = component$<NavLinkProps>(
@@ -180,7 +181,6 @@ export const NavLink = component$<NavLinkProps>(
           ],
           rest.class as string,
         ]}
-        activeClass={'font-semibold'}
       >
         <Slot />
       </LinkNavHeadless>
