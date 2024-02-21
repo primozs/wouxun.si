@@ -13,6 +13,7 @@ import { UiListHeader } from '~/ui/UiListHeader';
 import { PackageIcon } from '~/ui/icons/package-icon';
 import { HiUserCircleOutline } from '@qwikest/icons/heroicons';
 import { IoLogOutOutline, IoLocationOutline } from '@qwikest/icons/ionicons';
+import { NavLink } from '~/ui/button';
 
 type Props = {
   customer: Customer;
@@ -61,56 +62,20 @@ export const AccountNav = component$<Props>(() => {
       </UiList>
 
       <UiList class="hidden sm:block">
-        <UiItem lines="none" to="/account/dashboard">
-          <UiLabel
-            color="primary"
-            weight={
-              location.url.pathname === '/account/dashboard/'
-                ? 'font-semibold'
-                : 'font-medium'
-            }
-          >
-            Account
-          </UiLabel>
+        <UiItem lines="none">
+          <NavLink href="/account/dashboard">Account</NavLink>
         </UiItem>
 
-        <UiItem lines="none" to="/account/dashboard/profile">
-          <UiLabel
-            color="primary"
-            weight={
-              location.url.pathname === '/account/dashboard/profile/'
-                ? 'font-semibold'
-                : 'font-medium'
-            }
-          >
-            Profile
-          </UiLabel>
+        <UiItem lines="none">
+          <NavLink href="/account/dashboard/profile">Profile</NavLink>
         </UiItem>
 
-        <UiItem lines="none" to="/account/dashboard/addresses">
-          <UiLabel
-            color="primary"
-            weight={
-              location.url.pathname === '/account/dashboard/addresses/'
-                ? 'font-semibold'
-                : 'font-medium'
-            }
-          >
-            Addresses
-          </UiLabel>
+        <UiItem lines="none">
+          <NavLink href="/account/dashboard/addresses">Addresses</NavLink>
         </UiItem>
 
-        <UiItem lines="none" to="/account/dashboard/orders">
-          <UiLabel
-            color="primary"
-            weight={
-              location.url.pathname === '/account/dashboard/orders/'
-                ? 'font-semibold'
-                : 'font-medium'
-            }
-          >
-            Orders
-          </UiLabel>
+        <UiItem lines="none">
+          <NavLink href="/account/dashboard/orders">Orders</NavLink>
         </UiItem>
 
         <UiItem

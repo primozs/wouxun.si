@@ -1,5 +1,11 @@
-import { Slot, component$, type PropFunction } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
+import {
+  Slot,
+  component$,
+  type PropFunction,
+  $,
+  type QRL,
+} from '@builder.io/qwik';
+import { useNavigate } from '@builder.io/qwik-city';
 import { IoChevronForwardOutline } from '@qwikest/icons/ionicons';
 
 type Props = {
@@ -28,10 +34,13 @@ export const UiItem = component$<Props>(
     lines = 'full',
     translucent = false,
     to,
+    onClick$,
     ...props
   }: Props) => {
+    const navigate = useNavigate();
+    const onClick = onClick$ as QRL<Function | undefined> | undefined;
     return (
-      <Link
+      <div
         class={[
           `      
           ui-item 
@@ -61,11 +70,15 @@ export const UiItem = component$<Props>(
           selected && color !== 'transparent' && '!bg-base-200',
           selected && color === 'transparent' && '!bg-base-300/70',
           to && 'cursor-pointer',
-          props.onClick$ && 'cursor-pointer',
+          onClick && 'cursor-pointer',
           props.class && props.class,
         ]}
-        href={to}
-        onClick$={props.onClick$}
+        onClick$={$(() => {
+          if (to) {
+            navigate(to);
+          }
+          onClick && onClick();
+        })}
       >
         <div class="flex ui-item-start flex-grow-0 flex-shrink basis-auto">
           <Slot name="start"></Slot>
@@ -103,7 +116,7 @@ export const UiItem = component$<Props>(
             </div>
           )}
         </div>
-      </Link>
+      </div>
     );
   },
 );

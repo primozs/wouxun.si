@@ -1,6 +1,5 @@
 import { component$, type QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Link, useLocation, type LinkProps } from '@builder.io/qwik-city';
-import { LoadingDots } from '../loading-dots';
 
 export const buttonIntents: Record<string, string> = {
   unstyled: '',
@@ -151,6 +150,7 @@ export const NavLink = component$<NavLinkProps>(
           ],
           rest.class as string,
         ]}
+        activeClass={'font-semibold'}
       >
         <Slot />
       </LinkNavHeadless>
@@ -158,7 +158,9 @@ export const NavLink = component$<NavLinkProps>(
   },
 );
 
-type LinkNavHeadlessProps = LinkProps & { activeClass?: string };
+type LinkNavHeadlessProps = LinkProps & {
+  activeClass?: QwikIntrinsicElements['a']['class'];
+};
 
 export const LinkNavHeadless = component$(
   ({ activeClass, ...props }: LinkNavHeadlessProps) => {
@@ -176,10 +178,10 @@ export const LinkNavHeadless = component$(
         : toPathname.length;
     const isActive =
       locationPathname === toPathname ||
+      locationPathname === toPathname + '/' ||
       (locationPathname.endsWith(toPathname) &&
         (locationPathname.charAt(endSlashPosition) === '/' ||
           locationPathname.charAt(startSlashPosition) === '/'));
-
     return (
       <Link {...props} class={[props.class, isActive && activeClass]}>
         <Slot />

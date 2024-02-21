@@ -75,27 +75,21 @@ export const OrderItem = component$<OrderItemProps>(({ order }) => {
       detail
       class="bg-base-200"
     >
-      <div class=" flex justify-between items-center p-4">
-        <div class="grid grid-cols-3 grid-rows-2 text-xs leading-5 font-normal gap-x-4 flex-1">
-          <span class="font-semibold">Date placed</span>
-          <span class="font-semibold">Order number</span>
-          <span class="font-semibold">Total amount</span>
-          <span>{new Date(order.created_at).toDateString()}</span>
-          <span>#{order.display_id}</span>
-          <span>
-            {order.total &&
-              order.region &&
-              formatAmount({
-                amount: order.total,
-                region: order.region,
-                includeTaxes: false,
-              })}
-          </span>
-        </div>
-        {/* <button class="flex items-center justify-between">
-          <span class="sr-only">Go to order #{order.display_id}</span>
-          <IoChevronForwardOutline />
-        </button> */}
+      <div class="grid grid-cols-3 grid-rows-2 text-xs p-4 leading-5 font-normal gap-x-4 flex-1">
+        <span class="font-semibold">Date placed</span>
+        <span class="font-semibold">Order number</span>
+        <span class="font-semibold">Total amount</span>
+        <span>{new Date(order.created_at).toDateString()}</span>
+        <span>#{order.display_id}</span>
+        <span>
+          {order.total &&
+            order.region &&
+            formatAmount({
+              amount: order.total,
+              region: order.region,
+              includeTaxes: false,
+            })}
+        </span>
       </div>
     </UiItem>
   );
