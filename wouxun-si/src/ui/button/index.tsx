@@ -1,5 +1,6 @@
 import { component$, type QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Link, useLocation, type LinkProps } from '@builder.io/qwik-city';
+import { LoadingDots } from '../loading-dots';
 
 export const buttonIntents: Record<string, string> = {
   unstyled: '',
@@ -62,35 +63,64 @@ export const buttonIntents: Record<string, string> = {
 };
 
 export type ButtonProps = QwikIntrinsicElements['button'] & {
-  intent?: 'primary' | 'secondary' | 'error' | 'icon';
-  href?: string;
+  intent?: 'base' | 'rounded' | 'square';
+  color?: 'base' | 'primary' | 'secondary' | 'error' | 'neutral' | 'accent';
+  fill?: 'clear' | 'outline' | 'solid';
+  loading?: boolean;
 };
 
 export const Button = component$<ButtonProps>(
-  ({ intent = 'primary', ...rest }) => {
-    const selectedIntent = buttonIntents[intent];
-
+  ({
+    intent = 'base',
+    color = 'primary',
+    fill = 'solid',
+    loading = false,
+    ...rest
+  }) => {
     return (
       <button
         {...rest}
+        {...(rest.disabled && { 'aria-disabled': 'true' })}
         class={[
           `
+            ui-button
+            btn
             relative
-            focus-visible:outline-none
-            focus-visible:ring-2
-            focus-visible:ring-offset-1
-            focus-visible:ring-primary
-            text-sm tracking-wide font-semibold leading-6 whitespace-nowrap
+            text-sm tracking-wide font-semibold leading-6
+            whitespace-nowrap
           `,
-          selectedIntent,
+          intent === 'base' && 'btn-md',
+          intent === 'rounded' && 'btn-circle',
+          intent === 'square' && 'btn-square',
+          {
+            'btn-primary': color === 'primary',
+            'btn-secondary': color === 'secondary',
+            'btn-neutral': color === 'neutral',
+            'btn-accent': color === 'accent',
+            'btn-error': color === 'error',
+          },
+          fill === 'outline' && 'btn-outline',
+          fill === 'clear' && [
+            `btn-link no-underline
+            `,
+          ],
+          rest.disabled && 'btn-disabled btn-primary',
           rest.class as string,
         ]}
       >
-        <Slot name="start"></Slot>
-        <span>
-          <Slot></Slot>
-        </span>
-        <Slot name="end"></Slot>
+        {!loading && <Slot></Slot>}
+
+        {loading && (
+          <span class="absolute inset-0 top-1">
+            <LoadingDots
+              class={[
+                color === 'secondary'
+                  ? 'bg-secondary-content'
+                  : 'bg-primary-content',
+              ]}
+            />
+          </span>
+        )}
       </button>
     );
   },

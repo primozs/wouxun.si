@@ -10,7 +10,7 @@ export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
     <div class="border-t border-base-300 p-8 flex flex-col md:flex-row justify-between gap-4 z-0">
       <Button
         class="md:w-1/2 w-100"
-        intent="primary"
+        color="primary"
         onClick$={() =>
           addNotification({
             type: 'error',
@@ -24,7 +24,7 @@ export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
       </Button>
       <Button
         class="md:w-1/2 w-100"
-        intent="secondary"
+        color="secondary"
         onClick$={() =>
           addNotification({
             type: 'error',

@@ -13,11 +13,11 @@ import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { handleError } from '~/modules/logger';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
-import { FormButton } from '~/ui/input/FormButton';
 import { useGetRegionLoader } from '~/routes/plugin@store';
 import { Select } from '~/ui/input/Select';
 import { InputPhone } from '~/ui/input/InputPhone';
 import { config } from '~/config';
+import { Button } from '~/ui/button';
 
 export interface AddressFormProps {}
 
@@ -254,9 +254,9 @@ export const AddressForm = component$<AddressFormProps>(() => {
         </div>
 
         <div class="flex justify-end">
-          <FormButton type="submit" loading={addressForm.submitting}>
+          <Button type="submit" loading={addressForm.submitting}>
             Shrani
-          </FormButton>
+          </Button>
         </div>
       </Form>
     </div>

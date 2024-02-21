@@ -8,6 +8,7 @@ import {
   useContext,
 } from '@builder.io/qwik';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
+import { Button } from '~/ui/button';
 import { Tag } from '~/ui/tag';
 
 type Props = {};
@@ -124,13 +125,15 @@ export const CartDialog = component$<Props>(() => {
             <h3 class="text-xl text-base-content">Nakupna vrečka</h3>
 
             <div class="flex items-center justify-end gap-3">
-              <button
+              <Button
                 type="button"
                 onClick$={closeCardDialog}
-                class="btn btn-square btn-sm btn-neutral"
+                intent="square"
+                color="neutral"
+                class="btn-sm"
               >
                 <IoCloseOutline class="h-5 w-5" />
-              </button>
+              </Button>
               <Tag class="hidden md:block" size="small" variant="neutral">
                 esc
               </Tag>

@@ -4,7 +4,7 @@ type Props = {
   class?: string | string[];
 };
 
-export const UiList = component$<Props>((props) => {
+export const UiButtons = component$<Props>((props) => {
   return (
     <div
       class={[

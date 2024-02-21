@@ -57,7 +57,8 @@ export const MobileMainMenuButton = component$<MobileMainMenuButtonProps>(
       <Button
         ref={ref}
         type="button"
-        intent="icon"
+        intent="square"
+        color="primary"
         aria-controls="mobile-menu"
         aria-expanded="false"
         onClick$={() => {

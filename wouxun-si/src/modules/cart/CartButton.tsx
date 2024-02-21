@@ -3,6 +3,7 @@ import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { CartDialog } from './CartDialog';
 import { CartList } from './CartList';
 import { useCartLoader } from '~/routes/plugin@store';
+import { Button } from '~/ui/button';
 
 export interface CartButtonProps {}
 
@@ -13,14 +14,15 @@ export const CartButton = component$<CartButtonProps>(() => {
     <>
       <CartDialog>
         <CartList cart={cart} />
-        <button
+        <Button
           q:slot="button"
           type="button"
           aria-label="Odpri voziček"
-          class="btn btn-square btn-sm btn-secondary"
+          color="primary"
+          intent="square"
         >
           <ShoppingBagIcon2 isEmpty={!cart.value?.items?.length} />
-        </button>
+        </Button>
       </CartDialog>
     </>
   );

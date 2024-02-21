@@ -11,12 +11,11 @@ import * as v from 'valibot';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient } from '~/modules/medusa';
 import { UiTitle } from '~/ui/UiTitle';
-import { FormButton } from '~/ui/input/FormButton';
 import { InputDivider } from '~/ui/input/InputDivider';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
-import { NavLink } from '~/ui/button';
+import { Button, NavLink } from '~/ui/button';
 
 export default component$(() => {
   return (
@@ -179,9 +178,9 @@ export const RegisterView = component$(() => {
         </div>
 
         <div class="flex flex-col">
-          <FormButton type="submit" loading={registerForm.submitting}>
+          <Button type="submit" loading={registerForm.submitting}>
             Ustvari račun
-          </FormButton>
+          </Button>
         </div>
 
         <InputDivider>Ali</InputDivider>

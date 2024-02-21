@@ -11,10 +11,9 @@ import {
 import { handleError } from '~/modules/logger';
 import { getMedusaClient } from '~/modules/medusa';
 import { TextInput } from '~/ui/input/TextInput';
-import { FormButton } from '~/ui/input/FormButton';
 import { Response } from '~/ui/input/Response';
 import { InputDivider } from '~/ui/input/InputDivider';
-import { NavLink } from '~/ui/button';
+import { Button, NavLink } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
 
 export default component$(() => {
@@ -145,9 +144,9 @@ export const ChangePasswordView = component$(() => {
         </div>
 
         <div class="flex flex-col">
-          <FormButton type="submit" loading={changePasswordForm.submitting}>
+          <Button type="submit" loading={changePasswordForm.submitting}>
             Zamenjaj geslo
-          </FormButton>
+          </Button>
         </div>
 
         <InputDivider>Ali</InputDivider>

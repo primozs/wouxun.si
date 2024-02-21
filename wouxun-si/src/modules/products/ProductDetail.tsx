@@ -9,7 +9,6 @@ import { Tags } from './Tags';
 import { ProductPrice } from './Price';
 import type { PricedProduct } from '@medusajs/client-types';
 import { Button } from '~/ui/button';
-import { LoadingDots } from '~/ui/loading-dots';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { ShoppingBagIcon } from '~/ui/icons/shopping-bag-icon';
 import { useCartDialog } from '~/modules/cart/CartDialog';
@@ -70,8 +69,8 @@ export const AddToCart = component$<AddToCartProps>(
 
     return (
       <Button
-        class="sm:max-w-[250px] space-x-3"
-        intent="primary"
+        class="sm:max-w-[250px]"
+        color="primary"
         onClick$={async () => {
           adding.value = !adding.value;
 
@@ -92,18 +91,10 @@ export const AddToCart = component$<AddToCartProps>(
 
           adding.value = false;
         }}
-        disabled={adding.value}
+        loading={adding.value}
       >
-        {adding.value ? (
-          <span class="flex h-6 items-center ">
-            <LoadingDots class="bg-primary-content" />
-          </span>
-        ) : (
-          <>
-            <ShoppingBagIcon class="h-5 w-5" />
-            <span>Dodaj v voziček</span>
-          </>
-        )}
+        <ShoppingBagIcon class="h-5 w-5" />
+        Dodaj v voziček
       </Button>
     );
   },

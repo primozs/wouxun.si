@@ -3,31 +3,31 @@ const colors = require('tailwindcss/colors');
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
-    colors: {
-      inherit: 'inherit',
-      current: 'currentColor',
-      transparent: 'transparent',
-      // black: '#000',
-      // white: '#fff',
-      // https://www.tailwindshades.com/
-      // primary: {
-      //   50: '#5EB2FD',
-      //   100: '#49A8FD',
-      //   200: '#2195FC',
-      //   300: '#0381F2',
-      //   400: '#036CC9',
-      //   500: '#0256A1',
-      //   600: '#01386A',
-      //   700: '#011B32',
-      // },
-      // secondary: colors.sky,
-      // neutral: colors.slate,
-      // info: colors.blue,
-      // success: colors.blue,
-      // error: colors.red,
-      // warning: colors.yellow,
-      // gray: colors.gray,
-    },
+    // colors: {
+    //   inherit: 'inherit',
+    //   current: 'currentColor',
+    //   transparent: 'transparent',
+    //   // black: '#000',
+    //   // white: '#fff',
+    //   // https://www.tailwindshades.com/
+    //   // primary: {
+    //   //   50: '#5EB2FD',
+    //   //   100: '#49A8FD',
+    //   //   200: '#2195FC',
+    //   //   300: '#0381F2',
+    //   //   400: '#036CC9',
+    //   //   500: '#0256A1',
+    //   //   600: '#01386A',
+    //   //   700: '#011B32',
+    //   // },
+    //   // secondary: colors.sky,
+    //   // neutral: colors.slate,
+    //   // info: colors.blue,
+    //   // success: colors.blue,
+    //   // error: colors.red,
+    //   // warning: colors.yellow,
+    //   // gray: colors.gray,
+    // },
     // fontFamily: {
     //   sans: [
     //     'Inter',
@@ -68,6 +68,7 @@ module.exports = {
   // https://daisyui.com/docs/themes/
   // https://daisyui.com/docs/utilities/
   // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
+  // https://daisyui.com/blog/how-to-add-new-colors-to-daisyui/
   plugins: [require('@tailwindcss/forms'), require('daisyui')],
   daisyui: {
     themes: [

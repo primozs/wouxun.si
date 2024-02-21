@@ -12,9 +12,8 @@ import setCookie from 'set-cookie-parser';
 import { SESSION_COOKIE_KEY, getMedusaClient } from '~/modules/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
-import { FormButton } from '~/ui/input/FormButton';
 import { InputDivider } from '~/ui/input/InputDivider';
-import { NavLink } from '~/ui/button';
+import { Button, NavLink } from '~/ui/button';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { UiTitle } from '~/ui/UiTitle';
 
@@ -153,9 +152,9 @@ export const LoginForm = component$(() => {
         </div>
 
         <div class="flex flex-col">
-          <FormButton type="submit" loading={loginForm.submitting}>
+          <Button type="submit" loading={loginForm.submitting}>
             Prijava
-          </FormButton>
+          </Button>
         </div>
 
         <InputDivider>Ali</InputDivider>
