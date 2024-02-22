@@ -1,15 +1,17 @@
-import { Slot, component$ } from '@builder.io/qwik';
+import { Slot, component$, type QwikIntrinsicElements } from '@builder.io/qwik';
 
 type Props = {
-  class?: string | string[];
+  class?: QwikIntrinsicElements['div']['class'];
   color?: 'base' | 'primary' | 'secondary';
   size?: 'base' | 'lg' | 'xl' | '2xl';
+  as?: 'h1' | 'h2' | 'h3' | 'div';
 };
 
 export const UiTitle = component$<Props>(
-  ({ color = 'base', size = 'base', ...props }: Props) => {
+  ({ as = 'h1', color = 'base', size = 'base', ...props }: Props) => {
     return (
-      <div
+      <As
+        as={as}
         class={[
           `      
         ui-title    
@@ -27,7 +29,38 @@ export const UiTitle = component$<Props>(
         ]}
       >
         <Slot></Slot>
-      </div>
+      </As>
     );
   },
 );
+
+type AsProps = {
+  class?: QwikIntrinsicElements['div']['class'];
+  as: 'h1' | 'h2' | 'h3' | 'div';
+};
+export const As = component$<AsProps>(({ as = 'h1', ...props }) => {
+  return (
+    <>
+      {as === 'h1' && (
+        <h1 {...props}>
+          <Slot></Slot>
+        </h1>
+      )}
+      {as === 'h2' && (
+        <h2 {...props}>
+          <Slot></Slot>
+        </h2>
+      )}
+      {as === 'h3' && (
+        <h3 {...props}>
+          <Slot></Slot>
+        </h3>
+      )}
+      {as === 'div' && (
+        <div {...props}>
+          <Slot></Slot>
+        </div>
+      )}
+    </>
+  );
+});
