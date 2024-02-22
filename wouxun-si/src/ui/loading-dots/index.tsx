@@ -1,4 +1,4 @@
-import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
+import { component$, type QwikIntrinsicElements } from '@builder.io/qwik';
 
 export interface LoadingDotsProps {
   class?: QwikIntrinsicElements['div']['class'];
