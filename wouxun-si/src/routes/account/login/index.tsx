@@ -12,10 +12,10 @@ import setCookie from 'set-cookie-parser';
 import { SESSION_COOKIE_KEY, getMedusaClient } from '~/modules/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
-import { InputDivider } from '~/ui/input/InputDivider';
 import { Button, NavLink } from '~/ui/button';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { UiTitle } from '~/ui/UiTitle';
+import { UiDivider } from '~/ui/UiDivider';
 
 export default component$(() => {
   return (
@@ -109,7 +109,7 @@ export const LoginForm = component$(() => {
 
   return (
     <div class="space-y-4">
-      <UiTitle size="2xl">Prijava</UiTitle>
+      <UiTitle size="lg">Prijava</UiTitle>
       <Form id="login-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (
@@ -157,7 +157,7 @@ export const LoginForm = component$(() => {
           </Button>
         </div>
 
-        <InputDivider>Ali</InputDivider>
+        <UiDivider>Ali</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/register">

@@ -12,7 +12,7 @@ import { handleError } from '~/modules/logger';
 import { getMedusaClient } from '~/modules/medusa';
 import { TextInput } from '~/ui/input/TextInput';
 import { Response } from '~/ui/input/Response';
-import { InputDivider } from '~/ui/input/InputDivider';
+import { UiDivider } from '~/ui/UiDivider';
 import { Button, NavLink } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
 
@@ -149,7 +149,7 @@ export const ChangePasswordView = component$(() => {
           </Button>
         </div>
 
-        <InputDivider>Ali</InputDivider>
+        <UiDivider>Ali</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/login">

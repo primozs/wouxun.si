@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/client-types';
 import {
   useAuthSessionLoader,
@@ -22,7 +21,6 @@ type Props = {
 export const AccountNav = component$<Props>(() => {
   const customer = useAuthSessionLoader();
   const signout = useAuthSignoutAction();
-  const location = useLocation();
 
   return (
     <>

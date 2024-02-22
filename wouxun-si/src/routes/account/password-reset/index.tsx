@@ -11,7 +11,7 @@ import * as v from 'valibot';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient } from '~/modules/medusa';
 import { UiTitle } from '~/ui/UiTitle';
-import { InputDivider } from '~/ui/input/InputDivider';
+import { UiDivider } from '~/ui/UiDivider';
 import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
 import { Button, NavLink } from '~/ui/button';
@@ -111,7 +111,7 @@ export const PasswordResetView = component$(() => {
           </Button>
         </div>
 
-        <InputDivider>Ali</InputDivider>
+        <UiDivider>Ali</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/login">

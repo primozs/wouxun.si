@@ -19,6 +19,7 @@ export const CartButton = component$<CartButtonProps>(() => {
           type="button"
           aria-label="Odpri voziček"
           color="primary"
+          fill="outline"
           intent="square"
         >
           <ShoppingBagIcon2 isEmpty={!cart.value?.items?.length} />

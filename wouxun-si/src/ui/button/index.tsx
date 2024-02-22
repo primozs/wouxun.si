@@ -2,66 +2,6 @@ import { component$, type QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 import { Link, useLocation, type LinkProps } from '@builder.io/qwik-city';
 import { LoadingDots } from '../loading-dots';
 
-export const buttonIntents: Record<string, string> = {
-  unstyled: '',
-  primary: `
-    py-2
-    px-5
-    flex flex-row
-    items-center
-    justify-center
-    font-medium
-    border
-    rounded-md
-    shadow-sm
-    border-transparent
-    bg-primary
-    hover:bg-primary/90    
-    !text-primary-content    
-    no-underline transition-colors
-  `,
-  // gap-1
-  // h-fit
-  secondary: `
-    py-2
-    px-5
-    flex flex-row
-    items-center        
-    justify-center
-    font-medium
-    border
-    rounded-md    
-    shadow-sm
-    border-secondary-content/10
-    bg-secondary    
-    hover:bg-primary/5    
-    text-secondary-content
-    no-underline transition-colors
-  `,
-  error: `
-    py-2
-    px-5
-    inline-flex
-    items-center
-    font-medium
-    border
-    rounded-md
-    shadow-sm
-    border-transparent
-    bg-error
-    hover:bg-error/90 
-    text-error-content shadow-sm
-  `,
-  icon: `
-    p-2
-    inline-flex items-center justify-center
-    rounded-md
-    text-primary
-    hover:bg-primary/90
-    hover:text-primary-content
-  `,
-};
-
 export type ButtonProps = QwikIntrinsicElements['button'] & {
   intent?: 'base' | 'rounded' | 'square';
   color?: 'base' | 'primary' | 'secondary' | 'error' | 'neutral' | 'accent';
