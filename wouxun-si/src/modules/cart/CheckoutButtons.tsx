@@ -7,10 +7,10 @@ export interface CheckoutButtonsProps {}
 export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
   const { addNotification } = useNotifications();
   return (
-    <div class="border-t border-base-300 p-8 flex flex-col md:flex-row justify-between gap-4 z-0">
+    <>
       <Button
-        class="md:w-1/2 w-100"
         color="primary"
+        class="flex-1"
         onClick$={() =>
           addNotification({
             type: 'error',
@@ -22,9 +22,10 @@ export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
       >
         Pay with Apple Pay
       </Button>
+
       <Button
-        class="md:w-1/2 w-100"
         color="secondary"
+        class="flex-1"
         onClick$={() =>
           addNotification({
             type: 'error',
@@ -36,6 +37,6 @@ export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
       >
         Go to Payment
       </Button>
-    </div>
+    </>
   );
 });

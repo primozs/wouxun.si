@@ -94,21 +94,18 @@ export const CardPrice = component$<CardPriceProps>(({ product }) => {
 type ListPriceProps = {
   amount: number;
   currency?: string;
-  class?: string;
 };
 
-const ListPrice = component$(
-  ({ amount, currency = 'usd', ...props }: ListPriceProps) => {
-    const store = useAppGlobal();
-    return (
-      <p {...props}>
-        {formatPrice(amount, {
-          currency: currency,
-          locale: store.locale,
-        })}
-      </p>
-    );
-  },
-);
+const ListPrice = component$(({ amount, currency = 'usd' }: ListPriceProps) => {
+  const store = useAppGlobal();
+  return (
+    <>
+      {formatPrice(amount, {
+        currency: currency,
+        locale: store.locale,
+      })}
+    </>
+  );
+});
 
 export default ListPrice;

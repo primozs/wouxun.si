@@ -1,8 +1,7 @@
-import { type Signal, component$, useSignal } from '@builder.io/qwik';
+import { type Signal, component$, useSignal, Slot, $ } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/modules/directus';
 import { mdParse } from '~/ui/md-parse';
-import { Dialog } from './Dialog';
 import { cleanTitle } from '~/modules/products/cleanTitle';
 import type { ProductDetail } from '~/modules/products/getDirectusProductData';
 import { Tags } from './Tags';
@@ -92,6 +91,7 @@ export const AddToCart = component$<AddToCartProps>(
           adding.value = false;
         }}
         loading={adding.value}
+        // disabled={adding.value}
       >
         <ShoppingBagIcon class="h-5 w-5" />
         Dodaj v voziček
@@ -127,7 +127,7 @@ export const MainImage = component$<MainImageProps>(
   ({ image, productTitle }) => {
     const imageSrc = getImageUrl(image ?? '');
     return (
-      <Dialog>
+      <ImageDialog>
         <Image
           width={1080}
           height={720}
@@ -149,7 +149,7 @@ export const MainImage = component$<MainImageProps>(
           layout="constrained"
           cdn="directus"
         />
-      </Dialog>
+      </ImageDialog>
     );
   },
 );
@@ -165,7 +165,7 @@ export const Gallery = component$<GalleryProps>(({ images, productTitle }) => {
       {images.map((img) => {
         const imageSrc = getImageUrl(img ?? '');
         return (
-          <Dialog key={img}>
+          <ImageDialog key={img}>
             <Image
               width={770}
               height={510}
@@ -188,9 +188,42 @@ export const Gallery = component$<GalleryProps>(({ images, productTitle }) => {
               layout="constrained"
               cdn="directus"
             />
-          </Dialog>
+          </ImageDialog>
         );
       })}
     </div>
+  );
+});
+
+import { IoCloseOutline } from '@qwikest/icons/ionicons';
+
+export const ImageDialog = component$(() => {
+  const ref = useSignal<HTMLDialogElement>();
+
+  const handleClick = $(() => {
+    ref.value?.showModal();
+  });
+
+  return (
+    <>
+      <div onClick$={handleClick} class="cursor-pointer">
+        <Slot />
+      </div>
+
+      <dialog ref={ref} class="modal">
+        <div class="modal-box w-11/12 max-w-5xl p-10 overflow-hidden">
+          <form method="dialog">
+            <Button
+              intent="rounded"
+              color="ghost"
+              class="btn-sm absolute right-2 top-2"
+            >
+              <IoCloseOutline class="h-5 w-5" />
+            </Button>
+          </form>
+          <Slot name="dialog" />
+        </div>
+      </dialog>
+    </>
   );
 });

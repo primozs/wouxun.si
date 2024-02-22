@@ -8,8 +8,12 @@ import {
   useContext,
 } from '@builder.io/qwik';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
+import { UiContent } from '~/ui/UiContent';
+import { UiFooter } from '~/ui/UiFooter';
+import { UiHeader } from '~/ui/UiHeader';
+import { UiTitle } from '~/ui/UiTitle';
+import { UiToolbar } from '~/ui/UiToolbar';
 import { Button } from '~/ui/button';
-import { Tag } from '~/ui/tag';
 
 type Props = {};
 
@@ -101,7 +105,7 @@ export const CartDialog = component$<Props>(() => {
         ref={dialog}
         class={[
           `
-          outline-none rounded-l-md shadow-lg
+          outline-none shadow-lg
            p-0
           overflow-hidden
         `,
@@ -113,37 +117,34 @@ export const CartDialog = component$<Props>(() => {
           }
         }}
       >
-        <div class="h-full">
-          <div
-            class="`
-          bg-base-200
-          border-base-300
-          p-2 px-3 border-b
-          grid grid-cols-2
-        `"
-          >
-            <h3 class="text-xl text-base-content">Nakupna vrečka</h3>
+        <UiContent>
+          <UiHeader q:slot="start">
+            <UiToolbar>
+              <div q:slot="end" class="flex items-center gap-2 mx-2">
+                <Button
+                  type="button"
+                  onClick$={closeCardDialog}
+                  intent="square"
+                  color="neutral"
+                  class="btn-sm"
+                >
+                  <IoCloseOutline class="h-5 w-5" />
+                </Button>
+                <kbd class="kbd kbd-sm text-base-content/60 text-xs">esc</kbd>
+              </div>
 
-            <div class="flex items-center justify-end gap-3">
-              <Button
-                type="button"
-                onClick$={closeCardDialog}
-                intent="square"
-                color="neutral"
-                class="btn-sm"
-              >
-                <IoCloseOutline class="h-5 w-5" />
-              </Button>
-              <Tag class="hidden md:block" size="small" variant="neutral">
-                esc
-              </Tag>
-            </div>
-          </div>
+              <UiTitle>Nakupna vrečka</UiTitle>
+            </UiToolbar>
+          </UiHeader>
 
-          <div class="overflow-x-hidden overflow-y-auto content">
-            <Slot />
-          </div>
-        </div>
+          <Slot />
+
+          <UiFooter q:slot="end" color="transparent">
+            <UiToolbar border="top" layout={false} class="!p-8">
+              <Slot name="footer"></Slot>
+            </UiToolbar>
+          </UiFooter>
+        </UiContent>
       </dialog>
     </>
   );

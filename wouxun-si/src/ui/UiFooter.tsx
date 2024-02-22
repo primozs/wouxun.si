@@ -3,10 +3,11 @@ import { Slot, component$ } from '@builder.io/qwik';
 type Props = {
   class?: string | string[];
   translucent?: boolean;
+  color?: 'base' | 'translucent' | 'transparent';
 };
 
 export const UiFooter = component$<Props>(
-  ({ translucent = false, ...props }) => {
+  ({ color = 'base', ...props }: Props) => {
     return (
       <footer
         class={[
@@ -16,8 +17,8 @@ export const UiFooter = component$<Props>(
           z-10
           `,
           {
-            'bg-neutral': !translucent,
-            'backdrop-blur bg-base-100/60': translucent,
+            'bg-neutral': color === 'base',
+            'backdrop-blur bg-base-100/60': color === 'translucent',
           },
           props.class && props.class,
         ]}

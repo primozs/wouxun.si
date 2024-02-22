@@ -5,7 +5,7 @@ type InputLabelProps = {
   name: string;
   label?: string;
   required?: boolean;
-  class?: string | string[];
+  class?: QwikIntrinsicElements['label']['class'];
 };
 
 export const InputLabel = component$(

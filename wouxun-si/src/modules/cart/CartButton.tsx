@@ -4,6 +4,7 @@ import { CartDialog } from './CartDialog';
 import { CartList } from './CartList';
 import { useCartLoader } from '~/routes/plugin@store';
 import { Button } from '~/ui/button';
+import { CheckoutButtons } from './CheckoutButtons';
 
 export interface CartButtonProps {}
 
@@ -13,7 +14,6 @@ export const CartButton = component$<CartButtonProps>(() => {
   return (
     <>
       <CartDialog>
-        <CartList cart={cart} />
         <Button
           q:slot="button"
           type="button"
@@ -24,6 +24,12 @@ export const CartButton = component$<CartButtonProps>(() => {
         >
           <ShoppingBagIcon2 isEmpty={!cart.value?.items?.length} />
         </Button>
+
+        <CartList cart={cart} />
+
+        {(cart.value?.items?.length ?? 0) > 0 && (
+          <CheckoutButtons q:slot="footer" />
+        )}
       </CartDialog>
     </>
   );

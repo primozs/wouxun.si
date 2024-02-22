@@ -3,12 +3,12 @@ import { Slot, component$, type QwikIntrinsicElements } from '@builder.io/qwik';
 type Props = {
   class?: QwikIntrinsicElements['div']['class'];
   color?: 'base' | 'primary' | 'secondary';
-  size?: 'base' | 'lg' | 'xl' | '2xl';
+  size?: 'base' | 'sm' | 'lg' | 'xl' | '2xl';
   as?: 'h1' | 'h2' | 'h3' | 'div';
 };
 
 export const UiTitle = component$<Props>(
-  ({ as = 'h1', color = 'base', size = 'base', ...props }: Props) => {
+  ({ as = 'div', color = 'base', size = 'base', ...props }: Props) => {
     return (
       <As
         as={as}
@@ -22,6 +22,7 @@ export const UiTitle = component$<Props>(
           color === 'primary' && 'text-primary',
           color === 'secondary' && 'text-secondary',
           size === 'base' && 'font-semibold',
+          size === 'sm' && 'text-sm font-semibold',
           size === 'lg' && 'text-lg font-semibold',
           size === 'xl' && 'text-xl font-semibold',
           size === '2xl' && 'text-2xl font-medium leading-8',

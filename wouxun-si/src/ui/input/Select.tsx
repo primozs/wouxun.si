@@ -3,12 +3,12 @@ import { InputError } from './InputError';
 import { InputLabel } from './InputLabel';
 
 type SelectProps = {
-  ref: QRL<(element: HTMLSelectElement) => void>;
+  ref?: QRL<(element: HTMLSelectElement) => void>;
   name: string;
-  value: string | string[] | null | undefined;
-  onInput$: (event: Event, element: HTMLSelectElement) => void;
-  onChange$: (event: Event, element: HTMLSelectElement) => void;
-  onBlur$: (event: Event, element: HTMLSelectElement) => void;
+  value?: string | string[] | null | undefined;
+  onInput$?: (event: Event, element: HTMLSelectElement) => void;
+  onChange$?: (event: Event, element: HTMLSelectElement) => void;
+  onBlur$?: (event: Event, element: HTMLSelectElement) => void;
   options: { label: string; value: string }[];
   multiple?: boolean;
   size?: number;
@@ -17,13 +17,10 @@ type SelectProps = {
   class?: string;
   label?: string;
   error?: string;
+  labelSrOnly?: boolean;
+  id?: string;
 };
 
-/**
- * Select field that allows users to select predefined values. Various
- * decorations can be displayed in or around the field to communicate the
- * entry requirements.
- */
 export const Select = component$(
   ({
     value,
@@ -31,6 +28,7 @@ export const Select = component$(
     label,
     error,
     multiple = false,
+    labelSrOnly = false,
     ...props
   }: SelectProps) => {
     const { name, required, placeholder } = props;
@@ -48,7 +46,12 @@ export const Select = component$(
 
     return (
       <div class={[props.class]}>
-        <InputLabel name={name} label={label} required={required} />
+        <InputLabel
+          name={name}
+          label={label}
+          required={required}
+          class={[labelSrOnly === true && 'sr-only']}
+        />
         <div class="relative flex items-center">
           <select
             {...props}

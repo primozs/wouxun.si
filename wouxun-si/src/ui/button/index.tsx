@@ -3,8 +3,15 @@ import { Link, useLocation, type LinkProps } from '@builder.io/qwik-city';
 import { LoadingDots } from '../loading-dots';
 
 export type ButtonProps = QwikIntrinsicElements['button'] & {
-  intent?: 'base' | 'rounded' | 'square';
-  color?: 'base' | 'primary' | 'secondary' | 'error' | 'neutral' | 'accent';
+  intent?: 'base' | 'rounded' | 'square' | 'unstyled';
+  color?:
+    | 'base'
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'neutral'
+    | 'accent'
+    | 'ghost';
   fill?: 'clear' | 'outline' | 'solid';
   loading?: boolean;
 };
@@ -25,9 +32,10 @@ export const Button = component$<ButtonProps>(
           `
             ui-button
             btn
-            relative
             text-sm tracking-wide font-semibold leading-6
             whitespace-nowrap
+            overflow-hidden
+            text-ellipsis
           `,
           intent === 'base' && 'btn-md',
           intent === 'rounded' && 'btn-circle',
@@ -38,6 +46,7 @@ export const Button = component$<ButtonProps>(
             'btn-neutral': color === 'neutral',
             'btn-accent': color === 'accent',
             'btn-error': color === 'error',
+            'btn-ghost': color === 'ghost',
           },
           fill === 'outline' && 'btn-outline',
           fill === 'clear' && [
@@ -46,6 +55,7 @@ export const Button = component$<ButtonProps>(
           ],
           rest.disabled && 'btn-disabled btn-primary',
           rest.class as string,
+          loading && '!relative',
         ]}
       >
         {!loading && <Slot></Slot>}
@@ -54,9 +64,14 @@ export const Button = component$<ButtonProps>(
           <span class="absolute inset-0 top-1">
             <LoadingDots
               class={[
-                color === 'secondary'
-                  ? 'bg-secondary-content'
-                  : 'bg-primary-content',
+                {
+                  'bg-primary-content': color === 'primary',
+                  'bg-secondary-content': color === 'secondary',
+                  'bg-neutral-content': color === 'neutral',
+                  'bg-accent-content': color === 'accent',
+                  'bg-error-content': color === 'error',
+                  'bg-base-content': color === 'ghost' || color === 'base',
+                },
               ]}
             />
           </span>

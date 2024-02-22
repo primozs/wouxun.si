@@ -2,7 +2,7 @@ import { Slot, component$ } from '@builder.io/qwik';
 
 type Props = {
   class?: string | string[];
-  color?: 'light' | 'primary' | 'base';
+  color?: 'primary' | 'base';
   wrap?: boolean;
 };
 
@@ -16,9 +16,8 @@ export const UiNote = component$<Props>(
         text-base
         font-normal
         `,
-          color === 'light' && 'text-base-content/60',
           color === 'primary' && 'text-primary',
-          color === 'base' && 'text-base-content',
+          color === 'base' && 'text-base-content/60',
           wrap && 'text-balance',
 
           props.class && props.class,

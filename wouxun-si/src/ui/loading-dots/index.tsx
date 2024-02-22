@@ -1,7 +1,7 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements } from '@builder.io/qwik';
 
 export interface LoadingDotsProps {
-  class?: string | string[];
+  class?: QwikIntrinsicElements['div']['class'];
 }
 
 export const LoadingDots = component$<LoadingDotsProps>((props) => {
