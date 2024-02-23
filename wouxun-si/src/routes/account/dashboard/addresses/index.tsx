@@ -13,10 +13,15 @@ import { UiIcon } from '~/ui/UiIcon';
 import { UiContent } from '~/ui/UiContent';
 import { UiHeader } from '~/ui/UiHeader';
 import { UiToolbar } from '~/ui/UiToolbar';
-
+import { useDeleteShippingAddressAction } from '~/routes/plugin@store';
+import { useNotifications } from '~/ui/notification/notificationsState';
+import { useAuthSessionLoader } from '~/routes/plugin@auth';
+import { Address } from '@medusajs/client-types';
 export { useAddressFormLoader } from './AddressForm';
 
 export default component$(() => {
+  const session = useAuthSessionLoader();
+
   return (
     <div class="w-full">
       <div class="mb-8 flex flex-col gap-y-4">
@@ -29,50 +34,112 @@ export default component$(() => {
         </UiText>
       </div>
 
-      <div class="grid grid-cols-3 gap-4  mb-5">
-        <AddAddress />
-
-        <AddressCard>
-          <div>
-            <UiTitle>Primoz Susa</UiTitle>
-            <UiText class="text-sm">Gradišče 7</UiText>
-            <UiText class="text-sm">1360 Vrhnika</UiText>
-            <UiText class="text-sm">SI</UiText>
-          </div>
-
-          <Button
-            q:slot="actions"
-            intent="unstyled"
-            color="base"
-            class="btn-sm text-xs"
-          >
-            <UiIcon>
-              <IoCreateOutline />
-            </UiIcon>
-            Uredi
-          </Button>
-
-          <Button
-            q:slot="actions"
-            intent="unstyled"
-            color="base"
-            class="btn-sm text-xs"
-          >
-            <UiIcon>
-              <IoTrashOutline />
-            </UiIcon>
-            Odstrani
-          </Button>
-        </AddressCard>
-      </div>
+      <AddressList addresses={session.value?.shipping_addresses ?? []} />
     </div>
   );
 });
 
-export const AddAddress = component$(() => {
+export interface AddressListProps {
+  addresses: Address[];
+}
+
+export const AddressList = component$<AddressListProps>((props) => {
+  return (
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4  mb-5">
+      <AddShippingAddress />
+
+      {props.addresses?.map((address) => {
+        return <AddressListItem key={address.id} address={address} />;
+      })}
+    </div>
+  );
+});
+
+export interface AddressListItemProps {
+  address: Address;
+}
+
+export const AddressListItem = component$<AddressListItemProps>(
+  ({ address }) => {
+    const deleteAction = useDeleteShippingAddressAction();
+    const { addNotification } = useNotifications();
+    return (
+      <AddressCardWrapper>
+        <div>
+          <UiTitle>
+            {address.first_name} {address.last_name}
+          </UiTitle>
+
+          {address.company && (
+            <UiText class="text-sm mb-2">{address.company}</UiText>
+          )}
+
+          <UiText class="text-sm">
+            <span>
+              {address.address_1}
+              {address.address_2 && <span>, {address.address_2}</span>}
+            </span>
+          </UiText>
+
+          <UiText class="text-sm">
+            <span>
+              {address.postal_code}, {address.city}
+            </span>
+          </UiText>
+
+          <UiText class="text-sm">
+            <span>
+              {address.province && `${address.province}, `}
+              {address.country_code?.toUpperCase()}
+            </span>
+          </UiText>
+        </div>
+
+        <Button
+          q:slot="actions"
+          intent="unstyled"
+          color="base"
+          class="btn-sm text-xs"
+        >
+          <UiIcon>
+            <IoCreateOutline />
+          </UiIcon>
+          Uredi
+        </Button>
+
+        <Button
+          q:slot="actions"
+          intent="unstyled"
+          color="base"
+          class="btn-sm text-xs"
+          loading={deleteAction.isRunning}
+          onClick$={async () => {
+            const result = await deleteAction.submit({
+              addressId: address.id,
+            });
+
+            if (result.value.failed) {
+              addNotification({
+                type: 'error',
+                title: 'Napaka pri brisanju naslova',
+              });
+            }
+          }}
+        >
+          <UiIcon>
+            <IoTrashOutline />
+          </UiIcon>
+          Odstrani
+        </Button>
+      </AddressCardWrapper>
+    );
+  },
+);
+
+export const AddShippingAddress = component$(() => {
   return (
     <>
-      <AddressCard>
+      <AddressCardWrapper>
         <div>
           <UiTitle>Dodaj naslov za dostavo</UiTitle>
         </div>
@@ -88,14 +155,12 @@ export const AddAddress = component$(() => {
 
           <AddressForm q:slot="content" />
         </AdddressDialog>
-      </AddressCard>
+      </AddressCardWrapper>
     </>
   );
 });
 
-export interface AddressCardProps {}
-
-export const AddressCard = component$<AddressCardProps>(() => {
+export const AddressCardWrapper = component$(() => {
   return (
     <div class="card card-compact card-bordered bg-base-100 border-base-300 min-h-56 rounded-lg">
       <div class="card-body justify-between">

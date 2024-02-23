@@ -6,7 +6,11 @@ import {
   zod$,
 } from '@builder.io/qwik-city';
 import { config } from '~/config';
-import { getMedusaApi, getMedusaClient } from '~/modules/medusa';
+import {
+  getMedusaApi,
+  getMedusaClient,
+  getSrvSessionHeaders,
+} from '~/modules/medusa';
 import { getRegion } from '~/modules/medusa/getRegions';
 import { getProductList } from '~/modules/products/getDirectusProductData';
 import { getUserLocaleSrv } from '~/modules/common/srvGetLocale';
@@ -92,6 +96,30 @@ export const useAddToCartAction = routeAction$(
     variantId: z.string(),
     directusId: z.string(),
     thumbnailId: z.string(),
+  }),
+);
+
+export const useDeleteShippingAddressAction = routeAction$(
+  async (data, event) => {
+    try {
+      const client = getMedusaClient();
+      await client.customers.addresses.deleteAddress(
+        data.addressId,
+        getSrvSessionHeaders(event),
+      );
+    } catch (error) {
+      return event.fail(500, {
+        message: 'unknown',
+      });
+    }
+    return {
+      status: 'success',
+      message: 'Address deleted',
+      data: { addressId: data.addressId },
+    };
+  },
+  zod$({
+    addressId: z.string(),
   }),
 );
 
