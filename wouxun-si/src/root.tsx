@@ -9,6 +9,7 @@ import { RouterHead } from './router-head';
 import './global.css';
 import { AppGlobalProvider } from '~/modules/common/AppGlobalProvider';
 import { NotificationProvider } from './ui/notification/notificationsState';
+import { UiConfirmProvider } from './ui/UiConfirm';
 
 export default component$(() => {
   return (
@@ -22,7 +23,9 @@ export default component$(() => {
       <body lang="sl" data-theme="wouxun">
         <AppGlobalProvider>
           <NotificationProvider>
-            <RouterOutlet />
+            <UiConfirmProvider>
+              <RouterOutlet />
+            </UiConfirmProvider>
           </NotificationProvider>
         </AppGlobalProvider>
       </body>
