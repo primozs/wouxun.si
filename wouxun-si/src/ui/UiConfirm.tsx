@@ -2,7 +2,7 @@ import {
   type Signal,
   component$,
   useSignal,
-  QwikIntrinsicElements,
+  type QwikIntrinsicElements,
   createContextId,
   useContextProvider,
   useContext,

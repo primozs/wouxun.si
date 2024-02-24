@@ -1,6 +1,5 @@
-import { type Signal, component$ } from '@builder.io/qwik';
+import { type Signal, component$, useSignal } from '@builder.io/qwik';
 import * as v from 'valibot';
-import { routeLoader$ } from '@builder.io/qwik-city';
 import {
   formAction$,
   FormError,
@@ -21,6 +20,7 @@ import { Button } from '~/ui/button';
 type AddressForm = v.Input<typeof AddressSchema>;
 
 const AddressSchema = v.object({
+  id: v.optional(v.string()),
   first_name: v.string([v.minLength(1, 'Prosimo vpišite ime')]),
   last_name: v.string([v.minLength(1, 'Prosimo vpišite priimek')]),
   company: v.string(),
@@ -33,40 +33,29 @@ const AddressSchema = v.object({
   phone: v.string(),
 });
 
-// eslint-disable-next-line qwik/loader-location
-export const useAddressFormLoader = routeLoader$<InitialValues<AddressForm>>(
-  async () => {
-    const loaderData = {
-      first_name: '',
-      last_name: '',
-      company: '',
-      address_1: '',
-      address_2: '',
-      postal_code: '',
-      city: '',
-      province: '',
-      country_code: '',
-      phone: '',
-    };
-    return loaderData;
-  },
-);
-
 type ResponseType = any;
 
 export const useFormAction = formAction$<AddressForm, ResponseType>(
-  async (data, event) => {
+  async ({ id, ...data }, event) => {
     try {
       const client = getMedusaClient();
-      const res = await client.customers.addresses.addAddress(
-        { address: { metadata: {}, ...data } },
-        getSrvSessionHeaders(event),
-      );
+
+      if (!id) {
+        await client.customers.addresses.addAddress(
+          { address: { metadata: {}, ...data } },
+          getSrvSessionHeaders(event),
+        );
+      } else {
+        await client.customers.addresses.updateAddress(
+          id,
+          data,
+          getSrvSessionHeaders(event),
+        );
+      }
 
       return {
         status: 'success',
         message: 'Added success',
-        data: { customer: res.customer },
       };
     } catch (error: any) {
       handleError(error);
@@ -78,13 +67,37 @@ export const useFormAction = formAction$<AddressForm, ResponseType>(
 
 export interface AddressFormProps {
   modal?: Signal<HTMLDialogElement | undefined>;
+  initial?: InitialValues<AddressForm>;
 }
+
+const setInitialSignal = (
+  initial: InitialValues<AddressForm> | undefined,
+): InitialValues<AddressForm> => {
+  const emptyAddres = {
+    id: '',
+    first_name: '',
+    last_name: '',
+    company: '',
+    address_1: '',
+    address_2: '',
+    postal_code: '',
+    city: '',
+    province: '',
+    country_code: '',
+    phone: '',
+  };
+  if (!initial) return emptyAddres;
+  return initial;
+};
 
 export const AddressForm = component$<AddressFormProps>((props) => {
   const region = useGetRegionLoader();
+  const initialData = useSignal<InitialValues<AddressForm>>(
+    setInitialSignal(props.initial),
+  );
 
   const [addressForm, { Form, Field }] = useForm<AddressForm>({
-    loader: useAddressFormLoader(),
+    loader: initialData,
     validate: valiForm$(AddressSchema),
     action: useFormAction(),
   });
@@ -93,6 +106,11 @@ export const AddressForm = component$<AddressFormProps>((props) => {
     <div class="space-y-4">
       <Form id="address-form" class="space-y-4">
         <div class="grid grid-cols-2 gap-x-2">
+          <Field name="id">
+            {(field, props) => (
+              <input {...props} type="hidden" value={field.value} />
+            )}
+          </Field>
           <Field name="first_name">
             {(field, props) => (
               <TextInput

@@ -1,15 +1,14 @@
-import { QwikIntrinsicElements, component$ } from '@builder.io/qwik';
+import { type QwikIntrinsicElements, component$ } from '@builder.io/qwik';
 
 export interface UiToggleProps {
   class?: string;
-  color?: 'base' | 'primary' | 'secondary';
   checked?: boolean;
   title?: string;
   onClick$?: QwikIntrinsicElements['button']['onClick$'];
 }
 
 export const UiToggle = component$<UiToggleProps>(
-  ({ color = 'base', checked = false, title, ...props }) => {
+  ({ checked = false, title, ...props }) => {
     return (
       <>
         <button

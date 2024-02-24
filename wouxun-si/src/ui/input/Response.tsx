@@ -28,7 +28,6 @@ export const Response = component$(({ of: form, ...props }: ResponseProps) => {
     }
 
     if (isBrowser && frozenResponse.value?.status === 'success' && modal) {
-      console.log('should close');
       modal.value?.close();
     }
   });

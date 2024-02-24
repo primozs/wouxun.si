@@ -69,11 +69,11 @@ export const InputPhone = component$<InputPhoneProps>(
         window.intlTelInputGlobals
           .loadUtils('/phone/phone-utils.js')
           // @ts-ignore
-          .then(() => {
+          ?.then(() => {
             // set init value
             if (value) iti.setNumber(value as string);
           })
-          .catch(() => {
+          ?.catch(() => {
             //
           });
         utilsLoaded.value = true;

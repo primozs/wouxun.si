@@ -12,10 +12,9 @@ import { UiIcon } from '~/ui/UiIcon';
 import { useDeleteShippingAddressAction } from '~/routes/plugin@store';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { useAuthSessionLoader } from '~/routes/plugin@auth';
-import { Address } from '@medusajs/client-types';
+import type { Address } from '@medusajs/client-types';
 import { useUiConfirmDialog } from '~/ui/UiConfirm';
 import { UiModal, useUiModal, useUiModalProvider } from '~/ui/UiModal';
-export { useAddressFormLoader } from './AddressForm';
 
 export default component$(() => {
   const session = useAuthSessionLoader();
@@ -62,6 +61,9 @@ export const AddressListItem = component$<AddressListItemProps>(
     const { uiConfirmDialog } = useUiConfirmDialog();
     const deleteAction = useDeleteShippingAddressAction();
     const { addNotification } = useNotifications();
+    useUiModalProvider();
+    const modal = useUiModal();
+
     return (
       <AddressCardWrapper>
         <div>
@@ -94,17 +96,42 @@ export const AddressListItem = component$<AddressListItemProps>(
           </UiText>
         </div>
 
-        <Button
-          q:slot="actions"
-          intent="unstyled"
-          color="base"
-          class="btn-sm text-xs"
-        >
-          <UiIcon>
-            <IoCreateOutline />
-          </UiIcon>
-          Uredi
-        </Button>
+        <UiModal q:slot="actions" modal={modal}>
+          <Button
+            q:slot="button"
+            intent="unstyled"
+            color="base"
+            class="btn-sm text-xs"
+            onClick$={() => {
+              modal.value?.showModal();
+            }}
+          >
+            <UiIcon>
+              <IoCreateOutline />
+            </UiIcon>
+            Uredi
+          </Button>
+
+          <UiTitle q:slot="title">Edit shipping address</UiTitle>
+
+          <AddressForm
+            q:slot="content"
+            modal={modal}
+            initial={{
+              id: address.id,
+              first_name: address.first_name ?? '',
+              last_name: address.last_name ?? '',
+              company: address.company ?? '',
+              address_1: address.address_1 ?? '',
+              address_2: address.address_2 ?? '',
+              postal_code: address.postal_code ?? '',
+              city: address.city ?? '',
+              province: address.province ?? '',
+              country_code: address.country_code ?? '',
+              phone: address.phone ?? '',
+            }}
+          />
+        </UiModal>
 
         <Button
           q:slot="actions"
@@ -168,9 +195,25 @@ export const AddShippingAddress = component$(() => {
             </UiIcon>
           </Button>
 
-          <UiTitle q:slot="title">Shipping address</UiTitle>
+          <UiTitle q:slot="title">Add shipping address</UiTitle>
 
-          <AddressForm q:slot="content" modal={modal} />
+          <AddressForm
+            q:slot="content"
+            modal={modal}
+            initial={{
+              id: undefined,
+              first_name: '',
+              last_name: '',
+              company: '',
+              address_1: '',
+              address_2: '',
+              postal_code: '',
+              city: '',
+              province: '',
+              country_code: '',
+              phone: '',
+            }}
+          />
         </UiModal>
       </AddressCardWrapper>
     </>
