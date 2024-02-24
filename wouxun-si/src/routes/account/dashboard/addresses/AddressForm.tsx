@@ -15,7 +15,7 @@ import { useGetRegionLoader } from '~/routes/plugin@store';
 import { Select } from '~/ui/input/Select';
 import { InputPhone } from '~/ui/input/InputPhone';
 import { config } from '~/config';
-import { Button } from '~/ui/button';
+import { FormFooter } from '~/ui/input/FormFooter';
 
 type AddressForm = v.Input<typeof AddressSchema>;
 
@@ -271,11 +271,7 @@ export const AddressForm = component$<AddressFormProps>((props) => {
           <Response of={addressForm} modal={props.modal} />
         </div>
 
-        <div class="flex justify-end">
-          <Button type="submit" loading={addressForm.submitting}>
-            Shrani
-          </Button>
-        </div>
+        <FormFooter of={addressForm} form="address-form" modal={props.modal} />
       </Form>
     </div>
   );

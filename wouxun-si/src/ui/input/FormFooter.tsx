@@ -1,17 +1,20 @@
 import { type ActionStore, Form } from '@builder.io/qwik-city';
 import { type FormStore, reset } from '@modular-forms/qwik';
 import { Button } from '../button';
+import type { Signal } from '@builder.io/qwik';
 
 type FormFooterProps = {
   of: FormStore<any, any>;
   resetAction?: ActionStore<{}, Record<string, any>, true>;
   form?: string;
+  modal?: Signal<HTMLDialogElement | undefined>;
 };
 
 export function FormFooter({
   of: formStore,
   resetAction,
   form,
+  modal,
 }: FormFooterProps) {
   return (
     <footer class="flex flex-row-reverse justify-start gap-4">
@@ -21,7 +24,7 @@ export function FormFooter({
         loading={formStore.submitting}
         form={form}
       >
-        Pošlji
+        Shrani
       </Button>
       {resetAction ? (
         <Form action={resetAction}>
@@ -31,7 +34,7 @@ export function FormFooter({
             preventdefault:click
             onClick$={() => reset(formStore)}
           >
-            Ponastavi
+            Prekliči
           </Button>
         </Form>
       ) : (
@@ -39,9 +42,12 @@ export function FormFooter({
           color="secondary"
           type="button"
           preventdefault:click
-          onClick$={() => reset(formStore)}
+          onClick$={() => {
+            reset(formStore);
+            modal?.value?.close();
+          }}
         >
-          Ponastavi
+          Prekliči
         </Button>
       )}
     </footer>
