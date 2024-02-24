@@ -21,6 +21,7 @@ type Props = {
   translucent?: boolean;
   to?: string;
   onClick$?: PropFunction<() => void>;
+  border?: 'top' | 'right' | 'bottom' | 'left' | 'none';
 };
 
 export const UiItem = component$<Props>(
@@ -35,6 +36,7 @@ export const UiItem = component$<Props>(
     translucent = false,
     to,
     onClick$,
+    border = 'bottom',
     ...props
   }: Props) => {
     const navigate = useNavigate();
@@ -54,7 +56,7 @@ export const UiItem = component$<Props>(
           [&>.ui-icon]:my-4 [&>.ui-icon]:mr-4
           [&>.ui-item-start>.ui-icon]:my-4 [&>.ui-item-start>.ui-icon]:mr-4
           `,
-          lines === 'full' && 'border-b',
+
           padX && 'px-4',
           overflow === 'hidden' && 'overflow-hidden',
           button && 'cursor-pointer',
@@ -71,6 +73,16 @@ export const UiItem = component$<Props>(
           selected && color === 'transparent' && '!bg-base-300/70',
           to && 'cursor-pointer',
           onClick && 'cursor-pointer',
+
+          lines === 'full' && [
+            {
+              'border-t': border === 'top',
+              'border-r': border === 'right',
+              'border-b': border === 'bottom',
+              'border-l': border === 'left',
+            },
+          ],
+
           props.class && props.class,
         ]}
         onClick$={$(() => {

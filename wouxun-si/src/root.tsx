@@ -10,6 +10,7 @@ import './global.css';
 import { AppGlobalProvider } from '~/modules/common/AppGlobalProvider';
 import { NotificationProvider } from './ui/notification/notificationsState';
 import { UiConfirmProvider } from './ui/UiConfirm';
+import { ThemeScript } from './modules/theme/ThemeScript';
 
 export default component$(() => {
   return (
@@ -19,8 +20,9 @@ export default component$(() => {
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
         <ServiceWorkerRegister />
+        <ThemeScript />
       </head>
-      <body lang="sl" data-theme="wouxun">
+      <body>
         <AppGlobalProvider>
           <NotificationProvider>
             <UiConfirmProvider>
