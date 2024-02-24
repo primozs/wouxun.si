@@ -107,7 +107,7 @@ export const InputPhone = component$<InputPhoneProps>(
             const iti = window.intlTelInputGlobals.getInstance(input.value);
             const value = iti.getNumber(intlTelInputUtils.numberFormat.E164);
             const isNumberValid = iti.isValidNumber();
-            console.log(value, isNumberValid);
+
             handleIsValidPhone(name, value, isNumberValid);
           }
         })}
@@ -117,7 +117,6 @@ export const InputPhone = component$<InputPhoneProps>(
           //   const iti = window.intlTelInputGlobals.getInstance(input.value);
           //   const value = iti.getNumber(intlTelInputUtils.numberFormat.E164);
           //   const isNumberValid = iti.isValidNumber();
-          //   console.log(value, isNumberValid);
           // }
         })}
       ></TextInput>

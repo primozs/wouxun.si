@@ -1,10 +1,12 @@
 import type { RequestEvent, RequestEventLoader } from '@builder.io/qwik-city';
 import { config } from '~/config';
 
-export const getUserLocaleSrv = ({
-  cookie,
-}: RequestEvent | RequestEventLoader) => {
-  const cookieLocaleObj = cookie.get('locale') || undefined;
+const getUserLocaleSrv = (event: RequestEvent | RequestEventLoader) => {
+  // const acceptLanguage = event.headers.get('accept-language');
+  // const [languages] = acceptLanguage?.split(';') || ['?', '?'];
+  // const [preferredLanguage] = languages?.split(',') ?? '';
+
+  const cookieLocaleObj = event.cookie.get('locale') || undefined;
   const cookieLocale = cookieLocaleObj?.value;
 
   const userLocale = cookieLocale || config.DEFAULT_LOCALE;

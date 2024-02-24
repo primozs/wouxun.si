@@ -13,7 +13,6 @@ import {
 } from '~/modules/medusa';
 import { getRegion } from '~/modules/medusa/getRegions';
 import { getProductList } from '~/modules/products/getDirectusProductData';
-import { getUserLocaleSrv } from '~/modules/common/srvGetLocale';
 import type { Cart, Region } from '@medusajs/client-types';
 
 export const useSetCartItemQuantityAction = routeAction$(
@@ -155,7 +154,7 @@ export const useCartLoader = routeLoader$(async (event) => {
 });
 
 export const useProductsLoader = routeLoader$(async (event) => {
-  const locale = getUserLocaleSrv(event);
+  const locale = event.locale();
   const res = await getProductList(locale);
   return res;
 });

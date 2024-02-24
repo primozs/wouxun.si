@@ -1,6 +1,6 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { type RequestHandler } from '@builder.io/qwik-city';
-import { srvSetLocale } from '~/modules/common/srvGetLocale';
+import { srvSetLocale } from '~/modules/locale/srvGetLocale';
 
 export const onGet: RequestHandler = async (reqEvent) => {
   reqEvent.cacheControl({

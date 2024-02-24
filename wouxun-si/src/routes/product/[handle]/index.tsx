@@ -11,13 +11,12 @@ import {
   getProductByHandle,
   getProductsIds,
 } from '~/modules/products/getDirectusProductData';
-import { getUserLocaleSrv } from '~/modules/common/srvGetLocale';
 import { MainImage } from '~/modules/products/ProductDetail';
 import { Gallery } from '~/modules/products/ProductDetail';
 import { ProductDetailView } from '~/modules/products/ProductDetail';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
-  const locale = getUserLocaleSrv(event);
+  const locale = event.locale();
   const region = await event.resolveValue(useGetRegionLoader);
   try {
     const productDirectusP = getProductByHandle(event.params.handle, locale);

@@ -147,8 +147,6 @@ export const getProductByHandle = async (
       D.set('categories', O.getWithDefault(categories, [])),
     );
 
-    // console.log(JSON.stringify(productDic, null, 2));
-
     const translationDic = O.flatMap(
       translation,
       D.selectKeys(['title', 'subtitle', 'material', 'handle', 'description']),
