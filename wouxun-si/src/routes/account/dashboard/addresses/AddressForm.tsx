@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { type Signal, component$ } from '@builder.io/qwik';
 import * as v from 'valibot';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import {
@@ -17,8 +17,6 @@ import { Select } from '~/ui/input/Select';
 import { InputPhone } from '~/ui/input/InputPhone';
 import { config } from '~/config';
 import { Button } from '~/ui/button';
-
-export interface AddressFormProps {}
 
 type AddressForm = v.Input<typeof AddressSchema>;
 
@@ -78,7 +76,11 @@ export const useFormAction = formAction$<AddressForm, ResponseType>(
   valiForm$(AddressSchema),
 );
 
-export const AddressForm = component$<AddressFormProps>(() => {
+export interface AddressFormProps {
+  modal?: Signal<HTMLDialogElement | undefined>;
+}
+
+export const AddressForm = component$<AddressFormProps>((props) => {
   const region = useGetRegionLoader();
 
   const [addressForm, { Form, Field }] = useForm<AddressForm>({
@@ -248,7 +250,7 @@ export const AddressForm = component$<AddressFormProps>(() => {
         </Field>
 
         <div>
-          <Response of={addressForm} />
+          <Response of={addressForm} modal={props.modal} />
         </div>
 
         <div class="flex justify-end">

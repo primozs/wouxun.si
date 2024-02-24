@@ -73,7 +73,7 @@ body {
     @apply max-w-screen-2xl w-full mx-auto px-4 sm:px-5;
   }
 
-  [data-theme='wouxun'] .btn-md {
+  [data-theme='light'] .btn-md {
     @apply h-10 min-h-10;
   }
 

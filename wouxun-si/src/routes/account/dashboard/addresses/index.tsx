@@ -1,4 +1,4 @@
-import { Slot, component$, useSignal } from '@builder.io/qwik';
+import { Slot, component$ } from '@builder.io/qwik';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { AddressForm } from './AddressForm';
@@ -7,17 +7,14 @@ import {
   IoTrashOutline,
   IoAddOutline,
   IoCreateOutline,
-  IoCloseOutline,
 } from '@qwikest/icons/ionicons';
 import { UiIcon } from '~/ui/UiIcon';
-import { UiContent } from '~/ui/UiContent';
-import { UiHeader } from '~/ui/UiHeader';
-import { UiToolbar } from '~/ui/UiToolbar';
 import { useDeleteShippingAddressAction } from '~/routes/plugin@store';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import { Address } from '@medusajs/client-types';
 import { useUiConfirmDialog } from '~/ui/UiConfirm';
+import { UiModal, useUiModal, useUiModalProvider } from '~/ui/UiModal';
 export { useAddressFormLoader } from './AddressForm';
 
 export default component$(() => {
@@ -146,6 +143,9 @@ export const AddressListItem = component$<AddressListItemProps>(
 );
 
 export const AddShippingAddress = component$(() => {
+  useUiModalProvider();
+  const modal = useUiModal();
+
   return (
     <>
       <AddressCardWrapper>
@@ -153,8 +153,16 @@ export const AddShippingAddress = component$(() => {
           <UiTitle>Dodaj naslov za dostavo</UiTitle>
         </div>
 
-        <AdddressDialog q:slot="actions">
-          <Button q:slot="button" intent="unstyled" color="base" class="btn-sm">
+        <UiModal q:slot="actions" modal={modal}>
+          <Button
+            q:slot="button"
+            intent="unstyled"
+            color="base"
+            class="btn-sm"
+            onClick$={() => {
+              modal.value?.showModal();
+            }}
+          >
             <UiIcon>
               <IoAddOutline />
             </UiIcon>
@@ -162,8 +170,8 @@ export const AddShippingAddress = component$(() => {
 
           <UiTitle q:slot="title">Shipping address</UiTitle>
 
-          <AddressForm q:slot="content" />
-        </AdddressDialog>
+          <AddressForm q:slot="content" modal={modal} />
+        </UiModal>
       </AddressCardWrapper>
     </>
   );
@@ -180,53 +188,5 @@ export const AddressCardWrapper = component$(() => {
         </div>
       </div>
     </div>
-  );
-});
-
-export const AdddressDialog = component$(() => {
-  const dialog = useSignal<HTMLDialogElement>();
-
-  return (
-    <>
-      <div
-        onClick$={() => {
-          dialog.value?.showModal();
-        }}
-        class="cursor-pointer"
-      >
-        <Slot name="button" />
-      </div>
-
-      <dialog ref={dialog} class="modal">
-        <div class="modal-box h-full max-h-[60%] rounded-md p-0">
-          <UiContent>
-            <UiHeader q:slot="start">
-              <UiToolbar>
-                <div q:slot="end" class="flex items-center gap-2 mx-2">
-                  <Button
-                    type="button"
-                    onClick$={() => {
-                      dialog.value?.close();
-                    }}
-                    intent="square"
-                    color="neutral"
-                    class="btn-sm"
-                  >
-                    <IoCloseOutline class="h-5 w-5" />
-                  </Button>
-                  <kbd class="kbd kbd-sm text-base-content/60 text-xs">esc</kbd>
-                </div>
-
-                <Slot name="title"></Slot>
-              </UiToolbar>
-            </UiHeader>
-
-            <div class="p-4">
-              <Slot name="content"></Slot>
-            </div>
-          </UiContent>
-        </div>
-      </dialog>
-    </>
   );
 });

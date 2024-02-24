@@ -73,7 +73,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        wouxun: {
+        light: {
           fontFamily:
             'Inter,Arial,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif',
           'color-scheme': 'light',
