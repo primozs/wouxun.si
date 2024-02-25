@@ -6,6 +6,8 @@ import {
   createContextId,
   type Signal,
   useContext,
+  useSignal,
+  useContextProvider,
 } from '@builder.io/qwik';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
 import { UiContent } from '~/ui/UiContent';
@@ -22,6 +24,11 @@ type TCartDialog = Signal<HTMLDialogElement | undefined>;
 export const CartDialogContext = createContextId<TCartDialog>(
   'cart-dialog-context',
 );
+
+export const useCartDialogProvider = () => {
+  const cartDialog = useSignal<HTMLDialogElement>();
+  useContextProvider(CartDialogContext, cartDialog);
+};
 
 export const useCartDialog = () => {
   const dialog = useContext<TCartDialog>(CartDialogContext);

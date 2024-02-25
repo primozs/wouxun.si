@@ -1,19 +1,9 @@
-import {
-  type RequestHandler,
-  routeAction$,
-  routeLoader$,
-  z,
-  zod$,
-} from '@builder.io/qwik-city';
+import { routeAction$, routeLoader$, z, zod$ } from '@builder.io/qwik-city';
 import { config } from '~/config';
-import {
-  getMedusaApi,
-  getMedusaClient,
-  getSrvSessionHeaders,
-} from '~/modules/medusa';
-import { getRegion } from '~/modules/medusa/getRegions';
-import { getProductList } from '~/modules/products/getDirectusProductData';
+import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import type { Cart, Region } from '@medusajs/client-types';
+import type { RequestEvent, RequestEventLoader } from '@builder.io/qwik-city';
+import { handleError } from '~/modules/logger';
 
 export const useSetCartItemQuantityAction = routeAction$(
   async (data, event) => {
@@ -153,36 +143,47 @@ export const useCartLoader = routeLoader$(async (event) => {
   }
 });
 
-export const useProductsLoader = routeLoader$(async (event) => {
-  const locale = event.locale();
-  const res = await getProductList(locale);
-  return res;
-});
-
 export const useGetRegionLoader = routeLoader$(async (event) => {
-  // server
-  let region = (await event.sharedMap.get('region')) as Region | null;
-  // client
-  if (!region) {
-    const country_code = config.DEFAULT_COUNTRY;
-    region = await getRegion(country_code, event);
-  }
+  const country_code = await getCountryCode();
+  const region = await getRegion(country_code, event);
   return region;
 });
 
-export const useGetCountryIPLoader = routeLoader$(async () => {
-  const client = getMedusaApi();
-  const result = await client
-    .get('ip')
-    .json<{ ip: string; country_code: string }>();
-
-  return {
-    ip: result.ip,
-    country: result.country_code,
-  };
-});
-
-export const onGet: RequestHandler = async (event) => {
+const getCountryCode = async () => {
+  // const client = getMedusaApi();
+  // const {country_code} = await client
+  //   .get('ip')
+  //   .json<{ ip: string; country_code: string }>();
   const country_code = config.DEFAULT_COUNTRY;
-  await getRegion(country_code, event);
+  return country_code;
+};
+
+const getRegion = async (
+  country_code: string,
+  event: RequestEventLoader | RequestEvent,
+): Promise<Region | null> => {
+  const promise = event.sharedMap.get('region');
+
+  if (promise) {
+    return promise;
+  }
+
+  const client = getMedusaClient();
+  const shared = client.regions
+    .list()
+    .then((res) => {
+      const regions = res.regions;
+
+      const region = regions.find((item) =>
+        item.countries?.find((c) => c.iso_2 === country_code),
+      );
+      return region ? (structuredClone(region) as unknown as Region) : null;
+    })
+    .catch((error) => {
+      handleError(error, 'Get region');
+      return null;
+    });
+
+  event.sharedMap.set('region', shared);
+  return shared as unknown as Promise<Region | null>;
 };

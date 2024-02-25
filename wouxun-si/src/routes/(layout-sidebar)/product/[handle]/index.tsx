@@ -1,16 +1,8 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  type DocumentHead,
-  routeLoader$,
-  type StaticGenerateHandler,
-} from '@builder.io/qwik-city';
-import { config } from '~/config';
+import { type DocumentHead, routeLoader$ } from '@builder.io/qwik-city';
 import { useGetRegionLoader } from '~/routes/plugin@store';
 import { getProduct } from '~/modules/medusa/getProducts';
-import {
-  getProductByHandle,
-  getProductsIds,
-} from '~/modules/products/getDirectusProductData';
+import { getProductByHandle } from '~/modules/products/getDirectusProductData';
 import { MainImage } from '~/modules/products/ProductDetail';
 import { Gallery } from '~/modules/products/ProductDetail';
 import { ProductDetailView } from '~/modules/products/ProductDetail';
@@ -18,6 +10,7 @@ import { ProductDetailView } from '~/modules/products/ProductDetail';
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const locale = event.locale();
   const region = await event.resolveValue(useGetRegionLoader);
+
   try {
     const productDirectusP = getProductByHandle(event.params.handle, locale);
     const productMedusaP = getProduct(event.params.handle, region?.id);
@@ -75,16 +68,5 @@ export const head: DocumentHead = ({ resolveValue }) => {
         content: data?.productDirectus?.id,
       },
     ],
-  };
-};
-
-export const onStaticGenerate: StaticGenerateHandler = async () => {
-  // if multilang this should return all languages
-  const items = await getProductsIds(config.DEFAULT_LOCALE);
-
-  return {
-    params: items.map((item) => {
-      return { handle: item.handle };
-    }),
   };
 };

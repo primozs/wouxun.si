@@ -32,6 +32,7 @@ export const ThemeSwitcher = component$(() => {
       onClick$={() => {
         toggleTheme();
       }}
+      title={$localize`Switch theme light, nights`}
     />
   );
 });

@@ -33,7 +33,7 @@ type LoginForm = v.Input<typeof LoginSchema>;
 
 const LoginSchema = v.object({
   email: v.string([
-    v.minLength(5, 'Prosimo vpišite email'),
+    v.minLength(5, $localize`Please enter email`),
     v.email('E-naslov ni pravilen'),
   ]),
   password: v.string([
@@ -131,8 +131,8 @@ export const LoginForm = component$(() => {
             <InputPassword
               {...props}
               type="password"
-              label="Geslo"
-              placeholder="Vpišite geslo"
+              label={$localize`Password`}
+              placeholder={$localize`Enter password`}
               auto-complete="current-password"
               value={field.value}
               error={field.error}
@@ -143,7 +143,7 @@ export const LoginForm = component$(() => {
 
         <div class="flex items-center justify-end">
           <NavLink size="sm" href="/account/password-reset">
-            Ste pozabili geslo
+            {$localize`Forgot password?`}
           </NavLink>
         </div>
 

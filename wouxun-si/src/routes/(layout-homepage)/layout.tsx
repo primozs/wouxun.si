@@ -2,12 +2,12 @@ import { component$, Slot } from '@builder.io/qwik';
 import { Footer } from '~/modules/layout/footer';
 import { Header } from '~/modules/layout/header';
 import { Carousel } from '~/modules/layout/hero';
-// import OstaliModeli from '~/content/ostaliModeli.mdx';
-// import { ProductListAside } from '~/modules/products/ProductListAside';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { readItems } from '@directus/sdk';
 import { getDirectusClient } from '~/modules/directus';
 import { handleError } from '~/modules/logger';
+
+export { useProductsLoader } from '~/modules/products/loaders';
 
 export type BannersData = {
   id: string;
@@ -54,10 +54,6 @@ export default component$(() => {
 
       <div>
         <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 flex flex-col sm:flex-row sm:gap-5 my-5">
-          {/* <aside class="prose sm:max-w-xs shrink-0 bg-base-200 rounded-xl p-3">
-            <ProductListAside />
-            <OstaliModeli />
-          </aside> */}
           <main class="flex-grow order-first sm:order-2">
             <Slot />
           </main>

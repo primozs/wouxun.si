@@ -3,7 +3,6 @@ import {
   routeAction$,
   routeLoader$,
 } from '@builder.io/qwik-city';
-import type { Customer } from '@medusajs/client-types';
 import {
   SESSION_COOKIE_KEY,
   getMedusaClient,
@@ -12,11 +11,7 @@ import {
 import { getServerSession } from '~/modules/auth';
 
 export const useAuthSessionLoader = routeLoader$(async (event) => {
-  // server
-  let session = (await event.sharedMap.get('session')) as Customer | null;
-  if (!session) {
-    session = await getServerSession(event);
-  }
+  const session = await getServerSession(event);
   return session;
 });
 

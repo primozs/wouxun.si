@@ -7,12 +7,13 @@ import {
 import { RouterHead } from './router-head';
 
 import './global.css';
-import { AppGlobalProvider } from '~/modules/common/AppGlobalProvider';
 import { NotificationProvider } from './ui/notification/notificationsState';
 import { UiConfirmProvider } from './ui/UiConfirm';
 import { ThemeScript } from './modules/theme/ThemeScript';
+import { useCartDialogProvider } from './modules/cart/CartDialog';
 
 export default component$(() => {
+  useCartDialogProvider();
   return (
     <QwikCityProvider>
       <head>
@@ -23,13 +24,11 @@ export default component$(() => {
         <ThemeScript />
       </head>
       <body>
-        <AppGlobalProvider>
-          <NotificationProvider>
-            <UiConfirmProvider>
-              <RouterOutlet />
-            </UiConfirmProvider>
-          </NotificationProvider>
-        </AppGlobalProvider>
+        <NotificationProvider>
+          <UiConfirmProvider>
+            <RouterOutlet />
+          </UiConfirmProvider>
+        </NotificationProvider>
       </body>
     </QwikCityProvider>
   );

@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { formatPrice } from '~/modules/common/formatPrice';
 import type { PricedProduct, MoneyAmount } from '@medusajs/client-types';
-import { useAppGlobal } from '../../modules/common/AppGlobalProvider';
+import { useLocaleLoader } from '~/routes/plugin';
 
 export interface ProductPriceProps {
   product: PricedProduct | null;
@@ -34,7 +34,8 @@ const getVariantPrice = (product: PricedProduct | null, variantIndex = 0) => {
 };
 
 export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
-  const store = useAppGlobal();
+  const locale = useLocaleLoader();
+
   const variantPrice = getVariantPrice(product, 0);
   if (!variantPrice) return null;
 
@@ -44,7 +45,7 @@ export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
         <p class="font-semibold text-xl text-base-content/90">
           {formatPrice(variantPrice.calculatedPrice, {
             currency: variantPrice.currency_code,
-            locale: store.locale,
+            locale: locale.value,
           })}
         </p>
       </div>
@@ -53,7 +54,7 @@ export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
           <p class="font-medium line-through text-[18px,28px] text-base-content/90">
             {formatPrice(variantPrice.originalPrice, {
               currency: variantPrice.currency_code,
-              locale: store.locale,
+              locale: locale.value,
             })}
           </p>
         </div>
@@ -67,7 +68,7 @@ export interface CardPriceProps {
 }
 
 export const CardPrice = component$<CardPriceProps>(({ product }) => {
-  const store = useAppGlobal();
+  const locale = useLocaleLoader();
   const variantPrice = getVariantPrice(product, 0);
   if (!variantPrice) return null;
 
@@ -76,14 +77,14 @@ export const CardPrice = component$<CardPriceProps>(({ product }) => {
       <div>
         {formatPrice(variantPrice.calculatedPrice, {
           currency: variantPrice.currency_code,
-          locale: store.locale,
+          locale: locale.value,
         })}
       </div>
       {variantPrice.hasDiff && variantPrice.originalPrice !== undefined && (
         <div class="text-xs line-through text-base-content/90">
           {formatPrice(variantPrice.originalPrice, {
             currency: variantPrice.currency_code,
-            locale: store.locale,
+            locale: locale.value,
           })}
         </div>
       )}
@@ -97,12 +98,12 @@ type ListPriceProps = {
 };
 
 const ListPrice = component$(({ amount, currency = 'usd' }: ListPriceProps) => {
-  const store = useAppGlobal();
+  const locale = useLocaleLoader();
   return (
     <>
       {formatPrice(amount, {
         currency: currency,
-        locale: store.locale,
+        locale: locale.value,
       })}
     </>
   );

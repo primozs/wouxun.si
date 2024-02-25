@@ -8,7 +8,7 @@ export interface UiToggleProps {
 }
 
 export const UiToggle = component$<UiToggleProps>(
-  ({ checked = false, title, ...props }) => {
+  ({ checked = false, title = 'Toggle button', ...props }) => {
     return (
       <>
         <button
@@ -22,6 +22,8 @@ export const UiToggle = component$<UiToggleProps>(
             checked ? 'bg-primary' : 'bg-base-300',
             props.class,
           ]}
+          aria-pressed={checked ? 'true' : 'false'}
+          aria-label={title}
         >
           {title && <span class="sr-only">{title}</span>}
           <span

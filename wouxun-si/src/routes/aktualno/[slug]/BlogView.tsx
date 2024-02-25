@@ -4,15 +4,15 @@ import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/modules/directus';
-import { useAppGlobal } from '~/modules/common/AppGlobalProvider';
 import { IoCalendarClearOutline } from '@qwikest/icons/ionicons';
+import { useLocaleLoader } from '~/routes/plugin';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;
 }
 
 export const BlogView = component$<BlogViewProps>(({ post }) => {
-  const store = useAppGlobal();
+  const locale = useLocaleLoader();
   const imageSrc = getImageUrl(post.value?.image ?? '');
   return (
     <section>
@@ -38,7 +38,7 @@ export const BlogView = component$<BlogViewProps>(({ post }) => {
               <IoCalendarClearOutline class="h-5 w-5" />
               <span>
                 {post.value?.date_created
-                  ? formatDate(new Date(post.value.date_created), store.locale)
+                  ? formatDate(new Date(post.value.date_created), locale.value)
                   : ''}
               </span>
             </div>
