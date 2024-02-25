@@ -5,6 +5,7 @@ import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 import { CartButton } from '~/modules/cart/CartButton';
 import { config } from '~/config';
 import { NavBanner } from './NavBanner';
+import { SwitchLocale } from '~/modules/locale/SwitchLocale';
 
 export const Header = component$(() => {
   const mobileMenuVisible = useSignal(false);
@@ -12,7 +13,7 @@ export const Header = component$(() => {
   return (
     <header
       class="`
-        transform sticky top-0 z-10
+        transform sticky top-0 z-20
         backdrop-blur bg-base-100/90
       `"
     >
@@ -30,12 +31,13 @@ export const Header = component$(() => {
         </div>
 
         <div class="flex items-center gap-x-1.5">
-          <div class="flex items-center">
+          <div class="flex items-center gap-1.5">
             <div class="hidden sm:block">
               <MainNavigation />
             </div>
 
             <CartButton />
+            <SwitchLocale />
           </div>
 
           <MobileMainMenuButton visible={mobileMenuVisible} />

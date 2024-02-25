@@ -3,6 +3,8 @@ import { type DocumentHead } from '@builder.io/qwik-city';
 import { ProductList } from '~/modules/products/ProductList';
 import { useProductsLoader } from '~/modules/products/loaders';
 
+export { useProductsLoader } from '~/modules/products/loaders';
+
 export default component$(() => {
   const products = useProductsLoader();
   return (

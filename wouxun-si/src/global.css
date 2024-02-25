@@ -80,6 +80,14 @@ body {
   [data-theme='night'] .btn-md {
     @apply h-10 min-h-10;
   }
+
+  [data-theme='light'] .hidden-light {
+    @apply hidden;
+  }
+
+  [data-theme='night'] .hidden-night {
+    @apply hidden;
+  }
 }
 
 .header1,

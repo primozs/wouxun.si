@@ -5,11 +5,7 @@ import { MainNavigation } from '../MainNavigation';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
 import { HiBars3Outline } from '@qwikest/icons/heroicons';
 import { UiContent } from '~/ui/UiContent';
-import { UiItem } from '~/ui/UiItem';
-import { IoMoonOutline } from '@qwikest/icons/ionicons';
-import { UiIcon } from '~/ui/UiIcon';
-import { UiLabel } from '~/ui/UiLabel';
-import { ThemeSwitcher } from '~/modules/theme/ThemeSwitcher';
+import { ThemeListItem } from '~/modules/theme/ThemeSwitcher';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
@@ -42,15 +38,7 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
             <MainNavigation isMobile={true} />
           </div>
 
-          <UiItem q:slot="end" border="top">
-            <UiIcon q:slot="start">
-              <IoMoonOutline></IoMoonOutline>
-            </UiIcon>
-
-            <UiLabel>Night mode</UiLabel>
-
-            <ThemeSwitcher q:slot="end" />
-          </UiItem>
+          <ThemeListItem q:slot="end" />
         </UiContent>
       </div>
     </>
