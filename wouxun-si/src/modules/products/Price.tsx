@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import { formatPrice } from '~/modules/common/formatPrice';
 import type { PricedProduct, MoneyAmount } from '@medusajs/client-types';
 import { useLocaleLoader } from '~/routes/plugin';
+import { useLocale } from '../locale/LocaleProvider';
 
 export interface ProductPriceProps {
   product: PricedProduct | null;
@@ -98,7 +99,7 @@ type ListPriceProps = {
 };
 
 const ListPrice = component$(({ amount, currency = 'usd' }: ListPriceProps) => {
-  const locale = useLocaleLoader();
+  const locale = useLocale();
   return (
     <>
       {formatPrice(amount, {

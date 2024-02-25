@@ -11,6 +11,7 @@ import { NotificationProvider } from './ui/notification/notificationsState';
 import { UiConfirmProvider } from './ui/UiConfirm';
 import { ThemeScript } from './modules/theme/ThemeScript';
 import { useCartDialogProvider } from './modules/cart/CartDialog';
+import { LocaleProvider } from './modules/locale/LocaleProvider';
 
 export default component$(() => {
   useCartDialogProvider();
@@ -24,11 +25,13 @@ export default component$(() => {
         <ThemeScript />
       </head>
       <body>
-        <NotificationProvider>
-          <UiConfirmProvider>
-            <RouterOutlet />
-          </UiConfirmProvider>
-        </NotificationProvider>
+        <LocaleProvider>
+          <NotificationProvider>
+            <UiConfirmProvider>
+              <RouterOutlet />
+            </UiConfirmProvider>
+          </NotificationProvider>
+        </LocaleProvider>
       </body>
     </QwikCityProvider>
   );
