@@ -3,6 +3,7 @@ import { Slot, component$ } from '@builder.io/qwik';
 type Props = {
   class?: string | string[];
   inset?: boolean;
+  role?: string;
 };
 
 export const UiList = component$<Props>(({ inset = false, ...props }) => {
@@ -24,6 +25,7 @@ export const UiList = component$<Props>(({ inset = false, ...props }) => {
           `,
         props.class && props.class,
       ]}
+      role={props.role}
     >
       <Slot></Slot>
     </div>

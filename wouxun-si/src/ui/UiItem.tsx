@@ -22,6 +22,8 @@ type Props = {
   to?: string;
   onClick$?: PropFunction<() => void>;
   border?: 'top' | 'right' | 'bottom' | 'left' | 'none';
+  role?: string;
+  tabIndex?: number | undefined;
 };
 
 export const UiItem = component$<Props>(
@@ -37,6 +39,8 @@ export const UiItem = component$<Props>(
     to,
     onClick$,
     border = 'bottom',
+    role,
+    tabIndex,
     ...props
   }: Props) => {
     const navigate = useNavigate();
@@ -91,6 +95,8 @@ export const UiItem = component$<Props>(
           }
           onClick && onClick();
         })}
+        role={role}
+        tabIndex={tabIndex}
       >
         <div class="flex ui-item-start flex-grow-0 flex-shrink basis-auto">
           <Slot name="start"></Slot>
