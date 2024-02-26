@@ -61,6 +61,7 @@ body {
   /* margin-left: calc(100vw - 100%); */
 
   @apply subpixel-antialiased relative grid grid-rows-[auto_1fr_auto];
+  @apply scrollbar-thin scrollbar-track-base-300 scrollbar-thumb-base-content/60;
 }
 
 /* debug overflow */

@@ -69,7 +69,11 @@ module.exports = {
   // https://daisyui.com/docs/utilities/
   // https://github.com/saadeghi/daisyui/blob/master/src/theming/themes.js
   // https://daisyui.com/blog/how-to-add-new-colors-to-daisyui/
-  plugins: [require('@tailwindcss/forms'), require('daisyui')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('daisyui'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
   daisyui: {
     themes: [
       {
