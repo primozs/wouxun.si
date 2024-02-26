@@ -2,7 +2,11 @@ import { $, Slot, component$, useSignal } from '@builder.io/qwik';
 import { useClickOutside } from './hooks/useClickOutside';
 import { Button, ButtonProps } from './button';
 
-export const UiDropdown = component$<ButtonProps>((props) => {
+type Props = ButtonProps & {
+  label: string;
+};
+
+export const UiDropdown = component$<Props>(({ label, ...props }) => {
   const expanded = useSignal(false);
   const ref = useSignal<HTMLElement>();
 
@@ -20,12 +24,13 @@ export const UiDropdown = component$<ButtonProps>((props) => {
         type="button"
         aria-expanded={expanded.value ? 'true' : 'false'}
         aria-haspopup="true"
-        aria-label={$localize`Change language`}
+        aria-label={label}
         onClick$={() => {
           expanded.value = !expanded.value;
         }}
+        ref={ref}
       >
-        <span class="sr-only">{$localize`Change language`}</span>
+        <span class="sr-only">{label}</span>
         <Slot name="button" />
       </Button>
 
