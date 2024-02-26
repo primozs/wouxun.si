@@ -21,7 +21,7 @@ export const UiText = component$<Props>(
           color === 'primary' && 'text-primary',
           wrap && 'text-balance',
 
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

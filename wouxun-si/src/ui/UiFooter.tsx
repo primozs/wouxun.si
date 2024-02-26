@@ -20,7 +20,7 @@ export const UiFooter = component$<Props>(
             'bg-neutral': color === 'base',
             'backdrop-blur bg-base-100/60': color === 'translucent',
           },
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

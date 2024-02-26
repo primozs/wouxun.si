@@ -87,7 +87,7 @@ export const UiItem = component$<Props>(
             },
           ],
 
-          props.class && props.class,
+          props.class,
         ]}
         onClick$={$(() => {
           if (to) {

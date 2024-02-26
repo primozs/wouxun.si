@@ -20,7 +20,7 @@ export const UiIcon = component$<Props>(
             'text-primary': color === 'primary',
             'text-secondary': color === 'secondary',
           },
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

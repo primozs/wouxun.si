@@ -26,7 +26,7 @@ export const UiTitle = component$<Props>(
           size === 'lg' && 'text-lg font-semibold',
           size === 'xl' && 'text-xl font-semibold',
           size === '2xl' && 'text-2xl font-medium leading-8',
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

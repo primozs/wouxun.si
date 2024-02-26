@@ -23,7 +23,7 @@ export const UiListHeader = component$<Props>(
             `
           bg-base-100 text-base-content
         `,
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

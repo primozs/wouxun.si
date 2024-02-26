@@ -13,7 +13,7 @@ export const UiSplitPane = component$<Props>((props) => {
             overflow-x-hidden
             flex flex-wrap sm:flex-nowrap
           `,
-        props.class && props.class,
+        props.class,
       ]}
     >
       <div

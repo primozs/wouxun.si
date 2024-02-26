@@ -9,14 +9,15 @@ export const UiPage = component$<UiPageProps>((props) => {
     <div
       class={[
         `
-        h-[100dvh]
-        w-full
-        flex flex-col
-        overflow-hidden
-        justify-between
-        z-0
-      `,
-        props.class && props.class,
+          ui-page
+          h-[100dvh]
+          w-full
+          flex flex-col
+          overflow-hidden
+          justify-between
+          z-0
+        `,
+        props.class,
       ]}
     >
       <Slot></Slot>

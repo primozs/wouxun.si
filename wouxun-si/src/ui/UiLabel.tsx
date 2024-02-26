@@ -62,7 +62,7 @@ export const UiLabel = component$<Props>(
           color === 'primary' && 'text-primary',
           marginY === 'base' && 'my-2',
           weight,
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

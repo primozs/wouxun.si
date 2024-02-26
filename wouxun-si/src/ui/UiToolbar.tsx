@@ -28,7 +28,7 @@ export const UiToolbar = component$<UiToolbarProps>(
                 'border-b': border === 'bottom',
                 'border-l': border === 'left',
               },
-              props.class && props.class,
+              props.class,
             ]}
           >
             <div class="col-span-1">

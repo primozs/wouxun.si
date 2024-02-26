@@ -16,7 +16,7 @@ export const UiButtons = component$<Props>((props) => {
         [&>.ui-button>span]:overflow-hidden 
         [&>.ui-button>span]:text-ellipsis
       `,
-        props.class && props.class,
+        props.class,
       ]}
     >
       <Slot></Slot>

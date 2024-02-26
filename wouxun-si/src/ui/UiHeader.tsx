@@ -19,7 +19,7 @@ export const UiHeader = component$<Props>(
             'bg-neutral': color === 'header-color',
             'backdrop-blur bg-base-100/50': color === 'translucent',
           },
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

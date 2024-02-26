@@ -9,7 +9,9 @@ export const ThemeScript = () => {
             )
     window.addEventListener('load', function() {
       let themeSwitch = document.getElementById('theme-checkbox');
-      themeSwitch.checked = localStorage.getItem('${themeStorageKey}') === 'night'? true: false;
+      if (themeSwitch) {
+        themeSwitch.checked = localStorage.getItem('${themeStorageKey}') === 'night'? true: false;
+      }      
     }
   );
         `;

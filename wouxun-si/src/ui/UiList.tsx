@@ -23,7 +23,7 @@ export const UiList = component$<Props>(({ inset = false, ...props }) => {
             [&>.ui-item:first-child]:rounded-t-xl
             [&>.ui-item:last-child]:rounded-b-xl
           `,
-        props.class && props.class,
+        props.class,
       ]}
       role={props.role}
     >

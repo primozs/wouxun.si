@@ -20,7 +20,7 @@ export const UiNote = component$<Props>(
           color === 'base' && 'text-base-content/60',
           wrap && 'text-balance',
 
-          props.class && props.class,
+          props.class,
         ]}
       >
         <Slot></Slot>

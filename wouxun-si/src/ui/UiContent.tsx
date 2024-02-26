@@ -46,7 +46,7 @@ export const UiContent = component$<Props>(
             'overflow-y-auto': scrollY,
           },
           rounded === 'md' && 'rounded-md',
-          props.classContainer && props.classContainer,
+          props.classContainer,
         ]}
       >
         <div class="flex-grow-0 flex-shrink basis-auto">
@@ -62,18 +62,13 @@ export const UiContent = component$<Props>(
             {
               'overflow-y-auto': overflowYAuto,
             },
-            props.class && props.class,
+            props.class,
           ]}
         >
           <Slot></Slot>
         </div>
 
-        <div
-          class={[
-            `flex-grow-0 flex-shrink basis-auto`,
-            props.classFooter && props.classFooter,
-          ]}
-        >
+        <div class={[`flex-grow-0 flex-shrink basis-auto`, props.classFooter]}>
           <Slot name="end"></Slot>
         </div>
       </div>
