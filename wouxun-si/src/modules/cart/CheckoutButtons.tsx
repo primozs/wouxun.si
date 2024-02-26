@@ -20,7 +20,7 @@ export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
           })
         }
       >
-        Pay with Apple Pay
+        <span>Pay with Apple Pay</span>
       </Button>
 
       <Button
@@ -35,7 +35,7 @@ export const CheckoutButtons = component$<CheckoutButtonsProps>(() => {
           })
         }
       >
-        Go to Payment
+        <span>Go to Payment</span>
       </Button>
     </>
   );

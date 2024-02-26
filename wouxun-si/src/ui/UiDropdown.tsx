@@ -57,3 +57,41 @@ export const UiDropdown = component$<Props>(({ label, ...props }) => {
     </div>
   );
 });
+
+// example usage
+//
+{
+  /* <UiDropdown
+  color="primary"
+  fill="outline"
+  intent="square"
+  class="hidden md:flex"
+  label={$localize`Change language`}
+>
+  <UiIcon q:slot="button">
+    <IoLanguageOutline />
+  </UiIcon>
+
+  <UiList q:slot="list">
+    <UiItem
+      role="menuitem"
+      tabIndex={-1}
+      onClick$={() => {
+        //
+      }}
+    >
+      <UiLabel>English</UiLabel>
+    </UiItem>
+    <UiItem
+      role="menuitem"
+      tabIndex={-1}
+      lines="none"
+      onClick$={() => {
+        //
+      }}
+    >
+      <UiLabel>Slovenščina</UiLabel>
+    </UiItem>
+  </UiList>
+</UiDropdown> */
+}

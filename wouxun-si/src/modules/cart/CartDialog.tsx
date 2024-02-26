@@ -147,7 +147,7 @@ export const CartDialog = component$<Props>(() => {
           <Slot />
 
           <UiFooter q:slot="end" color="transparent">
-            <UiToolbar border="top" layout={false} class="!p-8">
+            <UiToolbar border="top" layout={false}>
               <Slot name="footer"></Slot>
             </UiToolbar>
           </UiFooter>

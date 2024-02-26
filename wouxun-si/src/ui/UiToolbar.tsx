@@ -51,31 +51,7 @@ export const UiToolbar = component$<UiToolbarProps>(
             </div>
           </div>
         ) : (
-          <div
-            class={[
-              `
-              flex flex-col justify-between              
-              sm:flex-row sm:items-center 
-              gap-3 px-4 py-2 
-              
-              min-h-[56px]
-              
-              
-              border-base-300
-              overflow-hidden        
-              z-10
-            `,
-              {
-                'border-t': border === 'top',
-                'border-r': border === 'right',
-                'border-b': border === 'bottom',
-                'border-l': border === 'left',
-              },
-              props.class && props.class,
-            ]}
-          >
-            <Slot></Slot>
-          </div>
+          <Slot></Slot>
         )}
       </>
     );

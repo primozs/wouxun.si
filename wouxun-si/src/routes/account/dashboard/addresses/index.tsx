@@ -13,7 +13,7 @@ import { useDeleteShippingAddressAction } from '~/routes/plugin@store';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import type { Address } from '@medusajs/client-types';
-import { useUiConfirmDialog } from '~/ui/UiConfirm';
+import { UiConfirm, useUiConfirm } from '~/ui/UiConfirm';
 import { UiModal, useUiModal, useUiModalProvider } from '~/ui/UiModal';
 
 export default component$(() => {
@@ -58,7 +58,7 @@ export interface AddressListItemProps {
 
 export const AddressListItem = component$<AddressListItemProps>(
   ({ address }) => {
-    const { uiConfirmDialog } = useUiConfirmDialog();
+    const { uiConfirm } = useUiConfirm();
     const deleteAction = useDeleteShippingAddressAction();
     const { addNotification } = useNotifications();
     useUiModalProvider();
@@ -133,6 +133,7 @@ export const AddressListItem = component$<AddressListItemProps>(
           />
         </UiModal>
 
+        <UiConfirm></UiConfirm>
         <Button
           q:slot="actions"
           intent="unstyled"
@@ -140,7 +141,7 @@ export const AddressListItem = component$<AddressListItemProps>(
           class="btn-sm text-xs"
           loading={deleteAction.isRunning}
           onClick$={async () => {
-            const confirmed = await uiConfirmDialog({
+            const confirmed = await uiConfirm({
               title: 'Delete shipping address',
               subtitle: 'Are you sure, data will be lost?',
             });

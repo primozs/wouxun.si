@@ -13,6 +13,10 @@ import {
 import { Button } from './button';
 import { UiTitle } from './UiTitle';
 import { UiText } from './UiText';
+import { UiHeader } from './UiHeader';
+import { UiToolbar } from './UiToolbar';
+import { UiItem } from './UiItem';
+import { UiFooter } from './UiFooter';
 
 type ConfirmDialog = {
   title: string;
@@ -24,10 +28,18 @@ type ConfirmDialog = {
 
 const UiConfirmId = createContextId<ConfirmDialog>('ui-confirm');
 
-export const useUiConfirmDialog = () => {
-  const store = useContext<ConfirmDialog>(UiConfirmId);
+export const useUiConfirm = () => {
+  const dialog = useSignal<HTMLDialogElement>();
+  const store = useStore<ConfirmDialog>({
+    title: '',
+    subtitle: '',
+    cancelLabel: 'Cancel',
+    confirmLabel: 'Confirm',
+    dialog: dialog,
+  });
+  useContextProvider(UiConfirmId, store);
 
-  const uiConfirmDialog = $(
+  const uiConfirm = $(
     async ({
       title = '',
       subtitle = '',
@@ -43,7 +55,8 @@ export const useUiConfirmDialog = () => {
       store.subtitle = subtitle;
       store.cancelLabel = cancelLabel;
       store.confirmLabel = confirmLabel;
-      store.dialog.value?.show();
+      // store.dialog.value?.show();
+      store.dialog.value?.showModal();
 
       return new Promise((resolve) => {
         const dialog = store.dialog.value;
@@ -58,67 +71,61 @@ export const useUiConfirmDialog = () => {
     },
   );
 
-  return { store, uiConfirmDialog };
+  return { store, uiConfirm };
 };
-
-export const UiConfirmProvider = component$(() => {
-  const dialog = useSignal<HTMLDialogElement>();
-  const store = useStore<ConfirmDialog>({
-    title: '',
-    subtitle: '',
-    cancelLabel: 'Cancel',
-    confirmLabel: 'Confirm',
-    dialog: dialog,
-  });
-  useContextProvider(UiConfirmId, store);
-
-  return (
-    <>
-      <Slot></Slot>
-      <UiConfirmDialog />
-    </>
-  );
-});
 
 export interface UiConfirmDialogProps {
   onClose$?: QwikIntrinsicElements['dialog']['onClose$'];
 }
 
-export const UiConfirmDialog = component$<UiConfirmDialogProps>(
-  ({ ...rest }) => {
-    const { store } = useUiConfirmDialog();
-    return (
-      <dialog {...rest} ref={store.dialog} class="modal">
-        <div class="modal-box rounded-md border border-base-300/50 p-4 max-w-sm w-fit">
-          <div class="p-2 flex flex-col items-center">
+export const UiConfirm = component$<UiConfirmDialogProps>(({ ...rest }) => {
+  const store = useContext<ConfirmDialog>(UiConfirmId);
+  return (
+    <dialog {...rest} ref={store.dialog} class="modal p-4">
+      <div class="modal-box rounded-md border border-base-300/70 p-0 max-w-xs w-full">
+        <UiHeader color="transparent">
+          <UiToolbar>
             <UiTitle>{store.title}</UiTitle>
+          </UiToolbar>
+        </UiHeader>
+        {store.subtitle && (
+          <UiItem lines="none" class="py-6">
             <UiText>{store.subtitle}</UiText>
-          </div>
-          <div class="modal-action">
-            <Button
-              class="flex-1"
-              type="button"
-              color="secondary"
-              onClick$={() => {
-                store.dialog.value?.close('cancel');
-              }}
-              autofocus
-            >
-              {store.cancelLabel}
-            </Button>
-            <Button
-              class="flex-1"
-              type="button"
-              color="primary"
-              onClick$={() => {
-                store.dialog.value?.close('ok');
-              }}
-            >
-              {store.confirmLabel}
-            </Button>
-          </div>
-        </div>
-      </dialog>
-    );
-  },
-);
+          </UiItem>
+        )}
+
+        <Slot></Slot>
+
+        <UiFooter color="transparent">
+          <UiToolbar border="top" layout={false}>
+            <UiItem class="py-3" classCenter="gap-4" border="top">
+              <Button
+                class="flex-1"
+                type="button"
+                color="primary"
+                fill="outline"
+                onClick$={() => {
+                  store.dialog.value?.close('cancel');
+                }}
+                autofocus
+              >
+                {store.cancelLabel}
+              </Button>
+              <Button
+                class="flex-1"
+                type="button"
+                color="primary"
+                fill="outline"
+                onClick$={() => {
+                  store.dialog.value?.close('ok');
+                }}
+              >
+                {store.confirmLabel}
+              </Button>
+            </UiItem>
+          </UiToolbar>
+        </UiFooter>
+      </div>
+    </dialog>
+  );
+});

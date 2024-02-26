@@ -5,6 +5,7 @@ import { CartList } from './CartList';
 import { useCartLoader } from '~/routes/plugin@store';
 import { Button } from '~/ui/button';
 import { CheckoutButtons } from './CheckoutButtons';
+import { UiItem } from '~/ui/UiItem';
 
 export interface CartButtonProps {}
 
@@ -28,7 +29,9 @@ export const CartButton = component$<CartButtonProps>(() => {
         <CartList cart={cart} />
 
         {(cart.value?.items?.length ?? 0) > 0 && (
-          <CheckoutButtons q:slot="footer" />
+          <UiItem q:slot="footer" class="py-4" classCenter="gap-4" border="top">
+            <CheckoutButtons />
+          </UiItem>
         )}
       </CartDialog>
     </>

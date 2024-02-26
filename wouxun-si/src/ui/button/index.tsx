@@ -32,10 +32,8 @@ export const Button = component$<ButtonProps>(
           `
             ui-button
             btn
-            text-sm tracking-wide font-semibold leading-6
-            whitespace-nowrap
-            overflow-hidden
-            text-ellipsis
+            text-sm tracking-wide font-semibold leading-6            
+            truncate [&>span]:truncate
           `,
           intent === 'base' && 'btn-md',
           intent === 'rounded' && 'btn-circle',
