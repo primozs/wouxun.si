@@ -23,11 +23,11 @@ export default component$(() => {
     <div class="w-full">
       <div class="mb-8 flex flex-col gap-y-4">
         <UiTitle size="xl" as="h1">
-          Shipping Addresses
+          {$localize`Shipping Addresses`}
         </UiTitle>
         <UiText wrap class="max-w-xl">
-          View and update your shipping addresses, you can add as many as you
-          like. Saving your addresses will make them available during checkout.
+          {$localize`View and update your shipping addresses, you can add as many as you
+          like. Saving your addresses will make them available during checkout.`}
         </UiText>
       </div>
 
@@ -109,10 +109,10 @@ export const AddressListItem = component$<AddressListItemProps>(
             <UiIcon>
               <IoCreateOutline />
             </UiIcon>
-            Uredi
+            {$localize`Edit`}
           </Button>
 
-          <UiTitle q:slot="title">Edit shipping address</UiTitle>
+          <UiTitle q:slot="title">{$localize`Edit shipping address`}</UiTitle>
 
           <AddressForm
             q:slot="content"
@@ -142,8 +142,8 @@ export const AddressListItem = component$<AddressListItemProps>(
           loading={deleteAction.isRunning}
           onClick$={async () => {
             const confirmed = await uiConfirm({
-              title: 'Delete shipping address',
-              subtitle: 'Are you sure, data will be lost?',
+              title: $localize`Delete shipping address`,
+              subtitle: $localize`Are you sure, data will be lost?`,
             });
 
             if (!confirmed) return;
@@ -155,7 +155,7 @@ export const AddressListItem = component$<AddressListItemProps>(
             if (result.value.failed) {
               addNotification({
                 type: 'error',
-                title: 'Napaka pri brisanju naslova',
+                title: $localize`Error while deleting shipping address`,
               });
             }
           }}
@@ -163,7 +163,7 @@ export const AddressListItem = component$<AddressListItemProps>(
           <UiIcon>
             <IoTrashOutline />
           </UiIcon>
-          Odstrani
+          {$localize`Delete`}
         </Button>
       </AddressCardWrapper>
     );
@@ -178,7 +178,7 @@ export const AddShippingAddress = component$(() => {
     <>
       <AddressCardWrapper>
         <div>
-          <UiTitle>Dodaj naslov za dostavo</UiTitle>
+          <UiTitle>{$localize`Add shipping address`}</UiTitle>
         </div>
 
         <UiModal q:slot="actions" modal={modal}>
@@ -196,7 +196,7 @@ export const AddShippingAddress = component$(() => {
             </UiIcon>
           </Button>
 
-          <UiTitle q:slot="title">Add shipping address</UiTitle>
+          <UiTitle q:slot="title">{$localize`Add shipping address`}</UiTitle>
 
           <AddressForm
             q:slot="content"

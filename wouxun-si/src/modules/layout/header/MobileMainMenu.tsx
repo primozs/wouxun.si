@@ -79,8 +79,7 @@ export const MobileMainMenuButton = component$<MobileMainMenuButtonProps>(
       <Button
         type="button"
         intent="square"
-        color="primary"
-        fill="outline"
+        color="ghost"
         aria-controls="mobile-menu"
         aria-expanded="false"
         onClick$={() => {

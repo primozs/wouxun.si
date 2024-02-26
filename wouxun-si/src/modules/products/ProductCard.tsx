@@ -58,7 +58,7 @@ const Thumbnail = component$(
           text-primary-content
         `"
         >
-          <p>Ogled produkta</p>
+          <p>{$localize`View product`}</p>
         </div>
         {thumbnail && (
           <div

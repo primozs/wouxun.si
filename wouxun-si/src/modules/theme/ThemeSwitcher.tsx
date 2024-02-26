@@ -59,8 +59,7 @@ export const ThemeButton = component$(() => {
     <Button
       type="button"
       aria-label={$localize`Switch theme`}
-      color="primary"
-      fill="outline"
+      color="ghost"
       intent="square"
       class="hidden md:flex"
       onClick$={() => {

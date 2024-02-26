@@ -26,8 +26,7 @@ export const SwitchLocale = component$(() => {
     <>
       <Button
         type="button"
-        color="primary"
-        fill="outline"
+        color="ghost"
         intent="square"
         class="hidden md:flex"
         aria-label={$localize`Change language`}

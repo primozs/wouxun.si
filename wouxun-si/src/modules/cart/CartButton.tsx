@@ -19,8 +19,7 @@ export const CartButton = component$<CartButtonProps>(() => {
           q:slot="button"
           type="button"
           aria-label="Odpri voziček"
-          color="primary"
-          fill="outline"
+          color="ghost"
           intent="square"
         >
           <ShoppingBagIcon2 isEmpty={!cart.value?.items?.length} />
