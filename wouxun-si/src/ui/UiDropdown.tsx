@@ -1,6 +1,6 @@
 import { $, Slot, component$, useSignal } from '@builder.io/qwik';
 import { useClickOutside } from './hooks/useClickOutside';
-import { Button, ButtonProps } from './button';
+import { Button, type ButtonProps } from './button';
 
 type Props = ButtonProps & {
   label: string;

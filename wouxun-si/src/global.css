@@ -47,6 +47,7 @@ html {
   tab-size: 4;
   height: 100%;
   overflow-x: hidden;
+  scrollbar-gutter: initial !important;
 }
 
 body {

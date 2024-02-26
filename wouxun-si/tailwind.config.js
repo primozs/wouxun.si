@@ -41,6 +41,9 @@ module.exports = {
       //   ],
     },
     extend: {
+      colors: {
+        // 'base-400': 'hsl(var(--base-400) / <alpha-value>)',
+      },
       boxShadow: {
         'card-hover-dark':
           '0px 0px 0px 1px rgba(255, 255, 255, 0.2), 0px 1px 2px -1px rgba(255, 255, 255, 0.32), 0px 2px 8px 0px rgba(0, 0, 0, 0.64)',
@@ -90,8 +93,9 @@ module.exports = {
           neutral: '#f7f7f7', // toolbar //  light '#f4f5f8'
           'neutral-content': '#334155',
           'base-100': '#ffff',
-          'base-200': '#f8fafc', // slate-50 // '#f9fafb', // gray-50
+          'base-200': '#f9fafb', // '#f8fafc', // slate-50 // '#f9fafb', // gray-50
           'base-300': '#e5e7eb', //'#f3f4f6', // border // gray-200 '#e5e7eb'
+          // '--base-400': '220 13% 91%', // hsl of #e5e7eb //'#f3f4f6', // border // gray-200 '#e5e7eb'
           'base-content': '#1f2937',
           info: '#0ea5e9',
           success: '#16a34a',

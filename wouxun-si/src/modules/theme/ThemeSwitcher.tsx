@@ -30,7 +30,7 @@ export const ThemeListItem = component$(() => {
   const { toggleTheme } = useTheme();
 
   return (
-    <UiItem border="top">
+    <UiItem border="top" class="py-1">
       <UiIcon q:slot="start">
         <IoMoonOutline class="hidden-light"></IoMoonOutline>
         <IoSunnyOutline class="hidden-night"></IoSunnyOutline>
@@ -38,16 +38,17 @@ export const ThemeListItem = component$(() => {
 
       <UiLabel>{$localize`Switch theme`}</UiLabel>
 
-      <UiToggle
-        q:slot="end"
-        onCheckboxClick$={() => {
-          toggleTheme();
-        }}
-        label={$localize`Switch theme`}
-        checkbox
-        name="theme-checkbox"
-        class="peer"
-      />
+      <div q:slot="end">
+        <UiToggle
+          onCheckboxClick$={() => {
+            toggleTheme();
+          }}
+          label={$localize`Switch theme`}
+          checkbox
+          name="theme-checkbox"
+          class="peer"
+        />
+      </div>
     </UiItem>
   );
 });

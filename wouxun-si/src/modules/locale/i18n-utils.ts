@@ -48,7 +48,7 @@ if (!$localizeFn.TRANSLATION_BY_LOCALE) {
  */
 export function initTranslations() {
   [SL, EN].forEach(({ translations, locale }) => {
-    console.log('init translations: ', locale);
+    // console.log('init translations: ', locale);
     withLocale(locale, () => loadTranslations(translations));
   });
 }

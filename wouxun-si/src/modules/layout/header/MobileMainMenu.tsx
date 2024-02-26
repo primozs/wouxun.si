@@ -1,11 +1,13 @@
-import { type Signal, component$, useSignal, $ } from '@builder.io/qwik';
-import { useClickOutside } from '~/ui/hooks/useClickOutside';
+import { type Signal, component$ } from '@builder.io/qwik';
 import { Button } from '~/ui/button';
 import { MainNavigation } from '../MainNavigation';
 import { IoCloseOutline } from '@qwikest/icons/ionicons';
 import { HiBars3Outline } from '@qwikest/icons/heroicons';
 import { UiContent } from '~/ui/UiContent';
 import { ThemeListItem } from '~/modules/theme/ThemeSwitcher';
+import { SwitchLocaleListItem } from '~/modules/locale/SwitchLocale';
+import { Logo } from './logo';
+import { UiItem } from '~/ui/UiItem';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
@@ -34,10 +36,32 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
         id="mobile-menu"
       >
         <UiContent>
-          <div class="space-y-1 p-10">
+          <UiItem q:slot="start" lines="none" class="py-4 items-center">
+            <Logo />
+            <Button
+              q:slot="end"
+              type="button"
+              onClick$={() => {
+                props.visible.value = false;
+              }}
+              intent="square"
+              color="neutral"
+              class="btn-sm"
+            >
+              <IoCloseOutline class="h-5 w-5" />
+            </Button>
+          </UiItem>
+
+          <div
+            class="space-y-1 p-10"
+            onClick$={() => {
+              props.visible.value = false;
+            }}
+          >
             <MainNavigation isMobile={true} />
           </div>
 
+          <SwitchLocaleListItem q:slot="end" />
           <ThemeListItem q:slot="end" />
         </UiContent>
       </div>
@@ -51,21 +75,12 @@ export interface MobileMainMenuButtonProps {
 
 export const MobileMainMenuButton = component$<MobileMainMenuButtonProps>(
   (props) => {
-    const ref = useSignal<HTMLElement>();
-
-    useClickOutside(
-      ref,
-      $(() => {
-        props.visible.value = false;
-      }),
-    );
-
     return (
       <Button
-        ref={ref}
         type="button"
         intent="square"
         color="primary"
+        fill="outline"
         aria-controls="mobile-menu"
         aria-expanded="false"
         onClick$={() => {
@@ -75,7 +90,7 @@ export const MobileMainMenuButton = component$<MobileMainMenuButtonProps>(
         }}
         class="sm:hidden"
       >
-        <span class="sr-only">Odpri glavni meni</span>
+        <span class="sr-only">{$localize`Open main menu`}</span>
         <HiBars3Outline
           class={{
             'h-6 w-6': true,

@@ -71,7 +71,7 @@ export const useUiConfirm = () => {
     },
   );
 
-  return { store, uiConfirm };
+  return { store, dialog, uiConfirm };
 };
 
 export interface UiConfirmDialogProps {

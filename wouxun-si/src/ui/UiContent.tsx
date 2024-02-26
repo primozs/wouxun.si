@@ -31,8 +31,8 @@ export const UiContent = component$<Props>(
             flex flex-col justify-between                
           `,
           color === 'base' && 'bg-base-100',
-          color === 'light' && 'bg-base-200',
-          color === 'translucent' && 'backdrop-blur-2xl bg-base-100/10',
+          color === 'light' && 'bg-base-300/40',
+          color === 'translucent' && 'backdrop-blur-2xl bg-base-300/10',
           color === 'transparent' || color === 'translucent'
             ? 'border-base-300/50'
             : 'border-base-300',
