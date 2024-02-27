@@ -6,6 +6,7 @@ import { routeLoader$ } from '@builder.io/qwik-city';
 import { readItems } from '@directus/sdk';
 import { getDirectusClient } from '~/modules/directus';
 import { handleError } from '~/modules/logger';
+import { PageContainer } from '~/modules/layout/PageContainer';
 
 export { useProductsLoader } from '~/modules/products/loaders';
 
@@ -32,7 +33,7 @@ export const getBanners = async (): Promise<BannersData[]> => {
     );
     return result;
   } catch (error: any) {
-    handleError(error, 'Get active banners');
+    handleError(error, 'Get banners error');
     return [];
   }
 };
@@ -47,18 +48,12 @@ export default component$(() => {
   return (
     <>
       <Header />
+      <Carousel banners={banners} />
 
-      <div class="min-w-0">
-        <Carousel banners={banners} />
-      </div>
+      <PageContainer>
+        <Slot />
+      </PageContainer>
 
-      <div>
-        <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 flex flex-col sm:flex-row sm:gap-5 my-5">
-          <main class="flex-grow order-first sm:order-2">
-            <Slot />
-          </main>
-        </div>
-      </div>
       <Footer />
     </>
   );

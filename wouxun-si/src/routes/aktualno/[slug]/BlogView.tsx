@@ -6,6 +6,7 @@ import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/modules/directus';
 import { IoCalendarClearOutline } from '@qwikest/icons/ionicons';
 import { useLocaleLoader } from '~/routes/plugin';
+import { UiTitle } from '~/ui/UiTitle';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;
@@ -32,7 +33,9 @@ export const BlogView = component$<BlogViewProps>(({ post }) => {
         </div>
         <div class="w-full lg:order-1">
           <div class="max-w-xl space-y-2">
-            <h1 class="header1">{post.value?.title}</h1>
+            <UiTitle as="h1" size="2xl" color="primary">
+              {post.value?.title}
+            </UiTitle>
 
             <div class="my-1 flex items-center gap-x-2">
               <IoCalendarClearOutline class="h-5 w-5" />

@@ -2,7 +2,6 @@ import { type Signal, component$, useSignal, Slot, $ } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/modules/directus';
 import { mdParse } from '~/ui/md-parse';
-import { cleanTitle } from '~/modules/products/cleanTitle';
 import type { ProductDetail } from '~/modules/products/getDirectusProductData';
 import { Tags } from './Tags';
 import { ProductPrice } from './Price';
@@ -12,6 +11,8 @@ import { useNotifications } from '~/ui/notification/notificationsState';
 import { ShoppingBagIcon } from '~/ui/icons/shopping-bag-icon';
 import { useCartDialog } from '~/modules/cart/CartDialog';
 import { useAddToCartAction } from '~/routes/plugin@store';
+import { IoCloseOutline } from '@qwikest/icons/ionicons';
+import { UiTitle } from '~/ui/UiTitle';
 
 export interface DetailsProps {
   product: Signal<{
@@ -25,7 +26,10 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
     <div class="flex flex-col">
       <div class="flex flex-col gap-y-6">
         <div class="flex flex-col gap-y-2">
-          <Title title={product.value.productDirectus?.title} />
+          <UiTitle as="h1" size="2xl" color="primary">
+            {product.value.productDirectus?.title}
+          </UiTitle>
+
           <>
             <ProductPrice product={product.value.productMedusa} />
             <div class="flex flex-col">
@@ -39,8 +43,12 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
 
         <div class="flex flex-col gap-y-4">
           <Tags product={product.value.productDirectus} />
-          <Description
-            description={product.value.productDirectus?.description}
+
+          <article
+            class="prose"
+            dangerouslySetInnerHTML={mdParse(
+              product.value.productDirectus?.description,
+            )}
           />
         </div>
       </div>
@@ -82,7 +90,7 @@ export const AddToCart = component$<AddToCartProps>(
           if (value.failed) {
             addNotification({
               type: 'error',
-              title: 'Napaka pri dodajanju v košarico',
+              title: $localize`Error add to cart`,
             });
           } else {
             openCartDialog();
@@ -94,29 +102,11 @@ export const AddToCart = component$<AddToCartProps>(
         // disabled={adding.value}
       >
         <ShoppingBagIcon class="h-5 w-5" />
-        Dodaj v voziček
+        {$localize`Add to cart`}
       </Button>
     );
   },
 );
-
-export interface TitleProps {
-  title: string | undefined;
-}
-
-export const Title = component$<TitleProps>(({ title }) => {
-  return <h1 class="header1">{cleanTitle(title)}</h1>;
-});
-
-export interface DescriptionProps {
-  description: string | undefined;
-}
-
-export const Description = component$<DescriptionProps>(({ description }) => {
-  return (
-    <article class="prose" dangerouslySetInnerHTML={mdParse(description)} />
-  );
-});
 
 type MainImageProps = {
   image: string;
@@ -194,8 +184,6 @@ export const Gallery = component$<GalleryProps>(({ images, productTitle }) => {
     </div>
   );
 });
-
-import { IoCloseOutline } from '@qwikest/icons/ionicons';
 
 export const ImageDialog = component$(() => {
   const ref = useSignal<HTMLDialogElement>();

@@ -15,12 +15,13 @@ import { Response } from '~/ui/input/Response';
 import { UiDivider } from '~/ui/UiDivider';
 import { Button, NavLink } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
+import { SectionContainerSmall } from '~/modules/layout/PageContainer';
 
 export default component$(() => {
   return (
-    <div class="mx-auto w-full max-w-sm lg:w-96">
+    <SectionContainerSmall>
       <ChangePasswordView />
-    </div>
+    </SectionContainerSmall>
   );
 });
 

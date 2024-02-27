@@ -18,6 +18,6 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: 'začetna stran',
-};
+export const head: DocumentHead = () => ({
+  title: $localize`Homepage`,
+});

@@ -16,12 +16,13 @@ import { Button, NavLink } from '~/ui/button';
 import { InputPassword } from '~/ui/input/InputPassword';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiDivider } from '~/ui/UiDivider';
+import { SectionContainerSmall } from '~/modules/layout/PageContainer';
 
 export default component$(() => {
   return (
-    <div class="mx-auto w-full max-w-sm lg:w-96">
+    <SectionContainerSmall>
       <LoginForm />
-    </div>
+    </SectionContainerSmall>
   );
 });
 

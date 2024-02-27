@@ -66,11 +66,7 @@ export const BlogListView = component$(() => {
   });
 
   return (
-    <section>
-      <div>
-        <h1 class="header1">Aktualno</h1>
-      </div>
-
+    <>
       <Resource
         value={blogs}
         onResolved={(blogs) => {
@@ -110,7 +106,7 @@ export const BlogListView = component$(() => {
           );
         }}
       />
-    </section>
+    </>
   );
 });
 

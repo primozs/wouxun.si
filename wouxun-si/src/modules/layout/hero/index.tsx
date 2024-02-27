@@ -58,7 +58,7 @@ export const Carousel = component$<CarouselProps>((props) => {
   });
 
   return (
-    <>
+    <div class="min-w-0">
       <div
         ref={ref}
         class="swiper relative bg-primary"
@@ -218,7 +218,7 @@ export const Carousel = component$<CarouselProps>((props) => {
       </div>
 
       <SlideControls swiperRef={ref} banners={props.banners} />
-    </>
+    </div>
   );
 });
 
