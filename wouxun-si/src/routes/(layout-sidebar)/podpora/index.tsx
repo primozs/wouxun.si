@@ -47,7 +47,7 @@ export default component$(() => {
 
   return (
     <article class="prose">
-      <h1>Podpora</h1>
+      <h1>{$localize`Support`}</h1>
 
       {Object.keys(filesMap.value ?? {}).map((category) => {
         const fMap = filesMap.value ?? {};
@@ -73,7 +73,7 @@ export default component$(() => {
       })}
 
       <p>
-        Ostala programska oprema je na voljo na uradni strani proizvajalca{' '}
+        {$localize`Other software is available on the manufacturer's official website`}{' '}
         <a href="https://www.wouxun.com/" target="_blank" rel="noopener">
           Wouxun
         </a>
@@ -83,6 +83,6 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: 'začetna stran',
-};
+export const head: DocumentHead = () => ({
+  title: $localize`Support`,
+});
