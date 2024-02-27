@@ -15,13 +15,14 @@ import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import type { Address } from '@medusajs/client-types';
 import { UiConfirm, useUiConfirm } from '~/ui/UiConfirm';
 import { UiModal, useUiModal, useUiModalProvider } from '~/ui/UiModal';
+import { UiItem } from '~/ui/UiItem';
 
 export default component$(() => {
   const session = useAuthSessionLoader();
 
   return (
-    <div class="w-full">
-      <div class="mb-8 flex flex-col gap-y-4">
+    <>
+      <UiItem pad={false} classCenter="flex flex-col mb-8 gap-y-4" lines="none">
         <UiTitle size="xl" as="h1">
           {$localize`Shipping Addresses`}
         </UiTitle>
@@ -29,10 +30,10 @@ export default component$(() => {
           {$localize`View and update your shipping addresses, you can add as many as you
           like. Saving your addresses will make them available during checkout.`}
         </UiText>
-      </div>
+      </UiItem>
 
       <AddressList addresses={session.value?.shipping_addresses ?? []} />
-    </div>
+    </>
   );
 });
 

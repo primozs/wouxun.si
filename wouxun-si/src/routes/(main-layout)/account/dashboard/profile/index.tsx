@@ -8,8 +8,8 @@ import { Expandable } from '~/ui/expendable/Expandable';
 
 export default component$(() => {
   return (
-    <div class="w-full">
-      <div class="mb-8 flex flex-col gap-y-4">
+    <>
+      <UiItem pad={false} classCenter="flex flex-col mb-8 gap-y-4" lines="none">
         <UiTitle size="xl" as="h1">
           {$localize`Profile`}
         </UiTitle>
@@ -18,7 +18,8 @@ export default component$(() => {
           and phone number. You can also update your billing address, or change
           your password.`}
         </UiText>
-      </div>
+      </UiItem>
+
       <div class="flex flex-col gap-y-8 w-full">
         <UiItem>
           <div class="flex flex-col flex-1">
@@ -47,6 +48,6 @@ export default component$(() => {
         <Divider />
         <ProfileBillingAddress customer={customer} regions={regions} /> */}
       </div>
-    </div>
+    </>
   );
 });

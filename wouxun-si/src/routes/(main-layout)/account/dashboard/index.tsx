@@ -8,6 +8,8 @@ import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { formatAmount } from '~/modules/common/prices';
 import { UiList } from '~/ui/UiList';
 import { UiItem } from '~/ui/UiItem';
+import { UiTitle } from '~/ui/UiTitle';
+import { UiText } from '~/ui/UiText';
 
 export const useCutomerOrders = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -25,13 +27,17 @@ export default component$(() => {
 
   return (
     <>
-      <div class="text-xl leading-[36px] font-semibold flex justify-between items-center mb-4">
-        <span>Hello: {customer.value?.first_name}</span>
-        <span class="text-sm leading-5 font-medium">
-          Signed in: {customer.value?.email}
-        </span>
-      </div>
-      <div class="flex flex-col py-8 border-t border-base-300">
+      <UiItem pad={false} classCenter="flex flex-col mb-4 gap-y-4">
+        <UiTitle size="xl" as="h1">
+          {$localize`Hello ${customer.value?.first_name}`}
+        </UiTitle>
+        <UiText class="text-sm" q:slot="end">
+          <p class="font-medium">{$localize`Signed in:`}</p>
+          <p class="truncate">{customer.value?.email}</p>
+        </UiText>
+      </UiItem>
+
+      <div class="flex flex-col py-8">
         <div class="flex flex-col gap-y-4 h-full col-span-1 row-span-2 flex-1">
           <div class="flex items-start gap-x-16 mb-6">
             <Item

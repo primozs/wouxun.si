@@ -16,7 +16,7 @@ type Props = {
   detail?: boolean;
   button?: boolean;
   selected?: boolean;
-  padX?: boolean;
+  pad?: boolean;
   lines?: 'none' | 'full';
   translucent?: boolean;
   to?: string;
@@ -33,7 +33,7 @@ export const UiItem = component$<Props>(
     detail = false,
     button = false,
     selected = false,
-    padX = true,
+    pad = true,
     lines = 'full',
     translucent = false,
     to,
@@ -61,7 +61,7 @@ export const UiItem = component$<Props>(
           [&>.ui-item-start>.ui-icon]:my-4 [&>.ui-item-start>.ui-icon]:mr-4
           `,
 
-          padX && 'px-4',
+          pad && 'px-4 py-1.5',
           overflow === 'hidden' && 'overflow-hidden',
           button && 'cursor-pointer',
           color === 'base' &&
