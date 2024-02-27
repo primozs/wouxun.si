@@ -4,7 +4,6 @@
     "1431416938026210429": "Geslo",
     "343410938576058057": "Vpišite geslo",
     "2727496946419791472": "Ste pozabili geslo?",
-    "2591356364591403634": "Prosimo vpišite email",
     "6707361102856436710": "Prodajni program",
     "8387596802311469777": "Ogled produkta",
     "1305357231288135414": "Začetna stran",
@@ -12,6 +11,15 @@
     "5871412787804796799": "Dodaj v voziček",
     "469384514094322590": "Napaka pri dodajanju v košarico",
     "2288513108450439427": "Podpora",
-    "5531072623138124739": "Ostala programska oprema je na voljo na uradni strani proizvajalca"
+    "5531072623138124739": "Ostala programska oprema je na voljo na uradni strani proizvajalca",
+    "2101902914887471883": "Prijava",
+    "5495149747457702941": "Vpišite email",
+    "2253785184087676757": "Email ni pravilen",
+    "7315676976194915867": "Geslo mora vsebovati 8 znakov ali več",
+    "3053319695073869891": "Prijava ni bila uspešna. Preverite email in geslo.",
+    "1577635617878023077": "Prijava ni bila uspešna. Seja ni bila najdena.",
+    "5907476126990913307": "Ustvari račun",
+    "5504129468136884250": "Ali",
+    "4768749765465246664": "E-pošta"
   }
 }

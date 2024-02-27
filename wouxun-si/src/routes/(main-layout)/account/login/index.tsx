@@ -26,20 +26,20 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: 'Prijava',
-};
+export const head: DocumentHead = () => ({
+  title: $localize`Signin`,
+});
 
 type LoginForm = v.Input<typeof LoginSchema>;
 
 const LoginSchema = v.object({
   email: v.string([
-    v.minLength(5, $localize`Please enter email`),
-    v.email('E-naslov ni pravilen'),
+    v.minLength(5, $localize`Enter email`),
+    v.email($localize`Email not valid`),
   ]),
   password: v.string([
-    v.minLength(1, 'Prosimo vpišite geslo'),
-    v.minLength(8, 'Geslo mora vsebovati 8 znakov ali več'),
+    v.minLength(1, $localize`Enter password`),
+    v.minLength(8, $localize`Password must have 8 characters or more`),
   ]),
 });
 
@@ -64,7 +64,7 @@ export const useFormAction = formAction$<LoginForm, ResponseType>(
       });
     } catch (error) {
       throw new FormError<LoginForm>(
-        'Prijava ni bila uspešna. Preverite email in geslo.',
+        $localize`Signin was not successfull. Check email and password.`,
       );
     }
 
@@ -79,7 +79,7 @@ export const useFormAction = formAction$<LoginForm, ResponseType>(
     const sessionCookie = cookies[SESSION_COOKIE_KEY];
     if (!sessionCookie) {
       throw new FormError<LoginForm>(
-        'Prijava ni bila uspešna. Seja ni bila najdena.',
+        $localize`Signin was not successfull. Session not found.`,
       );
     }
 
@@ -110,15 +110,15 @@ export const LoginForm = component$(() => {
 
   return (
     <div class="space-y-4">
-      <UiTitle size="lg">Prijava</UiTitle>
+      <UiTitle size="lg">{$localize`Signin`}</UiTitle>
       <Form id="login-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (
             <TextInput
               {...props}
               type="email"
-              label="E-naslov"
-              placeholder="Vpišite email"
+              label={$localize`Email`}
+              placeholder={$localize`Enter email`}
               auto-complete="email"
               value={field.value}
               error={field.error}
@@ -154,15 +154,15 @@ export const LoginForm = component$(() => {
 
         <div class="flex flex-col">
           <Button type="submit" loading={loginForm.submitting}>
-            Prijava
+            {$localize`Signin`}
           </Button>
         </div>
 
-        <UiDivider>Ali</UiDivider>
+        <UiDivider>{$localize`Or`}</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/register">
-            Ustvari račun
+            {$localize`Create account`}
           </NavLink>
         </div>
       </Form>
