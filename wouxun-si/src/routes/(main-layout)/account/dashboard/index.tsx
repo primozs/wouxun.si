@@ -1,4 +1,4 @@
-import { Slot, component$ } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/client-types';
 import type { Order } from '@medusajs/medusa';
@@ -10,6 +10,7 @@ import { UiList } from '~/ui/UiList';
 import { UiItem } from '~/ui/UiItem';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiText } from '~/ui/UiText';
+import { UiListHeader } from '~/ui/UiListHeader';
 
 export const useCutomerOrders = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -37,35 +38,35 @@ export default component$(() => {
         </UiText>
       </UiItem>
 
-      <div class="flex flex-col py-8">
-        <div class="flex flex-col gap-y-4 h-full col-span-1 row-span-2 flex-1">
-          <div class="flex items-start gap-x-16 mb-6">
-            <Item
-              title="Profile"
-              value={getProfileCompletion(customer.value) + '%'}
-              type="Completed"
-            />
-
-            <Item
-              title="Profile"
-              value={(customer.value?.shipping_addresses?.length || 0) + ''}
-              type="Saved"
-            />
-          </div>
-
-          <Item title="Recent orders" value="" type="">
-            <UiList>
-              {orders.value?.length ?? 0 > 0 ? (
-                orders.value?.slice(0, 5).map((order) => {
-                  return <OrderItem order={order} key={order.id} />;
-                })
-              ) : (
-                <span>No recent orders</span>
-              )}
-            </UiList>
-          </Item>
+      <UiItem pad={false} classCenter="flex flex-row flex-wrap">
+        <div>
+          <StatItem
+            title={$localize`Profile`}
+            value={getProfileCompletion(customer.value) + '%'}
+            desc={$localize`Completed`}
+          />
         </div>
-      </div>
+
+        <div>
+          <StatItem
+            title={$localize`Shipping addresses`}
+            value={(customer.value?.shipping_addresses?.length || 0) + ''}
+            desc={$localize`Saved`}
+          />
+        </div>
+      </UiItem>
+
+      <UiList>
+        <UiListHeader>{$localize`Recent orders`}</UiListHeader>
+
+        {orders.value?.length ?? 0 > 0 ? (
+          orders.value?.slice(0, 5).map((order) => {
+            return <OrderItem order={order} key={order.id} />;
+          })
+        ) : (
+          <UiItem>{$localize`No recent orders`}</UiItem>
+        )}
+      </UiList>
     </>
   );
 });
@@ -101,25 +102,18 @@ export const OrderItem = component$<OrderItemProps>(({ order }) => {
   );
 });
 
-export interface ItemProps {
+export interface StatItemProps {
   title: string;
   value: string;
-  type: string;
+  desc: string;
 }
 
-export const Item = component$<ItemProps>((props) => {
+export const StatItem = component$<StatItemProps>((props) => {
   return (
-    <div class="flex flex-col gap-y-1">
-      <h3 class="text-base leading-6 font-semibold">{props.title}</h3>
-      <div class="flex items-baseline gap-x-2">
-        <span class="text-[32px] leading-[44px] font-semibold">
-          {props.value}
-        </span>
-        <span class="uppercase text-sm leading-6 font-normal text-ui-fg-subtle">
-          {props.type}
-        </span>
-      </div>
-      <Slot />
+    <div class="stat">
+      <div class="stat-title">{props.title}</div>
+      <div class="stat-value">{props.value}</div>
+      <div class="stat-desc">{props.desc}</div>
     </div>
   );
 });

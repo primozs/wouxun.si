@@ -33,8 +33,8 @@ export const useUiConfirm = () => {
   const store = useStore<ConfirmDialog>({
     title: '',
     subtitle: '',
-    cancelLabel: 'Cancel',
-    confirmLabel: 'Confirm',
+    cancelLabel: $localize`Cancel`,
+    confirmLabel: $localize`Confirm`,
     dialog: dialog,
   });
   useContextProvider(UiConfirmId, store);
@@ -43,8 +43,8 @@ export const useUiConfirm = () => {
     async ({
       title = '',
       subtitle = '',
-      cancelLabel = 'Cancel',
-      confirmLabel = 'Confirm',
+      cancelLabel = $localize`Cancel`,
+      confirmLabel = $localize`Confirm`,
     }: {
       title: string;
       subtitle?: string;
