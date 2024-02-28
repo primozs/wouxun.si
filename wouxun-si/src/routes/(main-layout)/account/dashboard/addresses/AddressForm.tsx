@@ -21,15 +21,15 @@ type AddressForm = v.Input<typeof AddressSchema>;
 
 const AddressSchema = v.object({
   id: v.optional(v.string()),
-  first_name: v.string([v.minLength(1, 'Prosimo vpišite ime')]),
-  last_name: v.string([v.minLength(1, 'Prosimo vpišite priimek')]),
+  first_name: v.string([v.minLength(1, $localize`Enter name`)]),
+  last_name: v.string([v.minLength(1, $localize`Enter surname`)]),
   company: v.string(),
-  address_1: v.string([v.minLength(1, 'Prosimo vpišite naslov')]),
+  address_1: v.string([v.minLength(1, $localize`Enter address`)]),
   address_2: v.string(),
-  postal_code: v.string([v.minLength(1, 'Prosimo vpišite poštno številko')]),
-  city: v.string([v.minLength(1, 'Prosimo vpišite mesto')]),
+  postal_code: v.string([v.minLength(1, $localize`Enter postal code`)]),
+  city: v.string([v.minLength(1, $localize`Enter city`)]),
   province: v.string(),
-  country_code: v.string([v.minLength(1, 'Prosimo vpišite državo')]),
+  country_code: v.string([v.minLength(1, $localize`Enter country`)]),
   phone: v.string(),
 });
 
@@ -55,11 +55,11 @@ export const useFormAction = formAction$<AddressForm, ResponseType>(
 
       return {
         status: 'success',
-        message: 'Added success',
+        message: $localize`Submitted successfully`,
       };
     } catch (error: any) {
       handleError(error);
-      throw new FormError<AddressForm>('Pošiljanje naslova ni bilo uspešno.');
+      throw new FormError<AddressForm>($localize`Submit was not successfull`);
     }
   },
   valiForm$(AddressSchema),
@@ -116,8 +116,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
               <TextInput
                 {...props}
                 type="text"
-                label="Ime"
-                placeholder="Vpišite ime"
+                label={$localize`Name`}
+                placeholder={$localize`Enter name`}
                 auto-complete="given-name"
                 required
                 value={field.value}
@@ -131,8 +131,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
               <TextInput
                 {...props}
                 type="text"
-                label="Priimek"
-                placeholder="Vpišite priimek"
+                label={$localize`Surname`}
+                placeholder={$localize`Enter surname`}
                 auto-complete="family-name"
                 value={field.value}
                 error={field.error}
@@ -147,8 +147,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
             <TextInput
               {...props}
               type="text"
-              label="Podjetje"
-              placeholder="Vpišite podjetje"
+              label={$localize`Company`}
+              placeholder={$localize`Enter company`}
               auto-complete="organization"
               value={field.value}
               error={field.error}
@@ -161,8 +161,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
             <TextInput
               {...props}
               type="text"
-              label="Naslov"
-              placeholder="Vpišite naslov"
+              label={$localize`Address`}
+              placeholder={$localize`Enter address`}
               auto-complete="address-line1"
               required
               value={field.value}
@@ -176,8 +176,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
             <TextInput
               {...props}
               type="text"
-              label="Naslov 2"
-              placeholder="Vpišite naslov 2"
+              label={$localize`Apartment, suite, etc.`}
+              placeholder={$localize`Enter apartment`}
               auto-complete="address-line2"
               value={field.value}
               error={field.error}
@@ -191,8 +191,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
               <TextInput
                 {...props}
                 type="text"
-                label="Poštna številka"
-                placeholder="Vpišite poštno številko"
+                label={$localize`Postal code`}
+                placeholder={$localize`Enter postal code`}
                 auto-complete="postal-code"
                 required
                 value={field.value}
@@ -205,8 +205,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
               <TextInput
                 {...props}
                 type="text"
-                label="Mesto"
-                placeholder="Vpišite mesto"
+                label={$localize`City`}
+                placeholder={$localize`Enter city`}
                 auto-complete="locality"
                 required
                 value={field.value}
@@ -221,8 +221,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
             <TextInput
               {...props}
               type="text"
-              label="Provinca / Država"
-              placeholder="Vpišite provinco državo"
+              label={$localize`Province / State`}
+              placeholder={$localize`Enter province or state`}
               auto-complete="address-level1"
               value={field.value}
               error={field.error}
@@ -234,8 +234,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
           {(field, props) => (
             <Select
               {...props}
-              label="Država"
-              placeholder="Vpišite državo"
+              label={$localize`Country`}
+              placeholder={$localize`Enter country`}
               auto-complete="country"
               required
               value={field.value}
@@ -257,8 +257,8 @@ export const AddressForm = component$<AddressFormProps>((props) => {
             <InputPhone
               {...props}
               of={addressForm}
-              label="Telefon"
-              placeholder="Vpišite telefon"
+              label={$localize`Phone`}
+              placeholder={$localize`Enter phone`}
               auto-complete="phone"
               value={field.value}
               error={field.error}

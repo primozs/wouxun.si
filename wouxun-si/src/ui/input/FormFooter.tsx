@@ -24,7 +24,7 @@ export function FormFooter({
         loading={formStore.submitting}
         form={form}
       >
-        Shrani
+        {$localize`Submit`}
       </Button>
       {resetAction ? (
         <Form action={resetAction}>
@@ -34,7 +34,7 @@ export function FormFooter({
             preventdefault:click
             onClick$={() => reset(formStore)}
           >
-            Prekliči
+            {$localize`Cancel`}
           </Button>
         </Form>
       ) : (
@@ -47,7 +47,7 @@ export function FormFooter({
             modal?.value?.close();
           }}
         >
-          Prekliči
+          {$localize`Cancel`}
         </Button>
       )}
     </footer>
