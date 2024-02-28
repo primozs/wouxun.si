@@ -25,6 +25,7 @@ export type TextInputProps = {
   form?: string;
   disabled?: boolean;
   labelHidden?: boolean;
+  id?: string;
 };
 
 export const TextInput = component$(

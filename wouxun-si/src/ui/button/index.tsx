@@ -53,10 +53,10 @@ export const Button = component$<ButtonProps>(
           ],
           rest.disabled && 'btn-disabled btn-primary',
           rest.class as string,
-          loading && '!relative',
+          loading && '!relative text-transparent',
         ]}
       >
-        {!loading && <Slot></Slot>}
+        <Slot></Slot>
 
         {loading && (
           <span class="absolute inset-0 top-1">

@@ -16,7 +16,7 @@ export default component$(() => {
   const customer = useAuthSessionLoader();
 
   return (
-    <UiContent>
+    <UiContent overflowYAuto={false}>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-[240px_1fr]">
         <div>{customer.value && <AccountNav customer={customer.value} />}</div>
         <div class="flex-1">

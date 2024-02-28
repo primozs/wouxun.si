@@ -13,11 +13,9 @@ const useTheme = () => {
       document.documentElement.getAttribute('data-theme') ?? 'light';
 
     if (theme === 'light') {
-      console.log('set night');
       document.documentElement.setAttribute('data-theme', 'night');
       localStorage.setItem(themeStorageKey, 'night');
     } else {
-      console.log('set light');
       document.documentElement.setAttribute('data-theme', 'light');
       localStorage.setItem(themeStorageKey, 'light');
     }
