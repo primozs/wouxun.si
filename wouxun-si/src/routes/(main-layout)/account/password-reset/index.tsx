@@ -25,16 +25,16 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: 'Password reset',
-};
+export const head: DocumentHead = () => ({
+  title: $localize`Password reset`,
+});
 
 type ResetPasswordForm = v.Input<typeof ResetPasswordSchema>;
 
 const ResetPasswordSchema = v.object({
   email: v.string([
-    v.minLength(5, 'Prosimo vpišite email'),
-    v.email('E-naslov ni pravilen'),
+    v.minLength(5, $localize`Enter email`),
+    v.email($localize`Email not valid`),
   ]),
 });
 
@@ -55,7 +55,7 @@ export const useFormAction = formAction$<ResetPasswordForm, ResponseType>(
     const existRes = await client.auth.exists(data.email);
     if (!existRes.exists) {
       throw new FormError<ResetPasswordForm>({
-        email: 'Uporabnik s tem e-naslovom ne obstaja.',
+        email: $localize`User with this email does not exists.`,
       });
     }
 
@@ -66,11 +66,11 @@ export const useFormAction = formAction$<ResetPasswordForm, ResponseType>(
 
       return {
         status: 'success',
-        message: 'Please check your email for reset instructions',
+        message: $localize`Please check your email for reset instructions`,
       };
     } catch (error: any) {
       handleError(error);
-      throw new FormError<ResetPasswordForm>('Napaka pri zahtevi.');
+      throw new FormError<ResetPasswordForm>($localize`Request error`);
     }
   },
   valiForm$(ResetPasswordSchema),
@@ -85,15 +85,15 @@ export const PasswordResetView = component$(() => {
 
   return (
     <div class="space-y-4">
-      <UiTitle size="2xl">Password reset</UiTitle>
+      <UiTitle size="2xl">{$localize`Password reset`}</UiTitle>
       <Form id="reset-password-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (
             <TextInput
               {...props}
               type="email"
-              label="E-naslov"
-              placeholder="Vpišite email"
+              label={$localize`Email`}
+              placeholder={$localize`Enter email`}
               auto-complete="email"
               value={field.value}
               error={field.error}
@@ -108,15 +108,15 @@ export const PasswordResetView = component$(() => {
 
         <div class="flex flex-col">
           <Button type="submit" loading={resetPasswordForm.submitting}>
-            Pošlji zahtevo
+            {$localize`Send request`}
           </Button>
         </div>
 
-        <UiDivider>Ali</UiDivider>
+        <UiDivider>{$localize`Or`}</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/login">
-            Prijava
+            {$localize`Signin`}
           </NavLink>
         </div>
       </Form>

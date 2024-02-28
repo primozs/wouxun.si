@@ -25,24 +25,24 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: 'Change password',
-};
+export const head: DocumentHead = () => ({
+  title: $localize`Change password`,
+});
 
 type ChangePasswordForm = v.Input<typeof ChangePasswordSchema>;
 
 const ChangePasswordSchema = v.object({
   email: v.string([
-    v.minLength(5, 'Prosimo vpišite email'),
-    v.email('E-naslov ni pravilen'),
+    v.minLength(5, $localize`Enter email`),
+    v.email($localize`Email not valid`),
   ]),
   password: v.string([
-    v.minLength(1, 'Prosimo vpišite geslo'),
-    v.minLength(8, 'Geslo mora vsebovati 8 znakov ali več'),
+    v.minLength(1, $localize`Enter password`),
+    v.minLength(8, $localize`Password must have 8 characters or more`),
   ]),
   password2: v.string([
-    v.minLength(1, 'Prosimo vpišite geslo'),
-    v.minLength(8, 'Geslo mora vsebovati 8 znakov ali več'),
+    v.minLength(1, $localize`Enter password`),
+    v.minLength(8, $localize`Password must have 8 characters or more`),
   ]),
 });
 
@@ -62,13 +62,13 @@ export const useFormAction = formAction$<ChangePasswordForm, ResponseType>(
   async (data, event) => {
     const token = event.params['resetKey'];
     if (!token) {
-      throw new FormError<ChangePasswordForm>('No token');
+      throw new FormError<ChangePasswordForm>($localize`No token`);
     }
 
     if (data.password !== data.password2) {
       throw new FormError<ChangePasswordForm>({
-        password: 'Passwords are not equal',
-        password2: 'Passwords are not equal',
+        password: $localize`Passwords are not equal`,
+        password2: $localize`Passwords are not equal`,
       });
     }
 
@@ -82,7 +82,7 @@ export const useFormAction = formAction$<ChangePasswordForm, ResponseType>(
       return event.redirect(302, '/account/login');
     } catch (error: any) {
       handleError(error);
-      throw new FormError<ChangePasswordForm>('Password reset failed');
+      throw new FormError<ChangePasswordForm>($localize`Password reset failed`);
     }
   },
   valiForm$(ChangePasswordSchema),
@@ -97,15 +97,15 @@ export const ChangePasswordView = component$(() => {
 
   return (
     <div class="space-y-4">
-      <UiTitle size="2xl">Change password</UiTitle>
+      <UiTitle size="2xl">{$localize`Change password`}</UiTitle>
       <Form id="change-password-form" class="space-y-4">
         <Field name="email">
           {(field, props) => (
             <TextInput
               {...props}
               type="email"
-              label="E-naslov"
-              placeholder="Vpišite email"
+              label={$localize`Email`}
+              placeholder={$localize`Enter email`}
               auto-complete="email"
               value={field.value}
               error={field.error}
@@ -118,8 +118,8 @@ export const ChangePasswordView = component$(() => {
             <TextInput
               {...props}
               type="password"
-              label="Geslo"
-              placeholder="Vpišite novo geslo"
+              label={$localize`Password`}
+              placeholder={$localize`Enter password`}
               value={field.value}
               error={field.error}
               required
@@ -131,8 +131,8 @@ export const ChangePasswordView = component$(() => {
             <TextInput
               {...props}
               type="password"
-              label="Geslo 2"
-              placeholder="Ponovno vpišite geslo"
+              label={$localize`Password 2`}
+              placeholder={$localize`Enter password again`}
               value={field.value}
               error={field.error}
               required
@@ -146,15 +146,15 @@ export const ChangePasswordView = component$(() => {
 
         <div class="flex flex-col">
           <Button type="submit" loading={changePasswordForm.submitting}>
-            Zamenjaj geslo
+            {$localize`Change password`}
           </Button>
         </div>
 
-        <UiDivider>Ali</UiDivider>
+        <UiDivider>{$localize`Or`}</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/login">
-            Prijava
+            {$localize`Signin`}
           </NavLink>
         </div>
       </Form>

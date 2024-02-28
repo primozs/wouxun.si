@@ -26,23 +26,23 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: 'Registracija',
-};
+export const head: DocumentHead = () => ({
+  title: $localize`Create account`,
+});
 
 type RegisterForm = v.Input<typeof RegisterSchema>;
 
 const RegisterSchema = v.object({
-  first_name: v.string([v.minLength(1, 'Prosimo vpišite ime')]),
-  last_name: v.string([v.minLength(1, 'Prosimo vpišite priimek')]),
+  first_name: v.string([v.minLength(1, $localize`Enter name`)]),
+  last_name: v.string([v.minLength(1, $localize`Enter surname`)]),
   email: v.string([
-    v.minLength(5, 'Prosimo vpišite email'),
-    v.email('E-naslov ni pravilen'),
+    v.minLength(5, $localize`Enter email`),
+    v.email($localize`Email not valid`),
   ]),
   phone: v.optional(v.string()),
   password: v.string([
-    v.minLength(1, 'Prosimo vpišite geslo'),
-    v.minLength(8, 'Geslo mora vsebovati 8 znakov ali več'),
+    v.minLength(1, $localize`Enter password`),
+    v.minLength(8, $localize`Password must have 8 characters or more`),
   ]),
 });
 
@@ -67,7 +67,7 @@ export const useFormAction = formAction$<RegisterForm, ResponseType>(
     const existRes = await client.auth.exists(user.email);
     if (existRes.exists) {
       throw new FormError<RegisterForm>({
-        email: 'Uporabnik s tem e-naslovom že obstaja.',
+        email: $localize`User with this email already exists.`,
       });
     }
 
@@ -76,7 +76,9 @@ export const useFormAction = formAction$<RegisterForm, ResponseType>(
       return event.redirect(302, '/account/login');
     } catch (error: any) {
       handleError(error);
-      throw new FormError<RegisterForm>('Registracija ni bila uspešna.');
+      throw new FormError<RegisterForm>(
+        $localize`Registration was not successfull.`,
+      );
     }
   },
   valiForm$(RegisterSchema),
@@ -91,7 +93,7 @@ export const RegisterView = component$(() => {
 
   return (
     <div class="space-y-4">
-      <UiTitle size="2xl">Ustvarite nov račun</UiTitle>
+      <UiTitle size="2xl">{$localize`Create new account`}</UiTitle>
 
       <Form id="register-form" class="space-y-4">
         <Field name="first_name">
@@ -99,8 +101,8 @@ export const RegisterView = component$(() => {
             <TextInput
               {...props}
               type="text"
-              label="Ime"
-              placeholder="Vpišite ime"
+              label={$localize`Name`}
+              placeholder={$localize`Enter name`}
               auto-complete="given-name"
               value={field.value}
               error={field.error}
@@ -114,8 +116,8 @@ export const RegisterView = component$(() => {
             <TextInput
               {...props}
               type="text"
-              label="Priimek"
-              placeholder="Vpišite priimek"
+              label={$localize`Surname`}
+              placeholder={$localize`Enter surname`}
               auto-complete="family-name"
               value={field.value}
               error={field.error}
@@ -129,8 +131,8 @@ export const RegisterView = component$(() => {
             <TextInput
               {...props}
               type="email"
-              label="E-naslov"
-              placeholder="Vpišite email"
+              label={$localize`Email`}
+              placeholder={$localize`Enter email`}
               auto-complete="email"
               value={field.value}
               error={field.error}
@@ -144,8 +146,8 @@ export const RegisterView = component$(() => {
             <TextInput
               {...props}
               type="tel"
-              label="Telefon"
-              placeholder="Vpišite telefon"
+              label={$localize`Phone`}
+              placeholder={$localize`Enter phone`}
               auto-complete="tel"
               value={field.value}
               error={field.error}
@@ -158,8 +160,8 @@ export const RegisterView = component$(() => {
             <InputPassword
               {...props}
               type="password"
-              label="Geslo"
-              placeholder="Vpišite geslo"
+              label={$localize`Password`}
+              placeholder={$localize`Enter password`}
               auto-complete="new-password"
               value={field.value}
               error={field.error}
@@ -170,7 +172,7 @@ export const RegisterView = component$(() => {
 
         <div class="flex items-center justify-end">
           <NavLink size="sm" href="/sl/terms-and-conditions">
-            Varstvo osebnih podatkov
+            {$localize`Terms of use, privacy policy`}
           </NavLink>
         </div>
 
@@ -180,15 +182,15 @@ export const RegisterView = component$(() => {
 
         <div class="flex flex-col">
           <Button type="submit" loading={registerForm.submitting}>
-            Ustvari račun
+            {$localize`Create account`}
           </Button>
         </div>
 
-        <UiDivider>Ali</UiDivider>
+        <UiDivider>{$localize`Or`}</UiDivider>
 
         <div class="flex flex-col">
           <NavLink intent="button" color="secondary" href="/account/login">
-            Prijava
+            {$localize`Signin`}
           </NavLink>
         </div>
       </Form>
