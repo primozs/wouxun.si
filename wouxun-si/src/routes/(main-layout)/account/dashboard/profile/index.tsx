@@ -1,12 +1,27 @@
 import { component$ } from '@builder.io/qwik';
 import { UiItem } from '~/ui/UiItem';
-import { UiLabel } from '~/ui/UiLabel';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
-import { Button } from '~/ui/button';
-import { Expandable } from '~/ui/expendable/Expandable';
+import { ProfileNameForm } from './ProfileNameForm';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
+import { ProfileEmailForm } from './ProfileEmailForm';
+import { ProfilePhoneForm } from './ProfilePhoneForm';
+import { ProfilePasswordForm } from './ProfilePasswordForm';
+import { ProfileBillingForm } from './ProfileBillingForm';
+
+export const useCustomer = routeLoader$(async (event) => {
+  try {
+    const client = getMedusaClient();
+    const res = await client.customers.retrieve(getSrvSessionHeaders(event));
+    return res.customer;
+  } catch (error) {
+    return null;
+  }
+});
 
 export default component$(() => {
+  const customer = useCustomer();
   return (
     <>
       <UiItem pad={false} classCenter="flex flex-col mb-8 gap-y-4" lines="none">
@@ -20,33 +35,12 @@ export default component$(() => {
         </UiText>
       </UiItem>
 
-      <div class="flex flex-col gap-y-8 w-full">
-        <UiItem>
-          <div class="flex flex-col flex-1">
-            <div class="flex justify-between">
-              <UiLabel>
-                <UiText class="uppercase">{$localize`Name`}</UiText>
-                <UiTitle>Primož Suša</UiTitle>
-              </UiLabel>
-
-              <Button color="neutral" q:slot="end">
-                {$localize`Edit`}
-                {/* {$localize`Cancel`} */}
-              </Button>
-            </div>
-            <Expandable expanded={true}>ddd</Expandable>
-          </div>
-        </UiItem>
-
-        {/* <ProfileName customer={customer} />
-        <Divider />
-        <ProfileEmail customer={customer} />
-        <Divider />
-        <ProfilePhone customer={customer} />
-        <Divider />
-        <ProfilePassword customer={customer} />
-        <Divider />
-        <ProfileBillingAddress customer={customer} regions={regions} /> */}
+      <div class="flex flex-col w-full max-w-2xl space-y-6">
+        <ProfileNameForm customer={customer} />
+        <ProfileEmailForm customer={customer} />
+        <ProfilePhoneForm customer={customer} />
+        <ProfilePasswordForm customer={customer} />
+        <ProfileBillingForm customer={customer} />
       </div>
     </>
   );

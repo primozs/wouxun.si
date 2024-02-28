@@ -6,7 +6,7 @@ import { Expandable } from '~/ui/expendable/Expandable';
 
 export interface AddressInfoProps {}
 
-export const AddressInfo = component$<AddressInfoProps>((props) => {
+export const AddressInfo = component$<AddressInfoProps>(() => {
   const expanded = useSignal(false);
   return (
     <>

@@ -67,8 +67,8 @@ export const useFormAction = formAction$<ChangePasswordForm, ResponseType>(
 
     if (data.password !== data.password2) {
       throw new FormError<ChangePasswordForm>({
-        password: $localize`Passwords are not equal`,
-        password2: $localize`Passwords are not equal`,
+        password: $localize`Passwords do not match`,
+        password2: $localize`Passwords do not match`,
       });
     }
 

@@ -1,8 +1,8 @@
-import { Signal, component$, useSignal } from '@builder.io/qwik';
-import { Customer } from '@medusajs/medusa';
+import { type Signal, component$, useSignal } from '@builder.io/qwik';
+import type { Customer } from '@medusajs/medusa';
 import {
   FormError,
-  InitialValues,
+  type InitialValues,
   formAction$,
   useForm,
   valiForm$,
