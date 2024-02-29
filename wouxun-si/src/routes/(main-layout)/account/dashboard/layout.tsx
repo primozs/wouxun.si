@@ -2,23 +2,34 @@ import { component$, Slot } from '@builder.io/qwik';
 import type { RequestHandler } from '@builder.io/qwik-city';
 import { protectedRoute } from '~/modules/auth';
 import { AccountNav } from './AccountNav';
-import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import { NavLink } from '~/ui/button';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiContent } from '~/ui/UiContent';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 
 export const onGet: RequestHandler = async (event) => {
   await protectedRoute(event);
 };
 
+export const useCustomer = routeLoader$(async (event) => {
+  try {
+    const client = getMedusaClient();
+    const res = await client.customers.retrieve(getSrvSessionHeaders(event));
+    return res.customer;
+  } catch (error) {
+    return null;
+  }
+});
+
 export default component$(() => {
-  const customer = useAuthSessionLoader();
+  const session = useCustomer();
 
   return (
     <UiContent overflowYAuto={false}>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-[240px_1fr]">
-        <div>{customer.value && <AccountNav customer={customer.value} />}</div>
+        <div>{session.value && <AccountNav />}</div>
         <div class="flex-1">
           <Slot></Slot>
         </div>

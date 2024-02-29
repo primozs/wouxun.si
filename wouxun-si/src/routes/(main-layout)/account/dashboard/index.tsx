@@ -1,8 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { routeLoader$ } from '@builder.io/qwik-city';
-import type { Customer } from '@medusajs/client-types';
+import type { Customer } from '@medusajs/medusa';
 import type { Order } from '@medusajs/medusa';
-import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { formatAmount } from '~/modules/common/prices';
@@ -11,6 +10,7 @@ import { UiItem } from '~/ui/UiItem';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiText } from '~/ui/UiText';
 import { UiListHeader } from '~/ui/UiListHeader';
+import { useCustomer } from './layout';
 
 export const useCutomerOrders = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -23,7 +23,7 @@ export const useCutomerOrders = routeLoader$(async (event) => {
 });
 
 export default component$(() => {
-  const customer = useAuthSessionLoader();
+  const customer = useCustomer();
   const orders = useCutomerOrders();
 
   return (

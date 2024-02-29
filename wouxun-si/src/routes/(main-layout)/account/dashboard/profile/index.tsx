@@ -3,22 +3,11 @@ import { UiItem } from '~/ui/UiItem';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { ProfileNameForm } from './ProfileNameForm';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { ProfileEmailForm } from './ProfileEmailForm';
 import { ProfilePhoneForm } from './ProfilePhoneForm';
 import { ProfilePasswordForm } from './ProfilePasswordForm';
 import { ProfileBillingForm } from './ProfileBillingForm';
-
-export const useCustomer = routeLoader$(async (event) => {
-  try {
-    const client = getMedusaClient();
-    const res = await client.customers.retrieve(getSrvSessionHeaders(event));
-    return res.customer;
-  } catch (error) {
-    return null;
-  }
-});
+import { useCustomer } from '../layout';
 
 export default component$(() => {
   const customer = useCustomer();

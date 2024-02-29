@@ -14,11 +14,7 @@ import { HiUserCircleOutline } from '@qwikest/icons/heroicons';
 import { IoLogOutOutline, IoLocationOutline } from '@qwikest/icons/ionicons';
 import { NavLink } from '~/ui/button';
 
-type Props = {
-  customer: Customer;
-};
-
-export const AccountNav = component$<Props>(() => {
+export const AccountNav = component$(() => {
   const customer = useAuthSessionLoader();
   const signout = useAuthSignoutAction();
 
