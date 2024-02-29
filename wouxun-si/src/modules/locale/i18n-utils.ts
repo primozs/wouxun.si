@@ -120,3 +120,24 @@ export const selectLocaleSrv = (event: RequestEvent | RequestEventLoader) => {
   const userLocale = paramLocale || cookieLocale || config.DEFAULT_LOCALE;
   return userLocale;
 };
+
+export const plural = (
+  locale: string,
+  num: number | undefined,
+  options: {
+    zero?: string;
+    one?: string;
+    two?: string;
+    few?: string;
+    many?: string;
+    other?: string;
+  },
+): string => {
+  if (num === undefined) return '';
+  const cardinalRules = new Intl.PluralRules(locale);
+  const rule = cardinalRules.select(num);
+
+  const str = options[rule];
+  if (!str) return '';
+  return str;
+};

@@ -1,26 +1,14 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/medusa';
 import type { Order } from '@medusajs/medusa';
-import { handleError } from '~/modules/logger';
-import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { formatAmount } from '~/modules/common/prices';
 import { UiList } from '~/ui/UiList';
 import { UiItem } from '~/ui/UiItem';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiText } from '~/ui/UiText';
 import { UiListHeader } from '~/ui/UiListHeader';
-import { useCustomer } from './layout';
-
-export const useCutomerOrders = routeLoader$(async (event) => {
-  const client = getMedusaClient();
-  const limit = 5;
-  const offset = 0;
-  return client.customers
-    .listOrders({ limit, offset }, getSrvSessionHeaders(event))
-    .then(({ orders }) => orders)
-    .catch((err) => handleError(err));
-});
+import { useCustomer, useCutomerOrders } from './layout';
+import { UiNote } from '~/ui/UiNote';
 
 export default component$(() => {
   const customer = useCustomer();
@@ -64,7 +52,9 @@ export default component$(() => {
             return <OrderItem order={order} key={order.id} />;
           })
         ) : (
-          <UiItem>{$localize`No recent orders`}</UiItem>
+          <UiItem lines="none">
+            <UiNote>{$localize`No recent orders`}</UiNote>
+          </UiItem>
         )}
       </UiList>
     </>

@@ -8,6 +8,7 @@ import { UiTitle } from '~/ui/UiTitle';
 import { UiContent } from '~/ui/UiContent';
 import { routeLoader$ } from '@builder.io/qwik-city';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
+import { handleError } from '~/modules/logger';
 
 export const onGet: RequestHandler = async (event) => {
   await protectedRoute(event);
@@ -21,6 +22,16 @@ export const useCustomer = routeLoader$(async (event) => {
   } catch (error) {
     return null;
   }
+});
+
+export const useCutomerOrders = routeLoader$(async (event) => {
+  const client = getMedusaClient();
+  const limit = 5;
+  const offset = 0;
+  return client.customers
+    .listOrders({ limit, offset }, getSrvSessionHeaders(event))
+    .then(({ orders }) => orders)
+    .catch((err) => handleError(err));
 });
 
 export default component$(() => {

@@ -110,12 +110,20 @@ export const NavLink = component$<NavLinkProps>(
             `btn btn-md
             text-sm tracking-wide font-semibold leading-6
             whitespace-nowrap no-underline
+
+            focus-visible:outline-none
+            focus-visible:ring-2
+            focus-visible:ring-offset-1
             `,
             {
-              'btn-primary': color === 'primary',
-              'btn-secondary': color === 'secondary',
-              'btn-neutral': color === 'neutral',
-              'btn-accent': color === 'accent',
+              'btn-primary focus-visible:ring-primary': color === 'primary',
+              'btn focus-visible:ring-base-300 bg-gradient-to-b from-base-100 to-base-200 border border-base-300':
+                color === 'secondary',
+              // 'btn-secondary focus-visible:ring-secondary': color === 'secondary',
+              'btn-neutral focus-visible:ring-neutral': color === 'neutral',
+              'btn-accent focus-visible:ring-accent': color === 'accent',
+              'btn-error focus-visible:ring-error': color === 'error',
+
               'btn-outline': fill === 'outline',
             },
           ],
