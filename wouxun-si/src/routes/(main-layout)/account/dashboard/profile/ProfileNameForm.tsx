@@ -85,8 +85,11 @@ export const ProfileNameForm = component$<ProfileNameFormProps>((props) => {
   return (
     <>
       <AddressInfo>
-        <UiNote q:slot="info" class="uppercase">{$localize`Name`}</UiNote>
-        <UiTitle q:slot="info">
+        <UiNote
+          q:slot="info"
+          class="uppercase text-sm"
+        >{$localize`Name`}</UiNote>
+        <UiTitle q:slot="info" class="text-sm">
           {props.customer.value?.first_name} {props.customer.value?.last_name}
         </UiTitle>
 

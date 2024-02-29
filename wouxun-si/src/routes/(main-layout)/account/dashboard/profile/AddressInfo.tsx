@@ -16,8 +16,10 @@ export const AddressInfo = component$<AddressInfoProps>(() => {
         </UiLabel>
         <Button
           q:slot="end"
+          intent="unstyled"
           color="secondary"
           type="button"
+          class="btn-sm"
           onClick$={() => {
             expanded.value = !expanded.value;
           }}

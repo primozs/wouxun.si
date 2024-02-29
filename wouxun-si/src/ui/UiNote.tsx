@@ -13,7 +13,6 @@ export const UiNote = component$<Props>(
         class={[
           `
         ui-note
-        text-base
         font-normal
         `,
           color === 'primary' && 'text-primary',

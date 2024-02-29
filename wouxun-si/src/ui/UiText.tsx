@@ -13,7 +13,6 @@ export const UiText = component$<Props>(
         class={[
           `
           ui-text
-          text-base
           font-normal
           `,
           color === 'base' && 'text-base-content',

@@ -24,7 +24,7 @@ export default component$(() => {
         </UiText>
       </UiItem>
 
-      <div class="flex flex-col w-full max-w-2xl space-y-6">
+      <div class="flex flex-col w-full max-w-2xl space-y-6 overflow-hidden pr-1">
         <ProfileNameForm customer={customer} />
         <ProfileEmailForm customer={customer} />
         <ProfilePhoneForm customer={customer} />

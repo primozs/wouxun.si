@@ -129,7 +129,7 @@ export const ProfileBillingForm = component$<ProfileBillingFormProps>(
         <AddressInfo>
           <UiNote
             q:slot="info"
-            class="uppercase"
+            class="uppercase text-sm"
           >{$localize`Billing address`}</UiNote>
 
           {!props.customer.value?.billing_address && (
@@ -137,7 +137,7 @@ export const ProfileBillingForm = component$<ProfileBillingFormProps>(
           )}
 
           {props.customer.value?.billing_address && (
-            <div q:slot="info" class="flex flex-col mb-4">
+            <div q:slot="info" class="flex flex-col mb-4 text-sm">
               <UiTitle>
                 {props.customer.value.billing_address.first_name}{' '}
                 {props.customer.value.billing_address.last_name}
@@ -157,7 +157,7 @@ export const ProfileBillingForm = component$<ProfileBillingFormProps>(
             </div>
           )}
 
-          <div q:slot="content">
+          <div q:slot="content" class="overflow-hidden">
             <Form class="space-y-2">
               <div class="grid grid-cols-2 gap-x-2">
                 <Field name="first_name">

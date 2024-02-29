@@ -92,8 +92,13 @@ export const ProfileEmailForm = component$<ProfileEmailFormProps>((props) => {
   return (
     <>
       <AddressInfo>
-        <UiNote q:slot="info" class="uppercase">{$localize`Email`}</UiNote>
-        <UiTitle q:slot="info">{props.customer.value?.email}</UiTitle>
+        <UiNote
+          q:slot="info"
+          class="uppercase text-sm"
+        >{$localize`Email`}</UiNote>
+        <UiTitle q:slot="info" class="text-sm">
+          {props.customer.value?.email}
+        </UiTitle>
 
         <div q:slot="content">
           <Form id="profile-email-form" class="space-y-2">

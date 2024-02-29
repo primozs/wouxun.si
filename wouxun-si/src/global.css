@@ -72,11 +72,11 @@ body {
 
 @layer components {
   [data-theme='light'] .btn-md {
-    @apply h-10 min-h-10;
+    @apply h-9 min-h-9;
   }
 
   [data-theme='night'] .btn-md {
-    @apply h-10 min-h-10;
+    @apply h-9 min-h-9;
   }
 
   [data-theme='light'] .hidden-light {

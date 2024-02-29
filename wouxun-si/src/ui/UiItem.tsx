@@ -29,7 +29,7 @@ type Props = {
 export const UiItem = component$<Props>(
   ({
     color = 'base',
-    overflow = 'hidden',
+    overflow = 'initial',
     detail = false,
     button = false,
     selected = false,

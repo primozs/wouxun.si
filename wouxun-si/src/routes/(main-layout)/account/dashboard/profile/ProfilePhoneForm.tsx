@@ -83,8 +83,13 @@ export const ProfilePhoneForm = component$<ProfilePhoneFormProps>((props) => {
   return (
     <>
       <AddressInfo>
-        <UiNote q:slot="info" class="uppercase">{$localize`Phone`}</UiNote>
-        <UiTitle q:slot="info">{props.customer.value?.phone}</UiTitle>
+        <UiNote
+          q:slot="info"
+          class="uppercase text-sm"
+        >{$localize`Phone`}</UiNote>
+        <UiTitle q:slot="info" class="text-sm">
+          {props.customer.value?.phone}
+        </UiTitle>
 
         <div q:slot="content">
           <Form class="space-y-2">

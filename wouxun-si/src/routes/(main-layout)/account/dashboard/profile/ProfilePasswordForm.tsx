@@ -121,8 +121,14 @@ export const ProfilePasswordForm = component$<ProfilePasswordFormProps>(
     return (
       <>
         <AddressInfo>
-          <UiNote q:slot="info" class="uppercase">{$localize`Password`}</UiNote>
-          <UiTitle q:slot="info">{$localize`Password is not shown`}</UiTitle>
+          <UiNote
+            q:slot="info"
+            class="uppercase text-sm"
+          >{$localize`Password`}</UiNote>
+          <UiTitle
+            q:slot="info"
+            class="text-sm"
+          >{$localize`Password is not shown`}</UiTitle>
 
           <div q:slot="content">
             <Form class="space-y-2">
