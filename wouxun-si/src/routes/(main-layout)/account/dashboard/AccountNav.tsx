@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import type { Customer } from '@medusajs/client-types';
 import {
   useAuthSessionLoader,
   useAuthSignoutAction,
@@ -11,7 +10,11 @@ import { UiList } from '~/ui/UiList';
 import { UiListHeader } from '~/ui/UiListHeader';
 import { PackageIcon } from '~/ui/icons/package-icon';
 import { HiUserCircleOutline } from '@qwikest/icons/heroicons';
-import { IoLogOutOutline, IoLocationOutline } from '@qwikest/icons/ionicons';
+import {
+  IoLogOutOutline,
+  IoLocationOutline,
+  IoHomeOutline,
+} from '@qwikest/icons/ionicons';
 import { NavLink } from '~/ui/button';
 
 export const AccountNav = component$(() => {
@@ -21,26 +24,34 @@ export const AccountNav = component$(() => {
   return (
     <>
       <UiList class="sm:hidden">
-        <UiListHeader>Hello {customer.value?.first_name}</UiListHeader>
+        <UiListHeader>{$localize`Hello ${customer.value?.first_name}`}</UiListHeader>
+
+        <UiItem detail to="/account/dashboard">
+          <UiIcon q:slot="start">
+            <IoHomeOutline />
+          </UiIcon>
+          <UiLabel>{$localize`Account`}</UiLabel>
+        </UiItem>
+
         <UiItem detail to="/account/dashboard/profile">
           <UiIcon q:slot="start">
             <HiUserCircleOutline />
           </UiIcon>
-          <UiLabel>Profile</UiLabel>
+          <UiLabel>{$localize`Profile`}</UiLabel>
         </UiItem>
 
         <UiItem detail to="/account/dashboard/addresses">
           <UiIcon q:slot="start">
             <IoLocationOutline />
           </UiIcon>
-          <UiLabel>Addresses</UiLabel>
+          <UiLabel>{$localize`Addresses`}</UiLabel>
         </UiItem>
 
         <UiItem detail to="/account/dashboard/orders">
           <UiIcon q:slot="start">
             <PackageIcon />
           </UiIcon>
-          <UiLabel>Orders</UiLabel>
+          <UiLabel>{$localize`Orders`}</UiLabel>
         </UiItem>
 
         <UiItem
@@ -51,7 +62,7 @@ export const AccountNav = component$(() => {
           <UiIcon q:slot="start">
             <IoLogOutOutline />
           </UiIcon>
-          <UiLabel>Logout</UiLabel>
+          <UiLabel>{$localize`Signout`}</UiLabel>
         </UiItem>
       </UiList>
 
@@ -61,7 +72,7 @@ export const AccountNav = component$(() => {
             href="/account/dashboard"
             activeClass="font-semibold text-accent"
           >
-            Account
+            {$localize`Account`}
           </NavLink>
         </UiItem>
 
@@ -70,7 +81,7 @@ export const AccountNav = component$(() => {
             href="/account/dashboard/profile"
             activeClass="font-semibold text-accent"
           >
-            Profile
+            {$localize`Profile`}
           </NavLink>
         </UiItem>
 
@@ -79,7 +90,7 @@ export const AccountNav = component$(() => {
             href="/account/dashboard/addresses"
             activeClass="font-semibold text-accent"
           >
-            Addresses
+            {$localize`Addresses`}
           </NavLink>
         </UiItem>
 
@@ -88,7 +99,7 @@ export const AccountNav = component$(() => {
             href="/account/dashboard/orders"
             activeClass="font-semibold text-accent"
           >
-            Orders
+            {$localize`Orders`}
           </NavLink>
         </UiItem>
 
@@ -99,7 +110,7 @@ export const AccountNav = component$(() => {
           }}
         >
           <UiLabel color="primary" weight="font-medium">
-            Logout
+            {$localize`Signout`}
           </UiLabel>
         </UiItem>
       </UiList>

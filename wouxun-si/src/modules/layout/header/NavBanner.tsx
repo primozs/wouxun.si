@@ -24,13 +24,13 @@ export const NavBanner = component$<Props>((props) => {
         >
           {!session.value && (
             <NavLink href="/account/login" color="neutral" size="sm">
-              Prijava <span aria-hidden="true">&rarr;</span>
+              {$localize`Signin`} <span aria-hidden="true">&rarr;</span>
             </NavLink>
           )}
 
           {!session.value && (
             <NavLink href="/account/register" color="neutral" size="sm">
-              Registracija
+              {$localize`Register`}
             </NavLink>
           )}
 
@@ -49,7 +49,7 @@ export const NavBanner = component$<Props>((props) => {
                 signout.submit();
               }}
             >
-              Odjava
+              {$localize`Signout`}
             </NavLink>
           )}
         </div>
