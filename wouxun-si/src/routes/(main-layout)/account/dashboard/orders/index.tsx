@@ -4,7 +4,7 @@ import { UiList } from '~/ui/UiList';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { useCutomerOrders } from '../layout';
-import { Order } from '@medusajs/medusa';
+import type { Order } from '@medusajs/medusa';
 import { useLocaleLoader } from '~/routes/plugin';
 import { formatDate } from '~/ui/common/formatDate';
 import { formatAmount } from '~/modules/common/prices';
@@ -12,7 +12,7 @@ import { Image } from '@unpic/qwik';
 import { NavLink } from '~/ui/button';
 import { plural } from '~/modules/locale/i18n-utils';
 import { UiNote } from '~/ui/UiNote';
-import { DocumentHead } from '@builder.io/qwik-city';
+import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   const orders = useCutomerOrders();

@@ -4,11 +4,15 @@ import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { NavLink } from '~/ui/button';
 
-export const NotFound = component$(() => {
+type Props = {
+  centered?: boolean;
+};
+
+export const NotFound = component$<Props>(({ centered = true }: Props) => {
   return (
     <>
-      <UiContent class="flex justify-center items-center">
-        <div class="flex flex-col gap-4 text-center">
+      <UiContent class={[centered && 'flex justify-center items-center']}>
+        <div class={[centered && 'flex flex-col gap-4 text-center']}>
           <UiTitle as="h1" size="2xl">{$localize`Page not found`}</UiTitle>
 
           <UiText wrap>

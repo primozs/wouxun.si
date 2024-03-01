@@ -1,9 +1,9 @@
-import { Slot, component$ } from '@builder.io/qwik';
+import { type QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
 
 type Props = {
-  class?: string | string[];
-  classContainer?: string | string[];
-  classFooter?: string;
+  class?: QwikIntrinsicElements['div']['class'];
+  classContainer?: QwikIntrinsicElements['div']['class'];
+  classFooter?: QwikIntrinsicElements['div']['class'];
   // fullscreen?: boolean;
   overflowYAuto?: boolean;
   scrollY?: boolean;
