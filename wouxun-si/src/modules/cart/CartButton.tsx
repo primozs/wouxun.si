@@ -1,11 +1,12 @@
 import { component$ } from '@builder.io/qwik';
-import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { CartDialog } from './CartDialog';
 import { CartList } from './CartList';
 import { useCartLoader } from '~/routes/plugin@store';
 import { Button } from '~/ui/button';
 import { CheckoutButtons } from './CheckoutButtons';
 import { UiItem } from '~/ui/UiItem';
+import { IoBagHandleOutline } from '@qwikest/icons/ionicons';
+import { UiIcon } from '~/ui/UiIcon';
 
 export interface CartButtonProps {}
 
@@ -22,7 +23,12 @@ export const CartButton = component$<CartButtonProps>(() => {
           color="ghost"
           intent="square"
         >
-          <ShoppingBagIcon2 isEmpty={!cart.value?.items?.length} />
+          <UiIcon class="indicator">
+            {(cart.value?.items?.length ?? 0) > 0 && (
+              <span class="indicator-item badge badge-success badge-xs"></span>
+            )}
+            <IoBagHandleOutline />
+          </UiIcon>
         </Button>
 
         <CartList cart={cart} />

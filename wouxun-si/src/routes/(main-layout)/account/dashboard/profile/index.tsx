@@ -8,6 +8,7 @@ import { ProfilePhoneForm } from './ProfilePhoneForm';
 import { ProfilePasswordForm } from './ProfilePasswordForm';
 import { ProfileBillingForm } from './ProfileBillingForm';
 import { useCustomer } from '../layout';
+import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   const customer = useCustomer();
@@ -33,4 +34,8 @@ export default component$(() => {
       </div>
     </>
   );
+});
+
+export const head: DocumentHead = () => ({
+  title: $localize`Profile`,
 });

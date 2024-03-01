@@ -12,6 +12,7 @@ import { Image } from '@unpic/qwik';
 import { NavLink } from '~/ui/button';
 import { plural } from '~/modules/locale/i18n-utils';
 import { UiNote } from '~/ui/UiNote';
+import { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   const orders = useCutomerOrders();
@@ -41,6 +42,10 @@ export default component$(() => {
       </UiList>
     </>
   );
+});
+
+export const head: DocumentHead = () => ({
+  title: $localize`Orders`,
 });
 
 export interface OrderCardProps {
@@ -117,7 +122,7 @@ export const OrderCard = component$<OrderCardProps>(({ order }) => {
         <NavLink
           intent="button"
           color="secondary"
-          href={`/account/orders/details/${order.id}`}
+          href={`/account/dashboard/orders/${order.id}`}
         >
           {$localize`See details`}
         </NavLink>

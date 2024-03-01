@@ -8,10 +8,9 @@ import { ProductPrice } from './Price';
 import type { PricedProduct } from '@medusajs/client-types';
 import { Button } from '~/ui/button';
 import { useNotifications } from '~/ui/notification/notificationsState';
-import { ShoppingBagIcon } from '~/ui/icons/shopping-bag-icon';
 import { useCartDialog } from '~/modules/cart/CartDialog';
 import { useAddToCartAction } from '~/routes/plugin@store';
-import { IoCloseOutline } from '@qwikest/icons/ionicons';
+import { IoBagHandleOutline, IoCloseOutline } from '@qwikest/icons/ionicons';
 import { UiTitle } from '~/ui/UiTitle';
 
 export interface DetailsProps {
@@ -101,7 +100,7 @@ export const AddToCart = component$<AddToCartProps>(
         loading={adding.value}
         // disabled={adding.value}
       >
-        <ShoppingBagIcon class="h-5 w-5" />
+        <IoBagHandleOutline class="h-5 w-5" />
         {$localize`Add to cart`}
       </Button>
     );

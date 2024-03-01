@@ -140,7 +140,7 @@ export const CartDialog = component$<Props>(() => {
                 <kbd class="kbd kbd-sm text-base-content/60 text-xs">esc</kbd>
               </div>
 
-              <UiTitle>Nakupna vrečka</UiTitle>
+              <UiTitle>{$localize`Shopping bag`}</UiTitle>
             </UiToolbar>
           </UiHeader>
 

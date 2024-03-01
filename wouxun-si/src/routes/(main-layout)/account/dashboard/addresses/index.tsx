@@ -16,6 +16,7 @@ import type { Address } from '@medusajs/client-types';
 import { UiConfirm, useUiConfirm } from '~/ui/UiConfirm';
 import { UiModal, useUiModal, useUiModalProvider } from '~/ui/UiModal';
 import { UiItem } from '~/ui/UiItem';
+import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   const session = useAuthSessionLoader();
@@ -35,6 +36,10 @@ export default component$(() => {
       <AddressList addresses={session.value?.shipping_addresses ?? []} />
     </>
   );
+});
+
+export const head: DocumentHead = () => ({
+  title: $localize`Addresses`,
 });
 
 export interface AddressListProps {

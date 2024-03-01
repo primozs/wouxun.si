@@ -9,6 +9,9 @@ import { UiText } from '~/ui/UiText';
 import { UiListHeader } from '~/ui/UiListHeader';
 import { useCustomer, useCutomerOrders } from './layout';
 import { UiNote } from '~/ui/UiNote';
+import { formatDate } from '~/ui/common/formatDate';
+import { useLocaleLoader } from '~/routes/plugin';
+import type { DocumentHead } from '@builder.io/qwik-city';
 
 export default component$(() => {
   const customer = useCustomer();
@@ -61,22 +64,27 @@ export default component$(() => {
   );
 });
 
+export const head: DocumentHead = () => ({
+  title: $localize`Account`,
+});
+
 export interface OrderItemProps {
   order: Order;
 }
 
 export const OrderItem = component$<OrderItemProps>(({ order }) => {
+  const locale = useLocaleLoader();
   return (
     <UiItem
-      to={`/account/dashboard/orders/details/${order.id}`}
+      to={`/account/dashboard/orders/${order.id}`}
       detail
       class="bg-base-200"
     >
       <div class="grid grid-cols-3 grid-rows-2 text-xs p-4 leading-5 font-normal gap-x-4 flex-1">
-        <span class="font-semibold">Date placed</span>
-        <span class="font-semibold">Order number</span>
-        <span class="font-semibold">Total amount</span>
-        <span>{new Date(order.created_at).toDateString()}</span>
+        <span class="font-semibold">{$localize`Date placed`}</span>
+        <span class="font-semibold">{$localize`Order number`}</span>
+        <span class="font-semibold">{$localize`Total amount`}</span>
+        <span>{formatDate(new Date(order.created_at), locale.value)}</span>
         <span>#{order.display_id}</span>
         <span>
           {order.total &&

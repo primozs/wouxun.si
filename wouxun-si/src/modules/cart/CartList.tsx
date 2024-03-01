@@ -1,6 +1,5 @@
 import { type Signal, component$, useSignal } from '@builder.io/qwik';
 import type { Cart, LineItem } from '@medusajs/client-types';
-import { ShoppingBagIcon2 } from '~/ui/icons/shopping-bag-icon2';
 import { Image } from '@unpic/qwik';
 import { useCartDialog } from './CartDialog';
 import ListPrice from '~/modules/products/Price';
@@ -15,7 +14,7 @@ import {
   useSetCartItemQuantityAction,
 } from '~/routes/plugin@store';
 import { UiIcon } from '~/ui/UiIcon';
-import { IoTrashOutline } from '@qwikest/icons/ionicons';
+import { IoBagHandleOutline, IoTrashOutline } from '@qwikest/icons/ionicons';
 import { UiList } from '~/ui/UiList';
 import { LoadingDots } from '~/ui/loading-dots';
 import { Select } from '~/ui/input/Select';
@@ -45,9 +44,9 @@ export const CartList = component$<CartListProps>(({ cart }) => {
 
           <UiItem class="px-8 py-3" lines="none">
             <UiLabel>
-              <UiNote>Vmesni seštevek</UiNote>
-              <UiNote>Dostava</UiNote>
-              <UiTitle>Skupaj</UiTitle>
+              <UiNote>{$localize`Subtotal`}</UiNote>
+              <UiNote>{$localize`Shipping`}</UiNote>
+              <UiTitle>{$localize`Total`}</UiTitle>
             </UiLabel>
 
             <div class="flex flex-col" q:slot="end">
@@ -71,8 +70,8 @@ export const CartList = component$<CartListProps>(({ cart }) => {
       ) : (
         <div class="card bg-base-100 h-full">
           <div class="card-body justify-center items-center text-base-content/60">
-            <ShoppingBagIcon2 class="!h-16 !w-16" isEmpty={true} />
-            <UiNote>Nakupovalna vrečka je prazna.</UiNote>
+            <IoBagHandleOutline class="!h-16 !w-16" />
+            <UiNote>{$localize`Shopping bag is empty`}</UiNote>
           </div>
         </div>
       )}
@@ -162,7 +161,7 @@ export const DeleteItemButton = component$<Props>(({ item }) => {
       <UiIcon class="hidden sm:block">
         <IoTrashOutline />
       </UiIcon>
-      Odstrani
+      {$localize`Remove`}
     </Button>
   );
 });
@@ -178,7 +177,7 @@ export const EditItemQuantity = component$<Props>(({ item }) => {
           <Select
             id={'quantity_' + item.id}
             name={'quantity_' + item.id}
-            label="Število"
+            label={$localize`Quantity`}
             value={item.quantity + ''}
             options={[1, 2, 3, 4, 5].map((n) => ({
               label: String(n),
