@@ -1,8 +1,17 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 
-export const UiDivider = component$(() => {
+type Props = {
+  class?: QwikIntrinsicElements['div']['class'];
+};
+
+export const UiDivider = component$<Props>((props) => {
   return (
-    <div class="divider divider-neutral text-neutral-content/60 text-sm">
+    <div
+      class={[
+        'divider divider-neutral text-neutral-content/60 text-sm',
+        props.class,
+      ]}
+    >
       <Slot />
     </div>
   );
