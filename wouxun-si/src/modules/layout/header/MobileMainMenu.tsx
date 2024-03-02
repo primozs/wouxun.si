@@ -48,6 +48,7 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
               color="neutral"
               class="btn-sm"
             >
+              <span class="sr-only">{$localize`Close main menu`}</span>
               <IoCloseOutline class="h-5 w-5" />
             </Button>
           </UiItem>
