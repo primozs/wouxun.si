@@ -65,7 +65,7 @@ export const Button = component$<ButtonProps>(
         <Slot></Slot>
 
         {loading && (
-          <span class="absolute inset-0 top-1">
+          <span class="absolute flex justify-center items-center">
             <LoadingDots
               class={[
                 {
@@ -87,9 +87,16 @@ export const Button = component$<ButtonProps>(
 
 type NavLinkProps = LinkProps & {
   intent?: 'link' | 'button';
-  color?: 'base' | 'primary' | 'secondary' | 'error' | 'neutral' | 'accent';
+  color?:
+    | 'base'
+    | 'primary'
+    | 'secondary'
+    | 'error'
+    | 'neutral'
+    | 'accent'
+    | 'ghost';
   fill?: 'clear' | 'outline' | 'solid';
-  size?: 'base' | 'sm' | 'md' | 'xl';
+  size?: 'base' | 'sm' | 'md' | 'xl' | 'none';
   activeClass?: QwikIntrinsicElements['a']['class'];
 };
 
@@ -107,7 +114,7 @@ export const NavLink = component$<NavLinkProps>(
         {...rest}
         class={[
           intent === 'button' && [
-            `btn btn-md
+            `btn
             text-sm tracking-wide font-semibold leading-6
             whitespace-nowrap no-underline
 
@@ -123,8 +130,11 @@ export const NavLink = component$<NavLinkProps>(
               'btn-neutral focus-visible:ring-neutral': color === 'neutral',
               'btn-accent focus-visible:ring-accent': color === 'accent',
               'btn-error focus-visible:ring-error': color === 'error',
-
+              'btn-ghost focus-visible:ring-accent': color === 'ghost',
               'btn-outline': fill === 'outline',
+            },
+            {
+              'btn-md': size === 'base',
             },
           ],
           intent === 'link' && [

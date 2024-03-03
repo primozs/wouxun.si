@@ -44,7 +44,7 @@ export default component$(() => {
               {$localize`Summary`}
             </UiTitle>
 
-            <DiscountCode />
+            <DiscountCode cart={cart} />
 
             <div class="h-px w-full border-b border-base-300 my-4" />
 

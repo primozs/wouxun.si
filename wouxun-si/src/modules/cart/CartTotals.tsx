@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Cart, Order } from '@medusajs/client-types';
+import type { Cart, Order } from '@medusajs/client-types';
 import { formatAmount } from '../common/prices';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';

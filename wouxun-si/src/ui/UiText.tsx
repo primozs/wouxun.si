@@ -19,7 +19,7 @@ export const UiText = component$<Props>(
           font-normal
           `,
               color === 'base' && 'text-base-content',
-              color === 'light' && 'text-base-content/60',
+              color === 'light' && 'text-base-content/70',
               color === 'primary' && 'text-primary',
               wrap && 'text-balance',
 

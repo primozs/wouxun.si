@@ -29,7 +29,7 @@ export const RemoveItemBtn = component$<Props>(({ item, iconOnly = false }) => {
     >
       {iconOnly === false ? (
         <>
-          <UiIcon class="hidden sm:block">
+          <UiIcon size="sm" class="hidden sm:block">
             <IoTrashOutline />
           </UiIcon>
           {$localize`Remove`}

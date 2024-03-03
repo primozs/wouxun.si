@@ -16,7 +16,7 @@ export const SignInPrompt = component$(() => {
       <NavLink
         q:slot="end"
         intent="button"
-        href="/account/login"
+        href="/account/login?callbackUrl=/cart"
         color="primary"
         size="sm"
       >

@@ -1,6 +1,6 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { type RequestHandler } from '@builder.io/qwik-city';
-import { selectLocaleSrv, useI18nDEV } from '~/modules/locale/i18n-utils';
+import { useI18nDEV } from '~/modules/locale/i18n-utils';
 
 export const onGet: RequestHandler = async (event) => {
   event.cacheControl({
@@ -9,9 +9,6 @@ export const onGet: RequestHandler = async (event) => {
     // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
     maxAge: 5,
   });
-
-  const userLocale = selectLocaleSrv(event);
-  event.locale(userLocale);
 };
 
 export default component$(() => {

@@ -93,6 +93,12 @@ body {
   .table tr {
     @apply border-base-300;
   }
+
+  .no-truncate {
+    overflow: initial;
+    text-overflow: initial;
+    white-space: initial;
+  }
 }
 
 .prose h1 {

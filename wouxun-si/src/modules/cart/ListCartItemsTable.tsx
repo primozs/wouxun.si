@@ -11,10 +11,11 @@ import { NavLink } from '~/ui/button';
 export interface ListCartItemsProps {
   items?: LineItem[];
   region?: Region | null;
+  type?: 'full' | 'preview';
 }
 
 export const ListCartItemsTable = component$<ListCartItemsProps>(
-  ({ items, region }) => {
+  ({ items, region, type = 'full' }) => {
     return (
       <div class="overflow-x-auto border-b border-base-300">
         <table class="table">
@@ -46,6 +47,7 @@ export const ListCartItemsTable = component$<ListCartItemsProps>(
                       key={item.id}
                       item={item}
                       region={region}
+                      type={type}
                     />
                   );
                 })}
@@ -76,10 +78,10 @@ export const ListCartTableItem = component$<ListCartTableItemProps>(
           </NavLink>
         </td>
         <td>
-          <UiTitle as="h2" class="truncate">
+          <UiTitle as="h2" class="truncate md:no-truncate">
             {item.title}
           </UiTitle>
-          <UiText class="truncate" color="light">
+          <UiText color="light" class="truncate md:no-truncate">
             {item.variant?.title}
           </UiText>
         </td>

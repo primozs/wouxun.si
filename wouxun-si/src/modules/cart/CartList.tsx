@@ -1,4 +1,4 @@
-import { type Signal, component$, useSignal, useTask$ } from '@builder.io/qwik';
+import { type Signal, component$ } from '@builder.io/qwik';
 import { EmptyCartMessage } from './EmptyCartMessage';
 import type { Cart } from '@medusajs/client-types';
 import { ListCartItemsTable } from './ListCartItemsTable';
@@ -27,7 +27,7 @@ export const CartList = component$<CartListProps>(({ cart }) => {
           </div>
 
           <div class="p-4">
-            <DiscountCode />
+            <DiscountCode cart={cart} />
 
             <div class="h-px w-full border-b border-base-300 my-4" />
 

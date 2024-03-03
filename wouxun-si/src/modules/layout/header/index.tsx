@@ -2,7 +2,7 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Logo } from './logo';
 import { MainNavigation } from '~/modules/layout/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
-import { CartButton } from '~/modules/cart/CartButton';
+import { CartNav } from '~/modules/cart/CartButton';
 import { config } from '~/config';
 import { NavBanner } from './NavBanner';
 import { SwitchLocale } from '~/modules/locale/SwitchLocale';
@@ -37,7 +37,7 @@ export const Header = component$(() => {
               <MainNavigation />
             </div>
 
-            <CartButton />
+            <CartNav />
             <SwitchLocale />
             <ThemeButton />
           </div>

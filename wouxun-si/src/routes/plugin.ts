@@ -1,8 +1,12 @@
 import { routeAction$, routeLoader$, z, zod$ } from '@builder.io/qwik-city';
+import { selectLocaleSrv } from '~/modules/locale/i18n-utils';
 
-export const useLocaleLoader = routeLoader$((event) => {
-  const locale = event.locale();
-  return locale;
+export const useLocaleLoader = routeLoader$(async (event) => {
+  // const locale = event.locale();
+  const userLocale = selectLocaleSrv(event);
+  event.locale(userLocale);
+
+  return userLocale;
 });
 
 export const useChangeLocaleAction = routeAction$(
@@ -27,3 +31,10 @@ export const useChangeLocaleAction = routeAction$(
     locale: z.string(),
   }),
 );
+
+// runs first before useLocaleLoader but after
+// routeAcction it does not run
+// export const onGet: RequestHandler = async (event) => {
+//   const userLocale = selectLocaleSrv(event);
+//   event.locale(userLocale);
+// };

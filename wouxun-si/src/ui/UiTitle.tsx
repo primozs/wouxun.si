@@ -5,6 +5,7 @@ type Props = {
   color?: 'base' | 'light' | 'primary' | 'secondary';
   size?: 'base' | 'sm' | 'lg' | 'xl' | '2xl';
   as?: 'h1' | 'h2' | 'h3' | 'div';
+  truncate?: boolean;
 };
 
 export const UiTitle = component$<Props>(
@@ -14,8 +15,7 @@ export const UiTitle = component$<Props>(
         as={as}
         class={[
           `      
-        ui-title    
-        whitespace-nowrap overflow-hidden text-ellipsis          
+        ui-title          
         py-[3px]        
       `,
           color === 'base' && 'text-base-content',
@@ -27,6 +27,7 @@ export const UiTitle = component$<Props>(
           size === 'lg' && 'text-lg font-semibold',
           size === 'xl' && 'text-xl font-semibold',
           size === '2xl' && 'text-2xl font-medium leading-8',
+          props.truncate && 'truncate',
           props.class,
         ]}
       >

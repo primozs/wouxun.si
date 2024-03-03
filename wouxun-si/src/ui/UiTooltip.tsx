@@ -1,4 +1,4 @@
-import { QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
+import { type QwikIntrinsicElements, Slot, component$ } from '@builder.io/qwik';
 
 export interface UiTooltipProps {
   tip: string;
@@ -23,6 +23,7 @@ export const UiTooltip = component$<UiTooltipProps>(
         ]}
         data-tip={props.tip}
       >
+        <span class="sr-only">{props.tip}</span>
         <Slot></Slot>
       </tool-tip>
     );

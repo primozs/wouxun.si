@@ -49,6 +49,63 @@ export const useRemoveCartItemAction = routeAction$(
   }),
 );
 
+export const useRemoveGiftCardAction = routeAction$(
+  async (data, event) => {
+    const cartId = event.cookie.get('cartid');
+
+    if (!cartId || !cartId.value) {
+      return event.fail(500, {
+        message: 'Cart not found',
+      });
+    }
+
+    const client = getMedusaClient();
+    await client.carts.update(
+      cartId.value,
+      {
+        gift_cards: [...data.giftCards]
+          .filter((gc) => gc !== data.codeToRemove)
+          .map((gc) => ({ code: gc })),
+      },
+      getSrvSessionHeaders(event),
+    );
+
+    return {
+      success: true,
+    };
+  },
+  zod$({
+    codeToRemove: z.string(),
+    giftCards: z.array(z.string()),
+  }),
+);
+
+export const useRemoveDiscountAction = routeAction$(
+  async (data, event) => {
+    const cartId = event.cookie.get('cartid');
+
+    if (!cartId || !cartId.value) {
+      return event.fail(500, {
+        message: 'Cart not found',
+      });
+    }
+
+    const client = getMedusaClient();
+    await client.carts.deleteDiscount(
+      cartId.value,
+      data.code,
+      getSrvSessionHeaders(event),
+    );
+
+    return {
+      success: true,
+    };
+  },
+  zod$({
+    code: z.string(),
+  }),
+);
+
 export const useAddToCartAction = routeAction$(
   async (data, event) => {
     const cartId = event.cookie.get('cartid');

@@ -8,7 +8,6 @@ import { ProductPrice } from './Price';
 import type { PricedProduct } from '@medusajs/client-types';
 import { Button } from '~/ui/button';
 import { useNotifications } from '~/ui/notification/notificationsState';
-import { useCartDialog } from '~/modules/cart/CartDialog';
 import { useAddToCartAction } from '~/routes/plugin@store';
 import { IoBagHandleOutline, IoCloseOutline } from '@qwikest/icons/ionicons';
 import { UiTitle } from '~/ui/UiTitle';
@@ -66,7 +65,6 @@ export const AddToCart = component$<AddToCartProps>(
 
     const adding = useSignal(false);
     const { addNotification } = useNotifications();
-    const { openCartDialog } = useCartDialog();
 
     if (!productMedusa || !productDirectus) return null;
     const variantId = productMedusa?.variants![0]?.id;
@@ -91,8 +89,6 @@ export const AddToCart = component$<AddToCartProps>(
               type: 'error',
               title: $localize`Error add to cart`,
             });
-          } else {
-            openCartDialog();
           }
 
           adding.value = false;
