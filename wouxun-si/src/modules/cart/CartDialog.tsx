@@ -9,13 +9,6 @@ import {
   useSignal,
   useContextProvider,
 } from '@builder.io/qwik';
-import { IoCloseOutline } from '@qwikest/icons/ionicons';
-import { UiContent } from '~/ui/UiContent';
-import { UiFooter } from '~/ui/UiFooter';
-import { UiHeader } from '~/ui/UiHeader';
-import { UiTitle } from '~/ui/UiTitle';
-import { UiToolbar } from '~/ui/UiToolbar';
-import { Button } from '~/ui/button';
 
 type Props = {};
 
@@ -124,34 +117,7 @@ export const CartDialog = component$<Props>(() => {
           }
         }}
       >
-        <UiContent>
-          <UiHeader q:slot="start">
-            <UiToolbar>
-              <div q:slot="end" class="flex items-center gap-2 mx-2">
-                <Button
-                  type="button"
-                  onClick$={closeCardDialog}
-                  intent="square"
-                  color="neutral"
-                  class="btn-sm"
-                >
-                  <IoCloseOutline class="h-5 w-5" />
-                </Button>
-                <kbd class="kbd kbd-sm text-base-content/60 text-xs">esc</kbd>
-              </div>
-
-              <UiTitle>{$localize`Shopping bag`}</UiTitle>
-            </UiToolbar>
-          </UiHeader>
-
-          <Slot />
-
-          <UiFooter q:slot="end" color="transparent">
-            <UiToolbar border="top" layout={false}>
-              <Slot name="footer"></Slot>
-            </UiToolbar>
-          </UiFooter>
-        </UiContent>
+        <Slot />
       </dialog>
     </>
   );
