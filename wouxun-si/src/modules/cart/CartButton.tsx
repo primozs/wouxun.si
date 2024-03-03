@@ -1,9 +1,8 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal, useTask$ } from '@builder.io/qwik';
 import { CartDialog, useCartDialog } from './CartDialog';
 import { CartList } from './CartList';
 import { useCartLoader } from '~/routes/plugin@store';
-import { Button } from '~/ui/button';
-import { CheckoutButtons } from './CheckoutButtons';
+import { Button, NavLink } from '~/ui/button';
 import { UiItem } from '~/ui/UiItem';
 import { IoBagHandleOutline } from '@qwikest/icons/ionicons';
 import { UiIcon } from '~/ui/UiIcon';
@@ -13,12 +12,20 @@ import { UiFooter } from '~/ui/UiFooter';
 import { UiHeader } from '~/ui/UiHeader';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiToolbar } from '~/ui/UiToolbar';
+import { getCheckoutStep } from '../common/getCheckoutStep';
 
 export interface CartButtonProps {}
 
 export const CartButton = component$<CartButtonProps>(() => {
   const cart = useCartLoader();
   const { closeCardDialog } = useCartDialog();
+  const checkout_step = useSignal<string>('none');
+
+  useTask$(({ track }) => {
+    track(cart);
+    checkout_step.value = getCheckoutStep(cart.value);
+  });
+
   return (
     <>
       <CartDialog>
@@ -63,7 +70,14 @@ export const CartButton = component$<CartButtonProps>(() => {
             <UiToolbar border="top" layout={false}>
               {(cart.value?.items?.length ?? 0) > 0 && (
                 <UiItem class="py-4" classCenter="gap-4" border="top">
-                  <CheckoutButtons />
+                  <NavLink
+                    intent="button"
+                    color="primary"
+                    href={'/checkout?step=' + checkout_step.value}
+                    class="w-full"
+                  >
+                    {$localize`Go to checkout`}
+                  </NavLink>
                 </UiItem>
               )}
             </UiToolbar>

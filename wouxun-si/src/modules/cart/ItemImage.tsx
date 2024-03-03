@@ -9,7 +9,7 @@ export interface ItemImageProps {
 export const ItemImage = component$<ItemImageProps>((props) => {
   return (
     <div class="avatar">
-      <div class="w-24 border border-base-300 rounded-lg">
+      <div class="w-24 border border-base-300 rounded-lg shadow-lg">
         <Image
           width={208}
           height={264}

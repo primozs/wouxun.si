@@ -90,6 +90,9 @@ body {
   .table th {
     @apply text-base;
   }
+  .table tr {
+    @apply border-base-300;
+  }
 }
 
 .prose h1 {
@@ -161,4 +164,11 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus,
 select:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
 }
