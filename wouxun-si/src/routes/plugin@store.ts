@@ -1,9 +1,9 @@
 import { routeAction$, routeLoader$, z, zod$ } from '@builder.io/qwik-city';
 import { config } from '~/config';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
-import type { Cart, Region } from '@medusajs/client-types';
 import type { RequestEvent, RequestEventLoader } from '@builder.io/qwik-city';
 import { handleError } from '~/modules/logger';
+import type { Cart, Region } from '@medusajs/client-types';
 
 export const useSetCartItemQuantityAction = routeAction$(
   async (data, event) => {

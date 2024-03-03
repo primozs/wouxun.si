@@ -8,6 +8,7 @@ import { OrderItems } from './OrderItems';
 import { ShippingDetails } from './ShippingDetails';
 import { OrderSummary } from './OrderSummary';
 import { Help } from './Help';
+import type { Order } from '@medusajs/client-types';
 
 export const useOrder = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -27,7 +28,7 @@ export const useOrder = routeLoader$(async (event) => {
     });
 
   if (!data) event.status(404);
-  return data;
+  return data as Order | null;
 });
 
 export default component$(() => {

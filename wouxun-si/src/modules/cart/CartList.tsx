@@ -1,5 +1,4 @@
-import { type Signal, component$, useSignal } from '@builder.io/qwik';
-import type { Cart, LineItem } from '@medusajs/client-types';
+import { type Signal, component$ } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 import { useCartDialog } from './CartDialog';
 import ListPrice from '~/modules/products/Price';
@@ -8,16 +7,13 @@ import { UiNote } from '~/ui/UiNote';
 import { UiItem } from '~/ui/UiItem';
 import { UiLabel } from '~/ui/UiLabel';
 import { UiTitle } from '~/ui/UiTitle';
-import { Button, NavLink } from '~/ui/button';
-import {
-  useRemoveCartItemAction,
-  useSetCartItemQuantityAction,
-} from '~/routes/plugin@store';
-import { UiIcon } from '~/ui/UiIcon';
-import { IoBagHandleOutline, IoTrashOutline } from '@qwikest/icons/ionicons';
+import { NavLink } from '~/ui/button';
 import { UiList } from '~/ui/UiList';
-import { LoadingDots } from '~/ui/loading-dots';
-import { Select } from '~/ui/input/Select';
+import { EmptyCartMessage } from './EmptyCartMessage';
+import { RemoveItemBtn } from './RemoveItemBtn';
+import { ItemQuantitySelect } from './ItemQuantitySelect';
+import { UiContent } from '~/ui/UiContent';
+import type { Cart, LineItem } from '@medusajs/client-types';
 
 export interface CartListProps {
   cart: Signal<Cart | null>;
@@ -68,12 +64,9 @@ export const CartList = component$<CartListProps>(({ cart }) => {
           </UiItem>
         </UiList>
       ) : (
-        <div class="card bg-base-100 h-full">
-          <div class="card-body justify-center items-center text-base-content/60">
-            <IoBagHandleOutline class="!h-16 !w-16" />
-            <UiNote>{$localize`Shopping bag is empty`}</UiNote>
-          </div>
-        </div>
+        <UiContent>
+          <EmptyCartMessage />
+        </UiContent>
       )}
     </>
   );
@@ -88,6 +81,7 @@ export const ListLineItem = component$<ListLineItemProps>(({ item, cart }) => {
   const { closeCardDialog } = useCartDialog();
 
   const merchandiseUrl = `/product/${item.variant!.product!.handle}`;
+  // @ts-ignore
   const imageSrc = getImageUrl(item.metadata?.thumbnailId ?? '');
 
   return (
@@ -116,7 +110,7 @@ export const ListLineItem = component$<ListLineItemProps>(({ item, cart }) => {
           <UiTitle class="text-wrap sm:text-nowrap">{item.title}</UiTitle>
         </NavLink>
 
-        <EditItemQuantity item={item} />
+        <ItemQuantitySelect item={item} />
       </div>
 
       <div
@@ -131,69 +125,8 @@ export const ListLineItem = component$<ListLineItemProps>(({ item, cart }) => {
             />
           </UiTitle>
         )}
-        <DeleteItemButton item={item} />
+        <RemoveItemBtn item={item} />
       </div>
     </UiItem>
-  );
-});
-
-type Props = {
-  item: LineItem;
-};
-
-export const DeleteItemButton = component$<Props>(({ item }) => {
-  const removing = useSignal(false);
-  const action = useRemoveCartItemAction();
-
-  return (
-    <Button
-      disabled={removing.value}
-      onClick$={async () => {
-        removing.value = true;
-        await action.submit({ itemId: item.id });
-        removing.value = false;
-      }}
-      intent="unstyled"
-      color="base"
-      class="btn-sm text-xs"
-      loading={removing.value}
-    >
-      <UiIcon class="hidden sm:block">
-        <IoTrashOutline />
-      </UiIcon>
-      {$localize`Remove`}
-    </Button>
-  );
-});
-
-export const EditItemQuantity = component$<Props>(({ item }) => {
-  const isLoading = useSignal(false);
-  const action = useSetCartItemQuantityAction();
-  return (
-    <>
-      {isLoading.value && <LoadingDots class="bg-base-content/50" />}
-      {!isLoading.value && (
-        <div class="flex flex-shrink-0 items-center cursor-pointer relative mr-2 sm:mr-4">
-          <Select
-            id={'quantity_' + item.id}
-            name={'quantity_' + item.id}
-            label={$localize`Quantity`}
-            value={item.quantity + ''}
-            options={[1, 2, 3, 4, 5].map((n) => ({
-              label: String(n),
-              value: String(n),
-            }))}
-            labelSrOnly
-            onChange$={async (e) => {
-              // @ts-ignore
-              const quantity = parseInt(e.target.value);
-              isLoading.value = true;
-              await action.submit({ itemId: item.id, quantity });
-              isLoading.value = false;
-            }}
-          />
-        </div>
-      )}
-    </>
   );
 });

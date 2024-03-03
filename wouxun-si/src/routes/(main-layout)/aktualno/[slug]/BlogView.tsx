@@ -5,15 +5,15 @@ import { mdParse } from '~/ui/md-parse';
 import { Image } from '@unpic/qwik';
 import { getImageUrl } from '~/modules/directus';
 import { IoCalendarClearOutline } from '@qwikest/icons/ionicons';
-import { useLocaleLoader } from '~/routes/plugin';
 import { UiTitle } from '~/ui/UiTitle';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 
 export interface BlogViewProps {
   post: Signal<wouxun_news>;
 }
 
 export const BlogView = component$<BlogViewProps>(({ post }) => {
-  const locale = useLocaleLoader();
+  const locale = useLocale();
   const imageSrc = getImageUrl(post.value?.image ?? '');
   return (
     <section>

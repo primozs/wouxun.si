@@ -5,7 +5,6 @@ import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { useCutomerOrders } from '../layout';
 import type { Order } from '@medusajs/medusa';
-import { useLocaleLoader } from '~/routes/plugin';
 import { formatDate } from '~/ui/common/formatDate';
 import { formatAmount } from '~/modules/common/prices';
 import { Image } from '@unpic/qwik';
@@ -13,6 +12,7 @@ import { NavLink } from '~/ui/button';
 import { plural } from '~/modules/locale/i18n-utils';
 import { UiNote } from '~/ui/UiNote';
 import type { DocumentHead } from '@builder.io/qwik-city';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 
 export default component$(() => {
   const orders = useCutomerOrders();
@@ -53,7 +53,7 @@ export interface OrderCardProps {
 }
 
 export const OrderCard = component$<OrderCardProps>(({ order }) => {
-  const locale = useLocaleLoader();
+  const locale = useLocale();
 
   const numberOfLines = order.items.reduce((acc, item) => {
     return acc + item.quantity;

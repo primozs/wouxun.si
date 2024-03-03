@@ -10,8 +10,8 @@ import { UiListHeader } from '~/ui/UiListHeader';
 import { useCustomer, useCutomerOrders } from './layout';
 import { UiNote } from '~/ui/UiNote';
 import { formatDate } from '~/ui/common/formatDate';
-import { useLocaleLoader } from '~/routes/plugin';
 import type { DocumentHead } from '@builder.io/qwik-city';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 
 export default component$(() => {
   const customer = useCustomer();
@@ -73,7 +73,7 @@ export interface OrderItemProps {
 }
 
 export const OrderItem = component$<OrderItemProps>(({ order }) => {
-  const locale = useLocaleLoader();
+  const locale = useLocale();
   return (
     <UiItem
       to={`/account/dashboard/orders/${order.id}`}

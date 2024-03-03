@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import type { Order } from '@medusajs/medusa';
+import type { Order } from '@medusajs/client-types';
 import { formatAmount } from '~/modules/common/prices';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
@@ -26,13 +26,13 @@ export const OrderSummary = component$<OrderSummaryProps>(({ order }) => {
         <UiText>{getAmount(order.subtotal)}</UiText>
       </div>
 
-      {order.discount_total > 0 && (
+      {(order.discount_total ?? 0) > 0 && (
         <div class="flex items-center justify-between w-full">
           <UiText>{$localize`Discount`}</UiText>
           <UiText>- {getAmount(order.discount_total)}</UiText>
         </div>
       )}
-      {order.gift_card_total > 0 && (
+      {(order.gift_card_total ?? 0) > 0 && (
         <div class="flex items-center justify-between w-full">
           <UiText>{$localize`Discount`}</UiText>
           <UiText>- {getAmount(order.gift_card_total)}</UiText>

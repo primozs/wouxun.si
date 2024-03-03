@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik';
-import type { FulfillmentStatus, Order, PaymentStatus } from '@medusajs/medusa';
-import { useLocaleLoader } from '~/routes/plugin';
+import type { Order } from '@medusajs/client-types';
+import type { FulfillmentStatus, PaymentStatus } from '@medusajs/medusa';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { NavLink } from '~/ui/button';
@@ -13,7 +14,7 @@ type OrderDetailsProps = {
 
 export const OrderDetails = component$<OrderDetailsProps>(
   ({ order, showStatus }) => {
-    const locale = useLocaleLoader();
+    const locale = useLocale();
     return (
       <div class="my-4">
         <div class="flex items-center justify-between w-full">
@@ -58,7 +59,7 @@ export const OrderDetails = component$<OrderDetailsProps>(
   },
 );
 
-const fulfilmentStatusI18n = (status: FulfillmentStatus) => {
+const fulfilmentStatusI18n = (status: FulfillmentStatus | string) => {
   const rec: Record<string, string> = {
     not_fulfilled: $localize`Not fulfilled`,
     partially_fulfilled: $localize`Partially fulfilled`,
@@ -73,7 +74,7 @@ const fulfilmentStatusI18n = (status: FulfillmentStatus) => {
   return rec[status] ?? '';
 };
 
-const paymentStatusI18n = (status: PaymentStatus) => {
+const paymentStatusI18n = (status: PaymentStatus | string) => {
   const rec: Record<string, string> = {
     not_paid: $localize`Not paid`,
     awaiting: $localize`Awaiting`,

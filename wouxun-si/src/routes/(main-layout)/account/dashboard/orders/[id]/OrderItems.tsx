@@ -1,12 +1,12 @@
 import { component$ } from '@builder.io/qwik';
-import type { Order } from '@medusajs/medusa';
-import { Image } from '@unpic/qwik';
 import { UiItem } from '~/ui/UiItem';
 import { UiLabel } from '~/ui/UiLabel';
 import { UiList } from '~/ui/UiList';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
 import { LineItemPrice, LineItemUnitPrice } from './LineItemUnitPrice';
+import { ItemImage } from '~/modules/cart/ItemImage';
+import type { Order } from '@medusajs/client-types';
 
 export interface OrderItemsProps {
   order: Order;
@@ -21,7 +21,7 @@ export const OrderItems = component$<OrderItemsProps>(({ order }) => {
 
       <UiList>
         {order.items
-          .sort((a, b) => {
+          ?.sort((a, b) => {
             return a.created_at > b.created_at ? -1 : 1;
           })
           .map((item) => {
@@ -35,7 +35,7 @@ export const OrderItems = component$<OrderItemsProps>(({ order }) => {
 
                 <UiLabel>
                   <UiTitle>{item.title}</UiTitle>
-                  <UiText color="light">{item.variant.title}</UiText>
+                  <UiText color="light">{item.variant?.title}</UiText>
                 </UiLabel>
 
                 <div q:slot="end" class="flex flex-col items-end">
@@ -57,29 +57,6 @@ export const OrderItems = component$<OrderItemsProps>(({ order }) => {
             );
           })}
       </UiList>
-    </div>
-  );
-});
-
-export interface ItemImageProps {
-  src: string | null;
-  alt: string;
-}
-
-export const ItemImage = component$<ItemImageProps>((props) => {
-  return (
-    <div
-      class={[
-        `
-        card card-compact card-bordered w-16 
-        bg-base-200 
-        border-base-300 rounded-lg shadow-sm
-        `,
-      ]}
-    >
-      <figure class="aspect-square">
-        <Image width={208} height={264} src={props.src} alt={props.alt} />
-      </figure>
     </div>
   );
 });

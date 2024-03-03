@@ -1,13 +1,13 @@
 import { component$ } from '@builder.io/qwik';
-import { LineItem, Region } from '@medusajs/medusa';
+import type { LineItem, Region } from '@medusajs/client-types';
 import { getPercentageDiff } from '~/modules/common/getPercentageDiff';
 import { formatAmount } from '~/modules/common/prices';
-import { CalculatedVariant } from '~/modules/medusa/types';
+import type { CalculatedVariant } from '~/modules/medusa/types';
 import { UiText } from '~/ui/UiText';
 
 export interface LineItemUnitPriceProps {
   item: Omit<LineItem, 'beforeInsert'>;
-  region: Region;
+  region: Region | null | undefined;
   style?: 'default' | 'tight';
 }
 
@@ -18,7 +18,7 @@ export const LineItemUnitPrice = component$<LineItemUnitPriceProps>(
     const reducedPrice = (item.total || 0) / item.quantity!;
 
     return (
-      <div class="flex flex-col justify-center h-full text-right">
+      <div class="flex flex-col justify-center h-full">
         {hasReducedPrice && (
           <>
             <p>
@@ -56,7 +56,7 @@ export const LineItemUnitPrice = component$<LineItemUnitPriceProps>(
 
 export interface LineItemPriceProps {
   item: Omit<LineItem, 'beforeInsert'>;
-  region: Region;
+  region: Region | null | undefined;
   style?: 'default' | 'tight';
 }
 
