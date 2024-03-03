@@ -1,7 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { formatPrice } from '~/modules/common/formatPrice';
 import type { PricedProduct, MoneyAmount } from '@medusajs/client-types';
-import { useLocaleLoader } from '~/routes/plugin';
 import { useLocale } from '../locale/LocaleProvider';
 
 export interface ProductPriceProps {
@@ -35,7 +34,7 @@ const getVariantPrice = (product: PricedProduct | null, variantIndex = 0) => {
 };
 
 export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
-  const locale = useLocaleLoader();
+  const locale = useLocale();
 
   const variantPrice = getVariantPrice(product, 0);
   if (!variantPrice) return null;
@@ -69,7 +68,7 @@ export interface CardPriceProps {
 }
 
 export const CardPrice = component$<CardPriceProps>(({ product }) => {
-  const locale = useLocaleLoader();
+  const locale = useLocale();
   const variantPrice = getVariantPrice(product, 0);
   if (!variantPrice) return null;
 

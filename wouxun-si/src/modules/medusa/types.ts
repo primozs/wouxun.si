@@ -1,4 +1,4 @@
-import { ProductVariant } from '@medusajs/medusa';
+import type { ProductVariant } from '@medusajs/client-types';
 
 export type CalculatedVariant = ProductVariant & {
   calculated_price: number;

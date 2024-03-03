@@ -1,10 +1,16 @@
 import { noDivisionCurrencies } from './constants';
-import type { RegionInfo } from './global';
 import { isEmpty } from './isEmpty';
+
+import type { Region } from '@medusajs/client-types';
+
+export type RegionInfo = Pick<
+  Region,
+  'currency_code' | 'tax_code' | 'tax_rate'
+>;
 
 type FormatAmountParams = {
   amount: number;
-  region: RegionInfo;
+  region: RegionInfo | undefined | null;
   includeTaxes?: boolean;
   minimumFractionDigits?: number;
   maximumFractionDigits?: number;
@@ -28,14 +34,14 @@ export const formatAmount = ({
 
   return convertToLocale({
     amount: taxAwareAmount,
-    currency_code: region.currency_code,
+    currency_code: region?.currency_code ?? 'eur',
     ...rest,
   });
 };
 
 type ComputeAmountParams = {
   amount: number;
-  region: RegionInfo;
+  region: RegionInfo | undefined | null;
   includeTaxes?: boolean;
 };
 
@@ -56,9 +62,12 @@ export const computeAmount = ({
   return amountWithTaxes;
 };
 
-const convertToDecimal = (amount: number, region: RegionInfo) => {
+const convertToDecimal = (
+  amount: number,
+  region: RegionInfo | undefined | null,
+) => {
   const divisor = noDivisionCurrencies.includes(
-    region?.currency_code?.toLowerCase(),
+    region?.currency_code?.toLowerCase() ?? '',
   )
     ? 1
     : 100;
@@ -66,7 +75,7 @@ const convertToDecimal = (amount: number, region: RegionInfo) => {
   return Math.floor(amount) / divisor;
 };
 
-const getTaxRate = (region?: RegionInfo) => {
+const getTaxRate = (region?: RegionInfo | null) => {
   return region && !isEmpty(region) ? region?.tax_rate / 100 : 0;
 };
 
