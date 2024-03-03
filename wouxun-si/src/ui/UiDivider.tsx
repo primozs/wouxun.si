@@ -1,4 +1,4 @@
-import { component$, QwikIntrinsicElements, Slot } from '@builder.io/qwik';
+import { component$, type QwikIntrinsicElements, Slot } from '@builder.io/qwik';
 
 type Props = {
   class?: QwikIntrinsicElements['div']['class'];

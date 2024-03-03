@@ -86,6 +86,10 @@ body {
   [data-theme='night'] .hidden-night {
     @apply hidden;
   }
+
+  .table th {
+    @apply text-base;
+  }
 }
 
 .prose h1 {
