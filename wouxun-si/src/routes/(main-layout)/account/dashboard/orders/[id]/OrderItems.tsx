@@ -4,9 +4,12 @@ import { UiLabel } from '~/ui/UiLabel';
 import { UiList } from '~/ui/UiList';
 import { UiText } from '~/ui/UiText';
 import { UiTitle } from '~/ui/UiTitle';
-import { LineItemPrice, LineItemUnitPrice } from './LineItemUnitPrice';
 import { ItemImage } from '~/modules/cart/ItemImage';
 import type { Order } from '@medusajs/client-types';
+import {
+  LineItemPrice,
+  LineItemUnitPrice,
+} from '~/modules/cart/LineItemUnitPrice';
 
 export interface OrderItemsProps {
   order: Order;
