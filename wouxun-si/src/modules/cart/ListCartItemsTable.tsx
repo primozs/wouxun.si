@@ -58,6 +58,40 @@ export const ListCartItemsTable = component$<ListCartItemsProps>(
   },
 );
 
+export interface ListCartItemsPreviewProps {
+  items?: LineItem[];
+  region?: Region | null;
+}
+
+export const ListCartItemsPreviewTable = component$<ListCartItemsProps>(
+  ({ items, region }) => {
+    return (
+      <div class="overflow-x-auto">
+        <table class="table">
+          <tbody>
+            {items &&
+              region &&
+              items
+                .sort((a, b) => {
+                  return a.created_at > b.created_at ? -1 : 1;
+                })
+                .map((item) => {
+                  return (
+                    <ListCartTableItem
+                      key={item.id}
+                      item={item}
+                      region={region}
+                      type="preview"
+                    />
+                  );
+                })}
+          </tbody>
+        </table>
+      </div>
+    );
+  },
+);
+
 export interface ListCartTableItemProps {
   item: LineItem;
   region: Region;
@@ -74,6 +108,11 @@ export const ListCartTableItem = component$<ListCartTableItemProps>(
             <ItemImage
               src={item.thumbnail}
               alt={item.variant?.product?.title ?? ''}
+              size="none"
+              class={[
+                type === 'preview' && 'w-16',
+                type === 'full' && 'lg:w-24 w-12',
+              ]}
             />
           </NavLink>
         </td>

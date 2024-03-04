@@ -62,7 +62,7 @@ export const CartNav = component$<CartButtonProps>(() => {
           class="mt-3 z-[1] card card-compact dropdown-content w-[450px] bg-base-100 shadow-xl"
         >
           <div class="card-body !p-0">
-            <UiContent class="max-h-[420px] space-y-4">
+            <UiContent classContainer="max-h-[420px]" class="py-1 space-y-4">
               <div q:slot="start" class="p-4">
                 <UiTitle size="lg">{$localize`Shopping bag`}</UiTitle>
               </div>

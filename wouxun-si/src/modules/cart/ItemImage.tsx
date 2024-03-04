@@ -1,23 +1,37 @@
-import { component$ } from '@builder.io/qwik';
+import { type QwikIntrinsicElements, component$ } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
 
 export interface ItemImageProps {
   src: string | null;
   alt: string;
+  size?: 'none' | 'xs' | 'sm' | 'base' | 'lg';
+  class?: QwikIntrinsicElements['div']['class'];
 }
 
-export const ItemImage = component$<ItemImageProps>((props) => {
-  return (
-    <div class="avatar">
-      <div class="w-24 border border-base-300 rounded-lg shadow-lg">
-        <Image
-          width={208}
-          height={264}
-          src={props.src}
-          alt={props.alt}
-          layout="constrained"
-        />
+export const ItemImage = component$<ItemImageProps>(
+  ({ size = 'base', ...props }) => {
+    return (
+      <div class="avatar">
+        <div
+          class={[
+            'border border-base-300 rounded-lg shadow-lg',
+            {
+              'w-24': size === 'base',
+              'w-16': size === 'sm',
+              'w-12': size === 'xs',
+            },
+            props.class,
+          ]}
+        >
+          <Image
+            width={208}
+            height={264}
+            src={props.src}
+            alt={props.alt}
+            layout="constrained"
+          />
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);

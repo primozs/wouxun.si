@@ -25,7 +25,7 @@ export default component$(() => {
   return (
     <UiContent overflowYAuto={false}>
       {cart.value && (cart.value?.items?.length ?? 0) > 0 ? (
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-x-20">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_416px] lg:gap-x-20 xl:gap-x-40">
           <div>
             <UiTitle as="h1" size="2xl" color="primary">
               {$localize`Shopping bag`}
@@ -39,7 +39,7 @@ export default component$(() => {
             />
           </div>
 
-          <div class="space-y-6">
+          <div class="space-y-4">
             <UiTitle as="h2" size="2xl">
               {$localize`Summary`}
             </UiTitle>

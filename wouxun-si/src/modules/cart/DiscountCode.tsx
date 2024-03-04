@@ -20,7 +20,6 @@ import { Button } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
 import { UiList } from '~/ui/UiList';
 import { formatAmount } from '../common/prices';
-import { UiLabel } from '~/ui/UiLabel';
 import {
   useRemoveDiscountAction,
   useRemoveGiftCardAction,
@@ -58,7 +57,7 @@ export const DiscountCode = component$<DiscountCodeProps>(({ cart }) => {
   });
 
   return (
-    <div>
+    <div class="space-y-2">
       {cart.value && <GiftCardsList cart={cart.value} />}
 
       {state.value.appliedDiscount ? (
@@ -106,16 +105,16 @@ export const AppliedDiscount = component$<AppliedDiscountProps>(
   ({ appliedDiscount, discount }) => {
     const action = useRemoveDiscountAction();
     return (
-      <div class="mb-5">
+      <div>
         <UiList>
           <UiTitle>{$localize`Discount applied`}:</UiTitle>
           <UiItem pad={false} lines="none">
-            <UiLabel>
+            <div class="flex flex-col">
               <UiText class="truncate">
                 {$localize`Code`}: {discount?.code}
               </UiText>
               <UiTitle>{appliedDiscount}</UiTitle>
-            </UiLabel>
+            </div>
 
             <Button
               q:slot="end"
@@ -152,13 +151,13 @@ export const GiftCardsList = component$<GiftCardsListProps>((props) => {
   return (
     <>
       {(props.cart.gift_cards?.length ?? 0) > 0 && (
-        <div class="mb-5">
+        <div>
           <UiList>
             <UiTitle>{$localize`Gift card(s) applied`}:</UiTitle>
             {props.cart.gift_cards?.map((gc) => {
               return (
-                <UiItem key={gc.code} pad={false}>
-                  <UiLabel>
+                <UiItem key={gc.code} pad={false} lines="none">
+                  <div class="flex flex-col">
                     <UiText class="truncate">
                       {$localize`Code`}: {gc.code}
                     </UiText>
@@ -169,7 +168,7 @@ export const GiftCardsList = component$<GiftCardsListProps>((props) => {
                         includeTaxes: false,
                       })}
                     </UiTitle>
-                  </UiLabel>
+                  </div>
 
                   <Button
                     q:slot="end"
