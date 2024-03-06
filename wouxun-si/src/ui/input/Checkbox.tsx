@@ -1,5 +1,5 @@
 import { component$, type QRL } from '@builder.io/qwik';
-import { InputError } from './InputError';
+import { InputHelper } from './InputHelper';
 
 type CheckboxProps = {
   ref: QRL<(element: HTMLInputElement) => void>;
@@ -13,37 +13,56 @@ type CheckboxProps = {
   class?: string;
   label: string;
   error?: string;
+  size?: 'base' | 'xs' | 'sm' | 'md';
+  color?: 'base' | 'primary' | 'secondary';
 };
 
-/**
- * Checkbox that allows users to select an option. The label next to the
- * checkbox describes the selection option.
- */
 export const Checkbox = component$(
-  ({ label, error, class: className, ...props }: CheckboxProps) => {
+  ({
+    label,
+    error,
+    class: className,
+    size = 'base',
+    color = 'primary',
+    ...props
+  }: CheckboxProps) => {
     const { name, required } = props;
     return (
-      <div class={['px-8 lg:px-10', className]}>
-        <label class="flex select-none space-x-4 font-medium md:text-lg lg:text-xl">
-          <input
-            {...props}
+      <div>
+        <div class={['relative flex items-start', className]}>
+          <label
             class={[
-              'mt-1 cursor-pointer',
-              'bg-base-100',
-              'border-base-300 rounded',
-              'text-primary',
-              'focus:ring-primary',
-              'h-4 w-4',
+              'flex select-none space-x-3 items-center',
+              'text-sm font-medium leading-6 text-base-content',
             ]}
-            type="checkbox"
-            id={name}
-            aria-invalid={!!error}
-            aria-errormessage={`${name}-error`}
-          />
-          <span>{label}</span>{' '}
-          {required && <span class="ml-1 text-error">*</span>}
-        </label>
-        <InputError name={name} error={error} />
+          >
+            <input
+              {...props}
+              class={[
+                'checkbox rounded-sm',
+                {
+                  'h-5 w-5': size === 'base',
+                  'checkbox-xs': size === 'xs',
+                  'checkbox-sm': size === 'sm',
+                  'checkbox-md': size === 'md',
+                },
+                {
+                  'checkbox-primary': color === 'primary',
+                  'checkbox-secondary': color === 'secondary',
+                },
+              ]}
+              type="checkbox"
+              id={name}
+              aria-invalid={!!error}
+              aria-errormessage={`${name}-error`}
+            />
+            <span>{label}</span>{' '}
+            {required && <span class="ml-1 text-error">*</span>}
+          </label>
+        </div>
+        <InputHelper id={`${name}-error`} error={!!error} intent="error">
+          {error}
+        </InputHelper>
       </div>
     );
   },
