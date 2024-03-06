@@ -143,8 +143,7 @@ export const UiSelectOption = component$<UiSelectOptionProps>(
           cursor-pointer
           relative text-base-content 
           select-none
-          hover:bg-primary 
-          hover:text-primary-content
+          hover:bg-base-200
           focus-visible:outline-none
           focus-visible:ring-2
           focus-visible:ring-offset-1

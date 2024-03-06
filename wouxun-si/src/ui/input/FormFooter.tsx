@@ -8,6 +8,8 @@ type FormFooterProps = {
   resetAction?: ActionStore<{}, Record<string, any>, true>;
   form?: string;
   modal?: Signal<HTMLDialogElement | undefined>;
+  withoutCancel?: boolean;
+  submitLabel?: string;
 };
 
 export function FormFooter({
@@ -15,6 +17,8 @@ export function FormFooter({
   resetAction,
   form,
   modal,
+  withoutCancel = false,
+  submitLabel,
 }: FormFooterProps) {
   return (
     <footer class="flex flex-row-reverse justify-start gap-4">
@@ -24,7 +28,7 @@ export function FormFooter({
         loading={formStore.submitting}
         form={form}
       >
-        {$localize`Submit`}
+        {submitLabel ? submitLabel : $localize`Submit`}
       </Button>
       {resetAction ? (
         <Form action={resetAction}>
@@ -38,17 +42,21 @@ export function FormFooter({
           </Button>
         </Form>
       ) : (
-        <Button
-          color="secondary"
-          type="button"
-          preventdefault:click
-          onClick$={() => {
-            reset(formStore);
-            modal?.value?.close();
-          }}
-        >
-          {$localize`Cancel`}
-        </Button>
+        <>
+          {withoutCancel === false && (
+            <Button
+              color="secondary"
+              type="button"
+              preventdefault:click
+              onClick$={() => {
+                reset(formStore);
+                modal?.value?.close();
+              }}
+            >
+              {$localize`Cancel`}
+            </Button>
+          )}
+        </>
       )}
     </footer>
   );
