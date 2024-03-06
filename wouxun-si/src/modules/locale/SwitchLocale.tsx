@@ -93,6 +93,7 @@ export const SwitchLocaleListItem = component$(() => {
         </UiIcon>
 
         <UiSelect
+          dropdown={false}
           value={locale.value}
           label={$localize`Change language`}
           onClick$={async () => {
