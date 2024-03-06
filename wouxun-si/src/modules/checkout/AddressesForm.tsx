@@ -154,7 +154,7 @@ const setInitialSignal = (
   return data;
 };
 
-export interface CheckoutAddressesFormProps {
+export interface AddressesFormProps {
   sameAsBilling: Signal<boolean>;
   cart:
     | Readonly<Signal<null>>
@@ -164,7 +164,7 @@ export interface CheckoutAddressesFormProps {
     | Readonly<Signal<Omit<Customer, 'password_hash'>>>;
 }
 
-export const CheckoutAddressesForm = component$<CheckoutAddressesFormProps>(
+export const AddressesForm = component$<AddressesFormProps>(
   ({ sameAsBilling, cart, customer }) => {
     const location = useLocation();
     const region = useGetRegionLoader();
@@ -190,8 +190,7 @@ export const CheckoutAddressesForm = component$<CheckoutAddressesFormProps>(
       return addresses;
     });
 
-    location.url.searchParams.set('step', 'delivery');
-    const deliverUrl = location.url.toString();
+    const deliverUrl = location.url.pathname + '?step=delivery';
 
     return (
       <div class="space-y-4">

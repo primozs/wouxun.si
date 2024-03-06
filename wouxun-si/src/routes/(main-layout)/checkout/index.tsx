@@ -1,13 +1,16 @@
 import { component$ } from '@builder.io/qwik';
 import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import type { Cart, Customer } from '@medusajs/client-types';
-import { CheckoutAddresses } from '~/modules/checkout/CheckoutAddresses';
+import { Addresses } from '~/modules/checkout/Addresses';
+import { Delivery } from '~/modules/checkout/Delivery';
 import { CheckoutSummary } from '~/modules/checkout/CheckoutSummary';
 import { PaymentWrapper } from '~/modules/checkout/PaymentWrapper';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { NotFound } from '~/modules/not-found/NotFound';
 import { useCartLoader } from '~/routes/plugin@store';
+import { Payment } from '~/modules/checkout/Payment';
+import { Review } from '~/modules/checkout/Review';
 
 export const usePaymentSession = routeLoader$(async (event) => {
   const cartId = event.cookie.get('cartid');
@@ -87,7 +90,11 @@ export const CheckoutForms = component$<CheckoutFormsProps>(() => {
   return (
     <>
       <div>
-        <CheckoutAddresses cart={cart} customer={customer} />
+        <Addresses cart={cart} customer={customer} />
+
+        <Delivery cart={cart} />
+        <Payment cart={cart} />
+        <Review cart={cart} />
       </div>
     </>
   );
