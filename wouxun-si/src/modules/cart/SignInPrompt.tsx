@@ -7,7 +7,7 @@ import { NavLink } from '~/ui/button';
 
 export const SignInPrompt = component$(() => {
   return (
-    <UiItem>
+    <UiItem pad={false} class="pb-4">
       <UiLabel>
         <UiTitle size="lg">{$localize`Already have an account?`}</UiTitle>
         <UiText>{$localize`Sign in for a better experience.`}</UiText>
@@ -18,7 +18,6 @@ export const SignInPrompt = component$(() => {
         intent="button"
         href="/account/login?callbackUrl=/cart"
         color="primary"
-        size="sm"
       >
         {$localize`Signin`} <span aria-hidden="true">&rarr;</span>
       </NavLink>

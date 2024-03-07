@@ -135,6 +135,7 @@ export const NavLink = component$<NavLinkProps>(
             },
             {
               'btn-md': size === 'base',
+              'btn-sm': size === 'sm',
             },
           ],
           intent === 'link' && [
