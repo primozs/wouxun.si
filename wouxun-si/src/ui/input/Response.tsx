@@ -40,7 +40,6 @@ export const Response = component$(
         frozenResponse.value?.status === 'success' &&
         redirectUrl
       ) {
-        console.log({ redirectUrl });
         nav(redirectUrl);
       }
     });

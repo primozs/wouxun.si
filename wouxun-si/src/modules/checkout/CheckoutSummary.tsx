@@ -1,14 +1,15 @@
-import { component$ } from '@builder.io/qwik';
+import { type Signal, component$ } from '@builder.io/qwik';
 import { UiTitle } from '~/ui/UiTitle';
 import { CartTotals } from '../cart/CartTotals';
 import { ListCartItemsPreviewTable } from '../cart/ListCartItemsTable';
 import { DiscountCode } from '../cart/DiscountCode';
-import { useCartLoader } from '~/routes/plugin@store';
+import type { Cart } from '@medusajs/client-types';
 
-export interface CheckoutSummaryProps {}
+export interface CheckoutSummaryProps {
+  cart: Readonly<Signal<Omit<Cart, 'refundable_amount' | 'refunded_total'>>>;
+}
 
-export const CheckoutSummary = component$<CheckoutSummaryProps>(() => {
-  const cart = useCartLoader();
+export const CheckoutSummary = component$<CheckoutSummaryProps>(({ cart }) => {
   return (
     <div>
       {cart.value && (

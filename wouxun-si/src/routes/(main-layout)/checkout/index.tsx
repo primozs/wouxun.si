@@ -66,7 +66,7 @@ export default component$(() => {
         <PaymentWrapper cart={cart}>
           <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_416px] lg:gap-x-20 xl:gap-x-40">
             <CheckoutForms />
-            <CheckoutSummary />
+            <CheckoutSummary cart={cart} />
           </div>
         </PaymentWrapper>
       ) : (
@@ -85,16 +85,29 @@ export interface CheckoutFormsProps {}
 export const CheckoutForms = component$<CheckoutFormsProps>(() => {
   const cart = usePaymentSession();
   const customer = useCustomer();
-  // const availableShippingMethods = useShippingMetods();
+  const availableShippingMethods = useShippingMetods();
 
   return (
     <>
-      <div>
-        <Addresses cart={cart} customer={customer} />
+      <div class="space-y-8">
+        <div>
+          <Addresses cart={cart} customer={customer} />
+        </div>
 
-        <Delivery cart={cart} />
-        <Payment cart={cart} />
-        <Review cart={cart} />
+        <div>
+          <Delivery
+            cart={cart}
+            availableShippingMethods={availableShippingMethods}
+          />
+        </div>
+
+        <div>
+          <Payment cart={cart} />
+        </div>
+
+        <div>
+          <Review cart={cart} />
+        </div>
       </div>
     </>
   );

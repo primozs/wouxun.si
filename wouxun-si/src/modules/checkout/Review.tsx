@@ -1,8 +1,6 @@
 import { type Signal, component$, useComputed$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import type { Cart } from '@medusajs/client-types';
-import { IoCheckmarkCircle } from '@qwikest/icons/ionicons';
-import { UiIcon } from '~/ui/UiIcon';
 import { UiItem } from '~/ui/UiItem';
 import { UiTitle } from '~/ui/UiTitle';
 import { NavLink } from '~/ui/button';
