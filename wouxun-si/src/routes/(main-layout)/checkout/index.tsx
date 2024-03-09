@@ -11,6 +11,7 @@ import { NotFound } from '~/modules/not-found/NotFound';
 import { useCartLoader } from '~/routes/plugin@store';
 import { Payment } from '~/modules/checkout/Payment';
 import { Review } from '~/modules/checkout/Review';
+import { UiDivider } from '~/ui/UiDivider';
 
 export const usePaymentSession = routeLoader$(async (event) => {
   const cartId = event.cookie.get('cartid');
@@ -89,22 +90,22 @@ export const CheckoutForms = component$<CheckoutFormsProps>(() => {
 
   return (
     <>
-      <div class="space-y-8">
+      <div class="space-y-4">
         <div>
           <Addresses cart={cart} customer={customer} />
         </div>
-
+        <UiDivider />
         <div>
           <Delivery
             cart={cart}
             availableShippingMethods={availableShippingMethods}
           />
         </div>
-
+        <UiDivider />
         <div>
           <Payment cart={cart} />
         </div>
-
+        <UiDivider />
         <div>
           <Review cart={cart} />
         </div>
