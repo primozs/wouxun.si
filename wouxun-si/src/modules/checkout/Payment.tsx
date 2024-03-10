@@ -100,9 +100,7 @@ export const FormSchema = v.object({
   provider_id: v.string([v.minLength(1, $localize`Select payment provider`)]),
   manual_payment_data: v.optional(
     v.object({
-      manual_payment: v.string([
-        v.minLength(1, $localize`Select manual payment`),
-      ]),
+      manual_payment: v.optional(v.string()),
     }),
   ),
 });
@@ -116,6 +114,14 @@ export const useFormAction = formAction$<FormData, ResponseType>(
 
     if (!cartId) {
       throw new FormError<FormData>($localize`No cartId cookie found`);
+    }
+
+    if (
+      data.provider_id === 'stenar-manual' &&
+      (data.manual_payment_data?.manual_payment === undefined ||
+        data.manual_payment_data?.manual_payment === '')
+    ) {
+      throw new FormError<FormData>($localize`Select manual payment`);
     }
 
     await client.carts
