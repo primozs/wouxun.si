@@ -343,7 +343,7 @@ export const PaymentDisplay = component$<PaymentDisplayProps>(
   },
 );
 
-const getPaymentLabel = (providerId: string | undefined) => {
+export const getPaymentLabel = (providerId: string | undefined) => {
   if (!providerId) return '';
   switch (providerId) {
     case 'stripe':
@@ -380,7 +380,7 @@ export const PaymentIcon = component$<PaymentIconProps>(({ providerId }) => {
   );
 });
 
-const getManualPaymentLabel = (type: string | undefined) => {
+export const getManualPaymentLabel = (type: string | undefined) => {
   if (!type) return '';
   switch (type) {
     case 'payment-on-delivery':

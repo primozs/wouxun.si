@@ -77,7 +77,7 @@ const fulfilmentStatusI18n = (status: FulfillmentStatus | string) => {
   return rec[status] ?? '';
 };
 
-const paymentStatusI18n = (status: PaymentStatus | string) => {
+export const paymentStatusI18n = (status: PaymentStatus | string) => {
   const rec: Record<string, string> = {
     not_paid: $localize`Not paid`,
     awaiting: $localize`Awaiting`,

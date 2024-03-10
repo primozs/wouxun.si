@@ -87,6 +87,10 @@ body {
     @apply hidden;
   }
 
+  /* .btn:disabled {
+    @apply border-opacity-0 bg-primary bg-opacity-50 text-primary-content text-opacity-90;
+  } */
+
   .table th {
     @apply text-base;
   }

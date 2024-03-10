@@ -4,6 +4,8 @@ import type { Cart } from '@medusajs/client-types';
 import { UiItem } from '~/ui/UiItem';
 import { UiTitle } from '~/ui/UiTitle';
 import { NavLink } from '~/ui/button';
+import { PaymentBtn } from './PaymentBtn';
+import { UiText } from '~/ui/UiText';
 
 export interface ReviewProps {
   cart:
@@ -45,7 +47,12 @@ export const Review = component$<ReviewProps>(({ cart }) => {
         )}
       </UiItem>
 
-      {isOpen.value ? <>form</> : <>review display</>}
+      {isOpen.value && previousStepsCompleted.value && (
+        <div class="space-y-8 mb-8">
+          <UiText>{$localize`Review checkout information and place the order.`}</UiText>
+          <PaymentBtn cart={cart} />
+        </div>
+      )}
     </>
   );
 });

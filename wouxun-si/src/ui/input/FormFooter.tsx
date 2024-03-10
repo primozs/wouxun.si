@@ -10,6 +10,7 @@ type FormFooterProps = {
   modal?: Signal<HTMLDialogElement | undefined>;
   withoutCancel?: boolean;
   submitLabel?: string;
+  disabled?: boolean;
 };
 
 export function FormFooter({
@@ -19,6 +20,7 @@ export function FormFooter({
   modal,
   withoutCancel = false,
   submitLabel,
+  disabled = false,
 }: FormFooterProps) {
   return (
     <footer class="flex flex-row-reverse justify-start gap-4">
@@ -27,6 +29,7 @@ export function FormFooter({
         type="submit"
         loading={formStore.submitting}
         form={form}
+        disabled={disabled}
       >
         {submitLabel ? submitLabel : $localize`Submit`}
       </Button>
