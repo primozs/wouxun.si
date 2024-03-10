@@ -3,11 +3,11 @@ import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { NotFound } from '~/modules/not-found/NotFound';
-import { OrderDetails } from './OrderDetails';
-import { OrderItems } from './OrderItems';
-import { ShippingDetails } from './ShippingDetails';
-import { OrderSummary } from './OrderSummary';
-import { Help } from './Help';
+import { OrderDetails } from '~/modules/orders/OrderDetails';
+import { OrderItems } from '~/modules/orders/OrderItems';
+import { ShippingDetails } from '~/modules/orders/ShippingDetails';
+import { OrderSummary } from '~/modules/orders/OrderSummary';
+import { Help } from '~/modules/orders/Help';
 import type { Order } from '@medusajs/client-types';
 
 export const useOrder = routeLoader$(async (event) => {
@@ -41,8 +41,8 @@ export default component$(() => {
         <div class="flex flex-col mb-4 gap-y-4">
           <OrderDetails order={order.value} showStatus />
           <OrderItems order={order.value} />
-          <ShippingDetails order={order.value} />
           <OrderSummary order={order.value} />
+          <ShippingDetails order={order.value} />
           <Help />
         </div>
       )}

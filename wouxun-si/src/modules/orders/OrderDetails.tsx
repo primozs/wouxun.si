@@ -10,22 +10,25 @@ import { formatDate } from '~/ui/common/formatDate';
 type OrderDetailsProps = {
   order: Order;
   showStatus?: boolean;
+  showHeader?: boolean;
 };
 
 export const OrderDetails = component$<OrderDetailsProps>(
-  ({ order, showStatus }) => {
+  ({ order, showStatus, showHeader = true }) => {
     const locale = useLocale();
     return (
       <div class="my-4">
-        <div class="flex items-center justify-between w-full">
-          <UiTitle size="xl" as="h1">
-            {$localize`Order details`}
-          </UiTitle>
+        {showHeader && (
+          <div class="flex items-center justify-between w-full">
+            <UiTitle size="xl" as="h1">
+              {$localize`Order details`}
+            </UiTitle>
 
-          <NavLink href="/account/dashboard/orders">
-            {$localize`Back to overview`}
-          </NavLink>
-        </div>
+            <NavLink href="/account/dashboard/orders">
+              {$localize`Back to overview`}
+            </NavLink>
+          </div>
+        )}
 
         <UiText>
           {$localize`We have sent the order confirmation details to`}{' '}
