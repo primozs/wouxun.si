@@ -328,12 +328,18 @@ export const PaymentDisplay = component$<PaymentDisplayProps>(
               </div>
             </div>
             <div class="flex flex-col w-1/2">
-              <UiTitle>{$localize`Payment details`}</UiTitle>
-              <UiText>
-                {getManualPaymentLabel(
-                  cart.value?.payment_session?.data?.manual_payment ?? '',
-                )}
-              </UiText>
+              {(cart.value?.payment_session.provider_id === 'manual' ||
+                cart.value?.payment_session.provider_id ===
+                  'stenar-manual') && (
+                <>
+                  <UiTitle>{$localize`Payment details`}</UiTitle>
+                  <UiText>
+                    {getManualPaymentLabel(
+                      cart.value?.payment_session?.data?.manual_payment ?? '',
+                    )}
+                  </UiText>
+                </>
+              )}
 
               {cart.value?.payment_session?.data?.manual_payment ===
                 'bank-transfer' && (

@@ -4,7 +4,6 @@ import type { Cart, Customer } from '@medusajs/client-types';
 import { Addresses } from '~/modules/checkout/Addresses';
 import { Delivery } from '~/modules/checkout/Delivery';
 import { CheckoutSummary } from '~/modules/checkout/CheckoutSummary';
-import { PaymentWrapper } from '~/modules/checkout/PaymentWrapper';
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import { NotFound } from '~/modules/not-found/NotFound';
@@ -64,12 +63,10 @@ export default component$(() => {
   return (
     <>
       {cart.value ? (
-        <PaymentWrapper cart={cart}>
-          <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_416px] lg:gap-x-20 xl:gap-x-40">
-            <CheckoutForms />
-            <CheckoutSummary cart={cart} />
-          </div>
-        </PaymentWrapper>
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_416px] lg:gap-x-20 xl:gap-x-40">
+          <CheckoutForms />
+          <CheckoutSummary cart={cart} />
+        </div>
       ) : (
         <NotFound centered={true} />
       )}

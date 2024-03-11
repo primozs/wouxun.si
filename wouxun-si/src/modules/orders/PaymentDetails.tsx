@@ -44,25 +44,27 @@ export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
 
           <div class="flex flex-col w-1/2">
             <UiTitle>{$localize`Payment details`}</UiTitle>
-            <UiText>
-              {$localize`Payment status`}:{' '}
-              <UiText as="span" color="light">
-                {paymentStatusI18n(order.payment_status)}
-              </UiText>
-            </UiText>
 
             {payment.value.data?.manual_payment && (
-              <UiText>
-                {$localize`Manual payment type`}:{' '}
-                <UiText as="span" color="light">
-                  {getManualPaymentLabel(
-                    payment.value.data?.manual_payment ?? '',
-                  )}
+              <>
+                <UiText>
+                  {$localize`Payment status`}:{' '}
+                  <UiText as="span" color="light">
+                    {paymentStatusI18n(order.payment_status)}
+                  </UiText>
                 </UiText>
-              </UiText>
-            )}
+                <UiText>
+                  {$localize`Manual payment type`}:{' '}
+                  <UiText as="span" color="light">
+                    {getManualPaymentLabel(
+                      payment.value.data?.manual_payment ?? '',
+                    )}
+                  </UiText>
+                </UiText>
 
-            <UiDivider />
+                <UiDivider />
+              </>
+            )}
 
             {payment.value.provider_id === 'stripe' &&
               payment.value.data.card_last4 && (
