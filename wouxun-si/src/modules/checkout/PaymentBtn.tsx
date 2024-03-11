@@ -1,8 +1,8 @@
 import { type Signal, component$ } from '@builder.io/qwik';
 import type { Cart, PaymentSession } from '@medusajs/client-types';
 import { PaymentManualBtn } from './PaymentManualBtn';
-import { PaymentPaypalBtn } from './PaymentPaypalBtn';
-import { PaymentStripeBtn } from './PaymentStripeBtn';
+import { PaymentPaypalBtn } from './paypal/PaymentPaypalBtn';
+import { PaymentStripeBtn } from './stripe/PaymentStripeBtn';
 
 export interface PaymentBtnProps {
   cart:
@@ -31,7 +31,7 @@ export const PaymentBtn = component$<PaymentBtnProps>(({ cart }) => {
         <PaymentPaypalBtn notReady={notReady} cart={cart} />
       )}
       {paymentSession.provider_id === 'stripe' && (
-        <PaymentStripeBtn notReady={notReady} />
+        <PaymentStripeBtn notReady={notReady} cart={cart} />
       )}
       {!paymentSession.provider_id && <>{$localize`Select payment method`}</>}
     </>

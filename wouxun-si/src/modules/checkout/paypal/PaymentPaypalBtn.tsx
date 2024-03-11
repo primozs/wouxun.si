@@ -8,12 +8,12 @@ import {
 import type { Cart, PaymentSession } from '@medusajs/client-types';
 import type { OnApproveActions, OnApproveData } from '@paypal/paypal-js';
 import { InputHelper } from '~/ui/input/InputHelper';
-import { PayPalButtons } from './paypal/PayPalButtons';
-import { usePaypalProvider } from './paypal/PayPalProvider';
+import { PayPalButtons } from './PayPalButtons';
+import { usePaypalProvider } from './PayPalProvider';
 import { FormError, formAction$, valiForm$ } from '@modular-forms/qwik';
 import * as v from 'valibot';
-import { getMedusaClient, getSrvSessionHeaders } from '../medusa';
-import { handleError } from '../logger';
+import { getMedusaClient, getSrvSessionHeaders } from '../../medusa';
+import { handleError } from '../../logger';
 
 export type FormData = v.Input<typeof FormSchema>;
 

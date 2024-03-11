@@ -167,7 +167,6 @@ export interface PaymentFormProps {
 
 export const PaymentForm = component$<PaymentFormProps>(({ cart }) => {
   const location = useLocation();
-
   const initialData = useSignal<InitialValues<FormData>>({
     provider_id: cart.value?.payment_session?.provider_id ?? '',
     manual_payment_data: {
@@ -184,14 +183,6 @@ export const PaymentForm = component$<PaymentFormProps>(({ cart }) => {
   const paymentSessions = useComputed$(() => {
     return cart.value?.payment_sessions ?? [];
   });
-
-  // const paymentSession = useComputed$(() => {
-  //   return cart.value?.payment_session ?? null;
-  // });
-
-  // const isStripe = useComputed$(() => {
-  //   return cart.value?.payment_session?.provider_id === 'stripe';
-  // });
 
   const redirectUrl = location.url.pathname + '?step=review';
 
@@ -270,35 +261,6 @@ export const PaymentForm = component$<PaymentFormProps>(({ cart }) => {
           submitLabel={$localize`Continue to review`}
         />
       </Form>
-      {/* {isStripe && (
-              <div class="mt-5 transition-all duration-150 ease-in-out">
-                <Text class="txt-medium-plus text-ui-fg-base mb-1">
-                  Enter your card details:
-                </Text>
-
-                <CardElement
-                  options={useOptions as StripeCardElementOptions}
-                  onChange={(e) => {
-                    setCardBrand(
-                      e.brand &&
-                        e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
-                    )
-                    setError(e.error?.message || null)
-                    setCardComplete(e.complete)
-                  }}
-                />
-              </div>
-            )} */}
-      {/* <ErrorMessage error={error} /> */}
-      {/* <Button
-              size="large"
-              class="mt-6"
-              onClick={handleSubmit}
-              isLoading={isLoading}
-              disabled={(isStripe && !cardComplete) || !cart.payment_session}
-            >
-              Continue to review
-            </Button> */}
     </>
   );
 });
