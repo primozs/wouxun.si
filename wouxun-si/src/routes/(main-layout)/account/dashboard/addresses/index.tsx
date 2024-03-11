@@ -25,7 +25,7 @@ export default component$(() => {
     <>
       <UiItem pad={false} classCenter="flex flex-col mb-8 gap-y-4" lines="none">
         <UiTitle size="xl" as="h1">
-          {$localize`Shipping Addresses`}
+          {$localize`Shipping addresses`}
         </UiTitle>
         <UiText wrap class="max-w-xl">
           {$localize`View and update your shipping addresses, you can add as many as you
