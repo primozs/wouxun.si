@@ -27,7 +27,7 @@ FROM node AS release
 USER node
 WORKDIR /app
 ENV NODE_ENV production
-ENV ORIGIN https://susa.cloud
+ENV ORIGIN https://wouxun.si
 COPY --chown=node --from=builder /app/dist ./dist
 COPY --chown=node --from=builder /app/public ./public
 COPY --chown=node --from=builder /app/server ./server
