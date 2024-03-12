@@ -99,7 +99,7 @@ export interface ImageOrPlaceholderProps {
 }
 
 export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
-  ({ image, alt, index }) => {
+  ({ image, alt }) => {
     return (
       <>
         {image ? (
@@ -110,13 +110,13 @@ export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
               width={310}
               cdn="directus"
               src={getImageUrl(image)}
-              {...(index === 0 && {
-                priority: true,
-                fetchPriority: 'high',
-              })}
-              {...(index !== 0 && {
-                loading: 'lazy',
-              })}
+              // {...(index === 0 && {
+              //   priority: true,
+              //   fetchPriority: 'high',
+              // })}
+              // {...(index !== 0 && {
+              //   loading: 'lazy',
+              // })}
               class="imageerr absolute inset-0 object-cover object-center"
               fill
             />
