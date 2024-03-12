@@ -27,15 +27,13 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
             {product.value.productDirectus?.title}
           </UiTitle>
 
-          <>
-            <ProductPrice product={product.value.productMedusa} />
-            <div class="flex flex-col">
-              <AddToCart
-                productMedusa={product.value.productMedusa}
-                productDirectus={product.value.productDirectus}
-              />
-            </div>
-          </>
+          <ProductPrice product={product.value.productMedusa} />
+          <div class="flex flex-col">
+            <AddToCart
+              productMedusa={product.value.productMedusa}
+              productDirectus={product.value.productDirectus}
+            />
+          </div>
         </div>
 
         <div class="flex flex-col gap-y-4">
@@ -71,33 +69,37 @@ export const AddToCart = component$<AddToCartProps>(
     const thumbnailId = productDirectus.thumbnail;
 
     return (
-      <Button
-        class="sm:max-w-[250px]"
-        color="primary"
-        onClick$={async () => {
-          adding.value = !adding.value;
+      <>
+        {variantId && (
+          <Button
+            class="sm:max-w-[250px]"
+            color="primary"
+            onClick$={async () => {
+              adding.value = !adding.value;
 
-          const { value } = await action.submit({
-            variantId: variantId ?? '',
-            directusId,
-            thumbnailId,
-          });
+              const { value } = await action.submit({
+                variantId: variantId ?? '',
+                directusId,
+                thumbnailId,
+              });
 
-          if (value.failed) {
-            addNotification({
-              type: 'error',
-              title: $localize`Error add to cart`,
-            });
-          }
+              if (value.failed) {
+                addNotification({
+                  type: 'error',
+                  title: $localize`Error add to cart`,
+                });
+              }
 
-          adding.value = false;
-        }}
-        loading={adding.value}
-        // disabled={adding.value}
-      >
-        <IoBagHandleOutline class="h-5 w-5" />
-        {$localize`Add to cart`}
-      </Button>
+              adding.value = false;
+            }}
+            loading={adding.value}
+            // disabled={adding.value}
+          >
+            <IoBagHandleOutline class="h-5 w-5" />
+            {$localize`Add to cart`}
+          </Button>
+        )}
+      </>
     );
   },
 );
