@@ -1,6 +1,4 @@
 import { type Signal, component$, useSignal, Slot, $ } from '@builder.io/qwik';
-import { Image } from '~/ui/unpic-img';
-import { getImageUrl } from '~/modules/directus';
 import { mdParse } from '~/ui/md-parse';
 import type { ProductDetail } from '~/modules/products/getDirectusProductData';
 import { Tags } from './Tags';
@@ -11,6 +9,7 @@ import { useNotifications } from '~/ui/notification/notificationsState';
 import { useAddToCartAction } from '~/routes/plugin@store';
 import { IoBagHandleOutline, IoCloseOutline } from '@qwikest/icons/ionicons';
 import { UiTitle } from '~/ui/UiTitle';
+import { Thumbnail } from './Thumbnail';
 
 export interface DetailsProps {
   product: Signal<{
@@ -110,30 +109,30 @@ type MainImageProps = {
 
 export const MainImage = component$<MainImageProps>(
   ({ image, productTitle }) => {
-    const imageSrc = getImageUrl(image ?? '');
     return (
       <ImageDialog>
-        <Image
-          width={1080}
-          height={720}
-          src={imageSrc}
+        <Thumbnail
+          thumbnail={image}
           alt={productTitle}
-          priority={true}
-          fetchpriority="high"
-          class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
-          layout="constrained"
-          cdn="directus"
+          index={0}
+          size="full"
+          class="xl:w-[440px]"
+          noBorder
         />
-        <Image
+
+        <div
+          class="flex items-center justify-center w-full h-full"
           q:slot="dialog"
-          width={1080}
-          height={720}
-          src={imageSrc}
-          alt={productTitle}
-          class="imageerr rounded-md aspect-[16/9] sm:aspect-[3/2] lg:aspect-[3/2]"
-          layout="constrained"
-          cdn="directus"
-        />
+        >
+          <Thumbnail
+            q:slot="dialog"
+            thumbnail={image}
+            alt={productTitle}
+            index={0}
+            size="h-full"
+            noBorder
+          />
+        </div>
       </ImageDialog>
     );
   },
@@ -146,33 +145,31 @@ export interface GalleryProps {
 
 export const Gallery = component$<GalleryProps>(({ images, productTitle }) => {
   return (
-    <div class="mt-10 grid grid-cols-2 gap-6">
-      {images.map((img) => {
-        const imageSrc = getImageUrl(img ?? '');
+    <div class="mt-10 grid grid-cols-2 gap-3">
+      {images.map((img, index) => {
         return (
           <ImageDialog key={img}>
-            <Image
-              width={770}
-              height={510}
-              src={imageSrc}
+            <Thumbnail
+              thumbnail={img}
               alt={productTitle}
-              priority={true}
-              fetchpriority="high"
-              class="imageerr aspect-[3/2] rounded-md"
-              layout="constrained"
-              cdn="directus"
+              index={index}
+              size="small"
+              class="w-full md:w-1/2"
             />
-            <Image
+
+            <div
+              class="flex items-center justify-center w-full h-full"
               q:slot="dialog"
-              width={1080}
-              height={720}
-              src={imageSrc}
-              alt={productTitle}
-              priority={false}
-              class="imageerr rounded-md aspect-[16/9] sm:aspect-[3/2] lg:aspect-[3/2]"
-              layout="constrained"
-              cdn="directus"
-            />
+            >
+              <Thumbnail
+                q:slot="dialog"
+                thumbnail={img}
+                alt={productTitle}
+                index={0}
+                size="h-full"
+                noBorder
+              />
+            </div>
           </ImageDialog>
         );
       })}
@@ -189,12 +186,15 @@ export const ImageDialog = component$(() => {
 
   return (
     <>
-      <div onClick$={handleClick} class="cursor-pointer">
+      <div
+        onClick$={handleClick}
+        class="cursor-pointer flex w-full justify-center"
+      >
         <Slot />
       </div>
 
       <dialog ref={ref} class="modal">
-        <div class="modal-box w-11/12 max-w-5xl p-10 overflow-hidden">
+        <div class="modal-box w-11/12 h-full max-w-5xl p-10 overflow-hidden">
           <form method="dialog">
             <Button
               intent="rounded"

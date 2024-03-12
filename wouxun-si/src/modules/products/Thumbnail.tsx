@@ -9,15 +9,17 @@ type ThumbnailProps = {
   alt: string | undefined;
   index: number;
   isFeatured?: boolean;
-  size?: 'small' | 'medium' | 'large' | 'full' | 'square';
+  size?: 'small' | 'medium' | 'large' | 'full' | 'square' | 'h-full';
   class?: QwikIntrinsicElements['div']['class'];
   overlayBlur?: boolean;
+  noBorder?: boolean;
 };
 
 export const Thumbnail = component$<ThumbnailProps>(
   ({
     size = 'small',
     overlayBlur = false,
+    noBorder = false,
     thumbnail,
     alt,
     index,
@@ -28,14 +30,11 @@ export const Thumbnail = component$<ThumbnailProps>(
       <div
         class={[
           `
-          relative w-full overflow-hidden p-4 
+          relative overflow-hidden p-4 
           bg-base-300 
-          rounded-lg 
-          shadow-sm
-          shadow-base-300 
-          group-hover:shadow-base-300 
+          
           transition-shadow ease-in-out duration-150
-          border border-base-300
+          
           `,
           {
             'aspect-[11/14]': isFeatured,
@@ -45,7 +44,16 @@ export const Thumbnail = component$<ThumbnailProps>(
             'w-[290px]': size === 'medium',
             'w-[440px]': size === 'large',
             'w-full': size === 'full',
+            'h-full w-auto': size === 'h-full',
           },
+          !noBorder &&
+            `
+            rounded-lg 
+            shadow-sm
+            shadow-base-300 
+            group-hover:shadow-base-300 
+            border border-base-300
+          `,
           overlayBlur &&
             `              
             group/card
