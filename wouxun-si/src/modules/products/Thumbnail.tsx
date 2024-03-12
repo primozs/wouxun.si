@@ -61,8 +61,8 @@ export const Thumbnail = component$<ThumbnailProps>(
               group-focus-within:card:opacity-100
               md:group-hover/card:opacity-100
               bg-overlay-light
+              text-overlay
               z-10 items-center justify-center transition-all
-              text-primary-content
             `"
           >
             <p>{$localize`View product`}</p>

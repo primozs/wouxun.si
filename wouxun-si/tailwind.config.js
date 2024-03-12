@@ -43,6 +43,7 @@ module.exports = {
     extend: {
       colors: {
         // 'base-400': 'hsl(var(--base-400) / <alpha-value>)',
+        overlay: 'rgba(255, 255, 255, 1)',
       },
       boxShadow: {
         'card-hover-dark':
