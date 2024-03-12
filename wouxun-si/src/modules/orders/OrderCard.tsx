@@ -3,7 +3,7 @@ import { UiTitle } from '~/ui/UiTitle';
 import type { Order } from '@medusajs/medusa';
 import { formatDate } from '~/ui/common/formatDate';
 import { formatAmount } from '~/modules/common/prices';
-import { Image } from '@unpic/qwik';
+import { Image } from '~/ui/unpic-img';
 import { NavLink } from '~/ui/button';
 import { plural } from '~/modules/locale/i18n-utils';
 import { useLocale } from '~/modules/locale/LocaleProvider';
@@ -55,12 +55,14 @@ export const OrderCard = component$<OrderCardProps>(({ order }) => {
               class="card card-compact w-full lg:w-52 bg-base-100 shadow-lg"
             >
               <figure>
-                <Image
-                  width={208}
-                  height={264}
-                  src={item.thumbnail}
-                  alt={item.variant?.product?.title ?? ''}
-                />
+                {item.thumbnail && (
+                  <Image
+                    width={208}
+                    height={264}
+                    src={item.thumbnail}
+                    alt={item.variant?.product?.title ?? ''}
+                  />
+                )}
               </figure>
               <div class="card-body">
                 <UiTitle>

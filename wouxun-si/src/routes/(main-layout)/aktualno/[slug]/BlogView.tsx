@@ -2,7 +2,7 @@ import { component$, type Signal } from '@builder.io/qwik';
 import type { wouxun_news } from '~/modules/directus/schema';
 import { formatDate } from '~/ui/common/formatDate';
 import { mdParse } from '~/ui/md-parse';
-import { Image } from '@unpic/qwik';
+import { Image } from '~/ui/unpic-img';
 import { getImageUrl } from '~/modules/directus';
 import { IoCalendarClearOutline } from '@qwikest/icons/ionicons';
 import { UiTitle } from '~/ui/UiTitle';
@@ -21,7 +21,7 @@ export const BlogView = component$<BlogViewProps>(({ post }) => {
         <div class="lg:order-2">
           <Image
             priority={true}
-            fetchPriority="high"
+            fetchpriority="high"
             layout="constrained"
             alt={post.value?.title}
             width={1080}

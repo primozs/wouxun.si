@@ -8,14 +8,7 @@ type Props = {
 
 export const ProductList = component$<Props>(({ products }) => {
   return (
-    <div
-      class="`
-      mx-auto my-5
-      grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8
-      sm:mx-0 sm:max-w-none sm:grid-cols-1    
-      lg:mx-0 lg:max-w-none lg:grid-cols-3
-      `"
-    >
+    <div class="my-5 grid grid-cols-2 w-full md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8">
       {products.value.map((product, index) => {
         return <ProductCard key={product.id} product={product} index={index} />;
       })}

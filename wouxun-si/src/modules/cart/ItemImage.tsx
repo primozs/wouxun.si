@@ -1,5 +1,5 @@
 import { type QwikIntrinsicElements, component$ } from '@builder.io/qwik';
-import { Image } from '@unpic/qwik';
+import { Image } from '~/ui/unpic-img';
 
 export interface ItemImageProps {
   src: string | null;
@@ -23,13 +23,15 @@ export const ItemImage = component$<ItemImageProps>(
             props.class,
           ]}
         >
-          <Image
-            width={208}
-            height={264}
-            src={props.src}
-            alt={props.alt}
-            layout="constrained"
-          />
+          {props.src && (
+            <Image
+              width={208}
+              height={264}
+              src={props.src}
+              alt={props.alt}
+              layout="constrained"
+            />
+          )}
         </div>
       </div>
     );

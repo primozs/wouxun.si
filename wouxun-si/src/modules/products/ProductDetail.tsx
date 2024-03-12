@@ -1,5 +1,5 @@
 import { type Signal, component$, useSignal, Slot, $ } from '@builder.io/qwik';
-import { Image } from '@unpic/qwik';
+import { Image } from '~/ui/unpic-img';
 import { getImageUrl } from '~/modules/directus';
 import { mdParse } from '~/ui/md-parse';
 import type { ProductDetail } from '~/modules/products/getDirectusProductData';
@@ -119,7 +119,7 @@ export const MainImage = component$<MainImageProps>(
           src={imageSrc}
           alt={productTitle}
           priority={true}
-          fetchPriority="high"
+          fetchpriority="high"
           class="imageerr aspect-[16/9] rounded-2xl sm:aspect-[3/2] lg:aspect-[3/2]"
           layout="constrained"
           cdn="directus"
@@ -157,7 +157,7 @@ export const Gallery = component$<GalleryProps>(({ images, productTitle }) => {
               src={imageSrc}
               alt={productTitle}
               priority={true}
-              fetchPriority="high"
+              fetchpriority="high"
               class="imageerr aspect-[3/2] rounded-md"
               layout="constrained"
               cdn="directus"

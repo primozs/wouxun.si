@@ -7,7 +7,7 @@ import {
 } from '@builder.io/qwik';
 import type { wouxun_news } from '~/modules/directus/schema';
 import { Alert } from '~/ui/alert';
-import { Image } from '@unpic/qwik';
+import { Image } from '~/ui/unpic-img';
 import { UseIntersectionObserver } from '~/ui/intersection-observer';
 import { getImageUrl } from '~/modules/directus';
 import { readItems } from '@directus/sdk';

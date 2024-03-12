@@ -9,7 +9,6 @@ import {
   type NoSerialize,
 } from '@builder.io/qwik';
 import { DImage } from '~/modules/directus/DImage';
-// import { Image } from '@unpic/qwik';
 // import { getImageUrl } from '~/services/directus';
 
 // https://swiperjs.com/swiper-api#parameters
