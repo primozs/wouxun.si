@@ -240,7 +240,9 @@ const getOptionLabel = (
 
   switch (localeKey) {
     case 'personal-pickup':
-      return $localize`Personal pickup`;
+      return (
+        $localize`Personal pickup` + ' (Škofja Loka, Dražgoše, Šolski teren)'
+      );
     case 'free-shipping':
       return $localize`Free shipping above ${formatAmount({
         amount: requirement?.amount ?? 0,
