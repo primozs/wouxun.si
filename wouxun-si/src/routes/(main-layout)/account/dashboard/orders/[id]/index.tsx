@@ -9,6 +9,7 @@ import { ShippingDetails } from '~/modules/orders/ShippingDetails';
 import { OrderSummary } from '~/modules/orders/OrderSummary';
 import { Help } from '~/modules/orders/Help';
 import type { Order } from '@medusajs/client-types';
+import { PaymentDetails } from '~/modules/orders/PaymentDetails';
 
 export const useOrder = routeLoader$(async (event) => {
   const client = getMedusaClient();
@@ -34,7 +35,7 @@ export const useOrder = routeLoader$(async (event) => {
 export default component$(() => {
   const order = useOrder();
   return (
-    <>
+    <section class="w-full max-w-4xl">
       {!order.value ? (
         <NotFound centered={true} />
       ) : (
@@ -43,10 +44,11 @@ export default component$(() => {
           <OrderItems order={order.value} />
           <OrderSummary order={order.value} />
           <ShippingDetails order={order.value} />
+          <PaymentDetails order={order.value} />
           <Help />
         </div>
       )}
-    </>
+    </section>
   );
 });
 

@@ -57,6 +57,7 @@
     "@types/lodash-es": "^4.17.12",
     "@types/markdown-it": "^13.0.7",
     "@types/node": "^20.11.25",
+    "@types/qrcode": "^1.5.5",
     "@types/set-cookie-parser": "^2.4.7",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
@@ -89,9 +90,12 @@
     "ky": "^1.2.2",
     "lodash-es": "^4.17.21",
     "markdown-it": "^14.0.0",
+    "qrcode": "^1.5.3",
+    "sepa-payment-qr-code": "^2.0.2",
     "set-cookie-parser": "^2.6.0",
     "swiper": "^11.0.7",
     "undici": "^6.7.1",
+    "upnqr": "^1.2.2",
     "valibot": "^0.30.0",
     "zod": "^3.22.4"
   }

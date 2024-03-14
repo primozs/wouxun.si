@@ -10,9 +10,13 @@ import {
   getPaymentLabel,
 } from '../checkout/Payment';
 import BankTransfer from '~/content/bankTransfer.mdx';
-import { formatAmount } from '../common/prices';
+import { computeAmount, formatAmount } from '../common/prices';
 import { paymentStatusI18n } from './OrderDetails';
 import { UiDivider } from '~/ui/UiDivider';
+import {
+  BankTransferEPCQrCode,
+  BankTransferUPNQrCode,
+} from '../checkout/BankTransferQrCode';
 
 export interface PaymentDetailsProps {
   order: Order;
@@ -40,6 +44,14 @@ export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
               <PaymentIcon providerId={payment.value.provider_id} />
               <UiText>{getPaymentLabel(payment.value.provider_id)}</UiText>
             </div>
+
+            <UiDivider />
+
+            {payment.value.data?.manual_payment === 'bank-transfer' && (
+              <div class="[&>p]:leading-8">
+                <BankTransfer />
+              </div>
+            )}
           </div>
 
           <div class="flex flex-col w-1/2">
@@ -83,7 +95,7 @@ export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
               </UiText>
             )}
 
-            {(payment.value.provider_id === 'manual' ||
+            {/* {(payment.value.provider_id === 'manual' ||
               payment.value.provider_id === 'stenar-manual') && (
               <UiText>
                 {`${formatAmount({
@@ -92,13 +104,28 @@ export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
                   includeTaxes: false,
                 })} order at ${formatDate(new Date(payment.value.created_at), locale.value)}`}
               </UiText>
-            )}
+            )} */}
 
             {payment.value.data?.manual_payment === 'bank-transfer' && (
               <>
-                <UiDivider />
-                <div class="[&>p]:leading-8">
-                  <BankTransfer />
+                <div class="flex flex-col sm:flex-row">
+                  <BankTransferUPNQrCode
+                    amount={computeAmount({
+                      amount: payment.value.amount,
+                      region: order.region,
+                      includeTaxes: false,
+                    })}
+                    order={'#' + order.display_id}
+                  />
+
+                  <BankTransferEPCQrCode
+                    amount={computeAmount({
+                      amount: payment.value.amount,
+                      region: order.region,
+                      includeTaxes: false,
+                    })}
+                    order={'#' + order.display_id}
+                  />
                 </div>
               </>
             )}
