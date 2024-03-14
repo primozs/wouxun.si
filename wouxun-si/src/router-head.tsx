@@ -6,8 +6,9 @@ export const RouterHead = component$(() => {
   const head = useDocumentHead();
   const loc = useLocation();
 
-  const descContent = head.meta.find((item) => item.name === 'description')
-    ?.content;
+  const descContent = head.meta.find(
+    (item) => item.name === 'description',
+  )?.content;
 
   const descriptionArr: string[] = [];
   if (descContent) descriptionArr.push(descContent);
@@ -18,15 +19,19 @@ export const RouterHead = component$(() => {
 
   return (
     <>
-      <title>{titleMsg}</title>
-      {description && <meta name="description" content={description} />}
-
-      <link rel="preconnect" href={config.DIRECTUS_API_URL} />
-      <link rel="dns-prefetch" href={config.DIRECTUS_API_URL} />
-
-      <link rel="canonical" href={loc.url.href} />
+      <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+      <title>{titleMsg}</title>
+      <link rel="preconnect" href={config.DIRECTUS_API_URL} />
+      {head.meta.map((m) => (
+        <meta key={m.key} {...m} />
+      ))}
+      {head.links.map((l) => (
+        <link key={l.key} {...l} />
+      ))}
+      {head.styles.map((s) => (
+        <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
+      ))}
       <link
         rel="preload"
         href="/fonts/inter/Inter-Regular.woff2?v=3.19"
@@ -45,7 +50,10 @@ export const RouterHead = component$(() => {
         as="font"
         crossOrigin="anonymous"
       ></link>
-
+      <link rel="dns-prefetch" href={config.DIRECTUS_API_URL} />
+      <link rel="manifest" href="/manifest.json" />
+      {description && <meta name="description" content={description} />}
+      <link rel="canonical" href={loc.url.href} />
       <meta name="format-detection" content="telephone=no" />
       <meta name="msapplication-tap-highlight" content="no" />
       <meta name="color-scheme" content="dark light" />
@@ -81,18 +89,6 @@ export const RouterHead = component$(() => {
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-title" content={config.META_TITLE} />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-      {head.meta.map((m) => (
-        <meta key={m.key} {...m} />
-      ))}
-
-      {head.links.map((l) => (
-        <link key={l.key} {...l} />
-      ))}
-
-      {head.styles.map((s) => (
-        <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
-      ))}
     </>
   );
 });
