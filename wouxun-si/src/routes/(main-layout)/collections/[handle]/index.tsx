@@ -1,46 +1,46 @@
 import { component$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import type { ProductCollection } from '@medusajs/client-types';
-import { handleError } from '~/modules/logger';
-import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
+import type { DocumentHead } from '@builder.io/qwik-city';
 import { NotFound } from '~/modules/not-found/NotFound';
+import { SortProducts } from '~/modules/products/SortProducts';
 import { UiTitle } from '~/ui/UiTitle';
+import {
+  useCollectionByHandle,
+  usePaginatedProductsLoader,
+} from '~/modules/products/loaders';
+import { PaginatedProducts } from '~/modules/products/PaginatedProducts';
 
-export const useCollectionByHandle = routeLoader$(async (event) => {
-  const client = getMedusaClient();
-  const handle = event.params.handle;
-
-  if (!handle) {
-    event.status(404);
-    return null;
-  }
-
-  const collection = await client.collections
-    .list({ handle: [handle] }, getSrvSessionHeaders(event))
-    .then(({ collections }) => collections[0])
-    .catch((err) => {
-      handleError(err);
-      return null;
-    });
-
-  if (!collection) event.status(404);
-  return collection as ProductCollection | null;
-});
+export {
+  useCollectionByHandle,
+  usePaginatedProductsLoader,
+} from '~/modules/products/loaders';
 
 export default component$(() => {
   const collection = useCollectionByHandle();
+  const paginated = usePaginatedProductsLoader();
 
   return (
     <>
       {!collection.value ? (
         <NotFound centered={true} />
       ) : (
-        <div>
-          <UiTitle as="h1" size="xl">
-            {collection.value.title}
-          </UiTitle>
+        <div class="flex flex-col sm:flex-row gap-10">
+          <SortProducts />
+          <div class="w-full">
+            <UiTitle as="h1" size="xl">
+              {collection.value.title}
+            </UiTitle>
+
+            <PaginatedProducts products={paginated.value.products} />
+          </div>
         </div>
       )}
     </>
   );
 });
+
+export const head: DocumentHead = (event) => {
+  const res = event.resolveValue(useCollectionByHandle);
+  return {
+    title: $localize`${res?.title} collection`,
+  };
+};
