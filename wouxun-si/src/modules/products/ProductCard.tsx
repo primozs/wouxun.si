@@ -1,33 +1,54 @@
 import { component$ } from '@builder.io/qwik';
-import type { ProductListIem } from '~/modules/products/getDirectusProductData';
 import { cleanTitle } from './cleanTitle';
 import { Thumbnail } from './Thumbnail';
 import { UiText } from '~/ui/UiText';
 import { Link } from '@builder.io/qwik-city';
+import type { ProductPreviewType } from '../medusa/types';
 
 type ProductCardProps = {
-  product: ProductListIem;
+  handle: string | null;
+  thumbnail: string | null;
+  title: string;
   index: number;
+  price?: ProductPreviewType['price'];
+  medusa?: boolean;
 };
 
 export const ProductCard = component$<ProductCardProps>(
-  ({ product, index }) => {
+  ({ handle, thumbnail, title, price, index, medusa = false }) => {
     return (
-      <Link href={`/product/${product.handle}`}>
+      <Link href={`/product/${handle}`}>
         <article>
           <Thumbnail
-            thumbnail={product.thumbnail}
-            alt={product.title}
+            thumbnail={thumbnail}
+            alt={title}
             index={index}
             size="full"
             overlayBlur
+            medusa={medusa}
           />
 
           <div class="flex mt-4 justify-between">
             <UiText color="light">
               {/* {product.title} */}
-              {cleanTitle(product.title)}
+              {cleanTitle(title)}
             </UiText>
+
+            {price && (
+              <>
+                {price.price_type === 'sale' && (
+                  <UiText class="line-through" color="light">
+                    {price.original_price}
+                  </UiText>
+                )}
+                <UiText
+                  color={price.price_type === 'sale' ? 'primary' : 'light'}
+                  class="font-semibold"
+                >
+                  {price.calculated_price}
+                </UiText>
+              </>
+            )}
           </div>
         </article>
       </Link>

@@ -13,6 +13,7 @@ type ThumbnailProps = {
   class?: QwikIntrinsicElements['div']['class'];
   overlayBlur?: boolean;
   noBorder?: boolean;
+  medusa?: boolean;
 };
 
 export const Thumbnail = component$<ThumbnailProps>(
@@ -24,6 +25,7 @@ export const Thumbnail = component$<ThumbnailProps>(
     alt,
     index,
     isFeatured,
+    medusa = false,
     ...props
   }) => {
     return (
@@ -85,7 +87,12 @@ export const Thumbnail = component$<ThumbnailProps>(
             transition-transform ease-linear duration-300
           `"
         >
-          <ImageOrPlaceholder image={thumbnail} alt={alt} index={index} />
+          <ImageOrPlaceholder
+            image={thumbnail}
+            alt={alt}
+            index={index}
+            medusa={medusa}
+          />
         </div>
       </div>
     );
@@ -95,11 +102,12 @@ export const Thumbnail = component$<ThumbnailProps>(
 export interface ImageOrPlaceholderProps {
   image: string | null | undefined;
   alt: string | undefined;
+  medusa?: boolean;
   index: number;
 }
 
 export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
-  ({ image, alt }) => {
+  ({ image, alt, medusa = false }) => {
     return (
       <>
         {image ? (
@@ -109,7 +117,7 @@ export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
               height={470}
               width={310}
               cdn="directus"
-              src={getImageUrl(image)}
+              src={medusa === false ? getImageUrl(image) : image}
               // {...(index === 0 && {
               //   priority: true,
               //   fetchPriority: 'high',
