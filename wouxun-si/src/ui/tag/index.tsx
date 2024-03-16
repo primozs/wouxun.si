@@ -1,25 +1,27 @@
 import { component$, Slot } from '@builder.io/qwik';
 
 export type TagProps = {
-  variant?: 'neutral' | 'blue';
-  size?: 'small' | 'medium';
+  variant?: 'neutral' | 'primary';
+  size?: 'sm' | 'md' | 'lg';
   class?: string;
 };
 
 export const Tag = component$(
-  ({ size = 'medium', variant = 'blue', ...rest }: TagProps) => {
+  ({ size = 'md', variant = 'primary', ...rest }: TagProps) => {
     return (
       <div
         class={[
-          rest.class,
-          `rounded-md inline-flex items-center justify-center 
-          text-sm font-medium`,
+          `badge badge-outline rounded-md truncate`,
           {
-            'bg-neutral border border-neutral-content text-neutral-content':
-              variant === 'neutral',
-            'border border-primary text-primary': variant === 'blue',
+            'badge-neutral': variant === 'neutral',
+            'badge-primary': variant === 'primary',
           },
-          { 'py-0.5 px-2': size === 'medium', 'px-1.5': size === 'small' },
+          {
+            'badge-sm': size === 'sm',
+            'badge-md': size === 'md',
+            'badge-lg': size === 'lg',
+          },
+          rest.class,
         ]}
       >
         <Slot />

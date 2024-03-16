@@ -17,7 +17,7 @@ export const Tags = component$<TagsProps>(({ product }) => {
     return null;
   }
   return (
-    <div class="flex items-center gap-x-1.5">
+    <div class="flex items-center flex-wrap gap-1.5">
       {tags.map((tag) => {
         if (!tag) return null;
         return <Tag key={tag.id}>{tag.value}</Tag>;
