@@ -3,6 +3,7 @@ import type { PricedProduct } from '@medusajs/medusa/dist/types/pricing';
 import type { CalculatedVariant, ProductPreviewType } from '../medusa/types';
 import { getPercentageDiff } from './getPercentageDiff';
 import { formatAmount } from './prices';
+import { imgProxyUrl } from './imageUrl';
 
 export const transformProductPreview = (
   product: PricedProduct,
@@ -25,7 +26,11 @@ export const transformProductPreview = (
     id: product.id!,
     title: product.title!,
     handle: product.handle!,
-    thumbnail: product.thumbnail!,
+    thumbnail: imgProxyUrl({
+      height: 470,
+      width: 310,
+      url: product.thumbnail!,
+    }),
     created_at: product.created_at,
     price: cheapestVariant
       ? {

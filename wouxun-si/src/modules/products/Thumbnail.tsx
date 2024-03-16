@@ -3,7 +3,6 @@ import { IoImageOutline } from '@qwikest/icons/ionicons';
 import { Image } from '~/ui/unpic-img';
 import { getImageUrl } from '../directus';
 import { UiIcon } from '~/ui/UiIcon';
-import { imgProxyUrl } from '../common/imageUrl';
 
 type ThumbnailProps = {
   thumbnail: string | null | undefined;
@@ -118,11 +117,7 @@ export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
               height={470}
               width={310}
               {...(directus && { cdn: 'directus' })}
-              src={
-                directus === true
-                  ? getImageUrl(image)
-                  : imgProxyUrl({ height: 470, width: 310, url: image })
-              }
+              src={directus === true ? getImageUrl(image) : image}
               // {...(index === 0 && {
               //   priority: true,
               //   fetchPriority: 'high',
