@@ -9,6 +9,8 @@ import type {
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import type { ProductPreviewType } from '../medusa/types';
+import { StoreGetProductsParams } from '@medusajs/medusa';
+import { config } from '~/config';
 
 export type ProductListProducts = ReturnType<typeof useProductsLoader>;
 
@@ -68,13 +70,6 @@ export const useCategoryByHandle = routeLoader$(async (event) => {
   return category as ProductCategory | null;
 });
 
-type PaginatedProductsParams = {
-  limit: number;
-  collection_id?: string[];
-  category_id?: string[];
-  id?: string[];
-};
-
 // eslint-disable-next-line qwik/loader-location
 export const usePaginatedProductsLoader = routeLoader$(async (event) => {
   const PRODUCT_LIMIT = 12;
@@ -82,7 +77,7 @@ export const usePaginatedProductsLoader = routeLoader$(async (event) => {
   const page = event.url.searchParams.get('page');
   const pageNumber = page ? parseInt(page) : 1;
 
-  const queryParams: PaginatedProductsParams = {
+  const queryParams: StoreGetProductsParams = {
     limit: PRODUCT_LIMIT,
   };
 
@@ -110,6 +105,8 @@ export const usePaginatedProductsLoader = routeLoader$(async (event) => {
   if (category) {
     queryParams['category_id'] = [category.id];
   }
+
+  queryParams['sales_channel_id'] = [config.MEDUSA_SALES_CHANNEL_ID];
 
   // if (productsIds) {
   //   queryParams['id'] = productsIds;
