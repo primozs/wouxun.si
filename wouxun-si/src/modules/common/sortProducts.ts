@@ -6,7 +6,7 @@ const stripCurrency = (price: string) => {
 
 export const sortProducts = (
   products: ProductPreviewType[],
-  sortBy: string | null,
+  sortBy: string | null | undefined,
 ) => {
   if (sortBy === 'price_asc') {
     return products.sort((a, b) => {

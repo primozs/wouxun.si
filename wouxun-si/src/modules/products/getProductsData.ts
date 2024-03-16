@@ -56,7 +56,7 @@ export const getProductsListWithSort = async function getProductsListWithSort(
   {
     page = 0,
     queryParams,
-    sortBy = 'created_at',
+    sortBy = 'price_asc',
     region,
   }: {
     page?: number;

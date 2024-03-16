@@ -78,7 +78,7 @@ type PaginatedProductsParams = {
 // eslint-disable-next-line qwik/loader-location
 export const usePaginatedProductsLoader = routeLoader$(async (event) => {
   const PRODUCT_LIMIT = 12;
-  const sortBy = event.url.searchParams.get('sortBy');
+  const sortBy = event.url.searchParams.get('sortBy') ?? undefined;
   const page = event.url.searchParams.get('page');
   const pageNumber = page ? parseInt(page) : 1;
 

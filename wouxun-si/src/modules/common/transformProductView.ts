@@ -30,6 +30,7 @@ export const transformProductPreview = (
       height: 470,
       width: 310,
       url: product.thumbnail!,
+      resizeType: 'fill',
     }),
     created_at: product.created_at,
     price: cheapestVariant

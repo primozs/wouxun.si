@@ -8,7 +8,7 @@ import { getDirectusClient } from '~/modules/directus';
 import { handleError } from '~/modules/logger';
 import { PageContainer } from '~/modules/layout/PageContainer';
 
-export { useProductsLoader } from '~/modules/products/loaders';
+export { usePaginatedProductsLoader } from '~/modules/products/loaders';
 
 export type BannersData = {
   id: string;

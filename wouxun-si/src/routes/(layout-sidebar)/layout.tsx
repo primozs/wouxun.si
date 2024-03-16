@@ -26,7 +26,7 @@ export default component$(() => {
           rounded-xl p-3 mb-10 mt-2`,
           ]}
         >
-          <h2>Ponudba</h2>
+          <h2>{$localize`Products`}</h2>
           <ul class="!list-none !list-inside !pl-0">
             {products.value.map((item) => {
               return (
