@@ -1,15 +1,17 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { Header } from '~/modules/layout/header';
 import OstaliModeli from '~/content/ostaliModeli.mdx';
+import OtherModels from '~/content/otherModels.mdx';
 import { cleanTitle } from '~/modules/products/cleanTitle';
 import { Footer } from '~/modules/layout/footer';
 import { useProductsLoader } from '~/modules/products/loaders';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 
 export { useProductsLoader } from '~/modules/products/loaders';
 
 export default component$(() => {
   const products = useProductsLoader();
-
+  const locale = useLocale();
   return (
     <>
       <Header />
@@ -53,7 +55,7 @@ export default component$(() => {
             })}
           </ul>
 
-          <OstaliModeli />
+          {locale.value === 'sl' ? <OstaliModeli /> : <OtherModels />}
         </aside>
 
         <main class="flex-grow mb-5 mt-2 order-first sm:order-2">

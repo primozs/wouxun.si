@@ -10,6 +10,7 @@ import {
   getPaymentLabel,
 } from '../checkout/Payment';
 import BankTransfer from '~/content/bankTransfer.mdx';
+import BankTransferEN from '~/content/bankTransferEN.mdx';
 import { computeAmount, formatAmount } from '../common/prices';
 import { paymentStatusI18n } from './OrderDetails';
 import { UiDivider } from '~/ui/UiDivider';
@@ -49,7 +50,7 @@ export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
 
             {payment.value.data?.manual_payment === 'bank-transfer' && (
               <div class="[&>p]:leading-8">
-                <BankTransfer />
+                {locale.value === 'sl' ? <BankTransfer /> : <BankTransferEN />}
               </div>
             )}
           </div>
