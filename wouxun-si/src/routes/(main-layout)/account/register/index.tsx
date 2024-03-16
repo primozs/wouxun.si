@@ -17,6 +17,7 @@ import { Response } from '~/ui/input/Response';
 import { TextInput } from '~/ui/input/TextInput';
 import { Button, NavLink } from '~/ui/button';
 import { SectionContainerSmall } from '~/modules/layout/PageContainer';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 
 export default component$(() => {
   return (
@@ -85,6 +86,7 @@ export const useFormAction = formAction$<RegisterForm, ResponseType>(
 );
 
 export const RegisterView = component$(() => {
+  const locale = useLocale();
   const [registerForm, { Form, Field }] = useForm<RegisterForm>({
     loader: useFormLoader(),
     validate: valiForm$(RegisterSchema),
@@ -171,7 +173,7 @@ export const RegisterView = component$(() => {
         </Field>
 
         <div class="flex items-center justify-end">
-          <NavLink size="sm" href="/sl/terms-and-conditions">
+          <NavLink size="sm" href={`/${locale.value}/terms-and-conditions`}>
             {$localize`Terms of use, privacy policy`}
           </NavLink>
         </div>
