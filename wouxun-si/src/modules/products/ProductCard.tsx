@@ -11,11 +11,11 @@ type ProductCardProps = {
   title: string;
   index: number;
   price?: ProductPreviewType['price'];
-  medusa?: boolean;
+  directus?: boolean;
 };
 
 export const ProductCard = component$<ProductCardProps>(
-  ({ handle, thumbnail, title, price, index, medusa = false }) => {
+  ({ handle, thumbnail, title, price, index, directus = true }) => {
     return (
       <Link href={`/product/${handle}`}>
         <article>
@@ -25,7 +25,7 @@ export const ProductCard = component$<ProductCardProps>(
             index={index}
             size="full"
             overlayBlur
-            medusa={medusa}
+            directus={directus}
           />
 
           <div class="flex mt-4 justify-between">

@@ -19,7 +19,7 @@ export const PaginatedProducts = component$<PaginatedProductsProps>(
               title={product.title}
               index={index}
               price={product.price}
-              medusa
+              directus={false}
             />
           );
         })}

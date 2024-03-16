@@ -3,6 +3,7 @@ import { IoImageOutline } from '@qwikest/icons/ionicons';
 import { Image } from '~/ui/unpic-img';
 import { getImageUrl } from '../directus';
 import { UiIcon } from '~/ui/UiIcon';
+import { imgProxyUrl } from '../common/imageUrl';
 
 type ThumbnailProps = {
   thumbnail: string | null | undefined;
@@ -13,7 +14,7 @@ type ThumbnailProps = {
   class?: QwikIntrinsicElements['div']['class'];
   overlayBlur?: boolean;
   noBorder?: boolean;
-  medusa?: boolean;
+  directus?: boolean;
 };
 
 export const Thumbnail = component$<ThumbnailProps>(
@@ -25,7 +26,7 @@ export const Thumbnail = component$<ThumbnailProps>(
     alt,
     index,
     isFeatured,
-    medusa = false,
+    directus = true,
     ...props
   }) => {
     return (
@@ -91,7 +92,7 @@ export const Thumbnail = component$<ThumbnailProps>(
             image={thumbnail}
             alt={alt}
             index={index}
-            medusa={medusa}
+            directus={directus}
           />
         </div>
       </div>
@@ -102,12 +103,12 @@ export const Thumbnail = component$<ThumbnailProps>(
 export interface ImageOrPlaceholderProps {
   image: string | null | undefined;
   alt: string | undefined;
-  medusa?: boolean;
+  directus?: boolean;
   index: number;
 }
 
 export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
-  ({ image, alt, medusa = false }) => {
+  ({ image, alt, directus = true }) => {
     return (
       <>
         {image ? (
@@ -116,8 +117,12 @@ export const ImageOrPlaceholder = component$<ImageOrPlaceholderProps>(
               alt={alt}
               height={470}
               width={310}
-              cdn="directus"
-              src={medusa === false ? getImageUrl(image) : image}
+              {...(directus && { cdn: 'directus' })}
+              src={
+                directus === true
+                  ? getImageUrl(image)
+                  : imgProxyUrl({ height: 470, width: 310, url: image })
+              }
               // {...(index === 0 && {
               //   priority: true,
               //   fetchPriority: 'high',
