@@ -3,7 +3,12 @@ import { config } from '~/config';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import type { RequestEvent, RequestEventLoader } from '@builder.io/qwik-city';
 import { handleError } from '~/modules/logger';
-import type { Cart, Region } from '@medusajs/client-types';
+import type {
+  Cart,
+  ProductCategory,
+  ProductCollection,
+  Region,
+} from '@medusajs/client-types';
 
 export const useSetCartItemQuantityAction = routeAction$(
   async (data, event) => {
@@ -244,3 +249,47 @@ const getRegion = async (
   event.sharedMap.set('region', shared);
   return shared as unknown as Promise<Region | null>;
 };
+
+export const useStoreCategories = routeLoader$(async (event) => {
+  const client = getMedusaClient();
+  const offset = 0;
+  const limit = 6;
+
+  const res = await client.productCategories
+    .list({ limit, offset }, getSrvSessionHeaders(event))
+    .catch((err) => {
+      handleError(err);
+      return null;
+    });
+
+  const product_categories = (res?.product_categories ??
+    []) as unknown as ProductCategory[];
+  const count = res?.count ?? 0;
+
+  return {
+    product_categories,
+    count,
+  };
+});
+
+export const useStoreCollections = routeLoader$(async (event) => {
+  const client = getMedusaClient();
+  const offset = 0;
+  const limit = 6;
+
+  const res = await client.collections
+    .list({ limit, offset }, getSrvSessionHeaders(event))
+    .then(({ collections }) => collections)
+    .catch((err) => {
+      handleError(err);
+      return null;
+    });
+
+  const count = res?.length ?? 0;
+  const collections = (res ?? []) as unknown as ProductCollection[];
+
+  return {
+    collections,
+    count,
+  };
+});

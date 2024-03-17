@@ -1,6 +1,10 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useComputed$ } from '@builder.io/qwik';
 import Contact from '~/content/contact.mdx';
 import { MainNavigation } from '../MainNavigation';
+import { NavLink } from '~/ui/button';
+import { UiTitle } from '~/ui/UiTitle';
+import { useStoreCategories, useStoreCollections } from '~/routes/plugin@store';
+import { useLocale } from '~/modules/locale/LocaleProvider';
 
 export const Footer = component$(() => {
   return (
@@ -8,14 +12,11 @@ export const Footer = component$(() => {
       class="content-visibility-auto contain-intrinsic-size-[auto_1000px] bg-primary text-primary-content"
       aria-labelledby="footer-heading"
     >
-      <h2 id="footer-heading" class="sr-only">
-        Footer
-      </h2>
-
       <div class="max-w-screen-2xl mx-auto p-6">
         <div class="hidden sm:block">
           <MainNavigation darkBg={true} />
         </div>
+        <CollectionsCategories />
         <div
           class="`    
           sm:pt-5 sm:mt-5   
@@ -36,5 +37,97 @@ export const Footer = component$(() => {
         </div>
       </div>
     </footer>
+  );
+});
+
+export const CollectionsCategories = component$(() => {
+  const collection = useStoreCollections();
+  const categories = useStoreCategories();
+  const locale = useLocale();
+
+  const productCategories = useComputed$(() => {
+    return categories.value.product_categories.filter(
+      (item) => item.metadata?.locale === locale.value,
+    );
+  });
+
+  return (
+    <div class="flex justify-between my-10">
+      <div class="gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-2">
+        {productCategories.value.length > 0 && (
+          <div class="flex flex-col gap-y-2">
+            <UiTitle color="primary-content">{$localize`Categories`}</UiTitle>
+            <ul class="grid grid-cols-1 gap-2">
+              {productCategories.value.slice(0, 6).map((c) => {
+                if (c.parent_category) {
+                  return;
+                }
+
+                const children =
+                  c.category_children?.map((child) => ({
+                    name: child.name,
+                    handle: child.handle,
+                    id: child.id,
+                  })) || null;
+
+                return (
+                  <li class="flex flex-col gap-2" key={c.id}>
+                    <NavLink
+                      size="sm"
+                      color="neutral"
+                      href={`/categories/${c.handle}`}
+                    >
+                      {c.name}
+                    </NavLink>
+                    {children && (
+                      <ul class="grid grid-cols-1 ml-3 gap-2">
+                        {children &&
+                          children.map((child) => (
+                            <li key={child.id}>
+                              <NavLink
+                                size="sm"
+                                color="neutral"
+                                href={`/categories/${child.handle}`}
+                              >
+                                {child.name}
+                              </NavLink>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+        {collection.value.collections.length > 0 && (
+          <div class="flex flex-col gap-y-2">
+            <UiTitle color="primary-content">{$localize`Collections`}</UiTitle>
+            <ul
+              class={[
+                'grid grid-cols-1 gap-2',
+                {
+                  'grid-cols-2':
+                    (collection.value.collections?.length || 0) > 3,
+                },
+              ]}
+            >
+              {collection.value.collections?.slice(0, 6).map((c) => (
+                <li key={c.id}>
+                  <NavLink
+                    size="sm"
+                    color="neutral"
+                    href={`/collections/${c.handle}`}
+                  >
+                    {c.title}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
   );
 });

@@ -2,7 +2,7 @@ import { Slot, component$, type QwikIntrinsicElements } from '@builder.io/qwik';
 
 type Props = {
   class?: QwikIntrinsicElements['div']['class'];
-  color?: 'base' | 'light' | 'primary' | 'secondary';
+  color?: 'base' | 'light' | 'primary' | 'secondary' | 'primary-content';
   size?: 'base' | 'sm' | 'lg' | 'xl' | '2xl';
   as?: 'h1' | 'h2' | 'h3' | 'div';
   truncate?: boolean;
@@ -21,6 +21,7 @@ export const UiTitle = component$<Props>(
           color === 'base' && 'text-base-content',
           color === 'light' && 'text-base-content/60',
           color === 'primary' && 'text-primary',
+          color === 'primary-content' && 'text-primary-content',
           color === 'secondary' && 'text-secondary',
           size === 'base' && 'font-semibold',
           size === 'sm' && 'text-sm font-semibold',
