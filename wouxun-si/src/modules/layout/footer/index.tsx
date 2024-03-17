@@ -1,6 +1,6 @@
 import { component$, useComputed$ } from '@builder.io/qwik';
 import Contact from '~/content/contact.mdx';
-import { MainNavigation } from '../MainNavigation';
+// import { MainNavigation } from '../MainNavigation';
 import { NavLink } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
 import { useStoreCategories, useStoreCollections } from '~/routes/plugin@store';
@@ -13,9 +13,9 @@ export const Footer = component$(() => {
       aria-labelledby="footer-heading"
     >
       <div class="max-w-screen-2xl mx-auto p-6">
-        <div class="hidden sm:block">
+        {/* <div class="hidden sm:block">
           <MainNavigation darkBg={true} />
-        </div>
+        </div> */}
         <CollectionsCategories />
         <div
           class="`    
@@ -52,7 +52,7 @@ export const CollectionsCategories = component$(() => {
   });
 
   return (
-    <div class="flex justify-between my-10">
+    <div class="flex justify-between my-0">
       <div class="gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-2">
         {productCategories.value.length > 0 && (
           <div class="flex flex-col gap-y-2">
