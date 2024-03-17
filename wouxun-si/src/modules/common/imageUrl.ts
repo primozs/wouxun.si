@@ -12,8 +12,8 @@ const sign = (salt: string, target: string, secret: string) => {
 
 // https://docs.imgproxy.net/usage/processing#enlarge
 export const imgProxyUrl = ({
-  width = 310,
-  height = 470,
+  width,
+  height,
   url,
   gravity = '/gravity:ce',
   resizeType = 'fill',
@@ -27,7 +27,7 @@ export const imgProxyUrl = ({
   const KEY = config.IMAGE_PROXY_KEY;
   const SALT = config.IMAGE_PROXY_SALT;
 
-  const path = `/resize:${resizeType}:${width}:${height}:0${gravity}/plain/${url}`;
+  const path = `/resize:${resizeType}:${width}:${height}:1:1${gravity}/strip_metadata:1/plain/${url}`;
   const signature = sign(SALT, path, KEY);
   const result = `/${signature}${path}`;
 
