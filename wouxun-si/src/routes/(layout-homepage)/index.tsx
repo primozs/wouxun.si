@@ -4,6 +4,7 @@ import ProdajniProgram from '~/content/prodajniProgram.mdx';
 import SalesProgramme from '~/content/salesProgramme.mdx';
 import { useLocale } from '~/modules/locale/LocaleProvider';
 import { PaginatedProducts } from '~/modules/products/PaginatedProducts';
+import { Pagination } from '~/modules/products/Pagination';
 import { usePaginatedProductsLoader } from '~/modules/products/loaders';
 
 export default component$(() => {
@@ -16,6 +17,12 @@ export default component$(() => {
       </section>
       <section>
         <PaginatedProducts products={paginated.value.products} />
+        {paginated.value.totalPages > 1 && (
+          <Pagination
+            page={paginated.value.page}
+            totalPages={paginated.value.totalPages}
+          />
+        )}
       </section>
     </>
   );

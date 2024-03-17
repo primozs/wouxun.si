@@ -72,7 +72,7 @@ export const useCategoryByHandle = routeLoader$(async (event) => {
 
 // eslint-disable-next-line qwik/loader-location
 export const usePaginatedProductsLoader = routeLoader$(async (event) => {
-  const PRODUCT_LIMIT = 12;
+  const PRODUCT_LIMIT = 8;
   const sortBy = event.url.searchParams.get('sortBy') ?? undefined;
   const page = event.url.searchParams.get('page');
   const pageNumber = page ? parseInt(page) : 1;
@@ -91,6 +91,7 @@ export const usePaginatedProductsLoader = routeLoader$(async (event) => {
   if (!region)
     return {
       products: [] as ProductPreviewType[],
+      page: 0,
       count: 0,
       totalPages: 0,
     };
@@ -125,6 +126,7 @@ export const usePaginatedProductsLoader = routeLoader$(async (event) => {
 
   return {
     products,
+    page: pageNumber,
     count,
     totalPages,
   };
