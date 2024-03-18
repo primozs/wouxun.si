@@ -8,57 +8,57 @@
  * You can also use this file to add more functionality that runs in the service worker.
  */
 import { setupServiceWorker } from '@builder.io/qwik-city/service-worker';
-import {
-  imageCache,
-  staticResourceCache,
-  pageCache,
-  offlineFallback,
-} from 'workbox-recipes';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableResponsePlugin.js';
-import type { RouteMatchCallbackOptions } from 'workbox-core';
+// import {
+//   imageCache,
+//   staticResourceCache,
+//   pageCache,
+//   offlineFallback,
+// } from 'workbox-recipes';
+// import { CacheableResponsePlugin } from 'workbox-cacheable-response/CacheableResponsePlugin.js';
+// import type { RouteMatchCallbackOptions } from 'workbox-core';
 
-const matchImageCallback = ({ request }: RouteMatchCallbackOptions) => {
-  return request.destination === 'image';
-};
+// const matchImageCallback = ({ request }: RouteMatchCallbackOptions) => {
+//   return request.destination === 'image';
+// };
 
-imageCache({
-  matchCallback: matchImageCallback,
-  cacheName: 'static-image-assets',
-  maxAgeSeconds: 30 * 24 * 60 * 60,
-  maxEntries: 64,
-});
+// imageCache({
+//   matchCallback: matchImageCallback,
+//   cacheName: 'static-image-assets',
+//   maxAgeSeconds: 30 * 24 * 60 * 60,
+//   maxEntries: 64,
+// });
 
-const matchFontCallback = ({ request }: RouteMatchCallbackOptions) => {
-  return request.destination === 'font';
-};
-imageCache({
-  matchCallback: matchFontCallback,
-  cacheName: 'static-font-assets',
-  maxAgeSeconds: 60 * 60 * 24 * 365,
-  maxEntries: 5,
-});
+// const matchFontCallback = ({ request }: RouteMatchCallbackOptions) => {
+//   return request.destination === 'font';
+// };
+// imageCache({
+//   matchCallback: matchFontCallback,
+//   cacheName: 'static-font-assets',
+//   maxAgeSeconds: 60 * 60 * 24 * 365,
+//   maxEntries: 5,
+// });
 
-const matchStyleCallback = ({ request }: RouteMatchCallbackOptions) => {
-  return request.destination === 'style';
-};
-staticResourceCache({
-  matchCallback: matchStyleCallback,
-  cacheName: 'static-style-assets',
-  warmCache: ['/'],
-  plugins: [
-    new CacheableResponsePlugin({
-      statuses: [0, 200],
-    }),
-  ],
-});
+// const matchStyleCallback = ({ request }: RouteMatchCallbackOptions) => {
+//   return request.destination === 'style';
+// };
+// staticResourceCache({
+//   matchCallback: matchStyleCallback,
+//   cacheName: 'static-style-assets',
+//   warmCache: ['/'],
+//   plugins: [
+//     new CacheableResponsePlugin({
+//       statuses: [0, 200],
+//     }),
+//   ],
+// });
 
-pageCache({
-  warmCache: ['/'],
-});
+// pageCache({
+//   warmCache: ['/'],
+// });
 
-offlineFallback({
-  pageFallback: '/',
-});
+// offlineFallback({
+//   pageFallback: '/',
+// });
 
 setupServiceWorker();
 

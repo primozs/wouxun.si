@@ -40,6 +40,7 @@ export const MainNavigation = component$<Props>((props) => {
                   {...(!props.darkBg && {
                     activeClass: 'font-semibold text-accent',
                   })}
+                  prefetch
                 >
                   {item.text}
                 </NavLink>

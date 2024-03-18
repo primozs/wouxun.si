@@ -8,14 +8,10 @@ import {
   noSerialize,
   type NoSerialize,
 } from '@builder.io/qwik';
-import { DImage } from '~/modules/directus/DImage';
-// import { getImageUrl } from '~/services/directus';
-
 // https://swiperjs.com/swiper-api#parameters
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import swiperStyles from './swiper.css?inline';
-
 import ImgGasilci from '~/media/photos/slide_gasilci.jpg?jsx';
 import ImgPadalci from '~/media/photos/slide_padalci.jpg?jsx';
 import ImgRadioamaterji from '~/media/photos/slide_radioamaterji.jpg?jsx';
@@ -27,14 +23,43 @@ export type CarouselSlideData = {
   title: string;
   subtitle: string | null;
   image: string | null;
-  style: string | null;
 };
 
-type CarouselProps = {
-  banners: Signal<CarouselSlideData[]>;
-};
+const banners = [
+  {
+    id: 'bf3b6ebc-0beb-44c3-ac61-a8898e192afa',
+    title: 'Gasilci in civilna zaščita',
+    subtitle: 'Kvalitetna izdelava, robustnost, vsestranskost.',
+    image: '166168bc-bb90-4fa6-8ffb-efa70ca28d0e',
+  },
+  {
+    id: '5d1da079-e0db-476e-a70d-9966d5f412cc',
+    title: 'Organizatorji prireditev in varnostne službe',
+    subtitle: 'Zanesljivi partner organizatorjev, možnost izposoje.',
+    image: '7146b7d0-760b-4b38-82d8-00a7981f2b1f',
+  },
+  {
+    id: '46cb0b47-ec94-48db-a315-4faed86cd437',
+    title: 'Radioamaterji',
+    subtitle: 'Vrhunska funkcionalnost za razumno ceno.',
+    image: 'b99899cf-349d-4dda-8638-550e3700ed7e',
+  },
+  {
+    id: '4d72ea2c-e657-4e64-83d2-bbb51ff13694',
+    title: 'Šport in prosti čas',
+    subtitle: 'Zanesljivost v najzahtevnejših pogojih.',
+    image: '1be71fd9-4cf6-47ac-8d44-932b832f5f6e',
+  },
+  {
+    id: '3b4f5d01-7b65-49db-bff0-897ce2171655',
+    title: 'Jadralni padalci',
+    subtitle: 'Velik domet, enostavna uporaba.',
+    image: '7e681714-af31-482c-81a2-4871ee5c190c',
+  },
+];
 
-export const Carousel = component$<CarouselProps>((props) => {
+export const Hero = component$(() => {
+  const activated = useSignal(false);
   const ref = useSignal<HTMLDivElement>();
   const swiper = useSignal<NoSerialize<Swiper>>();
   useStyles$(swiperStyles);
@@ -42,6 +67,7 @@ export const Carousel = component$<CarouselProps>((props) => {
   const initSWiper = $(() => {
     // @ts-ignore
     if (ref.value && !swiper.value) {
+      activated.value = true;
       swiper.value = noSerialize(
         new Swiper(ref.value, {
           modules: [Navigation, Pagination],
@@ -67,8 +93,7 @@ export const Carousel = component$<CarouselProps>((props) => {
         onMouseOver$={initSWiper}
       >
         <div class="swiper-wrapper">
-          {props.banners.value.map((data, index) => {
-            // const imageSrc = getImageUrl(data.image ?? '');
+          {banners.map((data) => {
             return (
               <div
                 class="swiper-slide"
@@ -116,97 +141,52 @@ export const Carousel = component$<CarouselProps>((props) => {
                   </div>
                 </div>
 
-                {/* <Image
-                  background="#0256A1"
-                  layout="fullWidth"
-                  alt={data.title}
-                  width={1200}
-                  height={300}
-                  cdn="directus"
-                  src={imageSrc}
-                  {...(index === 0 && {
-                    priority: true,
-                    fetchPriority: 'high',
-                  })}
-                  class="`
-                    imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
-                  `"
-                /> */}
-
-                {data.image === '166168bc-bb90-4fa6-8ffb-efa70ca28d0e' ? (
+                {data.image === '166168bc-bb90-4fa6-8ffb-efa70ca28d0e' && (
                   <ImgGasilci
                     loading="eager"
                     alt={data.title}
                     style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
                     class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
                   />
-                ) : data.image === '7146b7d0-760b-4b38-82d8-00a7981f2b1f' ? (
-                  <ImgZur
-                    alt={data.title}
-                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                  />
-                ) : data.image === 'b99899cf-349d-4dda-8638-550e3700ed7e' ? (
-                  <ImgRadioamaterji
-                    alt={data.title}
-                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                  />
-                ) : data.image === '1be71fd9-4cf6-47ac-8d44-932b832f5f6e' ? (
-                  <ImgSport
-                    alt={data.title}
-                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                  />
-                ) : data.image === '7e681714-af31-482c-81a2-4871ee5c190c' ? (
-                  <ImgPadalci
-                    alt={data.title}
-                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                  />
-                ) : (
-                  <DImage
-                    dId={data.image}
-                    dType="image/webp"
-                    keys={[
-                      '600-x-150-jpg',
-                      '600-x-150-webp',
-                      '1200-x-300-jpg',
-                      '1200-x-300-webp',
-                    ]}
-                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                    layout="unstyled"
-                    sizes="
-                (max-width: 640px) 95vw,
-                (max-width: 1024px) 770px, 770px"
-                    alt={data.title}
-                    {...(index === 0 && { fetchPriority: 'high' })}
-                    class="`
-                  imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]
-                `"
-                  />
                 )}
 
-                {/* <DImage
-                  dId={data.image}
-                  dType="image/webp"
-                  keys={[
-                    '600-x-150-jpg',
-                    '600-x-150-webp',
-                    '1200-x-300-jpg',
-                    '1200-x-300-webp',
-                  ]}
-                  style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                  layout="unstyled"
-                  sizes="
-                (max-width: 640px) 95vw,       
-                (max-width: 1024px) 770px, 770px"
-                  alt={data.title}
-                  {...(index === 0 && { fetchPriority: 'high' })}
-                  class="`
-                  imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]                    
-                `"
-                /> */}
+                {data.image === '7146b7d0-760b-4b38-82d8-00a7981f2b1f' &&
+                  activated.value && (
+                    <ImgZur
+                      alt={data.title}
+                      loading="eager"
+                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                    />
+                  )}
+                {data.image === 'b99899cf-349d-4dda-8638-550e3700ed7e' &&
+                  activated.value && (
+                    <ImgRadioamaterji
+                      alt={data.title}
+                      loading="eager"
+                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                    />
+                  )}
+                {data.image === '1be71fd9-4cf6-47ac-8d44-932b832f5f6e' &&
+                  activated.value && (
+                    <ImgSport
+                      alt={data.title}
+                      loading="eager"
+                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                    />
+                  )}
+
+                {data.image === '7e681714-af31-482c-81a2-4871ee5c190c' &&
+                  activated.value && (
+                    <ImgPadalci
+                      alt={data.title}
+                      loading="eager"
+                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
+                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                    />
+                  )}
 
                 <div class="bg-gradient-to-r from-primary from-20% absolute inset-0"></div>
               </div>
@@ -215,14 +195,15 @@ export const Carousel = component$<CarouselProps>((props) => {
         </div>
       </div>
 
-      <SlideControls swiperRef={ref} banners={props.banners} />
+      <SlideControls swiperRef={ref} banners={banners} activated={activated} />
     </div>
   );
 });
 
 type SlideControlsProps = {
-  banners: Signal<CarouselSlideData[]>;
+  banners: CarouselSlideData[];
   swiperRef: Signal<HTMLDivElement | undefined>;
+  activated: Signal<boolean>;
 };
 
 export const SlideControls = component$<SlideControlsProps>((props) => {
@@ -247,10 +228,16 @@ export const SlideControls = component$<SlideControlsProps>((props) => {
         bg-primary
         text-sm text-primary-content leading-5 font-semibold        
       `"
+      onTouchStart$={() => {
+        props.activated.value = true;
+      }}
+      onMouseOver$={() => {
+        props.activated.value = true;
+      }}
     >
       <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 py-1">
         <div class="space-x-5 scroll">
-          {props.banners.value.map((data, index) => {
+          {props.banners.map((data, index) => {
             return (
               <button
                 aria-label={data.title}
