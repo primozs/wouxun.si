@@ -2,9 +2,9 @@ import { component$, useSignal } from '@builder.io/qwik';
 import { Logo } from './logo';
 import { MainNavigation } from '~/modules/layout/MainNavigation';
 import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
-import { CartNav } from '~/modules/cart/CartButton';
 import { config } from '~/config';
 import { NavBanner } from './NavBanner';
+import { CartNav } from '~/modules/cart/CartButton';
 import { SwitchLocale } from '~/modules/locale/SwitchLocale';
 import { ThemeButton } from '~/modules/theme/ThemeSwitcher';
 

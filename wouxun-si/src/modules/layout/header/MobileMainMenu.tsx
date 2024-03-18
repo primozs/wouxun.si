@@ -38,29 +38,33 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
         <UiContent>
           <UiItem q:slot="start" lines="none" class="py-4 items-center">
             <Logo />
-            <Button
-              q:slot="end"
-              type="button"
+            {props.visible.value && (
+              <Button
+                q:slot="end"
+                type="button"
+                onClick$={() => {
+                  props.visible.value = false;
+                }}
+                intent="square"
+                color="neutral"
+                class="btn-sm"
+              >
+                <span class="sr-only">{$localize`Close main menu`}</span>
+                <IoCloseOutline class="h-5 w-5" />
+              </Button>
+            )}
+          </UiItem>
+
+          {props.visible.value && (
+            <div
+              class="space-y-1 p-10"
               onClick$={() => {
                 props.visible.value = false;
               }}
-              intent="square"
-              color="neutral"
-              class="btn-sm"
             >
-              <span class="sr-only">{$localize`Close main menu`}</span>
-              <IoCloseOutline class="h-5 w-5" />
-            </Button>
-          </UiItem>
-
-          <div
-            class="space-y-1 p-10"
-            onClick$={() => {
-              props.visible.value = false;
-            }}
-          >
-            <MainNavigation isMobile={true} />
-          </div>
+              <MainNavigation isMobile={true} />
+            </div>
+          )}
 
           <SwitchLocaleListItem q:slot="end" />
           <ThemeListItem q:slot="end" />

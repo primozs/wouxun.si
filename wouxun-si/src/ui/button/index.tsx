@@ -1,5 +1,5 @@
 import { component$, type QwikIntrinsicElements, Slot } from '@builder.io/qwik';
-import { Link, useLocation, type LinkProps } from '@builder.io/qwik-city';
+import { useLocation, type LinkProps, Link } from '@builder.io/qwik-city';
 import { LoadingDots } from '../loading-dots';
 
 export type ButtonProps = QwikIntrinsicElements['button'] & {
@@ -195,5 +195,28 @@ export const LinkNavHeadless = component$(
         <Slot />
       </Link>
     );
+    // return (
+    //   <a {...props} class={[props.class, isActive && activeClass]}>
+    //     <Slot />
+    //   </a>
+    // );
   },
 );
+
+// export type LinkProps = QwikIntrinsicElements['a'];
+
+// export const Link = component$<LinkProps>(({ href, ...props }) => {
+//   const nav = useNavigate();
+//   return (
+//     <a
+//       {...props}
+//       href={href}
+//       preventdefault:click
+//       onClick$={() => {
+//         nav(href);
+//       }}
+//     >
+//       <Slot />
+//     </a>
+//   );
+// });
