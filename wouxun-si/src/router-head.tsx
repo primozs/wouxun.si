@@ -32,6 +32,9 @@ export const RouterHead = component$(() => {
       {head.styles.map((s) => (
         <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
+      {head.scripts.map((s) => (
+        <script key={s.key} {...s.props} dangerouslySetInnerHTML={s.script} />
+      ))}
       <link
         rel="preload"
         href="/fonts/inter/Inter-Regular.woff2?v=3.19"

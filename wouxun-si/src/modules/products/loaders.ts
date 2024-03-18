@@ -9,7 +9,7 @@ import type {
 import { handleError } from '~/modules/logger';
 import { getMedusaClient, getSrvSessionHeaders } from '~/modules/medusa';
 import type { ProductPreviewType } from '../medusa/types';
-import { StoreGetProductsParams } from '@medusajs/medusa';
+import type { StoreGetProductsParams } from '@medusajs/medusa';
 import { config } from '~/config';
 
 export type ProductListProducts = ReturnType<typeof useProductsLoader>;

@@ -1,11 +1,12 @@
 import {
   $,
+  type Signal,
   Slot,
   component$,
   createContextId,
   useContext,
   useContextProvider,
-  useStore,
+  useSignal,
 } from '@builder.io/qwik';
 import { NotificationDialog } from '.';
 
@@ -16,45 +17,33 @@ export type NotificationType = {
   description?: string;
 };
 
-export type NotificationStore = {
-  notification: NotificationType | null;
-};
+export type NotificationCtxType = Signal<NotificationType | null>;
 
-const NotificationsState = createContextId<NotificationStore>(
+const NotificationsCtx = createContextId<NotificationCtxType>(
   'notifications-state',
 );
 
 export const useNotifications = () => {
-  const store = useContext<NotificationStore>(NotificationsState);
+  const store = useContext<NotificationCtxType>(NotificationsCtx);
 
   const addNotification = $((notification: NotificationType) => {
-    store.notification = notification;
+    store.value = notification;
     setTimeout(() => {
-      store.notification = null;
+      store.value = null;
     }, 3500);
   });
 
-  const removeNotification = $(() => {
-    store.notification = null;
-  });
-
-  return { addNotification, removeNotification };
+  return { store, addNotification };
 };
 
 export const NotificationProvider = component$(() => {
-  const store = useStore<NotificationStore>(
-    {
-      notification: null,
-    },
-    { deep: true },
-  );
-
-  useContextProvider(NotificationsState, store);
+  const store = useSignal<NotificationType | null>(null);
+  useContextProvider(NotificationsCtx, store);
 
   return (
     <>
       <Slot />
-      <NotificationDialog store={store} position="bottom-right" />
+      <NotificationDialog position="bottom-right" />
     </>
   );
 });
