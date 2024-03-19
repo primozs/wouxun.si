@@ -202,21 +202,3 @@ export const LinkNavHeadless = component$(
     // );
   },
 );
-
-// export type LinkProps = QwikIntrinsicElements['a'];
-
-// export const Link = component$<LinkProps>(({ href, ...props }) => {
-//   const nav = useNavigate();
-//   return (
-//     <a
-//       {...props}
-//       href={href}
-//       preventdefault:click
-//       onClick$={() => {
-//         nav(href);
-//       }}
-//     >
-//       <Slot />
-//     </a>
-//   );
-// });

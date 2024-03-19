@@ -239,7 +239,7 @@ const getRegion = async (
       const region = regions.find((item) =>
         item.countries?.find((c) => c.iso_2 === country_code),
       );
-      return region ? (structuredClone(region) as unknown as Region) : null;
+      return region ? (region as unknown as Region) : null;
     })
     .catch((error) => {
       handleError(error, 'Get region');

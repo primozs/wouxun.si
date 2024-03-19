@@ -28,25 +28,6 @@ module.exports = {
       //   // warning: colors.yellow,
       //   // gray: colors.gray,
     },
-    fontFamily: {
-      sans: [
-        'Inter',
-        'BlinkMacSystemFont',
-        'Arial',
-        'sans-serif',
-        'ui-sans-serif',
-        'system-ui',
-        '-apple-system',
-        'Roboto',
-        '"Segoe UI"',
-        '"Helvetica Neue"',
-        '"Noto Sans"',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
-      ],
-    },
     extend: {
       colors: {
         // 'base-400': 'hsl(var(--base-400) / <alpha-value>)',
