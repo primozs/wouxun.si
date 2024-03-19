@@ -80,7 +80,7 @@ export const OrderItem = component$<OrderItemProps>(({ order }) => {
       detail
       class="bg-base-200"
     >
-      <div class="grid grid-cols-3 grid-rows-2 text-xs p-4 leading-5 font-normal gap-x-4 flex-1">
+      <div class="grid grid-cols-3 grid-rows-2 text-sm p-2 leading-5 font-normal gap-x-4 flex-1">
         <span class="font-semibold">{$localize`Date placed`}</span>
         <span class="font-semibold">{$localize`Order number`}</span>
         <span class="font-semibold">{$localize`Total amount`}</span>

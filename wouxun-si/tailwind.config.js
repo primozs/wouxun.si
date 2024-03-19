@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: ['./src/**/*.{ts,tsx,mdx}'],
   theme: {
     colors: {
       //   inherit: 'inherit',
@@ -27,18 +27,25 @@ module.exports = {
       //   // error: colors.red,
       //   // warning: colors.yellow,
       //   // gray: colors.gray,
-      // },
-      // fontFamily: {
-      //   sans: [
-      //     'Inter',
-      //     'Arial',
-      //     'BlinkMacSystemFont',
-      //     '"Segoe UI"',
-      //     'Roboto',
-      //     '"Helvetica Neue"',
-      //     '"Noto Sans"',
-      //     'sans-serif',
-      //   ],
+    },
+    fontFamily: {
+      sans: [
+        'Inter',
+        'BlinkMacSystemFont',
+        'Arial',
+        'sans-serif',
+        'ui-sans-serif',
+        'system-ui',
+        '-apple-system',
+        'Roboto',
+        '"Segoe UI"',
+        '"Helvetica Neue"',
+        '"Noto Sans"',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+        '"Noto Color Emoji"',
+      ],
     },
     extend: {
       colors: {

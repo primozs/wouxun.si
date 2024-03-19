@@ -143,6 +143,8 @@ export const Hero = component$(() => {
 
                 {data.image === '166168bc-bb90-4fa6-8ffb-efa70ca28d0e' && (
                   <ImgGasilci
+                    // @ts-ignore
+                    fetchpriority="high"
                     loading="eager"
                     alt={data.title}
                     style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
