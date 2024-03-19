@@ -1,18 +1,12 @@
-import {
-  type RequestHandler,
-  routeAction$,
-  routeLoader$,
-} from '@builder.io/qwik-city';
+import { routeAction$, routeLoader$ } from '@builder.io/qwik-city';
 import {
   SESSION_COOKIE_KEY,
   getMedusaClient,
   getSrvSessionHeaders,
 } from '~/modules/medusa';
-import { getServerSession } from '~/modules/auth';
 
-export const useAuthSessionLoader = routeLoader$(async (event) => {
-  const session = await getServerSession(event);
-  return session;
+export const useIsAuthenticatedLoader = routeLoader$(async (event) => {
+  return event.cookie.has(SESSION_COOKIE_KEY);
 });
 
 export const useAuthSignoutAction = routeAction$(async (_, event) => {
@@ -23,7 +17,3 @@ export const useAuthSignoutAction = routeAction$(async (_, event) => {
   });
   throw event.redirect(302, '/');
 });
-
-export const onGet: RequestHandler = async (event) => {
-  await getServerSession(event);
-};

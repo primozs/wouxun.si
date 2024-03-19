@@ -2,6 +2,7 @@ import {
   type RequestEventLoader,
   type RequestEvent,
   type RequestHandler,
+  routeLoader$,
 } from '@builder.io/qwik-city';
 import type { Customer } from '@medusajs/client-types';
 
@@ -34,10 +35,15 @@ export const getServerSession = (
   return shared as unknown as Promise<Customer>;
 };
 
+// eslint-disable-next-line qwik/loader-location
+export const useAuthSessionLoader = routeLoader$(async (event) => {
+  const session = await getServerSession(event);
+  return session;
+});
+
 export const protectedRoute: RequestHandler = async (event) => {
-  const session = (await event.sharedMap.get('session')) as Customer | null;
-  const sessionCookie = event.cookie.get(SESSION_COOKIE_KEY);
-  if (!sessionCookie?.value || !session) {
+  const sessionCookie = event.cookie.has(SESSION_COOKIE_KEY);
+  if (!sessionCookie) {
     throw event.redirect(
       302,
       `/account/login?callbackUrl=${event.url.pathname}`,

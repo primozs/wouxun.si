@@ -19,22 +19,9 @@ export const RouterHead = component$(() => {
 
   return (
     <>
-      <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{titleMsg}</title>
       <link rel="preconnect" href={config.DIRECTUS_API_URL} />
-      {head.meta.map((m) => (
-        <meta key={m.key} {...m} />
-      ))}
-      {head.links.map((l) => (
-        <link key={l.key} {...l} />
-      ))}
-      {head.styles.map((s) => (
-        <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
-      ))}
-      {head.scripts.map((s) => (
-        <script key={s.key} {...s.props} dangerouslySetInnerHTML={s.script} />
-      ))}
       <link
         rel="preload"
         href="/fonts/inter/Inter-Regular.woff2?v=3.19"
@@ -54,7 +41,6 @@ export const RouterHead = component$(() => {
         crossOrigin="anonymous"
       ></link>
       <link rel="dns-prefetch" href={config.DIRECTUS_API_URL} />
-      <link rel="manifest" href="/manifest.json" />
       {description && <meta name="description" content={description} />}
       <link rel="canonical" href={loc.url.href} />
       <meta name="format-detection" content="telephone=no" />
@@ -92,6 +78,19 @@ export const RouterHead = component$(() => {
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-title" content={config.META_TITLE} />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+      {head.meta.map((m) => (
+        <meta key={m.key} {...m} />
+      ))}
+      {head.links.map((l) => (
+        <link key={l.key} {...l} />
+      ))}
+      {head.styles.map((s) => (
+        <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
+      ))}
+      {head.scripts.map((s) => (
+        <script key={s.key} {...s.props} dangerouslySetInnerHTML={s.script} />
+      ))}
     </>
   );
 });

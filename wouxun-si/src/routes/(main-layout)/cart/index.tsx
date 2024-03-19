@@ -5,7 +5,7 @@ import { UiTitle } from '~/ui/UiTitle';
 import { EmptyCartMessage } from '~/modules/cart/EmptyCartMessage';
 import { SignInPrompt } from '~/modules/cart/SignInPrompt';
 import { UiContent } from '~/ui/UiContent';
-import { useAuthSessionLoader } from '~/routes/plugin@auth';
+import { useIsAuthenticatedLoader } from '~/routes/plugin@auth';
 import { ListCartItemsTable } from '~/modules/cart/ListCartItemsTable';
 import { NavLink } from '~/ui/button';
 import { getCheckoutStep } from '~/modules/common/getCheckoutStep';
@@ -14,7 +14,7 @@ import { DiscountCode } from '~/modules/cart/DiscountCode';
 
 export default component$(() => {
   const cart = useCartLoader();
-  const session = useAuthSessionLoader();
+  const authenticated = useIsAuthenticatedLoader();
   const checkout_step = useSignal<string>('none');
 
   useTask$(({ track }) => {
@@ -31,7 +31,7 @@ export default component$(() => {
               {$localize`Shopping bag`}
             </UiTitle>
 
-            {!session.value && <SignInPrompt />}
+            {!authenticated.value && <SignInPrompt />}
 
             <ListCartItemsTable
               items={cart.value?.items}

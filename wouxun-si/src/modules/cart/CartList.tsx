@@ -3,7 +3,7 @@ import { EmptyCartMessage } from './EmptyCartMessage';
 import type { Cart } from '@medusajs/client-types';
 import { ListCartItemsTable } from './ListCartItemsTable';
 import { SignInPrompt } from './SignInPrompt';
-import { useAuthSessionLoader } from '~/routes/plugin@auth';
+import { useIsAuthenticatedLoader } from '~/routes/plugin@auth';
 import { CartTotals } from './CartTotals';
 import { DiscountCode } from './DiscountCode';
 
@@ -12,12 +12,12 @@ export interface CartListProps {
 }
 
 export const CartList = component$<CartListProps>(({ cart }) => {
-  const session = useAuthSessionLoader();
+  const authenticated = useIsAuthenticatedLoader();
   return (
     <>
       {cart.value && (cart.value?.items?.length ?? 0) > 0 ? (
         <>
-          {!session.value && <SignInPrompt />}
+          {!authenticated.value && <SignInPrompt />}
 
           <div class="px-4">
             <ListCartItemsTable

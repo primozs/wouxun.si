@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import {
-  useAuthSessionLoader,
+  useIsAuthenticatedLoader,
   useAuthSignoutAction,
 } from '~/routes/plugin@auth';
 import { NavLink } from '~/ui/button';
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const NavBanner = component$<Props>((props) => {
-  const session = useAuthSessionLoader();
+  const authenticated = useIsAuthenticatedLoader();
   const signout = useAuthSignoutAction();
   return (
     <>
@@ -22,25 +22,25 @@ export const NavBanner = component$<Props>((props) => {
             'px-4 py-1 sm:px-6 lg:px-8 space-x-4',
           ]}
         >
-          {!session.value && (
+          {!authenticated.value && (
             <NavLink href="/account/login" color="neutral" size="sm">
               {$localize`Signin`} <span aria-hidden="true">&rarr;</span>
             </NavLink>
           )}
 
-          {!session.value && (
+          {!authenticated.value && (
             <NavLink href="/account/register" color="neutral" size="sm">
               {$localize`Register`}
             </NavLink>
           )}
 
-          {session.value && (
+          {authenticated.value && (
             <NavLink href="/account/dashboard" color="neutral" size="sm">
-              {session.value?.first_name} {session.value?.last_name}
+              {$localize`Account`}
             </NavLink>
           )}
 
-          {session.value && (
+          {authenticated.value && (
             <NavLink
               type="button"
               color="neutral"

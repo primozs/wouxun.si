@@ -11,12 +11,12 @@ import {
 import { UiIcon } from '~/ui/UiIcon';
 import { useDeleteShippingAddressAction } from '~/routes/plugin@store';
 import { useNotifications } from '~/ui/notification/notificationsState';
-import { useAuthSessionLoader } from '~/routes/plugin@auth';
 import type { Address } from '@medusajs/client-types';
 import { UiConfirm, useUiConfirm } from '~/ui/UiConfirm';
 import { UiModal, useUiModal, useUiModalProvider } from '~/ui/UiModal';
 import { UiItem } from '~/ui/UiItem';
 import type { DocumentHead } from '@builder.io/qwik-city';
+import { useAuthSessionLoader } from '~/modules/auth';
 
 export default component$(() => {
   const session = useAuthSessionLoader();

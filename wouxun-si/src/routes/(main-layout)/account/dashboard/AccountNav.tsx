@@ -1,8 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import {
-  useAuthSessionLoader,
-  useAuthSignoutAction,
-} from '~/routes/plugin@auth';
+import { useAuthSignoutAction } from '~/routes/plugin@auth';
 import { UiIcon } from '~/ui/UiIcon';
 import { UiItem } from '~/ui/UiItem';
 import { UiLabel } from '~/ui/UiLabel';
@@ -16,6 +13,7 @@ import {
   IoHomeOutline,
 } from '@qwikest/icons/ionicons';
 import { NavLink } from '~/ui/button';
+import { useAuthSessionLoader } from '~/modules/auth';
 
 export const AccountNav = component$(() => {
   const customer = useAuthSessionLoader();
