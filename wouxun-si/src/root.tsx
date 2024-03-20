@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useStyles$ } from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -7,13 +7,15 @@ import {
 import { RouterHead } from './router-head';
 
 import './global.css';
+import inlineStyle from './inline.css?inline';
+
 import { NotificationProvider } from './ui/notification/notificationsState';
 import { ThemeScript } from './modules/theme/ThemeScript';
-import { useCartDialogProvider } from './modules/cart/CartDialog';
 import { LocaleProvider } from './modules/locale/LocaleProvider';
 
 export default component$(() => {
-  useCartDialogProvider();
+  useStyles$(inlineStyle);
+
   return (
     <QwikCityProvider>
       <head>

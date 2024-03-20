@@ -73,8 +73,8 @@ module.exports = {
     themes: [
       {
         light: {
-          fontFamily:
-            'Inter,Arial,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif',
+          // fontFamily:
+          //   'Inter,Arial,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif',
           'color-scheme': 'light',
           primary: '#0256A1',
           'primary-content': '#ffffff',
