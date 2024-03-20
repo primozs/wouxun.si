@@ -8,15 +8,13 @@ import {
   noSerialize,
   type NoSerialize,
 } from '@builder.io/qwik';
+
 // https://swiperjs.com/swiper-api#parameters
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
 import swiperStyles from './swiper.css?inline';
-import ImgGasilci from '~/media/photos/slide_gasilci.jpg?jsx';
-import ImgPadalci from '~/media/photos/slide_padalci.jpg?jsx';
-import ImgRadioamaterji from '~/media/photos/slide_radioamaterji.jpg?jsx';
-import ImgSport from '~/media/photos/slide_sportinprosticas.jpg?jsx';
-import ImgZur from '~/media/photos/slide_zur.jpg?jsx';
+import { Image } from '~/ui/unpic-img';
+import { getImageUrl } from '~/modules/directus';
 
 export type CarouselSlideData = {
   id: string;
@@ -26,11 +24,11 @@ export type CarouselSlideData = {
   style: string | null;
 };
 
-type HeroProps = {
+type CarouselProps = {
   banners: Signal<CarouselSlideData[]>;
 };
 
-export const Hero = component$<HeroProps>((props) => {
+export const Carousel = component$<CarouselProps>((props) => {
   const activated = useSignal(false);
   const ref = useSignal<HTMLDivElement>();
   const swiper = useSignal<NoSerialize<Swiper>>();
@@ -65,7 +63,7 @@ export const Hero = component$<HeroProps>((props) => {
         onMouseOver$={initSWiper}
       >
         <div class="swiper-wrapper">
-          {props.banners.value.map((data) => {
+          {props.banners.value.map((data, index) => {
             return (
               <div
                 class="swiper-slide"
@@ -113,54 +111,23 @@ export const Hero = component$<HeroProps>((props) => {
                   </div>
                 </div>
 
-                {data.image === '166168bc-bb90-4fa6-8ffb-efa70ca28d0e' && (
-                  <ImgGasilci
-                    // @ts-ignore
+                {data.image && (activated.value === true || index === 0) && (
+                  // @ts-ignore
+                  <Image
+                    background="#0256A1"
+                    alt={data.title}
+                    layout="fullWidth"
+                    width={1200}
+                    height={300}
+                    cdn="directus"
+                    src={getImageUrl(data.image ?? '')}
                     fetchpriority="high"
                     loading="eager"
-                    alt={data.title}
-                    style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                    class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
+                    class={[
+                      'imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]',
+                    ]}
                   />
                 )}
-
-                {data.image === '7146b7d0-760b-4b38-82d8-00a7981f2b1f' &&
-                  activated.value && (
-                    <ImgZur
-                      alt={data.title}
-                      loading="eager"
-                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                    />
-                  )}
-                {data.image === 'b99899cf-349d-4dda-8638-550e3700ed7e' &&
-                  activated.value && (
-                    <ImgRadioamaterji
-                      alt={data.title}
-                      loading="eager"
-                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                    />
-                  )}
-                {data.image === '1be71fd9-4cf6-47ac-8d44-932b832f5f6e' &&
-                  activated.value && (
-                    <ImgSport
-                      alt={data.title}
-                      loading="eager"
-                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                    />
-                  )}
-
-                {data.image === '7e681714-af31-482c-81a2-4871ee5c190c' &&
-                  activated.value && (
-                    <ImgPadalci
-                      alt={data.title}
-                      loading="eager"
-                      style="object-fit:cover;background:#0256A1;width:100%;aspect-ratio:4;height:300px"
-                      class="imageerr aspect-[16/4] sm:aspect-[16/4] lg:aspect-[16/4]"
-                    />
-                  )}
 
                 <div class="bg-gradient-to-r from-primary from-20% absolute inset-0"></div>
               </div>
@@ -171,7 +138,7 @@ export const Hero = component$<HeroProps>((props) => {
 
       <SlideControls
         swiperRef={ref}
-        banners={props.banners.value}
+        banners={props.banners}
         activated={activated}
       />
     </div>
@@ -179,7 +146,7 @@ export const Hero = component$<HeroProps>((props) => {
 });
 
 type SlideControlsProps = {
-  banners: CarouselSlideData[];
+  banners: Signal<CarouselSlideData[]>;
   swiperRef: Signal<HTMLDivElement | undefined>;
   activated: Signal<boolean>;
 };
@@ -215,7 +182,7 @@ export const SlideControls = component$<SlideControlsProps>((props) => {
     >
       <div class="max-w-screen-2xl mx-auto px-4 sm:px-5 py-1">
         <div class="space-x-5 scroll">
-          {props.banners.map((data, index) => {
+          {props.banners.value.map((data, index) => {
             return (
               <button
                 aria-label={data.title}
