@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { useCartLoader } from '~/routes/plugin@store';
-import { Button, NavLink } from '~/ui/button';
+import { NavLink } from '~/ui/button';
 import { IoBagHandleOutline } from '@qwikest/icons/ionicons';
 import { UiIcon } from '~/ui/UiIcon';
 import { UiContent } from '~/ui/UiContent';
@@ -35,12 +35,10 @@ export const CartNav = component$<CartButtonProps>(() => {
         <span class="sr-only">{$localize`Go to cart`}</span>
       </NavLink>
 
-      <div class="dropdown dropdown-end hidden lg:block">
-        <Button
+      <details class="dropdown dropdown-end hidden lg:block">
+        <summary
+          class="btn btn-ghost btn-square"
           aria-label={$localize`Go to cart`}
-          color="ghost"
-          intent="square"
-          tabIndex={0}
         >
           <UiIcon class="indicator">
             {(cart.value?.items?.length ?? 0) > 0 && (
@@ -48,11 +46,8 @@ export const CartNav = component$<CartButtonProps>(() => {
             )}
             <IoBagHandleOutline />
           </UiIcon>
-        </Button>
-        <div
-          tabIndex={0}
-          class="mt-3 z-[1] card card-compact dropdown-content w-[450px] bg-base-100 shadow-xl"
-        >
+        </summary>
+        <div class="mt-3 z-[1] menu card card-compact dropdown-content w-[450px] bg-base-100 shadow-xl">
           <div class="card-body !p-0">
             <UiContent classContainer="max-h-[420px]" class="py-1 space-y-4">
               <div q:slot="start" class="p-4">
@@ -128,7 +123,7 @@ export const CartNav = component$<CartButtonProps>(() => {
             </div>
           </div>
         </div>
-      </div>
+      </details>
     </>
   );
 });
