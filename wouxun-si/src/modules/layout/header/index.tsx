@@ -5,8 +5,8 @@ import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 import { config } from '~/config';
 import { NavBanner } from './NavBanner';
 import { CartNav } from '~/modules/cart/CartButton';
-import { SwitchLocale } from '~/modules/locale/SwitchLocale';
-import { ThemeButton } from '~/modules/theme/ThemeSwitcher';
+// import { SwitchLocale } from '~/modules/locale/SwitchLocale';
+// import { ThemeButton } from '~/modules/theme/ThemeSwitcher';
 
 export const Header = component$(() => {
   const mobileMenuVisible = useSignal(false);
@@ -38,8 +38,8 @@ export const Header = component$(() => {
             </div>
 
             <CartNav />
-            <SwitchLocale />
-            <ThemeButton />
+            {/* <SwitchLocale />
+            <ThemeButton /> */}
           </div>
 
           <MobileMainMenuButton visible={mobileMenuVisible} />

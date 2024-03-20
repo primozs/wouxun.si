@@ -8,6 +8,7 @@ import { ThemeListItem } from '~/modules/theme/ThemeSwitcher';
 import { SwitchLocaleListItem } from '~/modules/locale/SwitchLocale';
 import { Logo } from './logo';
 import { UiItem } from '~/ui/UiItem';
+import { UiIcon } from '~/ui/UiIcon';
 
 export interface MobileMenuProps {
   visible: Signal<boolean>;
@@ -19,11 +20,13 @@ export const MobileMainMenu = component$<MobileMenuProps>((props) => {
       <div
         class={[
           `
-          bg-base-100 absolute h-screen w-full z-10 sm:hidden
+          bg-base-100 absolute h-screen w-full z-10 
           transition-all ease-in-out duration-200 opacity-0
           -left-full
           motion-reduce:transition-none
           top-0
+          sm:max-w-96
+          border-r border-base-300
           `,
           { 'opacity-100 left-0': props.visible.value },
         ]}
@@ -92,21 +95,19 @@ export const MobileMainMenuButton = component$<MobileMainMenuButtonProps>(
           if (newVal) window.scrollTo(0, 0);
           props.visible.value = newVal;
         }}
-        class="sm:hidden"
       >
         <span class="sr-only">{$localize`Open main menu`}</span>
-        <HiBars3Outline
-          class={{
-            'h-6 w-6': true,
-            hidden: props.visible.value === true,
-          }}
-        />
-        <IoCloseOutline
-          class={{
-            'h-6 w-6': true,
-            hidden: props.visible.value === false,
-          }}
-        />
+        <UiIcon>
+          <HiBars3Outline />
+        </UiIcon>
+        {/* <UiIcon>
+          <IoCloseOutline
+            class={{
+              'h-6 w-6': true,
+              hidden: props.visible.value === false,
+            }}
+          />
+        </UiIcon> */}
       </Button>
     );
   },

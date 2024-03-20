@@ -50,7 +50,7 @@ export const Button = component$<ButtonProps>(
             'btn-neutral focus-visible:ring-neutral': color === 'neutral',
             'btn-accent focus-visible:ring-accent': color === 'accent',
             'btn-error focus-visible:ring-error': color === 'error',
-            'btn-ghost focus-visible:ring-accent': color === 'ghost',
+            'btn-ghost focus-visible:ring-primary': color === 'ghost',
           },
           fill === 'outline' && 'btn-outline',
           fill === 'clear' && [
