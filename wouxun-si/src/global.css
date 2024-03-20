@@ -11,6 +11,8 @@
     height: 100%;
     overflow-x: hidden;
     scrollbar-gutter: initial !important;
+    /* https://modernfontstacks.com/#font-stacks */
+    /* font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif; */
     font-family:
       'Inter',
       Arial,
