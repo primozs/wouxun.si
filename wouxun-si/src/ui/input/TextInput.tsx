@@ -17,14 +17,15 @@ export type TextInputProps = {
   value: string | number | undefined;
   error: string;
   required?: boolean;
-  ref: QwikIntrinsicElements['input']['ref'];
-  onInput$: (event: Event, element: HTMLInputElement) => void;
-  onChange$: (event: Event, element: HTMLInputElement) => void;
-  onBlur$: (event: Event, element: HTMLInputElement) => void;
+  ref?: QwikIntrinsicElements['input']['ref'];
+  onInput$?: (event: Event, element: HTMLInputElement) => void;
+  onChange$?: (event: Event, element: HTMLInputElement) => void;
+  onBlur$?: (event: Event, element: HTMLInputElement) => void;
   class?: string;
   form?: string;
   disabled?: boolean;
   labelHidden?: boolean;
+  errorHidden?: boolean;
   id?: string;
 };
 
@@ -34,6 +35,7 @@ export const TextInput = component$(
     value,
     error,
     labelHidden = false,
+    errorHidden = false,
     required,
     ...props
   }: TextInputProps) => {
@@ -55,7 +57,7 @@ export const TextInput = component$(
           />
           <Slot name="label-end" />
         </div>
-        <div class="relative mt-2">
+        <div class={['relative', labelHidden === false && 'mt-1']}>
           <input
             {...props}
             id={name}
@@ -95,9 +97,11 @@ export const TextInput = component$(
           <Slot name="icon-right" />
           <InputErrorIcon isError={!!error} />
         </div>
-        <InputHelper id={`${name}-error`} error={!!error} intent="error">
-          {error}
-        </InputHelper>
+        {errorHidden === false && (
+          <InputHelper id={`${name}-error`} error={!!error} intent="error">
+            {error}
+          </InputHelper>
+        )}
       </div>
     );
   },

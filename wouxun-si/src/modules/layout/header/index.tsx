@@ -5,6 +5,7 @@ import { MobileMainMenu, MobileMainMenuButton } from './MobileMainMenu';
 import { config } from '~/config';
 import { NavBanner } from './NavBanner';
 import { CartNav } from '~/modules/cart/CartButton';
+import { SearchProducts } from '~/modules/search/Search';
 // import { SwitchLocale } from '~/modules/locale/SwitchLocale';
 // import { ThemeButton } from '~/modules/theme/ThemeSwitcher';
 
@@ -38,6 +39,7 @@ export const Header = component$(() => {
             </div>
 
             <CartNav />
+            <SearchProducts />
             {/* <SwitchLocale />
             <ThemeButton /> */}
           </div>
