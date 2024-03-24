@@ -79,6 +79,13 @@ export const RouterHead = component$(() => {
       <meta name="apple-mobile-web-app-title" content={config.META_TITLE} />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
+      {!head.meta.find((item) => item.property === 'og:image') && (
+        <meta
+          property="og:image"
+          content="https://wouxun.si/logos/wouxun.jpg"
+        />
+      )}
+
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
       ))}

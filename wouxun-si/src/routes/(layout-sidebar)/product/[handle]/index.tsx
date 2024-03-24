@@ -6,6 +6,7 @@ import { getProductByHandle } from '~/modules/products/getDirectusProductData';
 import { MainImage } from '~/modules/products/ProductDetail';
 import { Gallery } from '~/modules/products/ProductDetail';
 import { ProductDetailView } from '~/modules/products/ProductDetail';
+import { imgProxyUrl } from '~/modules/common/imageUrl';
 
 export const useGetProductByHandle = routeLoader$(async (event) => {
   const locale = event.locale();
@@ -18,12 +19,22 @@ export const useGetProductByHandle = routeLoader$(async (event) => {
       productDirectusP,
       productMedusaP,
     ]);
-    return { productDirectus, productMedusa };
+
+    const thumbnail = productMedusa?.thumbnail
+      ? imgProxyUrl({
+          height: 600,
+          width: 1200,
+          url: productMedusa?.thumbnail,
+          resizeType: 'fill',
+        })
+      : '';
+
+    return { productDirectus, productMedusa, thumbnail };
   } catch (error: any) {
     event.fail(500, {
       errorMessage: error?.message,
     });
-    return { productDirectus: null, productMedusa: null };
+    return { productDirectus: null, productMedusa: null, thumbnail: null };
   }
 });
 
@@ -55,6 +66,7 @@ export default component$(() => {
 
 export const head: DocumentHead = ({ resolveValue }) => {
   const data = resolveValue(useGetProductByHandle);
+
   return {
     title: `${data?.productDirectus?.title}`,
     meta: [
@@ -66,6 +78,10 @@ export const head: DocumentHead = ({ resolveValue }) => {
       {
         name: 'id',
         content: data?.productDirectus?.id,
+      },
+      {
+        property: 'og:image',
+        content: data.thumbnail ?? '',
       },
     ],
   };
