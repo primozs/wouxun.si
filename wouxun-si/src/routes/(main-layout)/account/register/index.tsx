@@ -173,7 +173,14 @@ export const RegisterView = component$(() => {
         </Field>
 
         <div class="flex items-center justify-end">
-          <NavLink size="sm" href={`/${locale.value}/terms-and-conditions`}>
+          <NavLink
+            size="sm"
+            href={
+              locale.value === 'en'
+                ? '/info/terms-and-conditions'
+                : '/info/pogoji-uporabe-in-varstvo-podatkov'
+            }
+          >
             {$localize`Terms of use, privacy policy`}
           </NavLink>
         </div>
