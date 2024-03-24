@@ -1,15 +1,14 @@
-import { type Signal, component$, useSignal, Slot, $ } from '@builder.io/qwik';
+import { type Signal, component$, useSignal } from '@builder.io/qwik';
 import { mdParse } from '~/ui/md-parse';
 import type { ProductDetail } from '~/modules/products/getDirectusProductData';
-import { Tags } from './Tags';
 import { ProductPrice } from './Price';
 import type { PricedProduct } from '@medusajs/client-types';
 import { Button } from '~/ui/button';
 import { useNotifications } from '~/ui/notification/notificationsState';
 import { useAddToCartAction } from '~/routes/plugin@store';
-import { IoBagHandleOutline, IoCloseOutline } from '@qwikest/icons/ionicons';
+import { IoBagHandleOutline } from '@qwikest/icons/ionicons';
 import { UiTitle } from '~/ui/UiTitle';
-import { Thumbnail } from './Thumbnail';
+import { Tags } from './Tags';
 
 export interface DetailsProps {
   product: Signal<{
@@ -23,6 +22,14 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
     <div class="flex flex-col">
       <div class="flex flex-col gap-y-6">
         <div class="flex flex-col gap-y-2">
+          {/* {product.value.productMedusa?.collection && (
+            <NavLink
+              href={`/collections/${product.value.productMedusa.collection.handle}`}
+              color="ghost"
+            >
+              {product.value.productMedusa.collection.title}
+            </NavLink>
+          )} */}
           <UiTitle as="h1" size="2xl" color="primary">
             {product.value.productDirectus?.title}
           </UiTitle>
@@ -103,112 +110,3 @@ export const AddToCart = component$<AddToCartProps>(
     );
   },
 );
-
-type MainImageProps = {
-  image: string;
-  productTitle: string;
-};
-
-export const MainImage = component$<MainImageProps>(
-  ({ image, productTitle }) => {
-    return (
-      <ImageDialog>
-        <Thumbnail
-          thumbnail={image}
-          alt={productTitle}
-          index={0}
-          size="full"
-          class="xl:w-[440px]"
-          noBorder
-        />
-
-        <div
-          class="flex items-center justify-center w-full h-full"
-          q:slot="dialog"
-        >
-          <Thumbnail
-            q:slot="dialog"
-            thumbnail={image}
-            alt={productTitle}
-            index={0}
-            size="h-full"
-            noBorder
-          />
-        </div>
-      </ImageDialog>
-    );
-  },
-);
-
-export interface GalleryProps {
-  images: readonly string[];
-  productTitle: string;
-}
-
-export const Gallery = component$<GalleryProps>(({ images, productTitle }) => {
-  return (
-    <div class="mt-10 grid grid-cols-2 gap-3">
-      {images.map((img, index) => {
-        return (
-          <ImageDialog key={img}>
-            <Thumbnail
-              thumbnail={img}
-              alt={productTitle}
-              index={index}
-              size="small"
-              class="w-full md:w-1/2"
-            />
-
-            <div
-              class="flex items-center justify-center w-full h-full"
-              q:slot="dialog"
-            >
-              <Thumbnail
-                q:slot="dialog"
-                thumbnail={img}
-                alt={productTitle}
-                index={0}
-                size="h-full"
-                noBorder
-              />
-            </div>
-          </ImageDialog>
-        );
-      })}
-    </div>
-  );
-});
-
-export const ImageDialog = component$(() => {
-  const ref = useSignal<HTMLDialogElement>();
-
-  const handleClick = $(() => {
-    ref.value?.showModal();
-  });
-
-  return (
-    <>
-      <div
-        onClick$={handleClick}
-        class="cursor-pointer flex w-full justify-center"
-      >
-        <Slot />
-      </div>
-
-      <dialog ref={ref} class="modal">
-        <div class="modal-box w-11/12 h-full max-w-5xl p-10 overflow-hidden">
-          <form method="dialog">
-            <Button
-              intent="rounded"
-              color="ghost"
-              class="btn-sm absolute right-2 top-2"
-            >
-              <IoCloseOutline class="h-5 w-5" />
-            </Button>
-          </form>
-          <Slot name="dialog" />
-        </div>
-      </dialog>
-    </>
-  );
-});
