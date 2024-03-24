@@ -22,6 +22,28 @@ export interface DirectusSchema {
   wouxun_banner: wouxun_banner[];
   wouxun_file: wouxun_file[];
   wouxun_page: wouxun_page[];
+  wouxun_website: wouxun_website;
+}
+
+export interface languages {
+  code: string;
+}
+
+export interface wouxun_website_translations {
+  id: number;
+  wouxun_website_id: number;
+  languages_code: string;
+  title: string;
+  description: string;
+  contact: string;
+  bank_transfer: string;
+  other_products: string;
+  sales_programme: string;
+}
+
+export interface wouxun_website {
+  id: number;
+  translations: wouxun_website_translations[];
 }
 
 export interface wouxun_page {

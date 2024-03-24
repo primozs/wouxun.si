@@ -38,11 +38,6 @@ import { InputHelper } from '~/ui/input/InputHelper';
 import { Response } from '~/ui/input/Response';
 import { FormFooter } from '~/ui/input/FormFooter';
 import { Expandable } from '~/ui/expendable/Expandable';
-// import BankTransfer from '~/content/bankTransfer.mdx';
-// import {
-//   BankTransferEPCQrCode,
-//   BankTransferUPNQrCode,
-// } from './BankTransferQrCode';
 
 export interface PaymentProps {
   cart:
@@ -292,13 +287,6 @@ export const PaymentDisplay = component$<PaymentDisplayProps>(
                   {getPaymentLabel(cart.value.payment_session.provider_id)}
                 </UiText>
               </div>
-
-              {/* {cart.value?.payment_session?.data?.manual_payment ===
-                'bank-transfer' && (
-                <div class="mt-3 [&>p]:leading-8">
-                  <BankTransfer />
-                </div>
-              )} */}
             </div>
             <div class="flex flex-col w-1/2">
               {(cart.value?.payment_session.provider_id === 'manual' ||
@@ -313,17 +301,6 @@ export const PaymentDisplay = component$<PaymentDisplayProps>(
                   </UiText>
                 </>
               )}
-
-              {/* {cart.value?.payment_session?.data?.manual_payment ===
-                'bank-transfer' && (
-                <div class="mt-3 [&>p]:leading-8">
-                  <div class="flex flex-col sm:flex-row">
-                    <BankTransferUPNQrCode />
-
-                    <BankTransferEPCQrCode />
-                  </div>
-                </div>
-              )} */}
             </div>
           </div>
         )}

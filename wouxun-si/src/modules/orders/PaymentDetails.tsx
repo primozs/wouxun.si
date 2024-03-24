@@ -9,8 +9,6 @@ import {
   getManualPaymentLabel,
   getPaymentLabel,
 } from '../checkout/Payment';
-import BankTransfer from '~/content/bankTransfer.mdx';
-import BankTransferEN from '~/content/bankTransferEN.mdx';
 import { computeAmount, formatAmount } from '../common/prices';
 import { paymentStatusI18n } from './OrderDetails';
 import { UiDivider } from '~/ui/UiDivider';
@@ -18,6 +16,8 @@ import {
   BankTransferEPCQrCode,
   BankTransferUPNQrCode,
 } from '../checkout/BankTransferQrCode';
+import { useWebsiteContent } from '../directus/loaders';
+import { mdParse } from '~/ui/md-parse';
 
 export interface PaymentDetailsProps {
   order: Order;
@@ -25,6 +25,7 @@ export interface PaymentDetailsProps {
 
 export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
   const locale = useLocale();
+  const website = useWebsiteContent();
   const payment = useComputed$(() => {
     const payments = order.payments ?? [];
     const payment = payments[0];
@@ -49,9 +50,10 @@ export const PaymentDetails = component$<PaymentDetailsProps>(({ order }) => {
             <UiDivider />
 
             {payment.value.data?.manual_payment === 'bank-transfer' && (
-              <div class="[&>p]:leading-8">
-                {locale.value === 'sl' ? <BankTransfer /> : <BankTransferEN />}
-              </div>
+              <div
+                class="[&>p]:leading-8"
+                dangerouslySetInnerHTML={mdParse(website.value?.bank_transfer)}
+              ></div>
             )}
           </div>
 

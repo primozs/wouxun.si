@@ -1,8 +1,10 @@
 import { component$ } from '@builder.io/qwik';
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
 import { config } from '~/config';
+import { useWebsiteContent } from './routes/layout';
 
 export const RouterHead = component$(() => {
+  const website = useWebsiteContent();
   const head = useDocumentHead();
   const loc = useLocation();
 
@@ -12,10 +14,10 @@ export const RouterHead = component$(() => {
 
   const descriptionArr: string[] = [];
   if (descContent) descriptionArr.push(descContent);
-  descriptionArr.push(config.META_DESCRIPTION);
+  descriptionArr.push(website.value?.description ?? '');
 
   const description = descriptionArr.join(' ');
-  const titleMsg = `${config.META_TITLE} | ${head.title}`;
+  const titleMsg = `${website.value?.title ?? ''} | ${head.title}`;
 
   return (
     <>
@@ -59,7 +61,7 @@ export const RouterHead = component$(() => {
         sizes="16x16"
         href="/icons/favicon-16x16.png"
       />
-      <meta name="application-name" content={config.META_TITLE} />
+      <meta name="application-name" content={website.value?.title ?? ''} />
       <meta name="theme-color" content="#ffffff" />
       <meta name="color-scheme" content="dark light" />
       <meta name="msapplication-TileColor" content="#2b5797" />
@@ -76,7 +78,10 @@ export const RouterHead = component$(() => {
         color="#5bbad5"
       />
       <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-title" content={config.META_TITLE} />
+      <meta
+        name="apple-mobile-web-app-title"
+        content={website.value?.title ?? ''}
+      />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
       {!head.meta.find((item) => item.property === 'og:image') && (

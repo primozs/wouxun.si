@@ -1,19 +1,21 @@
 import { component$, useComputed$ } from '@builder.io/qwik';
-import Contact from '~/content/contact.mdx';
 // import { MainNavigation } from '../MainNavigation';
 import { NavLink } from '~/ui/button';
 import { UiTitle } from '~/ui/UiTitle';
 import { useStoreCategories, useStoreCollections } from '~/routes/plugin@store';
 import { useLocale } from '~/modules/locale/LocaleProvider';
+import { useWebsiteContent } from '~/routes/layout';
+import { mdParse } from '~/ui/md-parse';
 
 export const Footer = component$(() => {
+  const website = useWebsiteContent();
   return (
     <footer
       class="content-visibility-auto contain-intrinsic-size-[auto_1000px] bg-primary text-primary-content"
       aria-labelledby="footer-heading"
     >
       <div class="max-w-screen-2xl mx-auto p-6">
-        {/* <div class="hidden sm:block">
+        {/* <div class="hidden sm:block sm:mb-6">
           <MainNavigation darkBg={true} />
         </div> */}
         <CollectionsCategories />
@@ -25,9 +27,10 @@ export const Footer = component$(() => {
         `"
         >
           <div class="flex justify-center space-x-6 md:order-2">
-            <div class="md:flex md:space-x-4 text-sm leading-6 text-center md:text-left">
-              <Contact />
-            </div>
+            <div
+              class="md:flex md:space-x-4 text-sm leading-6 text-center md:text-left"
+              dangerouslySetInnerHTML={mdParse(website.value?.contact)}
+            ></div>
           </div>
           <div class="mt-8 md:order-1 md:mt-0">
             <p class="text-center text-xs leading-5">

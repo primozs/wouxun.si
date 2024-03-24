@@ -2,6 +2,8 @@ import { component$, Slot } from '@builder.io/qwik';
 import { type RequestHandler } from '@builder.io/qwik-city';
 import { useI18nDEV } from '~/modules/locale/i18n-utils';
 
+export { useWebsiteContent } from '~/modules/directus/loaders';
+
 export const onGet: RequestHandler = async (event) => {
   if (
     !event.url.pathname.includes('account') &&

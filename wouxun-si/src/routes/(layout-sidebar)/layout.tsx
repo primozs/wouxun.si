@@ -1,17 +1,16 @@
 import { component$, Slot } from '@builder.io/qwik';
 import { Header } from '~/modules/layout/header';
-import OstaliModeli from '~/content/ostaliModeli.mdx';
-import OtherModels from '~/content/otherModels.mdx';
 import { cleanTitle } from '~/modules/products/cleanTitle';
 import { Footer } from '~/modules/layout/footer';
 import { useProductsLoader } from '~/modules/products/loaders';
-import { useLocale } from '~/modules/locale/LocaleProvider';
+import { useWebsiteContent } from '../layout';
+import { mdParse } from '~/ui/md-parse';
 
 export { useProductsLoader } from '~/modules/products/loaders';
 
 export default component$(() => {
   const products = useProductsLoader();
-  const locale = useLocale();
+  const website = useWebsiteContent();
   return (
     <>
       <Header />
@@ -55,7 +54,10 @@ export default component$(() => {
             })}
           </ul>
 
-          {locale.value === 'sl' ? <OstaliModeli /> : <OtherModels />}
+          <div
+            class="mt-2"
+            dangerouslySetInnerHTML={mdParse(website.value?.other_products)}
+          ></div>
         </aside>
 
         <main class="flex-grow mb-5 mt-2 order-first sm:order-2">
