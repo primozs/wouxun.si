@@ -32,12 +32,11 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
           </UiTitle>
 
           <ProductPrice product={product.value.productMedusa} />
-          <div class="flex flex-col">
-            <AddToCart
-              productMedusa={product.value.productMedusa}
-              productDirectus={product.value.productDirectus}
-            />
-          </div>
+
+          <AddToCart
+            productMedusa={product.value.productMedusa}
+            productDirectus={product.value.productDirectus}
+          />
         </div>
 
         <div class="flex flex-col gap-y-4">
