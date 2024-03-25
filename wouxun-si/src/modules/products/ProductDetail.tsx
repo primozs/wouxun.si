@@ -1,11 +1,10 @@
 import { type Signal, component$ } from '@builder.io/qwik';
 import { mdParse } from '~/ui/md-parse';
 import type { ProductDetail } from '~/modules/products/getDirectusProductData';
-import { ProductPrice } from './Price';
 import type { PricedProduct } from '@medusajs/client-types';
 import { UiTitle } from '~/ui/UiTitle';
 import { Tags } from './Tags';
-import { AddToCart } from './AddToCart';
+import { ProductActions } from './ProductActions';
 
 export interface DetailsProps {
   product: Signal<{
@@ -31,12 +30,12 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
             {product.value.productDirectus?.title}
           </UiTitle>
 
-          <ProductPrice product={product.value.productMedusa} />
-
-          <AddToCart
-            productMedusa={product.value.productMedusa}
-            productDirectus={product.value.productDirectus}
-          />
+          {product.value.productMedusa && (
+            <ProductActions
+              product={product.value.productMedusa}
+              productDirectus={product.value.productDirectus}
+            />
+          )}
         </div>
 
         <div class="flex flex-col gap-y-4">

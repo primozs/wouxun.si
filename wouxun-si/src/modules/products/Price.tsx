@@ -1,64 +1,147 @@
-import { component$ } from '@builder.io/qwik';
-import { formatPrice } from '~/modules/common/formatPrice';
-import type { PricedProduct, MoneyAmount } from '@medusajs/client-types';
-import { useLocale } from '../locale/LocaleProvider';
+import { type Signal, component$, useComputed$ } from '@builder.io/qwik';
+import type {
+  PricedProduct,
+  PricedVariant,
+  Region,
+} from '@medusajs/client-types';
+import { formatAmount } from '../common/prices';
+import type { CalculatedVariant } from '../medusa/types';
 
-export interface ProductPriceProps {
+export interface ProductActionsPriceProps {
   product: PricedProduct | null;
+  variant: Signal<PricedVariant | undefined>;
+  region: Signal<Region | null>;
 }
 
-const getVariantPrice = (product: PricedProduct | null, variantIndex = 0) => {
-  if (!product) return null;
-  if (!product.variants) return null;
+export const ProductActionsPrice = component$<ProductActionsPriceProps>(
+  ({ product, variant, region }) => {
+    const selectedPrice = useComputed$(() => {
+      const { cheapestPrice, variantPrice } = getProductPrice({
+        product,
+        variantId: variant.value?.id,
+        region: region.value,
+      });
+      return variant.value ? variantPrice : cheapestPrice;
+    });
 
-  const variant = product.variants[variantIndex];
-  if (!variant) return null;
+    return (
+      <div class="flex flex-col">
+        <span
+          class={[
+            'font-semibold text-2xl ',
+            {
+              'text-base-content/90':
+                selectedPrice.value?.price_type !== 'sale',
+              'text-primary': selectedPrice.value?.price_type === 'sale',
+            },
+          ]}
+        >
+          {!variant.value && $localize`From` + ' '}
+          {selectedPrice.value?.calculated_price}
+        </span>
+        {selectedPrice.value?.price_type === 'sale' && (
+          <>
+            <p>
+              <span class="text-base-content/60">{$localize`Original`}: </span>
+              <span class="font-medium line-through">
+                {selectedPrice.value?.original_price}
+              </span>
+            </p>
+            <span class="text-primary">
+              -{selectedPrice.value?.percentage_diff}%
+            </span>
+          </>
+        )}
+      </div>
+    );
+  },
+);
 
-  const calculatedPrice = variant.calculated_price_incl_tax ?? 0;
-  const originalPrice = variant.original_price_incl_tax;
-  const hasDiff = originalPrice && calculatedPrice !== originalPrice;
-
-  let moneyAmount: MoneyAmount | undefined;
-  const prices = variant.prices;
-  if (prices) {
-    moneyAmount = prices[0];
+export function getProductPrice({
+  product,
+  variantId,
+  region,
+}: {
+  product: PricedProduct | null;
+  variantId?: string;
+  region: Region | null;
+}) {
+  if (!product || !product.id) {
+    throw new Error('No product provided');
   }
-  const currency_code = moneyAmount?.currency_code ?? '';
+
+  const getPercentageDiff = (original: number, calculated: number) => {
+    const diff = original - calculated;
+    const decrease = (diff / original) * 100;
+
+    return decrease.toFixed();
+  };
+
+  const cheapestPrice = () => {
+    if (!product || !product.variants?.length || !region) {
+      return null;
+    }
+
+    const variants = product.variants as unknown as CalculatedVariant[];
+
+    const cheapestVariant = variants.reduce((prev, curr) => {
+      return prev.calculated_price < curr.calculated_price ? prev : curr;
+    });
+
+    return {
+      calculated_price: formatAmount({
+        amount: cheapestVariant.calculated_price,
+        region,
+        includeTaxes: false,
+      }),
+      original_price: formatAmount({
+        amount: cheapestVariant.original_price,
+        region,
+        includeTaxes: false,
+      }),
+      price_type: cheapestVariant.calculated_price_type,
+      percentage_diff: getPercentageDiff(
+        cheapestVariant.original_price,
+        cheapestVariant.calculated_price,
+      ),
+    };
+  };
+
+  const variantPrice = () => {
+    if (!product || !variantId || !region) {
+      return null;
+    }
+
+    const variant = product.variants?.find(
+      (v) => v.id === variantId || v.sku === variantId,
+    ) as unknown as CalculatedVariant;
+
+    if (!variant) {
+      return null;
+    }
+
+    return {
+      calculated_price: formatAmount({
+        amount: variant.calculated_price,
+        region,
+        includeTaxes: false,
+      }),
+      original_price: formatAmount({
+        amount: variant.original_price,
+        region,
+        includeTaxes: false,
+      }),
+      price_type: variant.calculated_price_type,
+      percentage_diff: getPercentageDiff(
+        variant.original_price,
+        variant.calculated_price,
+      ),
+    };
+  };
 
   return {
-    calculatedPrice,
-    originalPrice,
-    hasDiff,
-    currency_code,
+    product,
+    cheapestPrice: cheapestPrice(),
+    variantPrice: variantPrice(),
   };
-};
-
-export const ProductPrice = component$<ProductPriceProps>(({ product }) => {
-  const locale = useLocale();
-
-  const variantPrice = getVariantPrice(product, 0);
-  if (!variantPrice) return null;
-
-  return (
-    <div class="flex items-end gap-x-3">
-      <div>
-        <p class="font-semibold text-xl text-base-content/90">
-          {formatPrice(variantPrice.calculatedPrice, {
-            currency: variantPrice.currency_code,
-            locale: locale.value,
-          })}
-        </p>
-      </div>
-      {variantPrice.hasDiff && variantPrice.originalPrice !== undefined && (
-        <div>
-          <p class="font-medium line-through text-[18px,28px] text-base-content/90">
-            {formatPrice(variantPrice.originalPrice, {
-              currency: variantPrice.currency_code,
-              locale: locale.value,
-            })}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-});
+}
