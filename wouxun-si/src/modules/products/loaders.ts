@@ -109,7 +109,9 @@ export const usePaginatedProductsLoader = routeLoader$(async (event) => {
     queryParams['category_id'] = [category.id];
   }
 
-  queryParams['sales_channel_id'] = [config.MEDUSA_SALES_CHANNEL_ID];
+  if (config.MEDUSA_SALES_CHANNEL_ID) {
+    queryParams['sales_channel_id'] = [config.MEDUSA_SALES_CHANNEL_ID];
+  }
 
   // if (productsIds) {
   //   queryParams['id'] = productsIds;
@@ -252,7 +254,9 @@ export const useRelatedProductsLoader = routeLoader$(async (event) => {
 
   queryParams.is_giftcard = false;
 
-  queryParams.sales_channel_id = [config.MEDUSA_SALES_CHANNEL_ID];
+  if (config.MEDUSA_SALES_CHANNEL_ID) {
+    queryParams.sales_channel_id = [config.MEDUSA_SALES_CHANNEL_ID];
+  }
 
   const {
     response: { products, count },

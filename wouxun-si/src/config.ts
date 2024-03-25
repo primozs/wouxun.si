@@ -7,7 +7,7 @@ const envVariables = z.object({
 
   VITE_PUBLIC_DIRECTUS_API_URL: z.string(),
   VITE_PUBLIC_MEDUSA_API_URL: z.string(),
-  VITE_PUBLIC_MEDUSA_SALES_CHANNEL_ID: z.string(),
+  VITE_PUBLIC_MEDUSA_SALES_CHANNEL_ID: z.optional(z.string()),
 
   VITE_PRIVATE_SEARCH_APP_ID: z.string(),
   VITE_PRIVATE_SEARCH_ENDPOINT: z.string(),

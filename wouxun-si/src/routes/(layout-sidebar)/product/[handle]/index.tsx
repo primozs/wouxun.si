@@ -48,13 +48,17 @@ export default component$(() => {
         </div>
       </div>
 
-      <div class="flex flex-col my-16">
-        <UiTitle size="lg">{$localize`Related products`}</UiTitle>
-        <UiText color="light">
-          {$localize`You might also want to check out these products.`}
-        </UiText>
-      </div>
-      <PaginatedProducts products={relatedProducts.value} />
+      {relatedProducts.value.length > 0 && (
+        <>
+          <div class="flex flex-col my-16">
+            <UiTitle size="lg">{$localize`Related products`}</UiTitle>
+            <UiText color="light">
+              {$localize`You might also want to check out these products.`}
+            </UiText>
+          </div>
+          <PaginatedProducts products={relatedProducts.value} />
+        </>
+      )}
     </section>
   );
 });

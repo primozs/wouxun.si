@@ -4,6 +4,7 @@ import { getMedusaClient } from '../medusa';
 import { transformProductPreview } from '../common/transformProductView';
 import type { StoreGetProductsParams } from '@medusajs/medusa';
 import type { Region } from '@medusajs/client-types';
+import { handleError } from '../logger';
 
 export const getProductsList = async function (
   {
@@ -35,8 +36,9 @@ export const getProductsList = async function (
       customHeaders,
     )
     .then((res) => res)
-    .catch((err) => {
-      throw err;
+    .catch((err: any) => {
+      handleError(err);
+      return { products: [], count: 0 };
     });
 
   const transformedProducts = products.map((product) => {
