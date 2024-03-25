@@ -1,6 +1,7 @@
 import { component$, useComputed$ } from '@builder.io/qwik';
 import { type DocumentHead } from '@builder.io/qwik-city';
 import { PaginatedProducts } from '~/modules/products/PaginatedProducts';
+import { ProductActions } from '~/modules/products/ProductActions';
 import { ProductDetailView } from '~/modules/products/ProductDetail';
 import {
   ProductGallery,
@@ -30,7 +31,7 @@ export default component$(() => {
 
   return (
     <section>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-10  lg:grid-cols-2">
+      <div class="grid grid-cols-1 gap-x-8 gap-y-10  lg:grid-cols-3">
         <div id="product-image" class="lg:order-2">
           <ProductMainImage
             image={product.value?.productDirectus?.thumbnail ?? ''}
@@ -45,6 +46,15 @@ export default component$(() => {
         </div>
         <div class="w-full lg:order-1">
           <ProductDetailView product={product} />
+        </div>
+
+        <div class="lg:order-3">
+          {product.value.productMedusa && (
+            <ProductActions
+              product={product.value.productMedusa}
+              productDirectus={product.value.productDirectus}
+            />
+          )}
         </div>
       </div>
 

@@ -4,7 +4,6 @@ import type { ProductDetail } from '~/modules/products/getDirectusProductData';
 import type { PricedProduct } from '@medusajs/client-types';
 import { UiTitle } from '~/ui/UiTitle';
 import { Tags } from './Tags';
-import { ProductActions } from './ProductActions';
 
 export interface DetailsProps {
   product: Signal<{
@@ -29,13 +28,6 @@ export const ProductDetailView = component$<DetailsProps>(({ product }) => {
           <UiTitle as="h1" size="2xl" color="primary">
             {product.value.productDirectus?.title}
           </UiTitle>
-
-          {product.value.productMedusa && (
-            <ProductActions
-              product={product.value.productMedusa}
-              productDirectus={product.value.productDirectus}
-            />
-          )}
         </div>
 
         <div class="flex flex-col gap-y-4">
