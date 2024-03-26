@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik';
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
 import { config } from '~/config';
 import { useWebsiteContent } from './routes/layout';
+import { Social } from './social-head';
 
 export const RouterHead = component$(() => {
   const website = useWebsiteContent();
@@ -84,12 +85,12 @@ export const RouterHead = component$(() => {
       />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-      {!head.meta.find((item) => item.property === 'og:image') && (
-        <meta
-          property="og:image"
-          content="https://wouxun.si/logos/wouxun.jpg"
-        />
-      )}
+      <Social
+        title={titleMsg}
+        description={description}
+        href={loc.url.href}
+        hasMetaImage={!!head.meta.find((item) => item.property === 'og:image')}
+      />
 
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
