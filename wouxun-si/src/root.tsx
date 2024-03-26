@@ -6,7 +6,8 @@ import {
 } from '@builder.io/qwik-city';
 import { RouterHead } from './router-head';
 
-import './global.css';
+// import './global.css';
+import globalStyles from './global.css?inline';
 import inlineStyle from './inline.css?inline';
 
 import { NotificationProvider } from './ui/notification/notificationsState';
@@ -15,6 +16,7 @@ import { LocaleProvider } from './modules/locale/LocaleProvider';
 
 export default component$(() => {
   useStyles$(inlineStyle);
+  useStyles$(globalStyles);
 
   return (
     <QwikCityProvider>

@@ -56,6 +56,11 @@ module.exports = {
     },
   },
 
+  corePlugins: {
+    fontFamily: false,
+    float: false,
+  },
+
   // https://daisyui.com/docs/config/
   // https://daisyui.com/docs/themes/
   // https://daisyui.com/docs/utilities/
