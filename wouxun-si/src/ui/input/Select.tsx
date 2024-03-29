@@ -52,7 +52,7 @@ export const Select = component$(
           required={required}
           class={[labelSrOnly === true && 'sr-only']}
         />
-        <div class="relative flex items-center mt-2">
+        <div class="relative flex items-center mt-1">
           <select
             {...props}
             class={[
