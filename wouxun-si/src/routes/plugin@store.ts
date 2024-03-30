@@ -253,7 +253,7 @@ const getRegion = async (
 export const useStoreCategories = routeLoader$(async (event) => {
   const client = getMedusaClient();
   const offset = 0;
-  const limit = 6;
+  const limit = 300;
 
   const res = await client.productCategories
     .list({ limit, offset }, getSrvSessionHeaders(event))

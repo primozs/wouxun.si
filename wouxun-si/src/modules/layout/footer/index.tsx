@@ -49,9 +49,11 @@ export const CollectionsCategories = component$(() => {
   const locale = useLocale();
 
   const productCategories = useComputed$(() => {
-    return categories.value.product_categories.filter(
+    const localeCategories = categories.value.product_categories.filter(
       (item) => item.metadata?.locale === locale.value,
     );
+
+    return localeCategories;
   });
 
   return (
