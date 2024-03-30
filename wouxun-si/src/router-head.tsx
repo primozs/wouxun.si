@@ -24,7 +24,7 @@ export const RouterHead = component$(() => {
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>{titleMsg}</title>
-      <link rel="preconnect" href={config.DIRECTUS_API_URL} />
+      {/* <link rel="preconnect" href={config.DIRECTUS_API_URL} /> */}
       <link
         rel="preload"
         href="/fonts/inter/Inter-Regular.woff2?v=3.19"
@@ -43,7 +43,7 @@ export const RouterHead = component$(() => {
         as="font"
         crossOrigin="anonymous"
       ></link>
-      <link rel="dns-prefetch" href={config.DIRECTUS_API_URL} />
+      {/* <link rel="dns-prefetch" href={config.DIRECTUS_API_URL} /> */}
       {description && <meta name="description" content={description} />}
       <link rel="canonical" href={loc.url.href} />
       <meta name="format-detection" content="telephone=no" />
