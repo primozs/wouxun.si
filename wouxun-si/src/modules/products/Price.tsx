@@ -124,12 +124,12 @@ export function getProductPrice({
       calculated_price: formatAmount({
         amount: variant.calculated_price,
         region,
-        includeTaxes: false,
+        includeTaxes: true,
       }),
       original_price: formatAmount({
         amount: variant.original_price,
         region,
-        includeTaxes: false,
+        includeTaxes: true,
       }),
       price_type: variant.calculated_price_type,
       percentage_diff: getPercentageDiff(

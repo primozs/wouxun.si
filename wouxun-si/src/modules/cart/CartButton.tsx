@@ -100,7 +100,7 @@ export const CartNav = component$<CartButtonProps>(() => {
             <div class="flex items-center justify-between px-4 mt-4">
               <UiTitle>
                 {$localize`Subtotal`}{' '}
-                <span class="font-normal">({$localize`excl. taxes`})</span>
+                {/* <span class="font-normal">({$localize`excl. taxes`})</span> */}
               </UiTitle>
               <UiTitle size="lg">
                 {formatAmount({
