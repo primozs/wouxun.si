@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { $, component$, useSignal } from '@builder.io/qwik';
 import { useCartLoader } from '~/routes/plugin@store';
 import { NavLink } from '~/ui/button';
 import { IoBagHandleOutline } from '@qwikest/icons/ionicons';
@@ -10,11 +10,20 @@ import { ItemImage } from './ItemImage';
 import { LineItemPrice } from './LineItemUnitPrice';
 import { RemoveItemBtn } from './RemoveItemBtn';
 import { UiText } from '~/ui/UiText';
+import { useClickOutside } from '~/ui/hooks/useClickOutside';
 
 export interface CartButtonProps {}
 
 export const CartNav = component$<CartButtonProps>(() => {
   const cart = useCartLoader();
+  const ref = useSignal<HTMLDetailsElement>();
+  useClickOutside(
+    ref,
+    $(() => {
+      ref.value?.removeAttribute('open');
+    }),
+  );
+
   return (
     <>
       <NavLink
@@ -35,7 +44,7 @@ export const CartNav = component$<CartButtonProps>(() => {
         <span class="sr-only">{$localize`Go to cart`}</span>
       </NavLink>
 
-      <details class="dropdown dropdown-end hidden lg:block">
+      <details class="dropdown dropdown-end hidden lg:block" ref={ref}>
         <summary
           class="btn btn-ghost btn-square"
           aria-label={$localize`Go to cart`}
